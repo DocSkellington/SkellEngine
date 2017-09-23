@@ -1,0 +1,56 @@
+{
+  "variant": {
+    "label": "Debug",
+    "keywordSettings": {
+      "buildType": "debug"
+    },
+    "description": "Emit debug information without performing optimizations"
+  },
+  "activeEnvironments": [],
+  "codeModel": {
+    "configurations": [
+      {
+        "name": "Debug",
+        "projects": [
+          {
+            "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
+            "name": "Engine",
+            "sourceDirectory": "/home/gaetan/Github/Games/Engine",
+            "targets": [
+              {
+                "artifacts": [
+                  "/home/gaetan/Github/Games/Engine/build/Engine"
+                ],
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
+                "fileGroups": [
+                  {
+                    "compileFlags": "-g  ",
+                    "includePath": [
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/engine/include"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "engine/src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "Engine",
+                "linkLanguageFlags": "-g",
+                "linkerLanguage": "CXX",
+                "name": "Engine",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine",
+                "type": "EXECUTABLE"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "cookie": "0.031343904234980124",
+    "inReplyTo": "codemodel",
+    "type": "reply"
+  }
+}
