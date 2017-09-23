@@ -21,3 +21,4 @@
   * Labels
   * Sliders
   * Theme
+* Shaders

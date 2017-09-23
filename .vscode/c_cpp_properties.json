@@ -33,6 +33,7 @@
                 "/usr/include/linux",
                 "/usr/include/lua5.3",
                 "/usr/local/include",
+                "usr/local/include/Aurora",
                 "/usr/include",
                 "/usr/include/x86_64-linux-gnu",
                 "${workspaceRoot}",

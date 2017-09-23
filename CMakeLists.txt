@@ -16,8 +16,7 @@ set(Engine_VERSION_MINOR 1)
 configure_file(
   "engine/include/config.h.in"
   "${PROJECT_BINARY_DIR}/config.h"
-  )
-include_directories("${PROJECT_BINARY_DIR}")
+)
 
 # C++17
 set(CXX_STANDARD 17)
@@ -31,6 +30,7 @@ file(GLOB_RECURSE
 
 # Includes
 include_directories(engine/include)
+include_directories("${PROJECT_BINARY_DIR}")
 
 set(EXECUTABLE_NAME "Engine")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
@@ -45,6 +45,13 @@ if(SFML_FOUND)
   target_link_libraries(${EXECUTABLE_NAME} sfml-system sfml-graphics sfml-window sfml-audio ${SFML_DEPENDENCIES})
 endif()
 
+# Thor
+find_package(Thor REQUIRED)
+if(THOR_FOUND)
+  include_directories(${THOR_INCLUDE_DIR})
+  target_link_libraries(${EXECUTABLE_NAME} thor)
+endif()
+
 #Lua
 find_package(Lua 5.3 REQUIRED)
 if (Lua_FOUND)
@@ -54,9 +61,11 @@ endif()
 
 # Sol2
 include(cmake_modules/Sol2.cmake)
+add_dependencies(${EXECUTABLE_NAME} sol2)
 
 # Install target
-install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
+install(TARGETS ${EXECUTABLE_NAME} DESTINATION .)
+install(DIRECTORY media DESTINATION .)
 
 # CPack packaging
 include(InstallRequiredSystemLibraries)

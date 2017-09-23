@@ -18,6 +18,49 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
+                "artifacts": [
+                  "/home/gaetan/Github/Games/Engine/build/Engine"
+                ],
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
+                "fileGroups": [
+                  {
+                    "compileFlags": "-g  ",
+                    "defines": [
+                      "SOL_CHECK_ARGUMENTS"
+                    ],
+                    "includePath": [
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/engine/include"
+                      },
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/build"
+                      },
+                      {
+                        "path": "/usr/local/include"
+                      },
+                      {
+                        "path": "/usr/include/lua5.3"
+                      },
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/build/include"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "engine/src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "Engine",
+                "linkLanguageFlags": "-g",
+                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lthor -llua5.3",
+                "linkerLanguage": "CXX",
+                "name": "Engine",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine",
+                "type": "EXECUTABLE"
+              },
+              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
                 "fileGroups": [
                   {
@@ -41,53 +84,13 @@
                 "name": "sol2",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine",
                 "type": "UTILITY"
-              },
-              {
-                "artifacts": [
-                  "/home/gaetan/Github/Games/Engine/build/Engine"
-                ],
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
-                "fileGroups": [
-                  {
-                    "compileFlags": "-g  ",
-                    "defines": [
-                      "SOL_CHECK_ARGUMENTS"
-                    ],
-                    "includePath": [
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/build"
-                      },
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/engine/include"
-                      },
-                      {
-                        "path": "/usr/include/lua5.3"
-                      },
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/build/include"
-                      }
-                    ],
-                    "isGenerated": false,
-                    "language": "CXX",
-                    "sources": [
-                      "engine/src/main.cpp"
-                    ]
-                  }
-                ],
-                "fullName": "Engine",
-                "linkLanguageFlags": "-g",
-                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -llua5.3",
-                "linkerLanguage": "CXX",
-                "name": "Engine",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine",
-                "type": "EXECUTABLE"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.04579047556571991",
+    "cookie": "0.856425176611713",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
