@@ -4,12 +4,19 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "sol.hpp"
+
 #include "config.h"
 
 using namespace sf;
 int main (int argc, char *argv[])
 {
   std::cout << ENGINE_VERSION_MAJOR << '\n';
+
+  sol::state lua;
+  lua.open_libraries(sol::lib::base, sol::lib::package);
+  lua.script("print('bbkjbkbkh')");
+
   RenderWindow window (VideoMode(800, 600, 32), "TEST");
 
   while (window.isOpen()) {

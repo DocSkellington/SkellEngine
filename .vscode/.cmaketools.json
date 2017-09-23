@@ -18,6 +18,31 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/sol2",
+                      "build/CMakeFiles/sol2.rule",
+                      "build/CMakeFiles/sol2-complete.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-install.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-mkdir.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-download.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-update.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-patch.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-configure.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-build.rule",
+                      "build/dependencies/Sol2/src/sol2-stamp/sol2-test.rule"
+                    ]
+                  }
+                ],
+                "fullName": "sol2",
+                "name": "sol2",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine",
+                "type": "UTILITY"
+              },
+              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/Engine"
                 ],
@@ -25,12 +50,21 @@
                 "fileGroups": [
                   {
                     "compileFlags": "-g  ",
+                    "defines": [
+                      "SOL_CHECK_ARGUMENTS"
+                    ],
                     "includePath": [
                       {
                         "path": "/home/gaetan/Github/Games/Engine/build"
                       },
                       {
                         "path": "/home/gaetan/Github/Games/Engine/engine/include"
+                      },
+                      {
+                        "path": "/usr/include/lua5.3"
+                      },
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/build/include"
                       }
                     ],
                     "isGenerated": false,
@@ -42,7 +76,7 @@
                 ],
                 "fullName": "Engine",
                 "linkLanguageFlags": "-g",
-                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window",
+                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -llua5.3",
                 "linkerLanguage": "CXX",
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine",
@@ -53,7 +87,7 @@
         ]
       }
     ],
-    "cookie": "0.6386233013600566",
+    "cookie": "0.04579047556571991",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

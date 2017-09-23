@@ -27,13 +27,18 @@
             "name": "Linux",
             "includePath": [
                 "/usr/include/c++/6",
+                "/usr/include/c++/6/tr1",
+                "/usr/include/c++/6/experimental",
                 "/usr/include/x86_64-linux-gnu/c++/6",
                 "/usr/include/linux",
+                "/usr/include/lua5.3",
                 "/usr/local/include",
                 "/usr/include",
                 "/usr/include/x86_64-linux-gnu",
+                "${workspaceRoot}",
                 "${workspaceRoot}/engine/include",
-                "${workspaceRoot}"
+                "${workspaceRoot}/build/include",
+                "${workspaceRoot}/build"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -41,11 +46,9 @@
                 "path": [
                     "/usr/include/c++/6",
                     "/usr/include/x86_64-linux-gnu/c++/6",
-                    "/usr/include/linux",
                     "/usr/local/include",
                     "/usr/include",
                     "/usr/include/x86_64-linux-gnu",
-                    "${workspaceRoot}/engine/include",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
