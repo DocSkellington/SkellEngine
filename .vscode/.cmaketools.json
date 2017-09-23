@@ -27,6 +27,9 @@
                     "compileFlags": "-g  ",
                     "includePath": [
                       {
+                        "path": "/home/gaetan/Github/Games/Engine/build"
+                      },
+                      {
                         "path": "/home/gaetan/Github/Games/Engine/engine/include"
                       }
                     ],
@@ -39,6 +42,7 @@
                 ],
                 "fullName": "Engine",
                 "linkLanguageFlags": "-g",
+                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window",
                 "linkerLanguage": "CXX",
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine",
@@ -49,7 +53,7 @@
         ]
       }
     ],
-    "cookie": "0.031343904234980124",
+    "cookie": "0.6386233013600566",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
