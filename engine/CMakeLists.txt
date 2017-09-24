@@ -13,7 +13,6 @@ include_directories(include)
 include_directories("${PROJECT_BINARY_DIR}")
 
 # Executable
-set(EXECUTABLE_NAME "Engine")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 # Detect and add SFML

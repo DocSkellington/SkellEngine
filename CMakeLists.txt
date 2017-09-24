@@ -28,11 +28,12 @@ configure_file(
 # Should the docs be built?
 engine_set_option(BUILD_DOC FALSE BOOL "TRUE to generate documentation, FALSE to ignore it")
 
+set(EXECUTABLE_NAME "Engine")
 add_subdirectory(engine)
 if (BUILD_DOC)
   add_subdirectory(docs)
 endif()
 
 # Install target
-install(TARGETS ${EXECUTABLE_NAME} DESTINATION ${CMAKE_SOURCE_DIR}/bin)
+install(PROGRAMS ${CMAKE_BINARY_DIR}/engine/${EXECUTABLE_NAME} DESTINATION ${CMAKE_SOURCE_DIR}/bin)
 install(DIRECTORY media DESTINATION ${CMAKE_SOURCE_DIR}/bin)
