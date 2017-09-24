@@ -5,17 +5,45 @@
 #include <memory>
 #include <typeindex>
 
+#include <SFML/Graphics.hpp>
+
 #include "State.h"
 
 /**
 * \brief The states
 */
 namespace engine::states {
+    /**
+    * \brief Handles the different states of the game.
+    *
+    * Updates and draws the states that must be updated/rendered (depending on their transparent/transcendant parameter).
+    * It also provides functions to add or remove a state.
+    * States are stored like in a stack, allowing to process them from the front until the end (if needed)
+    *
+    */
     class StateManager final {
     public:
         explicit StateManager();
         ~StateManager();
 
+        /**
+        * \brief Updates the states starting from the front and until it reaches a non-transcendant state.
+        * \param deltatime The time since the last update
+        */
+        void update(float deltatime);
+
+        /**
+        * \brief Draws the states starting from the front and until it reaches a non-transparent state.
+        * \param window The RenderWindow in which the manager must draw
+        */
+        void draw(std::shared_ptr<sf::RenderWindow> &window);
+
+        /**
+        * \brief Changes the front state to the one provided.
+        *
+        * If the state does not exist, it is created.
+        * \tparam T The type of the state
+        */
         template <typename T>
         void switchTo() {
             // First, we check if the state is already in the list
@@ -42,12 +70,29 @@ namespace engine::states {
                 m_states.front().second->deactivate();
 
             // Creation
-            std::unique_ptr<State> state = make_unique<T>();
+            std::unique_ptr<State> state = std::make_unique<T>(*this);
             state->onCreate();
             m_states.emplace_front(typeid(T), std::move(state));
         }
 
+        /**
+        * \brief Asks to remove the given state.
+        * \tparam The type of the state to remove.
+        */
+        template <typename T>
+        void remove() {
+            m_toRemove.push_back(typeid(T));
+        }
+
+        /**
+        * \brief Process the remove requests received from remove().
+        *
+        * A state is removed iff it is in the stack of states.
+        */
+        void processRemove();
+
     private:
         std::list<std::pair<std::type_index, std::unique_ptr<State>>> m_states;
+        std::list<std::type_index> m_toRemove;
     };
 }

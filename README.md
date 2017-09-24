@@ -2,8 +2,6 @@
 * Context:
   * Pointers to:
     * sol2 state
-    * RenderWindow
-    * StateManager
     * TextureHolder
     * SystemManager
     * EntityManager
