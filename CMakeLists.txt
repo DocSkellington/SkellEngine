@@ -64,8 +64,8 @@ include(cmake_modules/Sol2.cmake)
 add_dependencies(${EXECUTABLE_NAME} sol2)
 
 # Install target
-install(TARGETS ${EXECUTABLE_NAME} DESTINATION .)
-install(DIRECTORY media DESTINATION .)
+install(TARGETS ${EXECUTABLE_NAME} DESTINATION ${CMAKE_SOURCE_DIR}/bin)
+install(DIRECTORY media DESTINATION ${CMAKE_SOURCE_DIR}/bin)
 
 # CPack packaging
 include(InstallRequiredSystemLibraries)
@@ -73,3 +73,28 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION_MAJOR "${Engine_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${Engine_VERSION_MINOR}")
 include(CPack)
+
+# docs
+if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
+  option(BUILD_DOC "Build documentation" ON)
+
+  # Doxygen
+  find_package(Doxygen)
+  if(DOXYGEN_FOUND)
+    # input and ouput files
+    set(DOXYGEN_IN ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    message(STATUS ${DOXYGEN_IN})
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    
+    add_custom_target(doc_doxygen ALL
+      COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+      COMMENT "Generating API documentation with Doxygen"
+      VERBATIM
+    )
+  else()
+    message("Doxygen must be installed to generate the documentation")
+  endif()
+endif()

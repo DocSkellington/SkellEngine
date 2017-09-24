@@ -1,6 +1,31 @@
 # TODO
+* Context:
+  * Pointers to:
+    * sol2 state
+    * RenderWindow
+    * StateManager
+    * TextureHolder
+    * SystemManager
+    * EntityManager
+* Engine:
+  * run
 * StateManager:
-  * Default states with variable data + possibility of overriding (at least some functions)
+  * switchTo
+  * remove (and processRequests)
+  * update
+  * draw
+  * handleEvent
+  * State:
+    * Default states with variable data + possibility of overriding (at least some functions)
+    * OnCreate
+    * OnDestroy
+    * update
+    * draw
+    * handleEvent
+    * activate
+    * deactivate
+    * transparency, transcendency
+    * view
 * SystemManager:
   * Render
   * Move
@@ -22,3 +47,4 @@
   * Sliders
   * Theme
 * Shaders
+* Particles
