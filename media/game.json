@@ -1,6 +1,7 @@
 {
     "game" : {
-        "version" : "0.0.2"
+        "version" : "0.0.2",
+        "firstState" : "MainMenu"
     },
     "window" : {
         "fullscreen" : false,
@@ -8,7 +9,7 @@
         "antialiasingLevel" : 8,
         "showTitlebar" : true,
         "showResize" : false,
-        "showClose" : false,
+        "showClose" : true,
         "title" : "Game title",
         "showVersion" : true,
         "showEngine" : true

@@ -5,24 +5,28 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
+#include <algorithm>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <json.hpp>
 
 #include "config.h"
+#include "states/MainMenuState.h"
 
 using namespace std;
 
 namespace engine {
     Engine::Engine() {
         // Opening the config file
-        std::ifstream file("media/game.json");
+        ifstream file("media/game.json");
         nlohmann::json description;
         file >> description;
         
         auto game = description["game"];
-        std::string version = game["version"];
+        string version = game["version"];
+        string firstState = game["firstState"];
+        transform(firstState.begin(), firstState.end(), firstState.begin(), ::tolower);
 
         context.lua = std::make_shared<sol::state>();
         context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
@@ -30,13 +34,19 @@ namespace engine {
         // Retrieving window's configuration (size, style and title)
         auto window = description["window"];
         auto size = window["size"];
-        std::string title = window["title"];
+        string title = window["title"];
         if (window["showVersion"])
             title += " - v." + version;
         if (window["showEngine"])
-            title += " - ENGINE v." + std::to_string(ENGINE_VERSION_MAJOR) + "." + std::to_string(ENGINE_VERSION_MINOR) + "." + std::to_string(ENGINE_VERSION_REVISION);
+            title += " - ENGINE v." + to_string(ENGINE_VERSION_MAJOR) + "." + to_string(ENGINE_VERSION_MINOR) + "." + to_string(ENGINE_VERSION_REVISION);
 
-        int style = window["showTitlebar"].get<bool>() | window["showResize"].get<bool>() | window["showClose"].get<bool>();
+        int style = sf::Style::None;
+        if (window["showTitlebar"].get<bool>())
+            style |= sf::Style::Titlebar;
+        if (window["showResize"].get<bool>())
+            style |= sf::Style::Resize;
+        if (window["showClose"].get<bool>())
+            style |= sf::Style::Close;
 
         if (window["fullscreen"])
             context.window = make_shared<sf::RenderWindow>(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen);
@@ -44,6 +54,10 @@ namespace engine {
             context.window = make_shared<sf::RenderWindow>(sf::VideoMode(size[0], size[1], 32), title, style);
 
         context.stateManager = make_shared<states::StateManager>();
+
+        // Launching the first state of the game
+        if (firstState == "mainmenu" || firstState == "mainmenustate")
+            context.stateManager->switchTo<states::MainMenuState>();
     }
 
     Engine::~Engine() {

@@ -1,10 +1,7 @@
 #include "states/StateManager.h"
 
-#include "states/MainMenuState.h"
-
 namespace engine::states {
     StateManager::StateManager() {
-        switchTo<MainMenuState>();
     }
 
     StateManager::~StateManager() {
