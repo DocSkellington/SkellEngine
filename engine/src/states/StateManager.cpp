@@ -1,8 +1,10 @@
 #include "states/StateManager.h"
 
+#include "states/MainMenuState.h"
+
 namespace engine::states {
     StateManager::StateManager() {
-
+        switchTo<MainMenuState>();
     }
 
     StateManager::~StateManager() {
@@ -26,6 +28,15 @@ namespace engine::states {
             state.second->draw(window);
 
             if (!state.second->isTransparent())
+                break;
+        }
+    }
+
+    void StateManager::handleEvent(sf::Event &event) {
+        for (auto &state : m_states) {
+            state.second->handleEvent(event);
+
+            if(!state.second->isTranscendant())
                 break;
         }
     }

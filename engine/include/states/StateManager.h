@@ -37,6 +37,7 @@ namespace engine::states {
         * \param window The RenderWindow in which the manager must draw
         */
         void draw(std::shared_ptr<sf::RenderWindow> &window);
+        void handleEvent(sf::Event &event);
 
         /**
         * \brief Changes the front state to the one provided.
@@ -72,6 +73,7 @@ namespace engine::states {
             // Creation
             std::unique_ptr<State> state = std::make_unique<T>(*this);
             state->onCreate();
+            state->activate();
             m_states.emplace_front(typeid(T), std::move(state));
         }
 

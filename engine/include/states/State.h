@@ -40,6 +40,11 @@ namespace engine::states {
         */
         virtual void update(float deltatime) = 0;
         /**
+        * \brief Handles an event
+        * \param event The event to process
+        */
+        virtual void handleEvent(sf::Event &event) = 0;
+        /**
         * \brief Draws the state
         * \param window The window in which the rendering must be done
         */

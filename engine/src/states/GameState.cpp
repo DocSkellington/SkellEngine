@@ -1,0 +1,46 @@
+#include "states/GameState.h"
+
+#include <iostream>
+
+#include "states/MainMenuState.h"
+
+namespace engine::states {
+    GameState::GameState(StateManager& manager) :
+        State(manager) {
+
+    }
+
+    GameState::~GameState() {
+
+    }
+
+    void GameState::onCreate() {
+
+    }
+
+    void GameState::onDestroy() {
+
+    }
+
+    void GameState::activate() {
+        std::cout << "GAMESTATE\n";
+    }
+
+    void GameState::deactivate() {
+
+    }
+
+    void GameState::update(float deltatime) {
+
+    }
+
+    void GameState::handleEvent(sf::Event &event) {
+        if (event.type == sf::Event::KeyPressed) {
+            getStateManager().switchTo<MainMenuState>();
+        }
+    }
+
+    void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
+        window->display();
+    }
+}
