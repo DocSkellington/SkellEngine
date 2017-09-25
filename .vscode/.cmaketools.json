@@ -18,22 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
-              },
-              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/engine/Engine"
                 ],
@@ -68,6 +52,7 @@
                       "src/main.cpp",
                       "src/states/GameState.cpp",
                       "src/states/MainMenuState.cpp",
+                      "src/states/PauseState.cpp",
                       "src/states/State.cpp",
                       "src/states/StateManager.cpp"
                     ]
@@ -105,13 +90,54 @@
                 "name": "sol2",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/engine/CMakeFiles/json",
+                      "../build/engine/CMakeFiles/json.rule",
+                      "../build/engine/CMakeFiles/json-complete.rule",
+                      "../build/dependencies/json/src/json-stamp/json-install.rule",
+                      "../build/dependencies/json/src/json-stamp/json-mkdir.rule",
+                      "../build/dependencies/json/src/json-stamp/json-download.rule",
+                      "../build/dependencies/json/src/json-stamp/json-update.rule",
+                      "../build/dependencies/json/src/json-stamp/json-patch.rule",
+                      "../build/dependencies/json/src/json-stamp/json-configure.rule",
+                      "../build/dependencies/json/src/json-stamp/json-build.rule",
+                      "../build/dependencies/json/src/json-stamp/json-test.rule"
+                    ]
+                  }
+                ],
+                "fullName": "json",
+                "name": "json",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.45446281794842935",
+    "cookie": "0.605569497191828",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

@@ -6,7 +6,7 @@ include(ExternalProject)
 find_package(PythonInterp 3 REQUIRED)
 
 # Configuration data for What sol2 version to use and where to put it
-set(SOL2_TAG v2.5.6)
+set(SOL2_TAG v2.18.4)
 set(SOL2_HPP "${CMAKE_BINARY_DIR}/include/sol.hpp")
 
 set(VENDOR_PATH ${CMAKE_BINARY_DIR}/dependencies/Sol2)

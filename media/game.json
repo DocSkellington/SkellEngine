@@ -1,0 +1,16 @@
+{
+    "game" : {
+        "version" : "0.0.2"
+    },
+    "window" : {
+        "fullscreen" : false,
+        "size" : [800, 600],
+        "antialiasingLevel" : 8,
+        "showTitlebar" : true,
+        "showResize" : false,
+        "showClose" : false,
+        "title" : "Game title",
+        "showVersion" : true,
+        "showEngine" : true
+    }
+}

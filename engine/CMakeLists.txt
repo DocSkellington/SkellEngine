@@ -43,6 +43,9 @@ endif()
 include(../cmake_modules/Sol2.cmake)
 add_dependencies(${EXECUTABLE_NAME} sol2)
 
+# JSON for modern C++
+include(../cmake_modules/JSON.cmake)
+
 # CPack packaging
 # include(InstallRequiredSystemLibraries)
 # set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
