@@ -7,6 +7,7 @@ namespace engine::states {
     class GameState : public State {
     public:
         GameState(StateManager& manager);
+        GameState(const GameState&) = delete;
         virtual ~GameState();
 
         virtual void onCreate();

@@ -14,6 +14,7 @@ namespace engine::states {
     class State {
     public:
         explicit State(StateManager &manager);
+        State(const State&) = delete;
         virtual ~State();
 
         /**

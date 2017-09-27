@@ -1,8 +1,11 @@
+#pragma once
+
 #include "states/State.h"
 
 namespace engine::states {
     class PauseState : public State {
         PauseState(StateManager& manager);
+        PauseState(const PauseState&) = delete;
         virtual ~PauseState();
 
         virtual void onCreate();

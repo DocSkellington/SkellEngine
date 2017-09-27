@@ -1,3 +1,5 @@
+#pragma once
+
 #include "states/State.h"
 #include "states/StateManager.h"
 
@@ -8,6 +10,7 @@ namespace engine::states {
     class MainMenuState : public State {
     public:
         MainMenuState(StateManager& manager);
+        MainMenuState(const MainMenuState&) = delete;
         virtual ~MainMenuState();
 
         virtual void onCreate();

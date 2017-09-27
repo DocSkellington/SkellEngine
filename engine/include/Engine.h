@@ -12,10 +12,11 @@ namespace engine {
     class Engine final {
     public:
         explicit Engine();
+        Engine(const Engine&) = delete;
         ~Engine();
 
         void run();
     private:
-        Context context;
+        Context m_context;
     };
 }

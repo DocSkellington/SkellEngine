@@ -49,6 +49,10 @@
                     "language": "CXX",
                     "sources": [
                       "src/Engine.cpp",
+                      "src/FileManager.cpp",
+                      "src/entities/Entity.cpp",
+                      "src/entities/EntityManager.cpp",
+                      "src/entities/components/PositionComponent.cpp",
                       "src/main.cpp",
                       "src/states/GameState.cpp",
                       "src/states/MainMenuState.cpp",
@@ -92,31 +96,6 @@
                 "type": "UTILITY"
               },
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/engine/CMakeFiles/json",
-                      "../build/engine/CMakeFiles/json.rule",
-                      "../build/engine/CMakeFiles/json-complete.rule",
-                      "../build/dependencies/json/src/json-stamp/json-install.rule",
-                      "../build/dependencies/json/src/json-stamp/json-mkdir.rule",
-                      "../build/dependencies/json/src/json-stamp/json-download.rule",
-                      "../build/dependencies/json/src/json-stamp/json-update.rule",
-                      "../build/dependencies/json/src/json-stamp/json-patch.rule",
-                      "../build/dependencies/json/src/json-stamp/json-configure.rule",
-                      "../build/dependencies/json/src/json-stamp/json-build.rule",
-                      "../build/dependencies/json/src/json-stamp/json-test.rule"
-                    ]
-                  }
-                ],
-                "fullName": "json",
-                "name": "json",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
-                "type": "UTILITY"
-              },
-              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
                 "fileGroups": [
                   {
@@ -137,7 +116,7 @@
         ]
       }
     ],
-    "cookie": "0.605569497191828",
+    "cookie": "0.16873440770516712",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

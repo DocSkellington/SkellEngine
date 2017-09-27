@@ -24,6 +24,7 @@ namespace engine::states {
     class StateManager final {
     public:
         explicit StateManager();
+        StateManager(const StateManager&) = delete;
         ~StateManager();
 
         /**
