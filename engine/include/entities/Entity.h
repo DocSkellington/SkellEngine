@@ -5,6 +5,9 @@
 
 #include "entities/components/Component.h"
 
+/**
+ * \brief Contains everything related to the entities of a game
+ */
 namespace engine::entities {
     class Entity final {
     public:

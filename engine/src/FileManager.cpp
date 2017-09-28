@@ -11,54 +11,57 @@ namespace engine {
 
     }
 
-    nlohmann::json FileManager::getGameDescription() const {
-        std::ifstream file("media/game.json");
-        nlohmann::json j;
-        file >> j;
-        return j;
+    void FileManager::changeLevel(const std::string& levelName) {
+        m_levelDescription.clear();
+        m_entitiesGlobal.clear();
+        loadLevelDescription();
+        applyLevelDescription();
     }
 
-    nlohmann::json FileManager::getEntityJSON(const char *entityType) const {
-        return getEntityJSON(std::string(entityType));
+    nlohmann::json FileManager::getGameDescription() {
+        if (m_gameDescription.empty()) {
+            std::ifstream file("media/game.json");
+            file >> m_gameDescription;
+        }
+        return m_gameDescription;
     }
 
-    nlohmann::json FileManager::getEntityJSON(const std::string &entityType) const {
-        std::ifstream defaultFile("media/entities/data/" + entityType + ".json");
-        std::ifstream level;
-        if (!m_context.levelName.empty()) {
-            level.open("media/levels/" + m_context.levelName + "/entities/data/" + entityType + ".json");
-        }
+    nlohmann::json FileManager::getEntityJSON(const std::string &entityType) {
+        if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
+            // If the entity is not yet known, we try to load the global settings (the global for the game and for the level), if they exist
+            std::ifstream defaultFile("media/entities/data/" + entityType + ".json");
+            std::ifstream levelGlobal;
 
-        if (!defaultFile && !level) {
-            throw FileNotFound(entityType + " is an unknown entity type");
-        }
-        else {
+            if (!m_levelName.empty()) {
+                levelGlobal.open("media/levels/" + m_levelName + "/entities/data/" + entityType + ".json");
+            }
+
             nlohmann::json def, lev;
             if (defaultFile.is_open()) {
                 defaultFile >> def;
             }
-            if (level.is_open()) {
-                std::cout << "Reading from level\n";
-                level >> lev;
+            if (levelGlobal.is_open()) {
+                levelGlobal >> lev;
             }
-            return fusion(def, lev);
+            m_entitiesGlobal[entityType] = fusion(def, lev);
         }
+        return m_entitiesGlobal[entityType];
     }
 
-    void FileManager::loadEntityDefaultLua(const std::string &entityType) const {
+    void FileManager::loadEntityDefaultLua(const std::string &entityType) {
         if (!((*m_context.lua)[entityType].valid()))
             m_context.lua->safe_script_file("media/entities/scripts/" + entityType + ".lua");
     }
 
-    sol::table FileManager::getEntityLevelLua(const std::string &entityType) const {
-        if (!m_context.levelName.empty()) {
+    sol::table FileManager::getEntityLevelLua(const std::string &entityType) {
+        if (!m_levelName.empty()) {
             if (!((*m_context.lua)[entityType].valid())) {
                 // If there isn't any script linked to that entity, we load the level one
-                m_context.lua->safe_script_file("media/levels/" + m_context.levelName + "/entities/scripts/" + entityType + ".lua");
+                m_context.lua->safe_script_file("media/levels/" + m_levelName + "/entities/scripts/" + entityType + ".lua");
             }
             else {
                 // If there is already a script, we merge them
-                sol::load_result script = m_context.lua->load_file("media/levels/" + m_context.levelName + "/entities/scripts" + entityType + ".lua");
+                sol::load_result script = m_context.lua->load_file("media/levels/" + m_levelName + "/entities/scripts" + entityType + ".lua");
 
                 // TODO: read every value. If table, go in it. Copy/overwrite data in m_context.lua
             }
@@ -71,5 +74,29 @@ namespace engine {
             result[itr.key()] = itr.value();
         }
         return result;
+    }
+
+    void FileManager::loadLevelDescription() {
+        if (!m_levelName.empty()) {
+            std::ifstream file;
+            file.open("media/levels/" + m_levelName + "/" + m_levelName + ".json");
+
+            if (file.is_open()) {
+                file >> m_levelDescription;
+            }
+        }
+    }
+
+    void FileManager::applyLevelDescription() {
+        auto &entities = m_levelDescription["entities"];
+
+        for (auto itr = entities.begin() ; itr != entities.end() ; ++itr) {
+            std::cout << itr->dump(4) << '\n';
+            std::string type = (*itr)["type"].get<std::string>();
+            auto data = (*itr)["data"];
+            auto entityGlobal = getEntityJSON(type);
+            auto entity = fusion(entityGlobal, data);
+            std::cout << entity.dump(4) << '\n';
+        }
     }
 }

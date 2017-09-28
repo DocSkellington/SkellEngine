@@ -16,8 +16,6 @@ namespace engine {
         Context() {}
         Context(const Context&) = delete;
 
-        std::string levelName;
-
         std::shared_ptr<FileManager> fileManager;
 
         std::shared_ptr<sol::state> lua;

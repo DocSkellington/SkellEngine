@@ -1,0 +1,17 @@
+{
+    "entities" : {
+        "goomba" : {
+            "type" : "test",
+            "data" : {
+                "hero" : "YOU"
+            }
+        },
+        "bowser" : {
+            "type" : "unknown",
+            "data" : {
+                "shout" : "GRRRR",
+                "enemy" : "Mario"
+            }
+        }
+    }
+}

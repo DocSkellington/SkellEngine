@@ -61,9 +61,8 @@ namespace engine {
             m_context.stateManager->switchTo<states::MainMenuState>();
 
         // Tests:
-        m_context.levelName = "tutorial";
-        auto test = m_context.fileManager->getEntityJSON("test");
-        std::cout << test.dump(4) << '\n';
+        std::string levelName = "tutorial";
+        m_context.fileManager->changeLevel(levelName);
     }
 
     Engine::~Engine() {
