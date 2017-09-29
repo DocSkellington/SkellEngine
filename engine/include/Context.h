@@ -6,6 +6,7 @@
 #include <sol.hpp>
 
 #include "states/StateManager.h"
+#include "entities/EntityManager.h"
 #include "FileManager.h"
 
 namespace engine {
@@ -23,5 +24,7 @@ namespace engine {
         std::shared_ptr<sf::RenderWindow> window;
 
         std::shared_ptr<states::StateManager> stateManager;
+
+        std::shared_ptr<entities::EntityManager> entityManager;
     };
 }

@@ -12,8 +12,13 @@ namespace engine {
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
+        // Clearing 
         m_levelDescription.clear();
         m_entitiesGlobal.clear();
+
+        m_levelName = levelName;
+
+        // Loading
         loadLevelDescription();
         applyLevelDescription();
     }
@@ -91,12 +96,15 @@ namespace engine {
         auto &entities = m_levelDescription["entities"];
 
         for (auto itr = entities.begin() ; itr != entities.end() ; ++itr) {
-            std::cout << itr->dump(4) << '\n';
+            // Getting the type of the entity
             std::string type = (*itr)["type"].get<std::string>();
+            // Getting its components' data
             auto data = (*itr)["data"];
+            // We add these data into the global definition known
             auto entityGlobal = getEntityJSON(type);
             auto entity = fusion(entityGlobal, data);
-            std::cout << entity.dump(4) << '\n';
+            // Finally, we create the new entity
+            m_context.entityManager->addEntity(type, data);
         }
     }
 }

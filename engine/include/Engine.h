@@ -16,7 +16,11 @@ namespace engine {
         ~Engine();
 
         void run();
+
     private:
         Context m_context;
+
+    private:
+        void createWindow(const nlohmann::json &window, const std::string &version);
     };
 }

@@ -3,7 +3,7 @@
         "goomba" : {
             "type" : "test",
             "data" : {
-                "hero" : "YOU"
+                "position" : [ 4, 2 ]
             }
         },
         "bowser" : {

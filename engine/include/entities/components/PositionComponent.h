@@ -8,10 +8,16 @@ namespace engine::entities::components {
     */
     class PositionComponent : public Component {
     public:
-        explicit PositionComponent(const sol::table &luaTable);
-        explicit PositionComponent(const nlohmann::json &jsonTable);
-        explicit PositionComponent(const sol::table &luaTable, const nlohmann::json &jsonTable);
+        explicit PositionComponent();
         PositionComponent(const Component&) = delete;
         virtual ~PositionComponent();
+
+        virtual void create(const nlohmann::json &jsonTable);
+        virtual void create(const sol::table& luaTable);
+        virtual void create(const nlohmann::json &jsonTable, const sol::table& luaTable);
+
+    private:
+        float m_x, m_y;
+        static Component::RegisterComponent<PositionComponent> rcpc;
     };
 }
