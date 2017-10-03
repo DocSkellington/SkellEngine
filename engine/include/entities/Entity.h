@@ -48,6 +48,6 @@ namespace engine::entities {
     private:
         std::string m_type;
         /** \todo Find a better way to store to allow multiple instances of the same component */
-        std::map<std::type_index, std::shared_ptr<components::Component>> m_components;
+        std::map<std::string, std::shared_ptr<components::Component>> m_components;
     };
 }

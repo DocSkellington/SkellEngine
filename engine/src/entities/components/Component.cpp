@@ -1,5 +1,7 @@
 #include "entities/components/Component.h"
 
+#include "entities/components/ExternComponent.h"
+
 namespace engine::entities::components {
     Component::MapType Component::m_nameToComponent;
 
@@ -14,7 +16,7 @@ namespace engine::entities::components {
     Component::Ptr Component::createInstance(const std::string &componentType) {
         auto compoConstructor = getMapToComponent().find(componentType);
         if (compoConstructor == getMapToComponent().end())
-            return Ptr();
+            return std::make_shared<ExternComponent>();
         return compoConstructor->second();
     }
 
