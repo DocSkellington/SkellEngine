@@ -2,6 +2,8 @@
 set(CXX_STANDARD 17)
 set(CXX_STANDARD_REQUIRED on)
 
+add_definitions(-Wall)
+
 # Source files
 file(GLOB_RECURSE
     SOURCES
