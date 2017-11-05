@@ -16,7 +16,8 @@ namespace engine::systems {
     }
     
     void SystemManager::draw(sf::RenderWindow *window, unsigned int layer) {
-        // TODO
+        for (auto &system : m_graphicalSystems)
+            system.second->draw(window, layer);
     }
 
     System::Ptr SystemManager::getSystem(const std::string &name) {
@@ -33,17 +34,24 @@ namespace engine::systems {
         }
 
         System::Ptr system = System::createInstance(name, *this);
+        if (name.substr(0, std::string("Graphical").length()) == "Graphical") {
+            // If the name starts with Graphical, we register it as a GraphicalSystem
+            m_graphicalSystems.insert(std::make_pair(name, std::static_pointer_cast<GraphicalSystem>(system)));
+            return true;
+        }
         m_systems.insert(std::make_pair(name, system));
         return true;
     }
 
     bool SystemManager::loadSystems(const nlohmann::json &systems) {
-        bool all = true;
+        clear();
         for (auto &system : systems) {
-            if (!addSystem(system.get<std::string>()))
-                all = false;
+            if (!addSystem(system.get<std::string>())) {
+                clear();
+                return false;    
+            }
         }
-        return all;
+        return true;
     }
 
     bool SystemManager::removeSystem(const std::string &name) {

@@ -4,6 +4,7 @@
 
 #include "Context.h"
 #include "systems/System.h"
+#include "systems/GraphicalSystem.h"
 
 /**
  * \brief Defines the basic systems
@@ -46,7 +47,9 @@ namespace engine::systems {
         bool addSystem(const std::string& name);
 
         /**
-         * \brief Loads every system in the given list
+         * \brief Clears the current systems and loads every system in the given list.
+         * 
+         * If a system can not be loaded, the systems' list remains empty
          * \param systems The systems to create
          */
         bool loadSystems(const nlohmann::json &systems);
@@ -87,5 +90,6 @@ namespace engine::systems {
     private:
         Context &m_context;
         std::map<std::string, System::Ptr> m_systems;
+        std::map<std::string, GraphicalSystem::Ptr> m_graphicalSystems;
     };
 }

@@ -7,13 +7,15 @@ namespace engine::systems {
 
     /**
      * \brief Defines the base of every system.
+     * 
+     * If you define your system, you must register it before being able to use it. Please, see RegisterSystem
      */
     class System {
     public:
         typedef std::shared_ptr<System> Ptr;
 
     public:
-        System(SystemManager& manager);
+        explicit System(SystemManager& manager);
         System(const SystemManager&) = delete;
         virtual ~System();
 

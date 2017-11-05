@@ -18,22 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
-              },
-              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/engine/Engine"
                 ],
@@ -77,6 +61,7 @@
                       "src/states/PauseState.cpp",
                       "src/states/State.cpp",
                       "src/states/StateManager.cpp",
+                      "src/systems/GraphicalSystem.cpp",
                       "src/systems/System.cpp",
                       "src/systems/SystemManager.cpp"
                     ]
@@ -89,6 +74,22 @@
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
               },
               {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
@@ -120,7 +121,7 @@
         ]
       }
     ],
-    "cookie": "0.11152630453813872",
+    "cookie": "0.6123660491278673",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
