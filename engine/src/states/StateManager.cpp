@@ -1,7 +1,10 @@
 #include "states/StateManager.h"
 
+#include "Context.h"
+
 namespace engine::states {
-    StateManager::StateManager() {
+    StateManager::StateManager(Context &context) :
+        m_context(context) {
     }
 
     StateManager::~StateManager() {
@@ -53,5 +56,9 @@ namespace engine::states {
             // In every case, we remove the request
             m_toRemove.pop_front();
         }
+    }
+
+    Context &StateManager::getContext() {
+        return m_context;
     }
 }

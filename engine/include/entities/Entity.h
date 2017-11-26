@@ -45,9 +45,13 @@ namespace engine::entities {
          */
         void addComponent(const std::string &componentType, const nlohmann::json &jsonTable, const sol::table &luaTable);
 
+        bool hasComponent(const std::string &componentType) const;
+
+        components::Component::Ptr getComponent(const std::string &componentType);
+
     private:
         std::string m_type;
         /** \todo Find a better way to store to allow multiple instances of the same component (multimap?) */
-        std::map<std::string, std::shared_ptr<components::Component>> m_components;
+        std::map<std::string, components::Component::Ptr> m_components;
     };
 }

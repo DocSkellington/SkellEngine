@@ -60,7 +60,7 @@ namespace engine::systems {
         /**
          * \brief Returns the (name, constructor) map
          */
-        static MapType &getMapToSystem();
+        static std::shared_ptr<MapType> getMapToSystem();
 
         /**
          * \brief Structure to use when you want to register a system.
@@ -75,7 +75,8 @@ namespace engine::systems {
              * \param name The name of the system
              */
             RegisterSystem (const std::string &name) {
-                getMapToSystem().insert(std::make_pair(name, std::make_shared<T>));
+                std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {  std::cout << "test\n"; return std::make_shared<T>(manager); };
+                getMapToSystem()->insert(std::make_pair(name, func));
             }
         };
 
@@ -88,7 +89,7 @@ namespace engine::systems {
 
         /**
          * \brief Checks if the entity meets the requirements of this system (if it has the needed components).
-         * \paramn entity The shared pointer to the entity to check
+         * \param entity The shared pointer to the entity to check
          * \return Whether the entity has the needed components or not
          */
         virtual bool checkComponents(engine::entities::Entity::Ptr entity) const = 0;
@@ -102,6 +103,5 @@ namespace engine::systems {
     private:
         SystemManager &m_manager;
         std::vector<engine::entities::Entity::Ptr> m_entities;
-        static MapType m_nameToSystem;
     };
 }

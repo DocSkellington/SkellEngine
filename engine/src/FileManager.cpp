@@ -1,6 +1,8 @@
 #include "FileManager.h"
 
 #include <fstream>
+#include <cctype>
+#include <algorithm>
 
 #include "Context.h"
 #include "FileNotFound.h"
@@ -27,7 +29,20 @@ namespace engine {
         if (m_gameDescription.empty()) {
             std::ifstream file("media/game.json");
             file >> m_gameDescription;
+            auto systems = m_gameDescription.at("systems");
+            for (unsigned int i = 0 ; i < systems.size() ; i++) {
+                if (systems[i].is_string()){
+                    auto system = systems[i].get<std::string>();
+                    std::transform(system.begin(), system.end(), system.begin(), ::tolower);
+                    systems[i] = system;
+                }
+                else {
+                    std::cerr << "Warning: In media/game.json: systems can only contain strings.\n";
+                }
+            }
+            m_gameDescription["systems"] = systems;
         }
+        std::cout << m_gameDescription["systems"] << '\n';
         return m_gameDescription;
     }
 

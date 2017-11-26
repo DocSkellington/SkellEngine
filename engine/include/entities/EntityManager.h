@@ -4,9 +4,11 @@
 
 #include "Entity.h"
 
-namespace engine::entities {
+namespace engine {
     struct Context;
+}
 
+namespace engine::entities {
     /**
      * \brief Handles the entities of the engine
      */

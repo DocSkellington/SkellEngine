@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "states/MainMenuState.h"
+#include "Context.h"
 
 namespace engine::states {
     GameState::GameState(StateManager& manager) :
@@ -15,7 +16,10 @@ namespace engine::states {
     }
 
     void GameState::onCreate() {
-
+        getStateManager().getContext().systemManager->clear();
+        auto game = getStateManager().getContext().fileManager->getGameDescription();
+        auto &systems = game.at("systems");
+        getStateManager().getContext().systemManager->loadSystems(systems);
     }
 
     void GameState::onDestroy() {

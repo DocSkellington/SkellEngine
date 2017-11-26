@@ -29,4 +29,15 @@ namespace engine::entities {
         compo->create(jsonTable);
         m_components[componentType] = compo;
     }
+
+    bool Entity::hasComponent(const std::string &componentType) const {
+        return m_components.find(componentType) != m_components.end();
+    }
+
+    components::Component::Ptr Entity::getComponent(const std::string &componentType) {
+        auto itr = m_components.find(componentType);
+        if (itr == m_components.end())
+            return components::Component::Ptr();
+        return itr->second;
+    }
 }

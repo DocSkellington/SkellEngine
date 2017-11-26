@@ -24,7 +24,11 @@ namespace engine {
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
 
-        m_context.stateManager = make_shared<states::StateManager>();
+        m_context.stateManager = make_shared<states::StateManager>(m_context);
+        
+        m_context.entityManager = make_shared<entities::EntityManager>(m_context);
+
+        m_context.systemManager = make_shared<systems::SystemManager>(m_context);
 
         // Opening the config file
         auto description = m_context.fileManager->getGameDescription();

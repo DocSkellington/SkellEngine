@@ -2,9 +2,12 @@
 
 #include <json.hpp>
 
-#include "Context.h"
 #include "systems/System.h"
 #include "systems/GraphicalSystem.h"
+
+namespace engine {
+    struct Context;
+}
 
 /**
  * \brief Defines the basic systems

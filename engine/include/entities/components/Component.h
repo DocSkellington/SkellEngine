@@ -55,7 +55,7 @@ namespace engine::entities::components {
         /**
          * \brief Returns the map<string, constructor>
          */
-        static MapType& getMapToComponent();
+        static std::shared_ptr<MapType> getMapToComponent();
 
         /**
          * \brief Structure to use when you want to register a component.
@@ -70,11 +70,8 @@ namespace engine::entities::components {
              * \param name The name of the component
              */
             RegisterComponent(const std::string &name) {
-                getMapToComponent().insert(std::make_pair(name, std::make_shared<T>));
+                getMapToComponent()->insert(std::make_pair(name, std::make_shared<T>));
             }
         };
-
-    private:
-        static MapType m_nameToComponent;
     };
 }

@@ -1,0 +1,21 @@
+#pragma once
+
+#include "systems/GraphicalSystem.h"
+
+namespace engine::systems {
+    class GraphicalOrthogonalSystem : public GraphicalSystem {
+    public:
+        GraphicalOrthogonalSystem(SystemManager& manager);
+        GraphicalOrthogonalSystem(const GraphicalOrthogonalSystem&) = delete;
+        virtual ~GraphicalOrthogonalSystem();
+
+        virtual bool update(float deltatime) override;
+        virtual void draw(sf::RenderWindow* window, unsigned int layer) override;
+
+    protected:
+        virtual bool checkComponents(entities::Entity::Ptr entity) const override;
+
+    private:
+        static System::RegisterSystem<GraphicalOrthogonalSystem> rsgos;
+    };
+}

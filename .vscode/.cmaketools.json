@@ -18,64 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "artifacts": [
-                  "/home/gaetan/Github/Games/Engine/build/engine/Engine"
-                ],
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
-                "fileGroups": [
-                  {
-                    "compileFlags": "-g   -Wall",
-                    "defines": [
-                      "SOL_CHECK_ARGUMENTS"
-                    ],
-                    "includePath": [
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/engine/include"
-                      },
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/build"
-                      },
-                      {
-                        "path": "/usr/local/include"
-                      },
-                      {
-                        "path": "/usr/include/lua5.3"
-                      },
-                      {
-                        "path": "/home/gaetan/Github/Games/Engine/build/include"
-                      }
-                    ],
-                    "isGenerated": false,
-                    "language": "CXX",
-                    "sources": [
-                      "src/Engine.cpp",
-                      "src/FileManager.cpp",
-                      "src/entities/Entity.cpp",
-                      "src/entities/EntityManager.cpp",
-                      "src/entities/components/Component.cpp",
-                      "src/entities/components/ExternComponent.cpp",
-                      "src/entities/components/PositionComponent.cpp",
-                      "src/main.cpp",
-                      "src/states/GameState.cpp",
-                      "src/states/MainMenuState.cpp",
-                      "src/states/PauseState.cpp",
-                      "src/states/State.cpp",
-                      "src/states/StateManager.cpp",
-                      "src/systems/GraphicalSystem.cpp",
-                      "src/systems/System.cpp",
-                      "src/systems/SystemManager.cpp"
-                    ]
-                  }
-                ],
-                "fullName": "Engine",
-                "linkLanguageFlags": "-g",
-                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lthor -llua5.3",
-                "linkerLanguage": "CXX",
-                "name": "Engine",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
-                "type": "EXECUTABLE"
-              },
-              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
                 "fileGroups": [
                   {
@@ -115,13 +57,73 @@
                 "name": "sol2",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "UTILITY"
+              },
+              {
+                "artifacts": [
+                  "/home/gaetan/Github/Games/Engine/build/engine/Engine"
+                ],
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
+                "fileGroups": [
+                  {
+                    "compileFlags": "-g   -Wall",
+                    "defines": [
+                      "SOL_CHECK_ARGUMENTS"
+                    ],
+                    "includePath": [
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/engine/include"
+                      },
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/build"
+                      },
+                      {
+                        "path": "/usr/local/include"
+                      },
+                      {
+                        "path": "/usr/include/lua5.3"
+                      },
+                      {
+                        "path": "/home/gaetan/Github/Games/Engine/build/include"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/Engine.cpp",
+                      "src/FileManager.cpp",
+                      "src/entities/Entity.cpp",
+                      "src/entities/EntityManager.cpp",
+                      "src/entities/components/Component.cpp",
+                      "src/entities/components/ExternComponent.cpp",
+                      "src/entities/components/GraphicalSpriteSheetComponent.cpp",
+                      "src/entities/components/PositionComponent.cpp",
+                      "src/main.cpp",
+                      "src/states/GameState.cpp",
+                      "src/states/MainMenuState.cpp",
+                      "src/states/PauseState.cpp",
+                      "src/states/State.cpp",
+                      "src/states/StateManager.cpp",
+                      "src/systems/GraphicalOrthogonalSystem.cpp",
+                      "src/systems/GraphicalSystem.cpp",
+                      "src/systems/System.cpp",
+                      "src/systems/SystemManager.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "Engine",
+                "linkLanguageFlags": "-g",
+                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lthor -llua5.3",
+                "linkerLanguage": "CXX",
+                "name": "Engine",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
+                "type": "EXECUTABLE"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.6123660491278673",
+    "cookie": "0.8245295001698327",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

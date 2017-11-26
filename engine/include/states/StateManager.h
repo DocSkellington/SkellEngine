@@ -9,6 +9,10 @@
 
 #include "State.h"
 
+namespace engine {
+    struct Context;
+}
+
 /**
 * \brief The states
 */
@@ -23,7 +27,7 @@ namespace engine::states {
     */
     class StateManager final {
     public:
-        explicit StateManager();
+        explicit StateManager(engine::Context &context);
         StateManager(const StateManager&) = delete;
         ~StateManager();
 
@@ -94,8 +98,11 @@ namespace engine::states {
         */
         void processRemove();
 
+        Context &getContext();
+
     private:
         std::list<std::pair<std::type_index, std::unique_ptr<State>>> m_states;
         std::list<std::type_index> m_toRemove;
+        Context &m_context;
     };
 }

@@ -3,8 +3,6 @@
 #include "entities/components/ExternComponent.h"
 
 namespace engine::entities::components {
-    Component::MapType Component::m_nameToComponent;
-
     Component::Component() {
 
     }
@@ -14,13 +12,14 @@ namespace engine::entities::components {
     }
 
     Component::Ptr Component::createInstance(const std::string &componentType) {
-        auto compoConstructor = getMapToComponent().find(componentType);
-        if (compoConstructor == getMapToComponent().end())
+        auto compoConstructor = getMapToComponent()->find(componentType);
+        if (compoConstructor == getMapToComponent()->end())
             return std::make_shared<ExternComponent>();
         return compoConstructor->second();
     }
 
-    Component::MapType& Component::getMapToComponent() {
-        return Component::m_nameToComponent;
+    std::shared_ptr<Component::MapType> Component::getMapToComponent() {
+        std::shared_ptr<Component::MapType> map = std::make_shared<Component::MapType>();
+        return map;
     }
 }

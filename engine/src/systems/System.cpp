@@ -1,8 +1,8 @@
 #include "systems/System.h"
 
-namespace engine::systems {
-    System::MapType System::m_nameToSystem;
+#include <cctype>
 
+namespace engine::systems {
     System::System(SystemManager& manager) :
         m_manager(manager) {
         
@@ -31,17 +31,32 @@ namespace engine::systems {
         return !(itr == itrErase);
     }
 
-    System::Ptr System::createInstance(const std::string &systemName, SystemManager& manager) {
-        auto systemConstructor = getMapToSystem().find(systemName);
+    System::Ptr System::createInstance(const std::string& systemName, SystemManager& manager) {
+        std::cout << systemName << '\n';
+        auto systemConstructor = getMapToSystem()->find(systemName);
 
-        if (systemConstructor == getMapToSystem().end()) {
+        if (systemConstructor == getMapToSystem()->end()) {
             // TODO: return generic system
         }
-        return systemConstructor->second(manager);
+        else if (!systemConstructor->second) {
+            std::cerr << "SYSTEMCONSTRUCTOR\n";
+        }
+        else {
+            try {
+                auto system = systemConstructor->second(manager);
+                return system;
+            }
+            catch (std::bad_function_call e) {
+                std::cerr << "Error while constructing the system " << systemName << ":\n";
+                std::cerr << e.what() << '\n';
+            }
+        }
+        return nullptr;
     }
 
-    System::MapType& System::getMapToSystem() {
-        return m_nameToSystem;
+    std::shared_ptr<System::MapType> System::getMapToSystem() {
+        static std::shared_ptr<MapType> map = std::make_shared<MapType>();
+        return map;
     }
 
     SystemManager& System::getSystemManager() {
