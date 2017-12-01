@@ -35,16 +35,17 @@ namespace engine::states {
     }
 
     void GameState::update(float deltatime) {
-
+        getStateManager().getContext().systemManager->update(deltatime);
     }
 
     void GameState::handleEvent(sf::Event &event) {
         if (event.type == sf::Event::KeyPressed) {
             getStateManager().switchTo<MainMenuState>();
+            getStateManager().remove<GameState>();
         }
     }
 
     void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
-        window->display();
+        getStateManager().getContext().systemManager->draw(window.get(), 0);
     }
 }

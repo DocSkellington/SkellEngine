@@ -38,6 +38,15 @@
             },
             "command": "./Engine",
             "problemMatcher": []
+        },
+        {
+            "label": "install & run",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "make install && cd ../bin && ./Engine",
+            "problemMatcher": []
         }
     ]
 }

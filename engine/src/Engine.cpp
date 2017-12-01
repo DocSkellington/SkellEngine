@@ -56,6 +56,7 @@ namespace engine {
     }
 
     void Engine::run() {
+        sf::Clock clock;
         while (m_context.window->isOpen()) {
             sf::Event event;
             while (m_context.window->pollEvent(event)) {
@@ -66,6 +67,10 @@ namespace engine {
                     m_context.stateManager->handleEvent(event);
                 }
             }
+
+            sf::Time elapsed = clock.restart();
+
+            m_context.stateManager->update(elapsed.asMilliseconds());
 
             m_context.stateManager->draw(m_context.window);
 

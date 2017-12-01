@@ -32,7 +32,6 @@ namespace engine::systems {
     }
 
     System::Ptr System::createInstance(const std::string& systemName, SystemManager& manager) {
-        std::cout << systemName << '\n';
         auto systemConstructor = getMapToSystem()->find(systemName);
 
         if (systemConstructor == getMapToSystem()->end()) {

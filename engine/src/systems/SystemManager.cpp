@@ -11,8 +11,9 @@ namespace engine::systems {
     }
 
     void SystemManager::update(float deltatime) {
-        for (auto& system : m_systems)
+        for (auto& system : m_systems) {
             system.second->update(deltatime);
+        }
     }
     
     void SystemManager::draw(sf::RenderWindow *window, unsigned int layer) {
@@ -34,10 +35,9 @@ namespace engine::systems {
         }
 
         System::Ptr system = System::createInstance(name, *this);
-        if (name.substr(0, std::string("Graphical").length()) == "Graphical") {
+        if (name.substr(0, std::string("graphical").length()) == "graphical") {
             // If the name starts with Graphical, we register it as a GraphicalSystem
             m_graphicalSystems.insert(std::make_pair(name, std::static_pointer_cast<GraphicalSystem>(system)));
-            return true;
         }
         m_systems.insert(std::make_pair(name, system));
         return true;
@@ -55,7 +55,11 @@ namespace engine::systems {
     }
 
     bool SystemManager::removeSystem(const std::string &name) {
-        return (m_systems.erase(name) > 0);
+        bool graph = true;
+        if (name.substr(0, std::string("graphical").length()) == "graphical") {
+            graph = m_graphicalSystems.erase(name) > 0;
+        }
+        return (graph && m_systems.erase(name) > 0);
     }
 
     void SystemManager::clear() {

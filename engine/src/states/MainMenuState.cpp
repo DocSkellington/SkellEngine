@@ -42,6 +42,5 @@ namespace engine::states {
     }
 
     void MainMenuState::draw(std::shared_ptr<sf::RenderWindow>& window) {
-        window->display();
     }
 }
