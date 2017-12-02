@@ -30,6 +30,14 @@ namespace engine {
         nlohmann::json getGameDescription();
 
         /**
+         * \brief Returns the path to the folder that contains the sprites (defined in the game.json).
+         * 
+         * The returned string is a well-formed path (always ends with a /).
+         * \return The path to the folder that contains the sprites
+         */
+        std::string getBaseSpritesFolder() const;
+
+        /**
          * \brief Loads the default Lua script of an entity (the one in media/entities/script), if it exists.
          * \param entityType The type of the entity
          * \throws FileNotFound If the file does not exist

@@ -46,6 +46,20 @@ namespace engine {
         return m_gameDescription;
     }
 
+    std::string FileManager::getBaseSpritesFolder() const {
+        auto media = m_gameDescription["media"];
+        if (media["baseSprites"].is_string()) {
+            std::string path = media["baseSprites"].get<std::string>();
+            if (path[path.size()-1] != '/' || path[path.size()-1] != '\\')
+                path.append("/");
+            return path;
+        }
+        else {
+            std::cerr << "Warning: no base folder for sprites defined. 'media/sprites' will be used\n";
+            return "media/sprites";
+        }
+    }
+
     nlohmann::json FileManager::getEntityJSON(const std::string &entityType) {
         if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
             // If the entity is not yet known, we try to load the global settings (the global for the game and for the level), if they exist

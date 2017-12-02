@@ -14,6 +14,9 @@
         "showVersion" : true,
         "showEngine" : true
     },
+    "media" :{
+        "baseSprites" : "media/sprites"
+    },
     "systems" : [
         "GraphicalOrthogonal"
     ]

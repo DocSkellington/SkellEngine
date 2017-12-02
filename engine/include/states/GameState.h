@@ -1,3 +1,5 @@
+#pragma once
+
 #include "states/State.h"
 
 namespace engine::states {

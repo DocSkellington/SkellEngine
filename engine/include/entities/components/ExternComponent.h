@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entities/components/Component.h"
+#include "Context.h"
 
 namespace engine::entities::components {
     /**
@@ -14,9 +15,9 @@ namespace engine::entities::components {
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
 
-        void create(const nlohmann::json &jsonTable);
-        void create(const sol::table& luaTable);
-        void create(const nlohmann::json &jsonTable, const sol::table& luaTable);
+        void create(Context &context, const nlohmann::json &jsonTable);
+        void create(Context &context, const sol::table& luaTable);
+        void create(Context &context, const nlohmann::json &jsonTable, const sol::table& luaTable);
 
     private:
         nlohmann::json jsonTable;

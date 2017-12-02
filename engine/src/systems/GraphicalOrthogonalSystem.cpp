@@ -8,9 +8,7 @@ namespace engine::systems {
     System::RegisterSystem<GraphicalOrthogonalSystem> GraphicalOrthogonalSystem::rsgos("graphicalorthogonal");
 
     GraphicalOrthogonalSystem::GraphicalOrthogonalSystem(SystemManager &manager) :
-        GraphicalSystem(manager), m_circle(100.f) {
         std::cout << "Orthogonal system init\n";
-        m_circle.setFillColor(sf::Color::Red);
     }
 
     GraphicalOrthogonalSystem::~GraphicalOrthogonalSystem() {
@@ -18,13 +16,11 @@ namespace engine::systems {
     }
 
     bool GraphicalOrthogonalSystem::update(float deltatime) {
-        m_circle.move(sf::Vector2f(deltatime, deltatime));
         // TODO
         return true;
     }
 
     void GraphicalOrthogonalSystem::draw(sf::RenderWindow* window, unsigned int layer) {
-        window->draw(m_circle);
         for (auto &entity : getEntities()) {
             auto spriteSheet = entity->getComponent("spritesheet");
             if (spriteSheet) {

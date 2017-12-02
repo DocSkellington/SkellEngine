@@ -1,3 +1,5 @@
+#pragma once
+
 #include "systems/System.h"
 
 #include <SFML/Graphics.hpp>

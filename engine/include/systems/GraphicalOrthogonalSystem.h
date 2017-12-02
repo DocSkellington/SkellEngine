@@ -17,7 +17,5 @@ namespace engine::systems {
 
     private:
         static System::RegisterSystem<GraphicalOrthogonalSystem> rsgos;
-
-        sf::CircleShape m_circle;
     };
 }

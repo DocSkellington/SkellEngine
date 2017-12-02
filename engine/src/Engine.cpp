@@ -24,6 +24,8 @@ namespace engine {
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
 
+        m_context.textureHolder = make_shared<thor::ResourceHolder<sf::Texture, std::string>>();
+
         m_context.stateManager = make_shared<states::StateManager>(m_context);
         
         m_context.entityManager = make_shared<entities::EntityManager>(m_context);

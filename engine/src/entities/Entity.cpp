@@ -1,12 +1,13 @@
 #include "entities/Entity.h"
 
 namespace engine::entities {
-    Entity::Entity() {
+    Entity::Entity(Context &context) :
+        m_context(context) {
 
     }
 
-    Entity::Entity(const std::string &type) :
-        m_type(type) {
+    Entity::Entity(Context &context, const std::string &type) :
+        m_context(context), m_type(type) {
 
     }
 
@@ -26,7 +27,7 @@ namespace engine::entities {
             return;
         }
 
-        compo->create(jsonTable);
+        compo->create(m_context, jsonTable);
         m_components[componentType] = compo;
     }
 

@@ -20,8 +20,8 @@ namespace engine::entities {
         typedef std::shared_ptr<Entity> Ptr;
     
     public:
-        explicit Entity();
-        explicit Entity(const std::string &type);
+        explicit Entity(Context &context);
+        explicit Entity(Context &context, const std::string &type);
         Entity(const Entity&) = delete;
         ~Entity();
 
@@ -50,8 +50,8 @@ namespace engine::entities {
         components::Component::Ptr getComponent(const std::string &componentType);
 
     private:
+        Context &m_context;
         std::string m_type;
-        /** \todo Find a better way to store to allow multiple instances of the same component (multimap?) */
         std::map<std::string, components::Component::Ptr> m_components;
     };
 }

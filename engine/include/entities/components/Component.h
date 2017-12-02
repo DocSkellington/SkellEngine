@@ -3,6 +3,10 @@
 #include <sol.hpp>
 #include <json.hpp>
 
+namespace engine{
+    struct Context;
+}
+
 /**
 * \brief Contains the definitions of the base components
 */
@@ -26,20 +30,23 @@ namespace engine::entities::components {
 
         /**
          * \brief Initialises a component with the given jsonTable.
+         * \param context The context
          * \param jsonTable The JSON table
          */
-        virtual void create(const nlohmann::json &jsonTable) = 0;
+        virtual void create(Context &context, const nlohmann::json &jsonTable) = 0;
         /**
          * \brief Initialises a component with the given Lua table/script.
+         * \param context The context
          * \param luaTable The Lua table
          */
-        virtual void create(const sol::table& luaTable) = 0;
+        virtual void create(Context &context, const sol::table& luaTable) = 0;
         /**
          * \brief Initialises a component with the given jsonTable and Lua table/script.
+         * \param context The context
          * \param jsonTable The JSON table
          * \param luaTable The Lua table
          */
-        virtual void create(const nlohmann::json &jsonTable, const sol::table& luaTable) = 0;
+        virtual void create(Context &context, const nlohmann::json &jsonTable, const sol::table& luaTable) = 0;
 
         /**
          * \brief Creates an instance of a component based on the given name. If the type is unknown, a generic component is returned.

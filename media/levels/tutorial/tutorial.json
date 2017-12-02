@@ -5,7 +5,7 @@
             "data" : {
                 "position" : [ 4, 2 ],
                 "spritesheet" : {
-                    "filePath" : "sprites/test.png"
+                    "filePath" : "test.png"
                 }
             }
         },

@@ -12,17 +12,19 @@ namespace engine::entities::components {
 
     }
 
-    void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable) {
+    void GraphicalSpriteSheetComponent::create(Context &context, const nlohmann::json &jsonTable) {
         std::string filepath = jsonTable.at("filePath").get<std::string>();
-        m_texture.loadFromFile("media/" + filepath);
-        m_sprite.setTexture(m_texture);
+        auto basePath = context.fileManager->getBaseSpritesFolder();
+        std::cout << basePath <<  filepath << '\n';
+        auto &texture = context.textureHolder->acquire("filePath", thor::Resources::fromFile<sf::Texture>(basePath + filepath), thor::Resources::Reuse);
+        m_sprite.setTexture(texture);
     }
 
-    void GraphicalSpriteSheetComponent::create(const sol::table &luaTable) {
+    void GraphicalSpriteSheetComponent::create(Context &context, const sol::table &luaTable) {
 
     }
 
-    void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable, const sol::table &luaTable) {
+    void GraphicalSpriteSheetComponent::create(Context &context, const nlohmann::json &jsonTable, const sol::table &luaTable) {
 
     }
 
