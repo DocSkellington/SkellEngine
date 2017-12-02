@@ -75,7 +75,7 @@ namespace engine::systems {
              * \param name The name of the system
              */
             RegisterSystem (const std::string &name) {
-                std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {  std::cout << "test\n"; return std::make_shared<T>(manager); };
+                std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {  return std::make_shared<T>(manager); };
                 getMapToSystem()->insert(std::make_pair(name, func));
             }
         };

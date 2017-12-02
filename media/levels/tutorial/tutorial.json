@@ -3,7 +3,10 @@
         "goomba" : {
             "type" : "test",
             "data" : {
-                "position" : [ 4, 2 ]
+                "position" : [ 4, 2 ],
+                "spritesheet" : {
+                    "filePath" : "sprites/test.png"
+                }
             }
         },
         "bowser" : {

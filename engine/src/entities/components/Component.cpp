@@ -19,7 +19,7 @@ namespace engine::entities::components {
     }
 
     std::shared_ptr<Component::MapType> Component::getMapToComponent() {
-        std::shared_ptr<Component::MapType> map = std::make_shared<Component::MapType>();
+        static std::shared_ptr<Component::MapType> map = std::make_shared<Component::MapType>();
         return map;
     }
 }
