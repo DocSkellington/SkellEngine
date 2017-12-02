@@ -1,6 +1,7 @@
 #include "systems/GraphicalOrthogonalSystem.h"
 
 #include <memory>
+#include <iostream>
 
 #include "entities/components/GraphicalSpriteSheetComponent.h"
 
@@ -8,6 +9,7 @@ namespace engine::systems {
     System::RegisterSystem<GraphicalOrthogonalSystem> GraphicalOrthogonalSystem::rsgos("graphicalorthogonal");
 
     GraphicalOrthogonalSystem::GraphicalOrthogonalSystem(SystemManager &manager) :
+        GraphicalSystem(manager) {
         std::cout << "Orthogonal system init\n";
     }
 

@@ -133,7 +133,7 @@ namespace engine {
             auto entityGlobal = getEntityJSON(type);
             auto entity = fusion(entityGlobal, data);
             // Finally, we create the new entity
-            m_context.entityManager->addEntity(type, data);
+            m_context.entityManager->addEntity(type, entity);
         }
     }
 }

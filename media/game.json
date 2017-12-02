@@ -1,7 +1,8 @@
 {
     "game" : {
         "version" : "0.0.2",
-        "firstState" : "MainMenu"
+        "firstState" : "MainMenu",
+        "name" : "Game"
     },
     "window" : {
         "fullscreen" : false,
@@ -14,7 +15,7 @@
         "showVersion" : true,
         "showEngine" : true
     },
-    "media" :{
+    "media" : {
         "baseSprites" : "media/sprites"
     },
     "systems" : [

@@ -84,13 +84,13 @@ namespace engine {
         if (window["showEngine"])
             title += " - ENGINE v." + to_string(ENGINE_VERSION_MAJOR) + "." + to_string(ENGINE_VERSION_MINOR) + "." + to_string(ENGINE_VERSION_REVISION);
 
-        int style = sf::Style::None;
-        if (window["showTitlebar"].get<bool>())
-            style |= sf::Style::Titlebar;
+        int style = sf::Style::Titlebar;
         if (window["showResize"].get<bool>())
             style |= sf::Style::Resize;
         if (window["showClose"].get<bool>())
             style |= sf::Style::Close;
+        if (!window["showTitlebar"].get<bool>())
+            style = sf::Style::None;
 
         if (window["fullscreen"])
             m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen);

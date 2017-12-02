@@ -1,3 +1,6 @@
 {
-    "position" : [38, 21]
+    "position" : [38, 21],
+    "spritesheet" : {
+        "filePath" : "test.png"
+    }
 }

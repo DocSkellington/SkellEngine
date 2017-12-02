@@ -47,6 +47,15 @@
             },
             "command": "make install && cd ../bin && ./Engine",
             "problemMatcher": []
+        },
+        {
+            "label": "doc",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "command": "make doc_doxygen",
+            "problemMatcher": []
         }
     ]
 }
