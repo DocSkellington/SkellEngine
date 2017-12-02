@@ -14,5 +14,7 @@ namespace engine::entities {
         for (auto itr = jsonTable.begin() ; itr != jsonTable.end() ; ++itr) {
             entity->addComponent(itr.key(), itr.value());
         }
+
+        m_context.systemManager->addEntity(entity);
     }
 }

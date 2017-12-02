@@ -26,7 +26,6 @@ namespace engine::systems {
     void GraphicalOrthogonalSystem::draw(sf::RenderWindow* window, unsigned int layer) {
         window->draw(m_circle);
         for (auto &entity : getEntities()) {
-            std::cout << "ENTITY\n";
             auto spriteSheet = entity->getComponent("spritesheet");
             if (spriteSheet) {
                 window->draw(std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(spriteSheet)->getSprite());

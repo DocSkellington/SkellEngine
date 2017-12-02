@@ -45,10 +45,6 @@ namespace engine {
         // Launching the first state of the game
         if (firstState == "mainmenu" || firstState == "mainmenustate")
             m_context.stateManager->switchTo<states::MainMenuState>();
-
-        // Tests:
-        std::string levelName = "tutorial";
-        m_context.fileManager->changeLevel(levelName);
     }
 
     Engine::~Engine() {

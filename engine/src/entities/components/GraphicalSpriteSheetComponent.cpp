@@ -14,8 +14,6 @@ namespace engine::entities::components {
 
     void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable) {
         std::string filepath = jsonTable.at("filePath").get<std::string>();
-        std::cout << filepath << " ihgiehoi" << '\n';
-
         m_texture.loadFromFile("media/" + filepath);
         m_sprite.setTexture(m_texture);
     }
@@ -29,7 +27,6 @@ namespace engine::entities::components {
     }
 
     const sf::Sprite& GraphicalSpriteSheetComponent::getSprite() const {
-        std::cout << "SPRITESAMERE\n";
         return m_sprite;
     }
 }

@@ -27,7 +27,9 @@ namespace engine::states {
     }
 
     void GameState::activate() {
-        std::cout << "GAMESTATE\n";
+        // Tests:
+        std::string levelName = "tutorial";
+        getStateManager().getContext().fileManager->changeLevel(levelName);
     }
 
     void GameState::deactivate() {
