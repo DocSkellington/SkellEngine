@@ -1,0 +1,34 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\begin{document}
+\tikzstyle{every node}=[draw=black,fill=white,thick,anchor=west]
+\tikzstyle{required}=[draw=red,fill=red!30]
+\begin{tikzpicture}[%
+    grow via three points={one child at (0.5,-0.7) and
+    two children at (0.5,-0.7) and (0.5,-1.4)},
+    edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+    \node {media}
+        child {node [required] {entities}}
+        child {node [required] {states}}
+        child {node [required] {systems}}
+        child {node {levels}
+            child {node {tutorial}
+                child {node {entities}}
+                child {node {states}}
+                child {node {systems}}
+            }
+            child [missing] {}
+            child [missing] {}
+            child [missing] {}
+            child {node {level1}
+                child {node {entities}}
+                child {node {states}}
+                child {node {systems}}
+            }
+        }
+    ;
+\end{tikzpicture}
+\end{document}

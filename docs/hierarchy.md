@@ -3,7 +3,9 @@ File hierarchy          {#file_hierarchy}
 [TOC]
 
 # Hierarchy {#file_hierarchy_graph}
-\todo create a graphical tree
+Here is an example of a file hierarchy tree. The folders in red are the folders that contain "default" data for the game.
+
+![File hierarchy tree](hierarchyTree.png "File hierarchy")
 
 # Explanation {#file_hierarchy_explanation}
 You can define global data in the `media` folder. These data will be used as a base for every level and instance that needs them.

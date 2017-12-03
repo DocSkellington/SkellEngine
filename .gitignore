@@ -2,3 +2,6 @@ build/*
 bin/*
 doc_doxygen/*
 .vscode/tags
+*.aux
+*.log
+*.gz
