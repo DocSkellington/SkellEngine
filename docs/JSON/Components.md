@@ -16,6 +16,6 @@ Each section will present the needed fields for each component. See [JSON page](
 # Extern {#json_full_extern}
 As a component is only made to contain data (not to actively use them), an extern component can contain anything you want.
 
-  - `#name`: `object`: your component; you can put anything in the object
+  - `$name`: `object`: your component; you can put anything in the object
 
 \todo check extern JSON type

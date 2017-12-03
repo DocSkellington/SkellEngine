@@ -2,14 +2,14 @@ JSON Format             {#json}
 ====
 [TOC]
 
-This document will only describe JSON fields the application can understand. For file hierarchy (where to use the JSON fields), see [the appropriate page](@ref fileHierarchy).
+This document will only describe JSON fields the application can understand. For file hierarchy (where to use the JSON fields), see [the appropriate page](@ref file_hierarchy).
 
 # Notation  {#json_notation}
 Before starting to document, let me introduce a notation to ease your reading and my writing. A JSON field will be described by:
 
     `name`: type: description[: format]
 
-where `type` is `string`, `integer`, `float`, `boolean`, `array` or `object`. `format` (which is optional) describes the way to write the information so that the application can correctly read it. An `#` followed by a variable name describes a variable that can be freely named.
+where `type` is `string`, `integer`, `float`, `boolean`, `array` or `object`. `format` (which is optional) describes the way to write the information so that the application can correctly read it. A `$` (dollar symbol) followed by a variable name describes a variable that can be freely named.
 
 Also, please see [w3schools](https://www.w3schools.com/js/js_json_syntax.asp) for more information on JSON syntax.
 
@@ -18,7 +18,7 @@ The `game.json` file supports the following field:
   - `game`: `object`: describes the game's description
     - `name`: `string`: the name of the game
     - `version`: `string`: the version of the game: x.x.x (where each x is an integer) is recommend but not mandatory
-    - `firstState`: `string`: the state the game must start in: the name of a known state (see [states](@ref states))
+    - `firstState`: `string`: the state the game must start in: the name of a known state (see [states](@ref json_states))
   - `media`: `object`: the global media's settings
     - `baseSprites`: `string`: the path to the root of the sprites folder
   - `window`: `object`: the graphical window
@@ -31,7 +31,7 @@ The `game.json` file supports the following field:
     - `title`: `string`: the string to print in the window border
     - `showVersion`: `boolean`: whether to show the game's version in the window border or not
     - `showEngine`: `boolean`: whether to show engine's information or not
-  - `systems`: `arrays` of `strings`: each string is the name of a system to use in the game (see [systems](@ref systems))
+  - `systems`: `arrays` of `strings`: each string is the name of a system to use in the game (see [systems](@ref json_systems))
 
 # Entities {#json_entities}
 Each entity must be described as following:
