@@ -9,7 +9,7 @@
 #include "states/StateManager.h"
 #include "entities/EntityManager.h"
 #include "systems/SystemManager.h"
-#include "FileManager.h"
+#include "files/FileManager.h"
 
 namespace engine {
     /**
@@ -19,7 +19,7 @@ namespace engine {
         Context() {}
         Context(const Context&) = delete;
 
-        std::shared_ptr<FileManager> fileManager;
+        std::shared_ptr<files::FileManager> fileManager;
 
         std::shared_ptr<sol::state> lua;
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Context.h"
+#include "files/GameDescription.h"
 
 /**
 * \brief This numespace contains everything the engine needs
@@ -21,6 +22,6 @@ namespace engine {
         Context m_context;
 
     private:
-        void createWindow(const nlohmann::json &window, const std::string &version);
+        void createWindow(const files::GameDescription::WindowDescription &window, const std::string &version);
     };
 }

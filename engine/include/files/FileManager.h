@@ -3,9 +3,16 @@
 #include <json.hpp>
 #include <sol.hpp>
 
+#include "files/GameDescription.h"
+
 namespace engine {
     struct Context;
+}
 
+/**
+ * \brief Contains the ways to use the external files
+ */
+namespace engine::files {
     /**
     * \brief Handles the files.
     * \todo Handle errors
@@ -23,19 +30,10 @@ namespace engine {
         void changeLevel(const std::string &levelName);
 
         /**
-         * \brief Loads the game.json in the media folder.
-         * \return The JSON table
-         * \throws FileNotFound If media/game.json does not exist
+         * \brief Returns the description defined in the media/game.json file
+         * \return The Game Description
          */
-        nlohmann::json getGameDescription();
-
-        /**
-         * \brief Returns the path to the folder that contains the sprites (defined in the game.json).
-         * 
-         * The returned string is a well-formed path (always ends with a /).
-         * \return The path to the folder that contains the sprites
-         */
-        std::string getBaseSpritesFolder() const;
+        const GameDescription& getGameDescription() const;
 
         /**
          * \brief Loads the default Lua script of an entity (the one in media/entities/script), if it exists.
@@ -55,9 +53,9 @@ namespace engine {
     private:
         const Context &m_context;
         std::string m_levelName;
-        nlohmann::json m_gameDescription;
         nlohmann::json m_levelDescription;
         std::map<std::string, nlohmann::json> m_entitiesGlobal;
+        GameDescription m_gameDescription;
 
     private:
         /**

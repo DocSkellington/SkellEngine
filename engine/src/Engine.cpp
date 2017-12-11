@@ -13,13 +13,13 @@
 
 #include "config.h"
 #include "states/MainMenuState.h"
-#include "FileManager.h"
+#include "files/FileManager.h"
 
 using namespace std;
 
 namespace engine {
     Engine::Engine() {
-        m_context.fileManager = make_shared<FileManager>(m_context);
+        m_context.fileManager = make_shared<files::FileManager>(m_context);
 
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
@@ -34,18 +34,12 @@ namespace engine {
 
         // Opening the config file
         auto description = m_context.fileManager->getGameDescription();
-        
-        auto game = description["game"];
-        string version = game["version"];
-        string firstState = game["firstState"];
-        transform(firstState.begin(), firstState.end(), firstState.begin(), ::tolower);
 
         // Creating the window
-        auto window = description["window"];
-        createWindow(window, version);
+        createWindow(description.window, description.version);
 
         // Launching the first state of the game
-        if (firstState == "mainmenu" || firstState == "mainmenustate")
+        if (description.states.firstState == "mainmenu" || description.states.firstState == "mainmenustate")
             m_context.stateManager->switchTo<states::MainMenuState>();
     }
 
@@ -76,26 +70,25 @@ namespace engine {
         }
     }
 
-    void Engine::createWindow(const nlohmann::json &window, const std::string &version) {
-        auto size = window["size"];
-        string title = window["title"];
-        if (window["showVersion"])
+    void Engine::createWindow(const files::GameDescription::WindowDescription &window, const std::string &version) {
+        string title = window.title;
+        if (window.version)
             title += " - v." + version;
-        if (window["showEngine"])
+        if (window.engine)
             title += " - ENGINE v." + to_string(ENGINE_VERSION_MAJOR) + "." + to_string(ENGINE_VERSION_MINOR) + "." + to_string(ENGINE_VERSION_REVISION);
 
         int style = sf::Style::Titlebar;
-        if (window["showResize"].get<bool>())
+        if (window.resize)
             style |= sf::Style::Resize;
-        if (window["showClose"].get<bool>())
+        if (window.close)
             style |= sf::Style::Close;
-        if (!window["showTitlebar"].get<bool>())
+        if (!window.titlebar)
             style = sf::Style::None;
 
-        if (window["fullscreen"])
+        if (window.fullscreen)
             m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen);
         else
-            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode(size[0], size[1], 32), title, style);
+            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode(window.width, window.height, 32), title, style);
 
     }
 }

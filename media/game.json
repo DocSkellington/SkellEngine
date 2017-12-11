@@ -1,9 +1,6 @@
 {
-    "game" : {
-        "version" : "0.0.2",
-        "firstState" : "MainMenu",
-        "name" : "Game"
-    },
+    "version" : "0.0.2",
+    "name" : "Game",
     "window" : {
         "fullscreen" : false,
         "size" : [800, 600],
@@ -17,6 +14,9 @@
     },
     "media" : {
         "baseSprites" : "media/sprites"
+    },
+    "states" : {
+        "first" : "MainMenu"
     },
     "systems" : [
         "GraphicalOrthogonal"

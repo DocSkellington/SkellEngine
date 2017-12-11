@@ -1,4 +1,4 @@
-#include "FileManager.h"
+#include "files/FileManager.h"
 
 #include <fstream>
 #include <cctype>
@@ -7,10 +7,13 @@
 #include "Context.h"
 #include "FileNotFound.h"
 
-namespace engine {
+namespace engine::files {
     FileManager::FileManager(const Context &context) :
         m_context(context) {
-
+        nlohmann::json gameJSON;
+        std::ifstream file("media/game.json");
+        file >> gameJSON;
+        m_gameDescription = gameJSON.get<GameDescription>();
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
@@ -25,39 +28,8 @@ namespace engine {
         applyLevelDescription();
     }
 
-    nlohmann::json FileManager::getGameDescription() {
-        if (m_gameDescription.empty()) {
-            std::ifstream file("media/game.json");
-            file >> m_gameDescription;
-            auto systems = m_gameDescription.at("systems");
-            for (unsigned int i = 0 ; i < systems.size() ; i++) {
-                if (systems[i].is_string()){
-                    auto system = systems[i].get<std::string>();
-                    std::transform(system.begin(), system.end(), system.begin(), ::tolower);
-                    systems[i] = system;
-                }
-                else {
-                    std::cerr << "Warning: In media/game.json: systems can only contain strings.\n";
-                }
-            }
-            m_gameDescription["systems"] = systems;
-        }
-        std::cout << m_gameDescription["systems"] << '\n';
+    const GameDescription& FileManager::getGameDescription() const {
         return m_gameDescription;
-    }
-
-    std::string FileManager::getBaseSpritesFolder() const {
-        auto media = m_gameDescription["media"];
-        if (media["baseSprites"].is_string()) {
-            std::string path = media["baseSprites"].get<std::string>();
-            if (path[path.size()-1] != '/' || path[path.size()-1] != '\\')
-                path.append("/");
-            return path;
-        }
-        else {
-            std::cerr << "Warning: no base folder for sprites defined. 'media/sprites' will be used\n";
-            return "media/sprites";
-        }
     }
 
     nlohmann::json FileManager::getEntityJSON(const std::string &entityType) {

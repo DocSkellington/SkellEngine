@@ -49,13 +49,14 @@
                     "language": "CXX",
                     "sources": [
                       "src/Engine.cpp",
-                      "src/FileManager.cpp",
                       "src/entities/Entity.cpp",
                       "src/entities/EntityManager.cpp",
                       "src/entities/components/Component.cpp",
                       "src/entities/components/ExternComponent.cpp",
                       "src/entities/components/GraphicalSpriteSheetComponent.cpp",
                       "src/entities/components/PositionComponent.cpp",
+                      "src/files/FileManager.cpp",
+                      "src/files/GameDescription.cpp",
                       "src/main.cpp",
                       "src/states/GameState.cpp",
                       "src/states/MainMenuState.cpp",
@@ -123,7 +124,7 @@
         ]
       }
     ],
-    "cookie": "0.23103936284377502",
+    "cookie": "0.5916720723374687",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
