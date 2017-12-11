@@ -2,8 +2,10 @@
 
 #include <json.hpp>
 #include <sol.hpp>
+#include <map>
 
 #include "files/GameDescription.h"
+#include "files/StateDescription.h"
 
 namespace engine {
     struct Context;
@@ -15,8 +17,6 @@ namespace engine {
 namespace engine::files {
     /**
     * \brief Handles the files.
-    * \todo Handle errors
-    *
     */
     class FileManager {
     public:
@@ -34,6 +34,12 @@ namespace engine::files {
          * \return The Game Description
          */
         const GameDescription& getGameDescription() const;
+
+        /**
+         * \brief Returns the description of the state found in the media/states folder
+         * \return The StateDescription of the given state
+         */
+        const StateDescription& getStateDescription(const std::string &state);
 
         /**
          * \brief Loads the default Lua script of an entity (the one in media/entities/script), if it exists.
@@ -56,6 +62,7 @@ namespace engine::files {
         nlohmann::json m_levelDescription;
         std::map<std::string, nlohmann::json> m_entitiesGlobal;
         GameDescription m_gameDescription;
+        std::map<std::string, StateDescription> m_stateDescriptions;
 
     private:
         /**
@@ -85,5 +92,10 @@ namespace engine::files {
          * Creates entities defined in the JSON table
          */
         void applyLevelDescription();
+
+        /**
+         * \brief Loads the state descriptions in media/states
+         */
+        void loadStateDescriptions();
     };
 }

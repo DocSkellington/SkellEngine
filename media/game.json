@@ -17,8 +17,5 @@
     },
     "states" : {
         "first" : "MainMenu"
-    },
-    "systems" : [
-        "GraphicalOrthogonal"
-    ]
+    }
 }

@@ -43,10 +43,10 @@ namespace engine::systems {
         return true;
     }
 
-    bool SystemManager::loadSystems(const nlohmann::json &systems) {
+    bool SystemManager::loadSystems(const std::vector<std::string> &systems) {
         clear();
         for (auto &system : systems) {
-            if (!addSystem(system.get<std::string>())) {
+            if (!addSystem(system)) {
                 clear();
                 return false;    
             }

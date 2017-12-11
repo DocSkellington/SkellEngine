@@ -18,6 +18,22 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
+              },
+              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/engine/Engine"
                 ],
@@ -57,6 +73,7 @@
                       "src/entities/components/PositionComponent.cpp",
                       "src/files/FileManager.cpp",
                       "src/files/GameDescription.cpp",
+                      "src/files/StateDescription.cpp",
                       "src/main.cpp",
                       "src/states/GameState.cpp",
                       "src/states/MainMenuState.cpp",
@@ -102,29 +119,13 @@
                 "name": "sol2",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "UTILITY"
-              },
-              {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.5916720723374687",
+    "cookie": "0.997805041450915",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

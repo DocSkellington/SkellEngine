@@ -10,7 +10,6 @@ namespace engine::systems {
 
     GraphicalOrthogonalSystem::GraphicalOrthogonalSystem(SystemManager &manager) :
         GraphicalSystem(manager) {
-        std::cout << "Orthogonal system init\n";
     }
 
     GraphicalOrthogonalSystem::~GraphicalOrthogonalSystem() {

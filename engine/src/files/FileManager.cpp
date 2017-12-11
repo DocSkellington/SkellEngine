@@ -14,6 +14,7 @@ namespace engine::files {
         std::ifstream file("media/game.json");
         file >> gameJSON;
         m_gameDescription = gameJSON.get<GameDescription>();
+        loadStateDescriptions();
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
@@ -30,6 +31,10 @@ namespace engine::files {
 
     const GameDescription& FileManager::getGameDescription() const {
         return m_gameDescription;
+    }
+
+    const StateDescription& FileManager::getStateDescription(const std::string &state) {
+        return m_stateDescriptions[state];
     }
 
     nlohmann::json FileManager::getEntityJSON(const std::string &entityType) {
@@ -107,5 +112,13 @@ namespace engine::files {
             // Finally, we create the new entity
             m_context.entityManager->addEntity(type, entity);
         }
+    }
+
+    void FileManager::loadStateDescriptions() {
+        /**\todo The other states */
+        nlohmann::json mainmenu, game, pause;
+        std::ifstream file("media/states/game.json");
+        file >> game;
+        m_stateDescriptions["game"] = game;
     }
 }

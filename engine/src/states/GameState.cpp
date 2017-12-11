@@ -17,9 +17,8 @@ namespace engine::states {
 
     void GameState::onCreate() {
         getStateManager().getContext().systemManager->clear();
-        auto game = getStateManager().getContext().fileManager->getGameDescription();
-        //auto &systems = game.at("systems");
-        //getStateManager().getContext().systemManager->loadSystems(systems);
+        auto game = getStateManager().getContext().fileManager->getStateDescription("game");
+        getStateManager().getContext().systemManager->loadSystems(game.systems);
     }
 
     void GameState::onDestroy() {

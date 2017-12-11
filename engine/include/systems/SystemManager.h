@@ -55,7 +55,7 @@ namespace engine::systems {
          * If a system can not be loaded, the systems' list remains empty
          * \param systems The systems to create
          */
-        bool loadSystems(const nlohmann::json &systems);
+        bool loadSystems(const std::vector<std::string> &systems);
 
         /**
          * \brief Removes the system of the given name, if it is used.
