@@ -1,3 +1,5 @@
+# This file is copied from https://github.com/Bromeon/Thor/blob/3aee360fa6a54acb82637e71782863ac975705db/cmake/Modules/FindThor.cmake
+
 #################################################################################
 ##
 ## Thor C++ Library

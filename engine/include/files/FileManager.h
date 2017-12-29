@@ -44,7 +44,7 @@ namespace engine::files {
         /**
          * \brief Loads the default Lua script of an entity (the one in media/entities/script), if it exists.
          * \param entityType The type of the entity
-         * \throws FileNotFound If the file does not exist
+         * \throws engine::errors::FileNotFound If the file does not exist
          */
         void loadEntityDefaultLua(const std::string &entityType);
 
@@ -52,7 +52,7 @@ namespace engine::files {
          * \brief Loads the level-specific Lua script of an entity (the one in media/levels/levelName/entities/script), if it exists.
          * \param entityType The type of the entity
          * \return The Lua table
-         * \throws FileNotFound If the file does not exist
+         * \throws engine::errors::FileNotFound If the file does not exist
         */
         sol::table getEntityLevelLua(const std::string &entityType);
 

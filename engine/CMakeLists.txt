@@ -34,6 +34,13 @@ if(THOR_FOUND)
   target_link_libraries(${EXECUTABLE_NAME} thor)
 endif()
 
+# tmx-loader
+find_package(TMX REQUIRED)
+if(TMX_FOUND)
+    include_directories(${TMX_INCLUDE_DIR})
+    target_link_libraries(${EXECUTABLE_NAME} tmx-loader pugi)
+endif()
+
 #Lua
 find_package(Lua 5.3 REQUIRED)
 if (Lua_FOUND)

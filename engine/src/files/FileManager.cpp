@@ -5,7 +5,7 @@
 #include <algorithm>
 
 #include "Context.h"
-#include "FileNotFound.h"
+#include "errors/FileNotFound.h"
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :

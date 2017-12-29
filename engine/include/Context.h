@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <Thor/Resources.hpp>
 #include <sol.hpp>
+#include <tmx/MapLoader.hpp>
 
 #include "states/StateManager.h"
 #include "entities/EntityManager.h"
@@ -32,5 +33,7 @@ namespace engine {
         std::shared_ptr<entities::EntityManager> entityManager;
 
         std::shared_ptr<systems::SystemManager> systemManager;
+
+        std::shared_ptr<tmx::MapLoader> mapLoader;
     };
 }

@@ -18,22 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
-              },
-              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/engine/Engine"
                 ],
@@ -89,7 +73,7 @@
                 ],
                 "fullName": "Engine",
                 "linkLanguageFlags": "-g",
-                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lthor -llua5.3",
+                "linkLibraries": "-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio -lthor -ltmx-loader -lpugi -llua5.3",
                 "linkerLanguage": "CXX",
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
@@ -125,7 +109,7 @@
         ]
       }
     ],
-    "cookie": "0.997805041450915",
+    "cookie": "0.9567032609115247",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

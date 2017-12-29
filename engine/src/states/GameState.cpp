@@ -19,6 +19,11 @@ namespace engine::states {
         getStateManager().getContext().systemManager->clear();
         auto game = getStateManager().getContext().fileManager->getStateDescription("game");
         getStateManager().getContext().systemManager->loadSystems(game.systems);
+
+        if (getStateManager().getContext().mapLoader->load("test.tmx"))
+            std::cout << "OK\n";
+        else
+            std::cout << "NOK\n";
     }
 
     void GameState::onDestroy() {
@@ -48,5 +53,6 @@ namespace engine::states {
 
     void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
         getStateManager().getContext().systemManager->draw(window.get(), 0);
+        window->draw(*getStateManager().getContext().mapLoader);
     }
 }

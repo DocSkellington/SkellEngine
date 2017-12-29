@@ -39,7 +39,7 @@
                 "${workspaceRoot}",
                 "${workspaceRoot}/engine/include",
                 "${workspaceRoot}/build/include",
-                "${workspaceRoot}/build"
+                "${workspaceRoot}/build/tmx/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

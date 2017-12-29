@@ -19,6 +19,8 @@ using namespace std;
 
 namespace engine {
     Engine::Engine() {
+        m_context.mapLoader = make_shared<tmx::MapLoader>("media/maps");
+
         m_context.fileManager = make_shared<files::FileManager>(m_context);
 
         m_context.lua = make_shared<sol::state>();

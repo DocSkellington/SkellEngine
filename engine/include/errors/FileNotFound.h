@@ -3,7 +3,10 @@
 #include <stdexcept>
 #include <string>
 
-namespace engine {
+/**
+ * \brief The errors specific to this engine
+ */
+namespace engine::errors {
     /**
     * \brief Defines the error to throw when a file does not exist
     */
