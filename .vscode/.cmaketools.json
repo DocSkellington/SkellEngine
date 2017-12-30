@@ -18,22 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
-              },
-              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
                 "fileGroups": [
                   {
@@ -100,6 +84,7 @@
                       "src/files/GameDescription.cpp",
                       "src/files/LevelDescription.cpp",
                       "src/files/StateDescription.cpp",
+                      "src/log/Logger.cpp",
                       "src/main.cpp",
                       "src/states/GameState.cpp",
                       "src/states/MainMenuState.cpp",
@@ -120,13 +105,29 @@
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.49210525555080253",
+    "cookie": "0.9194993814771499",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

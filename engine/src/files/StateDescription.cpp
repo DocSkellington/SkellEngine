@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cctype>
 
+#include "log/Logger.h"
+
 namespace engine::files {
     void from_json(const nlohmann::json &j, StateDescription &s) {
         auto systems = j.find("systems");
@@ -14,7 +16,7 @@ namespace engine::files {
                     s.systems.push_back(system);
                 }
                 else {
-                    std::cerr << "Warning: every system defined in a state description must be a string.\n";
+                    log::log("every system defined in a state description must be a string.", log::LogLevel::Warning);
                 }
             }
         }

@@ -2,6 +2,8 @@
 
 #include <cctype>
 
+#include "log/Logger.h"
+
 namespace engine::systems {
     System::System(SystemManager& manager) :
         m_manager(manager) {
@@ -23,7 +25,7 @@ namespace engine::systems {
     bool System::removeEntity(entities::Entity::Ptr entity) {
         auto itr = std::find(getEntities().begin(), getEntities().end(), entity);
         if (itr == getEntities().end()) {
-            std::cerr << "Error: impossible to remove an entity not used in a system\n";
+            log::log("impossible to remove an entity not used in a system", log::LogLevel::Error);
             return false;
         }
 
@@ -38,7 +40,7 @@ namespace engine::systems {
             // TODO: return generic system
         }
         else if (!systemConstructor->second) {
-            std::cerr << "SYSTEMCONSTRUCTOR\n";
+            log::log("SYSTEMCONSTRUCTOR", log::LogLevel::Info);
         }
         else {
             try {
@@ -46,8 +48,7 @@ namespace engine::systems {
                 return system;
             }
             catch (std::bad_function_call e) {
-                std::cerr << "Error while constructing the system " << systemName << ":\n";
-                std::cerr << e.what() << '\n';
+                log::log("Error while constructing the system " + systemName + ":\n" + e.what(), log::LogLevel::Warning);
             }
         }
         return nullptr;

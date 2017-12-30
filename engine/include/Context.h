@@ -12,9 +12,6 @@
 #include "systems/SystemManager.h"
 #include "files/FileManager.h"
 
-#define LOG_OUTPUT_CONSOLE
-
-
 namespace engine {
     /**
     * \brief Defines the context of the engine.

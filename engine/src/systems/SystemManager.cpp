@@ -1,5 +1,7 @@
 #include "systems/SystemManager.h"
 
+#include "log/Logger.h"
+
 namespace engine::systems {
     SystemManager::SystemManager(Context& context) :
         m_context(context) {
@@ -30,7 +32,7 @@ namespace engine::systems {
 
     bool SystemManager::addSystem(const std::string &name) {
         if (m_systems.find(name) != m_systems.end()) {
-            std::cerr << "Error: impossible to use two systems of the same type (" << name << ")\n";
+            log::log("impossible to use two systems of the same type (" + name + ").", log::LogLevel::Error);
             return false;
         }
 

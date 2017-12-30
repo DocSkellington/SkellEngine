@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "states/GameState.h"
+#include "log/Logger.h"
 
 namespace engine::states {
     MainMenuState::MainMenuState(StateManager& manager) :
@@ -15,7 +16,7 @@ namespace engine::states {
     }
 
     void MainMenuState::onCreate() {
-        std::cout << "CREATING\n";
+        log::log("CREATING", log::LogLevel::Info);
     }
 
     void MainMenuState::onDestroy() {
@@ -23,7 +24,7 @@ namespace engine::states {
     }
 
     void MainMenuState::activate() {
-        std::cout << "MAIN MENU\n";
+        log::log("MAIN MENU", log::LogLevel::Info);
     }
 
     void MainMenuState::deactivate() {

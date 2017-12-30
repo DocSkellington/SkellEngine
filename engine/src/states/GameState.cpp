@@ -1,7 +1,6 @@
 #include "states/GameState.h"
 
 #include <iostream>
-#include <tmx/Log.hpp>
 
 #include "states/MainMenuState.h"
 #include "Context.h"

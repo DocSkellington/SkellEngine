@@ -1,6 +1,7 @@
 #include "files/LevelDescription.h"
 
 #include "errors/BadLevelDescription.h"
+#include "log/Logger.h"
 
 namespace engine::files {
     void LevelDescription::clear() {
@@ -16,8 +17,7 @@ namespace engine::files {
             l.map = *map;
         }
         else {
-            std::cerr << "Error: LevelDescriptor " << l.name << " does not have a 'map' field or its type is not valid (it must be string)!";
-            throw errors::BadLevelDescription("Error: LevelDescriptor " + l.name + " does not have a 'map' field or its type is not valid (it must be string)!");
+            throw errors::BadLevelDescription("LevelDescriptor does not have a 'map' field or its type is not valid (it must be string)!");
         }
 
         if (entities != j.end() && entities->is_object()) {
@@ -26,8 +26,7 @@ namespace engine::files {
             }
         }
         else {
-            std::cerr << "Error: LevelDescriptor does not have an 'entities' object!\n";
-            throw errors::BadLevelDescription("Error: LevelDescriptor " + l.name + " does not have an 'entities' object!\n");
+            throw errors::BadLevelDescription("LevelDescriptor does not have an 'entities' object!\n");
         }
     }
 }

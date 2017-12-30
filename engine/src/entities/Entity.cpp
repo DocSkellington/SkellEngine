@@ -1,5 +1,7 @@
 #include "entities/Entity.h"
 
+#include "log/Logger.h"
+
 namespace engine::entities {
     Entity::Entity(Context &context) :
         m_context(context) {
@@ -17,13 +19,13 @@ namespace engine::entities {
 
     void Entity::addComponent(const std::string &componentType, const nlohmann::json &jsonTable) {
         if (m_components.find(componentType) != m_components.end()) {
-            std::cerr << "Error: it is impossible to add two components of the same type (" << componentType << ")\n";
+            log::log("it is impossible to add two components of the same type (" + componentType + ")", log::LogLevel::Error);
             return;
         }
 
         auto compo = components::Component::createInstance(componentType);
         if (!compo) {
-            std::cerr << "Error: Impossible to create a " << componentType << '\n';
+            log::log("Impossible to create a " + componentType, log::LogLevel::Error);
             return;
         }
 

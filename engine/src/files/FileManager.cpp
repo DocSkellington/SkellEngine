@@ -7,6 +7,7 @@
 #include "Context.h"
 #include "errors/FileNotFound.h"
 #include "errors/BadLevelDescription.h"
+#include "log/Logger.h"
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :
@@ -19,6 +20,7 @@ namespace engine::files {
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
+        log::log("Changing level to: " + levelName, log::LogLevel::Info);
         // Clearing 
         m_levelDescription.clear();
         m_entitiesGlobal.clear();

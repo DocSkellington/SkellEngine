@@ -6,6 +6,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <json.hpp>
 
+#include "log/Logger.h"
+
 namespace engine::files {
     /**
      * \brief The game's parameters.
@@ -14,6 +16,11 @@ namespace engine::files {
      */
     struct GameDescription {
     public:
+        struct LogDescription {
+            log::LogLevel level;
+            log::LogOutput output;
+        };
+
         /**
          * \brief Describes the window.
          * 
@@ -43,12 +50,15 @@ namespace engine::files {
         };
 
     public:
+        LogDescription log;
         WindowDescription window;
         MediaDescription media;
         StatesDescription states;
         std::string version, name;
     };
     
+    void from_json(const nlohmann::json &j, GameDescription::LogDescription &l);
+
     void from_json(const nlohmann::json &j, GameDescription::WindowDescription &w);
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m);
