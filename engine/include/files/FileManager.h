@@ -6,6 +6,7 @@
 
 #include "files/GameDescription.h"
 #include "files/StateDescription.h"
+#include "files/LevelDescription.h"
 
 namespace engine {
     struct Context;
@@ -58,8 +59,7 @@ namespace engine::files {
 
     private:
         const Context &m_context;
-        std::string m_levelName;
-        nlohmann::json m_levelDescription;
+        LevelDescription m_levelDescription;
         std::map<std::string, nlohmann::json> m_entitiesGlobal;
         GameDescription m_gameDescription;
         std::map<std::string, StateDescription> m_stateDescriptions;

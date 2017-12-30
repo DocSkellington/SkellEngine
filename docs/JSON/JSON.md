@@ -21,6 +21,10 @@ The `game.json` file supports the following field:
     - `firstState`: `string`: the state the game must start in: the name of a known state (see [states](@ref json_states))
   - `media`: `object`: the global media's settings
     - `baseSprites`: `string`: the path to the root of the sprites folder
+    - `maps`: `string` or `object` : the path to the folder containing the tiled maps or an object containing:
+      - `tilesets`: `string`: the path to the folder containing the tilesets files; if not defined, same as `maps`
+      - `images`: `string`: the path to the folder containing the images used by the maps; if not defined, same as `maps`
+      - `maps`: `string`: the path to the folder conainting the tiled maps
   - `window`: `object`: the graphical window
     - `fullscreen`: `boolean`: whether the window must be fullscreen or not; the window's size is always the same as the desktop's size
     - `size`: `array`: the width and height of the window
@@ -43,3 +47,8 @@ Each component has a unique description. Please, see @subpage json_full_componen
 
 # States {#json_states}
 # Systems {#json_systems}
+
+# Levels {#json_levels}
+Each level must be described as following:
+  - `map`: `string`: the name of the map to load; the map must be found in the folder defined in the game description (see [the appropriate documentation](@ref json_game)
+  - `entities`: `object`: the list of entities as described [here](@ref json_entities)

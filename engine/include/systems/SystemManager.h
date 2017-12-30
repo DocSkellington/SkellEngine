@@ -87,7 +87,10 @@ namespace engine::systems {
          */
         bool removeEntity(entities::Entity::Ptr entity);
 
-    protected:
+        /**
+         * \brief Returns the context
+         * \return The context
+         */
         Context& getContext() const;
 
     private:

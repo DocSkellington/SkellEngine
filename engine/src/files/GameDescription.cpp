@@ -3,6 +3,11 @@
 #include <cctype>
 
 namespace engine::files {
+    void check_path_end(std::string &path) {
+        if (path[path.size()-1] != '/' && path[path.size()-1] != '\\')
+            path.push_back('/');
+    }
+
     void from_json(const nlohmann::json &j, GameDescription::WindowDescription &w) {
         auto fullscreen = j.find("fullscreen");
         if (fullscreen != j.end() && fullscreen->is_boolean())
@@ -83,12 +88,54 @@ namespace engine::files {
         auto baseSprites = j.find("baseSprites");
         if (baseSprites != j.end() && baseSprites->is_string()) {
             m.baseSprites = *baseSprites;
-            if (m.baseSprites[m.baseSprites.size()-1] != '/' || m.baseSprites[m.baseSprites.size()-1] != '\\')
-                m.baseSprites.push_back('/');
+            check_path_end(m.baseSprites);
         }
         else {
-            m.baseSprites = ".";
-            std::cerr << "Warning: game.json: media description does not contain the 'baseSprites' field or its type is not valid (it should be a string). The media root will be used as default.\n";
+            m.baseSprites = "media/sprites/";
+            std::cerr << "Warning: game.json: media description does not contain the 'baseSprites' field or its type is not valid (it should be a string). 'media/sprites/' will be used as default.\n";
+        }
+
+        auto maps = j.find("maps");
+        if (maps != j.end()) {
+            if (maps->is_string()) {
+                m.maps[0] = m.maps[1] = m.maps[2] = *maps;
+            }
+            else if (maps->is_object()) {
+                auto tilesets = maps->find("tilesets"), images = maps->find("images"), mapsPath = maps->find("maps");
+
+                if (mapsPath != maps->end() && mapsPath->is_string()) {
+                    m.maps[0] = *mapsPath;
+                    check_path_end(m.maps[0]);
+                }
+                else {
+                    m.maps[0] = "media/maps/";
+                    std::cerr << "Warning: game.json: media description: 'maps' does not contain the 'maps' field or its type is not valid (it should be a string). 'media/maps' will be used as default.\n";
+                }
+
+                if (tilesets != maps->end() && tilesets->is_string()) {
+                    m.maps[1] = *tilesets;
+                    check_path_end(m.maps[1]);
+                }
+                else {
+                    m.maps[1] = m.maps[0];
+                }
+
+                if (images != maps->end() && images->is_string()) {
+                    m.maps[2] = *images;
+                    check_path_end(m.maps[2]);
+                }
+                else {
+                    m.maps[2] = m.maps[0];
+                }
+            }
+            else {
+                m.maps[0] = m.maps[1] = m.maps[2] = "media/maps/";
+                std::cerr << "Warning: game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'media/maps' will be used as default.\n";
+            }
+        }
+        else {
+            m.maps[0] = m.maps[1] = m.maps[2] = "media/maps/";
+            std::cerr << "Warning: game.json: media description does not contain the 'maps' field. 'media/maps' will be used as default.\n";
         }
     }
 

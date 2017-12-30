@@ -13,7 +13,12 @@
         "showEngine" : true
     },
     "media" : {
-        "baseSprites" : "media/sprites"
+        "baseSprites" : "media/sprites",
+        "maps" : {
+            "tilesets" : "media/maps/tilesets",
+            "images" : "media/maps/images",
+            "maps" : "media/maps/maps"
+        }
     },
     "states" : {
         "first" : "MainMenu"

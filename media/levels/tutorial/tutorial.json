@@ -1,11 +1,6 @@
 {
+    "map" : "test",
     "entities" : {
-        "goomba" : {
-            "type" : "test",
-            "data" : {
-                "position" : [ 4, 2 ]
-            }
-        },
         "bowser" : {
             "type" : "unknown",
             "data" : {

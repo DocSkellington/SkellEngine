@@ -10,6 +10,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <json.hpp>
+#include <tmx/Log.hpp>
+#include <tmx/MapLoader.hpp>
 
 #include "config.h"
 #include "states/MainMenuState.h"
@@ -19,7 +21,8 @@ using namespace std;
 
 namespace engine {
     Engine::Engine() {
-        m_context.mapLoader = make_shared<tmx::MapLoader>("media/maps");
+        /** \todo remove */
+        tmx::setLogLevel(tmx::Logger::Warning | tmx::Logger::Error);
 
         m_context.fileManager = make_shared<files::FileManager>(m_context);
 
@@ -36,6 +39,11 @@ namespace engine {
 
         // Opening the config file
         auto description = m_context.fileManager->getGameDescription();
+
+        m_context.mapLoader = make_shared<tmx::MapLoader>(description.media.maps[0]);
+        for (std::size_t i = 1 ; i < description.media.maps.size() ; i++) {
+            m_context.mapLoader->addSearchPath(description.media.maps[i]);
+        }
 
         // Creating the window
         createWindow(description.window, description.version);

@@ -17,6 +17,7 @@ namespace engine::files {
 
         struct MediaDescription {
             std::string baseSprites;
+            std::array<std::string, 3> maps; // 0: maps, 1: tilesets, 2: images
         };
 
         struct StatesDescription {

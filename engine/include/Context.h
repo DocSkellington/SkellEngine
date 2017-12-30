@@ -12,6 +12,9 @@
 #include "systems/SystemManager.h"
 #include "files/FileManager.h"
 
+#define LOG_OUTPUT_CONSOLE
+
+
 namespace engine {
     /**
     * \brief Defines the context of the engine.
@@ -26,6 +29,8 @@ namespace engine {
 
         std::shared_ptr<sf::RenderWindow> window;
 
+        std::shared_ptr<tmx::MapLoader> mapLoader;
+
         std::shared_ptr<thor::ResourceHolder<sf::Texture, std::string>> textureHolder;
 
         std::shared_ptr<states::StateManager> stateManager;
@@ -33,7 +38,5 @@ namespace engine {
         std::shared_ptr<entities::EntityManager> entityManager;
 
         std::shared_ptr<systems::SystemManager> systemManager;
-
-        std::shared_ptr<tmx::MapLoader> mapLoader;
     };
 }

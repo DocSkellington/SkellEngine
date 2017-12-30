@@ -6,6 +6,7 @@
 
 #include "Context.h"
 #include "errors/FileNotFound.h"
+#include "errors/BadLevelDescription.h"
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :
@@ -22,7 +23,7 @@ namespace engine::files {
         m_levelDescription.clear();
         m_entitiesGlobal.clear();
 
-        m_levelName = levelName;
+        m_levelDescription.name = levelName;
 
         // Loading
         loadLevelDescription();
@@ -43,8 +44,8 @@ namespace engine::files {
             std::ifstream defaultFile("media/entities/data/" + entityType + ".json");
             std::ifstream levelGlobal;
 
-            if (!m_levelName.empty()) {
-                levelGlobal.open("media/levels/" + m_levelName + "/entities/data/" + entityType + ".json");
+            if (!m_levelDescription.name.empty()) {
+                levelGlobal.open("media/levels/" + m_levelDescription.name + "/entities/data/" + entityType + ".json");
             }
 
             nlohmann::json def, lev;
@@ -65,14 +66,14 @@ namespace engine::files {
     }
 
     sol::table FileManager::getEntityLevelLua(const std::string &entityType) {
-        if (!m_levelName.empty()) {
+        if (!m_levelDescription.name.empty()) {
             if (!((*m_context.lua)[entityType].valid())) {
                 // If there isn't any script linked to that entity, we load the level one
-                m_context.lua->safe_script_file("media/levels/" + m_levelName + "/entities/scripts/" + entityType + ".lua");
+                m_context.lua->safe_script_file("media/levels/" + m_levelDescription.name + "/entities/scripts/" + entityType + ".lua");
             }
             else {
                 // If there is already a script, we merge them
-                sol::load_result script = m_context.lua->load_file("media/levels/" + m_levelName + "/entities/scripts" + entityType + ".lua");
+                sol::load_result script = m_context.lua->load_file("media/levels/" + m_levelDescription.name + "/entities/scripts" + entityType + ".lua");
 
                 // TODO: read every value. If table, go in it. Copy/overwrite data in m_context.lua
             }
@@ -88,18 +89,23 @@ namespace engine::files {
     }
 
     void FileManager::loadLevelDescription() {
-        if (!m_levelName.empty()) {
+        if (!m_levelDescription.name.empty()) {
             std::ifstream file;
-            file.open("media/levels/" + m_levelName + "/" + m_levelName + ".json");
+            file.open("media/levels/" + m_levelDescription.name + "/" + m_levelDescription.name + ".json");
 
             if (file.is_open()) {
-                file >> m_levelDescription;
+                nlohmann::json levelJSON;
+                file >> levelJSON;
+                m_levelDescription = levelJSON.get<LevelDescription>();
             }
         }
     }
 
     void FileManager::applyLevelDescription() {
-        auto &entities = m_levelDescription["entities"];
+        if (!m_context.mapLoader->load(m_levelDescription.map + ".tmx"))
+            throw errors::BadLevelDescription("ERROR: " + m_levelDescription.name + ": impossible to load the map: " + m_levelDescription.map);
+
+        auto &entities = m_levelDescription.entities;
 
         for (auto itr = entities.begin() ; itr != entities.end() ; ++itr) {
             // Getting the type of the entity
