@@ -5,7 +5,7 @@
 
 namespace engine::entities::components {
     /**
-    * \brief The base of every component
+    * \brief Describes the position of a component in the world
     */
     class PositionComponent : public Component {
     public:

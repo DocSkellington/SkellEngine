@@ -6,6 +6,11 @@
 #include <json.hpp>
 
 namespace engine::files {
+    /**
+     * \brief Describes a State of the game
+     * 
+     * It should be loaded trough JSON.
+     */
     struct StateDescription {
         std::vector<std::string> systems;
     };

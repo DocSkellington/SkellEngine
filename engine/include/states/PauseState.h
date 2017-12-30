@@ -3,6 +3,9 @@
 #include "states/State.h"
 
 namespace engine::states {
+    /**
+     * \brief Default implementation of the pause state.
+     */ 
     class PauseState : public State {
         PauseState(StateManager& manager);
         PauseState(const PauseState&) = delete;

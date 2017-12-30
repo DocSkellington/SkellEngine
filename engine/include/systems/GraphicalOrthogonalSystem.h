@@ -3,6 +3,9 @@
 #include "systems/GraphicalSystem.h"
 
 namespace engine::systems {
+    /**
+     * \brief The system that renders an orthogonal level
+     */ 
     class GraphicalOrthogonalSystem : public GraphicalSystem {
     public:
         GraphicalOrthogonalSystem(SystemManager& manager);

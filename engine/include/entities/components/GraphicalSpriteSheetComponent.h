@@ -6,6 +6,10 @@
 #include "Context.h"
 
 namespace engine::entities::components {
+    /**
+     * \brief Describes the sprite sheet of a component
+     * \todo Animations
+     */
     class GraphicalSpriteSheetComponent : public Component {
     public:
         explicit GraphicalSpriteSheetComponent();
@@ -16,10 +20,12 @@ namespace engine::entities::components {
         virtual void create(Context &context, const sol::table &luaTable) override;
         virtual void create(Context &context, const nlohmann::json &jsonTable, const sol::table &luaTable) override;
 
+        /**
+         * \brief Returns a const reference to the sprite
+         */
         const sf::Sprite &getSprite() const;
 
     private:
-        sf::Texture m_texture;
         sf::Sprite m_sprite;
 
         static Component::RegisterComponent<GraphicalSpriteSheetComponent> rcpc;
