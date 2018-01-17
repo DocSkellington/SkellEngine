@@ -1,7 +1,7 @@
 #include "files/LevelDescription.h"
 
 #include "errors/BadLevelDescription.h"
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::files {
     void LevelDescription::clear() {

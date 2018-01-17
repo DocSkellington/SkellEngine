@@ -95,6 +95,7 @@ namespace engine::systems {
 
     private:
         Context &m_context;
+        sf::View m_view;
         std::map<std::string, System::Ptr> m_systems;
         std::map<std::string, GraphicalSystem::Ptr> m_graphicalSystems;
     };

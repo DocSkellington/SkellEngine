@@ -2,7 +2,7 @@
 
 #include <cctype>
 
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
@@ -25,7 +25,7 @@ namespace engine::systems {
     bool System::removeEntity(entities::Entity::Ptr entity) {
         auto itr = std::find(getEntities().begin(), getEntities().end(), entity);
         if (itr == getEntities().end()) {
-            log::log("impossible to remove an entity not used in a system", log::LogLevel::Error);
+            tmx::Logger::log("impossible to remove an entity not used in a system", tmx::Logger::Type::Error);
             return false;
         }
 
@@ -40,7 +40,7 @@ namespace engine::systems {
             // TODO: return generic system
         }
         else if (!systemConstructor->second) {
-            log::log("SYSTEMCONSTRUCTOR", log::LogLevel::Info);
+            tmx::Logger::log("SYSTEMCONSTRUCTOR", tmx::Logger::Type::Info);
         }
         else {
             try {
@@ -48,7 +48,7 @@ namespace engine::systems {
                 return system;
             }
             catch (std::bad_function_call e) {
-                log::log("Error while constructing the system " + systemName + ":\n" + e.what(), log::LogLevel::Warning);
+                tmx::Logger::log("Error while constructing the system " + systemName + ":\n" + e.what(), tmx::Logger::Type::Warning);
             }
         }
         return nullptr;

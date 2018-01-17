@@ -9,6 +9,7 @@
     * Orthogonal
     * Isometric
   * Move
+  * CollisionDetection
 * Entities:
   * Components:
     * Graphical:
@@ -40,9 +41,19 @@
     * `entities/entityType/entityName`: specific instance
     * `systems/systemName`
     * `states/stateName`
-* Log:
-  * Different levels:
-    * Info
-    * Warning
-    * Error
-  * Configuration in game.json
+* Map:
+  * Switch to tmxlite
+    * Include sources in project
+  * Draw and test physics only on visible parts:
+    * On creation:
+      * Load every layer:
+        * Separate Tile, Object and Image
+    * On update:
+      * Get camera information
+      * Compute tiles (upper left + width + height) to be rendered
+    * On draw:
+      * Render
+  * System? Map on its own (with render, update, collisions' tester, ...)? Map on its own with utilities to retrieve the tiles seen (for graphics) and check if a position is inside an object (+ return type and properties if yes)?
+* Documentation:
+  * Update Dependencies and Building
+  * Add default values

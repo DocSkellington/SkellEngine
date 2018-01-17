@@ -25,7 +25,8 @@ namespace engine::systems {
          * If the layer is not used in the system, nothing happens
          * \param window The window in which to render
          * \param layer The number of the layer to render
+         * \param view The view of the game
          */
-        virtual void draw(sf::RenderWindow *window, unsigned int layer) = 0;
+        virtual void draw(sf::RenderWindow *window, unsigned int layer, sf::View view) = 0;
     };
 }

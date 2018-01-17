@@ -1,6 +1,6 @@
 #include "entities/Entity.h"
 
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::entities {
     Entity::Entity(Context &context) :
@@ -19,13 +19,13 @@ namespace engine::entities {
 
     void Entity::addComponent(const std::string &componentType, const nlohmann::json &jsonTable) {
         if (m_components.find(componentType) != m_components.end()) {
-            log::log("it is impossible to add two components of the same type (" + componentType + ")", log::LogLevel::Error);
+            tmx::Logger::log("it is impossible to add two components of the same type (" + componentType + ")", tmx::Logger::Type::Error);
             return;
         }
 
         auto compo = components::Component::createInstance(componentType);
         if (!compo) {
-            log::log("Impossible to create a " + componentType, log::LogLevel::Error);
+            tmx::Logger::log("Impossible to create a " + componentType, tmx::Logger::Type::Error);
             return;
         }
 

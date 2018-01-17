@@ -5,12 +5,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <Thor/Resources.hpp>
 #include <sol.hpp>
-#include <tmx/MapLoader.hpp>
+#include <tmxlite/Map.hpp>
 
 #include "states/StateManager.h"
 #include "entities/EntityManager.h"
 #include "systems/SystemManager.h"
 #include "files/FileManager.h"
+#include "map/Map.h"
 
 namespace engine {
     /**
@@ -26,7 +27,7 @@ namespace engine {
 
         std::shared_ptr<sf::RenderWindow> window;
 
-        std::shared_ptr<tmx::MapLoader> mapLoader;
+        std::shared_ptr<map::Map> map;
 
         std::shared_ptr<thor::ResourceHolder<sf::Texture, std::string>> textureHolder;
 

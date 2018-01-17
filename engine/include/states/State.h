@@ -56,10 +56,14 @@ namespace engine::states {
 
     protected:
         StateManager& getStateManager() const;
+        sf::View getView() const;
+        void setView(const sf::View &view);
 
     private:
         bool m_transcendant;
         bool m_transparent;
         StateManager &m_stateManager;
+
+        sf::View m_view;
     };
 }

@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "states/GameState.h"
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::states {
     MainMenuState::MainMenuState(StateManager& manager) :
@@ -16,7 +16,7 @@ namespace engine::states {
     }
 
     void MainMenuState::onCreate() {
-        log::log("CREATING", log::LogLevel::Info);
+        tmx::Logger::log("CREATING", tmx::Logger::Type::Info);
     }
 
     void MainMenuState::onDestroy() {
@@ -24,7 +24,7 @@ namespace engine::states {
     }
 
     void MainMenuState::activate() {
-        log::log("MAIN MENU", log::LogLevel::Info);
+        tmx::Logger::log("MAIN MENU", tmx::Logger::Type::Info);
     }
 
     void MainMenuState::deactivate() {

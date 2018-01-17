@@ -16,13 +16,13 @@ namespace engine::systems {
 
     }
 
-    bool GraphicalOrthogonalSystem::update(float deltatime) {
+    bool GraphicalOrthogonalSystem::update(float deltatime, sf::View &view) {
         // TODO
         return true;
     }
 
-    void GraphicalOrthogonalSystem::draw(sf::RenderWindow* window, unsigned int layer) {
-        getSystemManager().getContext().mapLoader->drawLayer(*window, layer);
+    void GraphicalOrthogonalSystem::draw(sf::RenderWindow* window, unsigned int layer, sf::View view) {
+        //getSystemManager().getContext().mapLoader->drawLayer(*window, layer);
         for (auto &entity : getEntities()) {
             auto spriteSheet = entity->getComponent("spritesheet");
             if (spriteSheet) {

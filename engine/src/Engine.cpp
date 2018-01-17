@@ -10,18 +10,21 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <json.hpp>
-#include <tmx/MapLoader.hpp>
 
 #include "config.h"
 #include "states/MainMenuState.h"
 #include "files/FileManager.h"
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 using namespace std;
 
 namespace engine {
     Engine::Engine() {
-        log::startLogger(log::LogLevel::LevelAll, log::LogOutput::OutputAll);
+        #ifdef DEBUG
+        tmx::Logger::setOutput(tmx::Logger::Output::All);
+        #else
+        tmx::Logger::setOutput(tmx::Logger::Output::None);
+        #endif
 
         m_context.fileManager = make_shared<files::FileManager>(m_context);
 
@@ -39,13 +42,11 @@ namespace engine {
         // Opening the config file
         auto description = m_context.fileManager->getGameDescription();
 
-        log::setLogLevel(description.log.level);
-        log::setLogOutput(description.log.output);
+        #ifdef DEBUG
+        tmx::Logger::setOutput(description.log.output);
+        #endif
 
-        m_context.mapLoader = make_shared<tmx::MapLoader>(description.media.maps[0]);
-        for (std::size_t i = 1 ; i < description.media.maps.size() ; i++) {
-            m_context.mapLoader->addSearchPath(description.media.maps[i]);
-        }
+        m_context.map = make_shared<map::Map>(description.media.mapFolder);
 
         // Creating the window
         createWindow(description.window, description.version);

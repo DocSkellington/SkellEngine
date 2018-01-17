@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cctype>
 
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::files {
     void from_json(const nlohmann::json &j, StateDescription &s) {
@@ -16,7 +16,7 @@ namespace engine::files {
                     s.systems.push_back(system);
                 }
                 else {
-                    log::log("every system defined in a state description must be a string.", log::LogLevel::Warning);
+                    tmx::Logger::log("every system defined in a state description must be a string.", tmx::Logger::Type::Warning);
                 }
             }
         }

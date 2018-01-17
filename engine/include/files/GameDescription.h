@@ -6,7 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <json.hpp>
 
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::files {
     /**
@@ -17,8 +17,7 @@ namespace engine::files {
     struct GameDescription {
     public:
         struct LogDescription {
-            log::LogLevel level;
-            log::LogOutput output;
+            tmx::Logger::Output output;
         };
 
         /**
@@ -39,7 +38,7 @@ namespace engine::files {
          */
         struct MediaDescription {
             std::string baseSprites;
-            std::array<std::string, 3> maps; // 0: maps, 1: tilesets, 2: images
+            std::string mapFolder;
         };
 
         /**

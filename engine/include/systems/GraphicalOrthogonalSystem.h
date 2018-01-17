@@ -12,8 +12,8 @@ namespace engine::systems {
         GraphicalOrthogonalSystem(const GraphicalOrthogonalSystem&) = delete;
         virtual ~GraphicalOrthogonalSystem();
 
-        virtual bool update(float deltatime) override;
-        virtual void draw(sf::RenderWindow* window, unsigned int layer) override;
+        virtual bool update(float deltatime, sf::View &view) override;
+        virtual void draw(sf::RenderWindow* window, unsigned int layer, sf::View view) override;
 
     protected:
         virtual bool checkComponents(entities::Entity::Ptr entity) const override;

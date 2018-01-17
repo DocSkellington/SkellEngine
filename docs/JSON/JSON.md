@@ -19,6 +19,8 @@ The `game.json` file supports the following field:
     - `name`: `string`: the name of the game
     - `version`: `string`: the version of the game: x.x.x (where each x is an integer) is recommend but not mandatory
     - `firstState`: `string`: the state the game must start in: the name of a known state (see [states](@ref json_states))
+  - `log`: `object`: describes the log system
+    - `output`: `string`: where the logger must write: `console` will write in the console/commad prompt, `file` will write in the `media/log.txt` file and `all` will write in both the console and file
   - `media`: `object`: the global media's settings
     - `baseSprites`: `string`: the path to the root of the sprites folder
     - `maps`: `string` or `object` : the path to the folder containing the tiled maps or an object containing:

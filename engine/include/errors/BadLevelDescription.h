@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "log/Logger.h"
+#include "tmxlite/detail/Log.hpp"
 
 namespace engine::errors {
     /**
@@ -11,7 +11,7 @@ namespace engine::errors {
      */
     class BadLevelDescription : public std::runtime_error {
     public:
-        explicit BadLevelDescription(const std::string &message) : runtime_error(message) { log::log(message, log::LogLevel::Error); }
-        explicit BadLevelDescription(const char *message) : runtime_error(message) { log::log(message, log::LogLevel::Error); }
+        explicit BadLevelDescription(const std::string &message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        explicit BadLevelDescription(const char *message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
     };
 }

@@ -10,5 +10,8 @@ Welcome on the documentation of my Game Engine.
   - [How to build](@ref building)
   - [Dependencies](@ref dependencies)
 
+# About the Logger
+Please, note that the logger is only enabled in debug build. The logger can write in the console or in the `media/log.txt` file or both depending on the configuration.
+
 
 If you find any bugs (please consider grammar mistakes as bugs) or if you would like to propose a feature, please open an issue on [the GitHub repository](https://github.com/DocSkellington/Engine/issues).

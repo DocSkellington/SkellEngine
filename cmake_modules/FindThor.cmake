@@ -138,7 +138,7 @@ mark_as_advanced(THOR_INCLUDE_DIR
 # Result
 if(THOR_FOUND)
 	# Success
-	message("Found Thor: ${THOR_INCLUDE_DIR}")
+	message(STATUS "Found Thor: ${THOR_INCLUDE_DIR}")
 else()
 	# include directory or library not found
 	set(FINDTHOR_ERROR "Could NOT find Thor (missing: ${FINDTHOR_MISSING})")

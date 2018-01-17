@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/View.hpp>
+
 #include "entities/Entity.h"
 
 namespace engine::systems {
@@ -24,9 +26,10 @@ namespace engine::systems {
          * 
          * It must be define in each system
          * \param deltatime The time since the last update
+         * \param view The view of the game; beware that every system can modify the view
          * \return Whether the update could correctly be updated or not
          */
-        virtual bool update(float deltatime) = 0;
+        virtual bool update(float deltatime, sf::View &view) = 0;
 
         /**
          * \brief Tries to add an entity to this system.

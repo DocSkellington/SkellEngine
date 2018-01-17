@@ -4,10 +4,15 @@ set(CXX_STANDARD_REQUIRED on)
 
 add_definitions(-Wall)
 
+if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    add_definitions(-DDEBUG)
+endif()
+
 # Source files
 file(GLOB_RECURSE
     SOURCES
     src/*.cpp
+    src/*.c
 )
 
 # Includes
@@ -32,13 +37,6 @@ find_package(Thor REQUIRED)
 if(THOR_FOUND)
   include_directories(${THOR_INCLUDE_DIR})
   target_link_libraries(${EXECUTABLE_NAME} thor)
-endif()
-
-# tmx-loader
-find_package(TMX REQUIRED)
-if(TMX_FOUND)
-    include_directories(${TMX_INCLUDE_DIR})
-    target_link_libraries(${EXECUTABLE_NAME} tmx-loader pugi)
 endif()
 
 #Lua

@@ -1,6 +1,6 @@
 #include "systems/SystemManager.h"
 
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::systems {
     SystemManager::SystemManager(Context& context) :
@@ -14,13 +14,13 @@ namespace engine::systems {
 
     void SystemManager::update(float deltatime) {
         for (auto& system : m_systems) {
-            system.second->update(deltatime);
+            system.second->update(deltatime, m_view);
         }
     }
     
     void SystemManager::draw(sf::RenderWindow *window, unsigned int layer) {
         for (auto &system : m_graphicalSystems)
-            system.second->draw(window, layer);
+            system.second->draw(window, layer, m_view);
     }
 
     System::Ptr SystemManager::getSystem(const std::string &name) {
@@ -32,7 +32,7 @@ namespace engine::systems {
 
     bool SystemManager::addSystem(const std::string &name) {
         if (m_systems.find(name) != m_systems.end()) {
-            log::log("impossible to use two systems of the same type (" + name + ").", log::LogLevel::Error);
+            tmx::Logger::log("impossible to use two systems of the same type (" + name + ").", tmx::Logger::Type::Error);
             return false;
         }
 

@@ -22,4 +22,12 @@ namespace engine::states {
     StateManager& State::getStateManager() const {
         return m_stateManager;
     }
+
+    sf::View State::getView() const {
+        return m_view;
+    }
+
+    void State::setView(const sf::View &view) {
+        m_view = view;
+    }
 }

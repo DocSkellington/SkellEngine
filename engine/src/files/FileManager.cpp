@@ -7,7 +7,7 @@
 #include "Context.h"
 #include "errors/FileNotFound.h"
 #include "errors/BadLevelDescription.h"
-#include "log/Logger.h"
+#include <tmxlite/detail/Log.hpp>
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :
@@ -20,7 +20,7 @@ namespace engine::files {
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
-        log::log("Changing level to: " + levelName, log::LogLevel::Info);
+        tmx::Logger::log("Changing level to: " + levelName, tmx::Logger::Type::Info);
         // Clearing 
         m_levelDescription.clear();
         m_entitiesGlobal.clear();
@@ -104,8 +104,7 @@ namespace engine::files {
     }
 
     void FileManager::applyLevelDescription() {
-        if (!m_context.mapLoader->load(m_levelDescription.map + ".tmx"))
-            throw errors::BadLevelDescription("ERROR: " + m_levelDescription.name + ": impossible to load the map: " + m_levelDescription.map);
+        m_context.map->load(m_levelDescription.map);
 
         auto &entities = m_levelDescription.entities;
 

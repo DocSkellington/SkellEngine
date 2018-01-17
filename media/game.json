@@ -3,7 +3,6 @@
     "name" : "Game",
     "log" : {
         "output" : "all",
-        "level" : "none"
     },
     "window" : {
         "fullscreen" : false,
@@ -18,11 +17,7 @@
     },
     "media" : {
         "baseSprites" : "media/sprites",
-        "maps" : {
-            "tilesets" : "media/maps/tilesets",
-            "images" : "media/maps/images",
-            "maps" : "media/maps/maps"
-        }
+        "maps": "media/maps/maps"
     },
     "states" : {
         "first" : "MainMenu"
