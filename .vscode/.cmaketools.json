@@ -18,31 +18,6 @@
             "sourceDirectory": "/home/gaetan/Github/Games/Engine",
             "targets": [
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/engine/CMakeFiles/sol2",
-                      "../build/engine/CMakeFiles/sol2.rule",
-                      "../build/engine/CMakeFiles/sol2-complete.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-install.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-mkdir.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-download.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-update.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-patch.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-configure.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-build.rule",
-                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-test.rule"
-                    ]
-                  }
-                ],
-                "fullName": "sol2",
-                "name": "sol2",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
-                "type": "UTILITY"
-              },
-              {
                 "artifacts": [
                   "/home/gaetan/Github/Games/Engine/build/engine/Engine"
                 ],
@@ -144,13 +119,38 @@
                 "name": "Engine",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/engine/CMakeFiles/sol2",
+                      "../build/engine/CMakeFiles/sol2.rule",
+                      "../build/engine/CMakeFiles/sol2-complete.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-install.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-mkdir.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-download.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-update.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-patch.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-configure.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-build.rule",
+                      "../build/dependencies/Sol2/src/sol2-stamp/sol2-test.rule"
+                    ]
+                  }
+                ],
+                "fullName": "sol2",
+                "name": "sol2",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
+                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.3738878713737088",
+    "cookie": "0.7167912337795217",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
