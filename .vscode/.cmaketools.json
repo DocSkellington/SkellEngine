@@ -121,6 +121,22 @@
                 "type": "EXECUTABLE"
               },
               {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
+              },
+              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
                 "fileGroups": [
                   {
@@ -150,7 +166,7 @@
         ]
       }
     ],
-    "cookie": "0.7167912337795217",
+    "cookie": "0.26397296028657014",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

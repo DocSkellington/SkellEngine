@@ -11,7 +11,7 @@ namespace engine::map {
     public:
         /**
          * \brief The constructor
-         * \param baseMapPath The path from "media" to the folder in which maps can be found
+         * \param folder The path from "media" to the folder in which maps can be found
          */
         explicit Map(const std::string &folder);
         Map(const Map&) = delete;

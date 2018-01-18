@@ -13,14 +13,14 @@ namespace engine::states {
         MainMenuState(const MainMenuState&) = delete;
         virtual ~MainMenuState();
 
-        virtual void onCreate();
-        virtual void onDestroy();
+        virtual void onCreate() override;
+        virtual void onDestroy() override;
 
-        virtual void activate();
-        virtual void deactivate();
+        virtual void activate() override;
+        virtual void deactivate() override;
 
-        virtual void update(float deltatime);
-        virtual void handleEvent(sf::Event &event);
-        virtual void draw(std::shared_ptr<sf::RenderWindow> &window);
+        virtual void update(float deltatime) override;
+        virtual void handleEvent(sf::Event &event) override;
+        virtual void draw(std::shared_ptr<sf::RenderWindow> &window) override;
     };
 }

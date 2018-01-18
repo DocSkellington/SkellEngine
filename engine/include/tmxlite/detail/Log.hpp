@@ -94,6 +94,12 @@ namespace tmx
 			return *getOutputPtr();
 		}
 
+        /*!
+        \brief Logs a message to a given destination.
+        \param message Message to log
+        \param type Whether this message gets tagged as information, a warning or an error
+        \param output Destination for the message. Can be the console via cout, a log file on disk, both or none
+        */
         static void forceLog(const std::string& message, Type type = Type::Info, Output output = Output::Console) {
 			Output old = getOutput();
 			setOutput(output);
@@ -105,7 +111,6 @@ namespace tmx
         \brief Logs a message to a given destination.
         \param message Message to log
         \param type Whether this message gets tagged as information, a warning or an error
-        \param output Destination for the message. Can be the console via cout, a log file on disk, or both
         */
         static void log(const std::string& message, Type type = Type::Info)
         {

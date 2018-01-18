@@ -15,9 +15,9 @@ namespace engine::entities::components {
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
 
-        void create(Context &context, const nlohmann::json &jsonTable);
-        void create(Context &context, const sol::table& luaTable);
-        void create(Context &context, const nlohmann::json &jsonTable, const sol::table& luaTable);
+        void create(Context &context, const nlohmann::json &jsonTable) override;
+        void create(Context &context, const sol::table& luaTable) override;
+        void create(Context &context, const nlohmann::json &jsonTable, const sol::table& luaTable) override;
 
     private:
         nlohmann::json jsonTable;
