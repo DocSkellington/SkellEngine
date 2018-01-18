@@ -42,8 +42,6 @@
     * `systems/systemName`
     * `states/stateName`
 * Map:
-  * Switch to tmxlite
-    * Include sources in project
   * Draw and test physics only on visible parts:
     * On creation:
       * Load every layer:
@@ -54,6 +52,11 @@
     * On draw:
       * Render
   * System? Map on its own (with render, update, collisions' tester, ...)? Map on its own with utilities to retrieve the tiles seen (for graphics) and check if a position is inside an object (+ return type and properties if yes)?
+  * Storing:
+    * Must be able to retrieve the correct tileset and tile from the ID
+    * Does not draw invisible tiles
+    * Must draw with the correct opacity!
+    * Must draw animations
 * Documentation:
   * Update Dependencies and Building
   * Add default values
