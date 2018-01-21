@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <string>
 #include <algorithm>
+#include <cstdio>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -21,6 +22,9 @@ using namespace std;
 namespace engine {
     Engine::Engine() {
         #ifdef DEBUG
+        // Erasing the old log
+        remove("media/log.txt");
+        // Setting default value to the output
         tmx::Logger::setOutput(tmx::Logger::Output::All);
         #else
         tmx::Logger::setOutput(tmx::Logger::Output::None);
@@ -46,7 +50,7 @@ namespace engine {
         tmx::Logger::setOutput(description.log.output);
         #endif
 
-        m_context.map = make_shared<map::Map>(description.media.mapFolder);
+        m_context.map = make_shared<map::Map>(m_context, description.media.mapFolder);
 
         // Creating the window
         createWindow(description.window, description.version);

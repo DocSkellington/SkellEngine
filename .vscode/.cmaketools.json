@@ -121,22 +121,6 @@
                 "type": "EXECUTABLE"
               },
               {
-                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "../build/docs/CMakeFiles/doc_doxygen",
-                      "../build/docs/CMakeFiles/doc_doxygen.rule"
-                    ]
-                  }
-                ],
-                "fullName": "doc_doxygen",
-                "name": "doc_doxygen",
-                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
-                "type": "UTILITY"
-              },
-              {
                 "buildDirectory": "/home/gaetan/Github/Games/Engine/build/engine",
                 "fileGroups": [
                   {
@@ -160,13 +144,29 @@
                 "name": "sol2",
                 "sourceDirectory": "/home/gaetan/Github/Games/Engine/engine",
                 "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "/home/gaetan/Github/Games/Engine/build/docs",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../build/docs/CMakeFiles/doc_doxygen",
+                      "../build/docs/CMakeFiles/doc_doxygen.rule"
+                    ]
+                  }
+                ],
+                "fullName": "doc_doxygen",
+                "name": "doc_doxygen",
+                "sourceDirectory": "/home/gaetan/Github/Games/Engine/docs",
+                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.26397296028657014",
+    "cookie": "0.318475244049895",
     "inReplyTo": "codemodel",
     "type": "reply"
   }

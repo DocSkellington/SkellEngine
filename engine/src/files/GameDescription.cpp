@@ -130,6 +130,7 @@ namespace engine::files {
         if (maps != j.end()) {
             if (maps->is_string()) {
                 m.mapFolder = *maps;
+                check_path_end(m.mapFolder);
             }
             else {
                 m.mapFolder = "media/maps/";
@@ -153,7 +154,7 @@ namespace engine::files {
 
     void from_json(const nlohmann::json &j, GameDescription &g) {
         // We load the log description only in Debug build
-        #ifdef _DEBUG_
+        #ifdef DEBUG
         auto log = j.at("log");
         g.log = log;
         #endif

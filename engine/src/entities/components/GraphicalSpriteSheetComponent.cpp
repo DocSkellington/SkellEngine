@@ -15,7 +15,7 @@ namespace engine::entities::components {
     void GraphicalSpriteSheetComponent::create(Context &context, const nlohmann::json &jsonTable) {
         std::string filepath = jsonTable.at("filePath").get<std::string>();
         auto basePath = context.fileManager->getGameDescription().media.baseSprites;
-        auto &texture = context.textureHolder->acquire("filePath", thor::Resources::fromFile<sf::Texture>(basePath + filepath), thor::Resources::Reuse);
+        auto &texture = context.textureHolder->acquire(filepath, thor::Resources::fromFile<sf::Texture>(basePath + filepath), thor::Resources::Reuse);
         m_sprite.setTexture(texture);
     }
 

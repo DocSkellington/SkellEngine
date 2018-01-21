@@ -162,7 +162,7 @@ namespace tmx
             if (getOutput() == Output::File || getOutput() == Output::All)
             {
                 //output to a log file
-                std::ofstream file("output.log", std::ios::app);
+                std::ofstream file("media/log.txt", std::ios::app);
                 if (file.good())
                 {
 #ifndef __ANDROID__
