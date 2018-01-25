@@ -3,6 +3,54 @@
 #include "errors/BadLevelDescription.h"
 
 namespace engine::map {
+    Map::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags) :
+        m_map(map),
+        m_tile(tile),
+        m_flip(flipFlags),
+        m_currentFrame(0),
+        m_elapsed(0) {
+        m_sprite.setPosition(x * map.m_map.getTileSize().x, y * map.m_map.getTileSize().y);
+        updateSprite();
+    }
+
+    void Map::Tile::update(sf::Int32 deltaTime) {
+        // We update if we only have two frames
+        if (m_tile->animation.frames.size() <= 1)
+            return;
+
+        m_elapsed += deltaTime;
+        while (m_elapsed >= m_tile->animation.frames[m_currentFrame].duration) {
+            m_elapsed -= m_tile->animation.frames[m_currentFrame].duration;
+            m_currentFrame = (m_currentFrame + 1) % m_tile->animation.frames.size();
+        }
+
+        updateSprite();
+    }
+
+    void Map::Tile::updateSprite() {
+        if (m_tile->animation.frames.size() > 1) {
+            tmx::Logger::log(std::to_string(m_currentFrame));
+            tmx::Logger::log(std::to_string(m_tile->animation.frames[m_currentFrame].tileID));
+            //tmx::Logger::log(std::to_string(m_map.m_tilesetTiles[m_tile->animation.frames[m_currentFrame].tileID]));
+            //tmx::Logger::log("Loading " + m_map.m_tilesetTiles[m_tile->animation.frames[m_currentFrame].tileID]->imagePath);
+            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
+        }
+    }
+
+    void Map::Tile::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+        states.transform *= getTransform();
+
+        target.draw(m_sprite);
+    }
+
+    void Map::TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+        for (std::size_t y = 0 ; y < tiles.size() ; y++) {
+            for (std::size_t x = 0 ; x < tiles[y].size() ; x++) {
+                target.draw(tiles[y][x]);
+            }
+        }
+    }
+
     Map::Map(Context &context, const std::string &folder) :
         m_context(context),
         m_folder(folder) {
@@ -41,18 +89,50 @@ namespace engine::map {
 
     void Map::clear() {
         m_tileLayers.clear();
+        m_tilesetTiles.clear();
+    }
+
+    void Map::drawLayer(sf::RenderWindow* window, std::size_t layer) {
+        if (layer >= m_tileLayers.size())
+            return;
+
+        window->draw(m_tileLayers[layer]);
+    }
+
+    void Map::updateTiles(sf::Int32 deltaTime) {
+        for (auto &layer : m_tileLayers) {
+            for (std::size_t x = 0 ; x < m_map.getTileCount().x ; x++) {
+                for (std::size_t y = 0 ; y < m_map.getTileCount().y ; y++) {
+                    layer.tiles[x][y].update(deltaTime);
+                }
+            }
+        }
     }
 
     void Map::loadTilesets() {
         auto &textureHolder = m_context.textureHolder;
         for (auto &tileset : m_map.getTilesets()) {
-            for (auto &tile : tileset.getTiles()) {
-                textureHolder->acquire(tile.imagePath, thor::Resources::fromFile<sf::Texture>(tile.imagePath), thor::Resources::Reuse);
+            for (const auto &tile : tileset.getTiles()) {
+                m_tilesetTiles.emplace(tile.ID, std::make_shared<tmx::Tileset::Tile>(tile));
             }
         }
     }
 
     void Map::loadTileLayer(const tmx::Layer *layer) {
         const auto& l = *dynamic_cast<const tmx::TileLayer*>(layer);
+
+        TileLayer la;
+
+        for (std::size_t y = 0 ; y < m_map.getTileCount().y ; y++) {
+            std::vector<Tile> row;
+            for (std::size_t x = 0 ; x < m_map.getTileCount().x ; x++) {
+                const auto &tile = l.getTiles()[y * m_map.getTileCount().y + x];
+                Tile t(*this, x, y, m_tilesetTiles[tile.ID-1], tile.flipFlags);
+                row.push_back(t);
+            }
+            la.tiles.push_back(row);
+        }
+
+        m_tileLayers.push_back(la);
     }
 }
