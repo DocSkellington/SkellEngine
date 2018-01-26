@@ -48,7 +48,14 @@ namespace engine::map {
          */
         void updateTiles(sf::Int32 deltaTime);
 
-        void drawLayer(sf::RenderWindow* window, std::size_t layer);
+        /**
+         * \brief Draws a layer
+         * \param window The RenderWindow
+         * \param layer The index of the layer to draw
+         * \param view The view
+         * \todo Optimise according to the view
+         */
+        void drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view);
 
     private:
         class Tile : public sf::Drawable, public sf::Transformable {

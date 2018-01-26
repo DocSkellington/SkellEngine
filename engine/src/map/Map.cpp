@@ -14,7 +14,7 @@ namespace engine::map {
     }
 
     void Map::Tile::update(sf::Int32 deltaTime) {
-        // We update if we only have two frames
+        // We update if we only have an animation
         if (m_tile->animation.frames.size() <= 1)
             return;
 
@@ -29,10 +29,11 @@ namespace engine::map {
 
     void Map::Tile::updateSprite() {
         if (m_tile->animation.frames.size() > 1) {
-            tmx::Logger::log(std::to_string(m_currentFrame));
-            tmx::Logger::log(std::to_string(m_tile->animation.frames[m_currentFrame].tileID));
-            //tmx::Logger::log(std::to_string(m_map.m_tilesetTiles[m_tile->animation.frames[m_currentFrame].tileID]));
-            //tmx::Logger::log("Loading " + m_map.m_tilesetTiles[m_tile->animation.frames[m_currentFrame].tileID]->imagePath);
+            auto ID = m_tile->animation.frames[m_currentFrame].tileID;
+            auto tile = m_map.m_tilesetTiles[ID];
+            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+        }
+        else {
             m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
         }
     }
@@ -92,7 +93,7 @@ namespace engine::map {
         m_tilesetTiles.clear();
     }
 
-    void Map::drawLayer(sf::RenderWindow* window, std::size_t layer) {
+    void Map::drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view) {
         if (layer >= m_tileLayers.size())
             return;
 

@@ -22,7 +22,7 @@ namespace engine::systems {
     }
 
     void GraphicalOrthogonalSystem::draw(sf::RenderWindow* window, unsigned int layer, sf::View view) {
-        getSystemManager().getContext().map->drawLayer(window, layer);
+        getSystemManager().getContext().map->drawLayer(window, layer, view);
         for (auto &entity : getEntities()) {
             auto spriteSheet = entity->getComponent("spritesheet");
             if (spriteSheet) {
