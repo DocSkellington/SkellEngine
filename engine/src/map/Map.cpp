@@ -25,6 +25,9 @@ namespace engine::map {
         }
 
         updateSprite();
+
+        if (m_flip != 0x0)
+            tmx::Logger::log(std::to_string(static_cast<int>(m_flip)));
     }
 
     void Map::Tile::updateSprite() {
@@ -36,6 +39,47 @@ namespace engine::map {
         else {
             m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
         }
+
+        auto width = m_sprite.getLocalBounds().width, height = m_sprite.getLocalBounds().height;
+        m_sprite.setOrigin(width / 2.f, height / 2.f);
+        m_sprite.setTextureRect(sf::IntRect(0.f, 0.f, width, height));
+        m_sprite.setRotation(0.f);
+
+        auto flip = m_flip;
+
+        while (flip != 0) {
+            tmx::Logger::log(std::to_string(flip));
+            if (flip & tmx::TileLayer::FlipFlag::Horizontal) {
+                tmx::Logger::log("Horizontal");
+                flipHorizontal();
+                flip -= tmx::TileLayer::FlipFlag::Horizontal;
+            }
+            if (flip & tmx::TileLayer::FlipFlag::Vertical) {
+                tmx::Logger::log("Vertical");
+                flipVertical();
+                flip -= tmx::TileLayer::FlipFlag::Vertical;
+            }
+            if (flip & tmx::TileLayer::FlipFlag::Diagonal) {
+                tmx::Logger::log("Diagonal");
+                flipDiagonal();
+                flip -= tmx::TileLayer::FlipFlag::Diagonal;
+            }
+        }
+    }
+
+    void Map::Tile::flipVertical() {
+        auto rect = m_sprite.getTextureRect();
+        m_sprite.setTextureRect(sf::IntRect(rect.left, (rect.top == 0) ? rect.height : 0, rect.width, -rect.height));
+    }
+
+    void Map::Tile::flipHorizontal() {
+        auto rect = m_sprite.getTextureRect();
+        m_sprite.setTextureRect(sf::IntRect((rect.left == 0) ? rect.width : 0, rect.top, -rect.width, rect.height)); 
+    }
+
+    void Map::Tile::flipDiagonal() {
+        m_sprite.rotate(270.f);
+        flipVertical();
     }
 
     void Map::Tile::draw(sf::RenderTarget &target, sf::RenderStates states) const {
