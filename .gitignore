@@ -5,3 +5,5 @@ doc_doxygen/*
 *.aux
 *.log
 *.gz
+.vscode/.cmaketools.json
+.vscode/c_cpp_properties.json
