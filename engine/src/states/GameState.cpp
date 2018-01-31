@@ -19,6 +19,7 @@ namespace engine::states {
         getStateManager().getContext().systemManager->clear();
         auto game = getStateManager().getContext().fileManager->getStateDescription("game");
         getStateManager().getContext().systemManager->loadSystems(game.systems);
+        //getStateManager().getContext().window->setView(sf::View(sf::Vector2f(310, 310), sf::Vector2f(640, 640)));
     }
 
     void GameState::onDestroy() {
@@ -35,7 +36,7 @@ namespace engine::states {
 
     }
 
-    void GameState::update(float deltatime) {
+    void GameState::update(sf::Int64 deltatime) {
         getStateManager().getContext().systemManager->update(deltatime);
         getStateManager().getContext().map->updateTiles(deltatime);
     }

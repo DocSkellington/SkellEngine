@@ -16,7 +16,7 @@ namespace engine::systems {
 
     }
 
-    bool GraphicalOrthogonalSystem::update(float deltatime, sf::View &view) {
+    bool GraphicalOrthogonalSystem::update(sf::Int64 deltatime, sf::View &view) {
         // TODO
         return true;
     }

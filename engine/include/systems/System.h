@@ -29,7 +29,7 @@ namespace engine::systems {
          * \param view The view of the game; beware that every system can modify the view
          * \return Whether the update could correctly be updated or not
          */
-        virtual bool update(float deltatime, sf::View &view) = 0;
+        virtual bool update(sf::Int64 deltatime, sf::View &view) = 0;
 
         /**
          * \brief Tries to add an entity to this system.

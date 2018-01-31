@@ -46,7 +46,7 @@ namespace engine::map {
          * 
          * \param deltaTime The elapsed time since the last call frame
          */
-        void updateTiles(sf::Int32 deltaTime);
+        void updateTiles(sf::Int64 deltaTime);
 
         /**
          * \brief Draws a layer
@@ -62,7 +62,7 @@ namespace engine::map {
         public:
             Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags);
 
-            void update(sf::Int32 deltaTime);
+            void update(sf::Int64 deltaTime);
 
         private:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -76,7 +76,7 @@ namespace engine::map {
             std::shared_ptr<const tmx::Tileset::Tile> m_tile;
             std::uint8_t m_flip;
             std::size_t m_currentFrame;
-            std::uint32_t m_elapsed;
+            sf::Int64 m_elapsed;
             sf::Sprite m_sprite;
         };
 

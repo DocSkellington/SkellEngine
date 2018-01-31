@@ -25,7 +25,7 @@ namespace engine::systems {
          * \brief Updates the system manager
          * \param deltatime The time since the last update
          */
-        void update(float deltatime);
+        void update(sf::Int64 deltatime);
         /**
          * \brief Draws the system manager
          * \param window The window in which to draw

@@ -28,7 +28,7 @@ namespace engine::states {
 
     }
 
-    void PauseState::update(float deltatime) {
+    void PauseState::update(sf::Int64 deltatime) {
 
     }
 

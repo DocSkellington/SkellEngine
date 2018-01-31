@@ -12,7 +12,7 @@ namespace engine::systems {
 
     }
 
-    void SystemManager::update(float deltatime) {
+    void SystemManager::update(sf::Int64 deltatime) {
         for (auto& system : m_systems) {
             system.second->update(deltatime, m_view);
         }

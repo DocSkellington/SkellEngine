@@ -79,7 +79,7 @@ namespace engine {
 
             sf::Time elapsed = clock.restart();
 
-            m_context.stateManager->update(elapsed.asMilliseconds());
+            m_context.stateManager->update(elapsed.asMicroseconds());
 
             m_context.stateManager->draw(m_context.window);
 

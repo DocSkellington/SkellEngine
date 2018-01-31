@@ -11,34 +11,6 @@ namespace engine::map {
         m_elapsed(0) {
         m_sprite.setPosition(x * map.m_map.getTileSize().x, y * map.m_map.getTileSize().y);
         updateSprite();
-    }
-
-    void Map::Tile::update(sf::Int32 deltaTime) {
-        // We update if we only have an animation
-        if (m_tile->animation.frames.size() <= 1)
-            return;
-
-        m_elapsed += deltaTime;
-        while (m_elapsed >= m_tile->animation.frames[m_currentFrame].duration) {
-            m_elapsed -= m_tile->animation.frames[m_currentFrame].duration;
-            m_currentFrame = (m_currentFrame + 1) % m_tile->animation.frames.size();
-        }
-
-        updateSprite();
-
-        if (m_flip != 0x0)
-            tmx::Logger::log(std::to_string(static_cast<int>(m_flip)));
-    }
-
-    void Map::Tile::updateSprite() {
-        if (m_tile->animation.frames.size() > 1) {
-            auto ID = m_tile->animation.frames[m_currentFrame].tileID;
-            auto tile = m_map.m_tilesetTiles[ID];
-            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
-        }
-        else {
-            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
-        }
 
         auto width = m_sprite.getLocalBounds().width, height = m_sprite.getLocalBounds().height;
         m_sprite.setOrigin(width / 2.f, height / 2.f);
@@ -47,6 +19,8 @@ namespace engine::map {
 
         auto flip = m_flip;
 
+        if (flip != 0)
+            tmx::Logger::log("New flip");
         while (flip != 0) {
             tmx::Logger::log(std::to_string(flip));
             if (flip & tmx::TileLayer::FlipFlag::Horizontal) {
@@ -64,6 +38,34 @@ namespace engine::map {
                 flipDiagonal();
                 flip -= tmx::TileLayer::FlipFlag::Diagonal;
             }
+        }
+    }
+
+    void Map::Tile::update(sf::Int64 deltaTime) {
+        // We update if we only have an animation
+        if (m_tile->animation.frames.size() <= 1)
+            return;
+
+        m_elapsed += deltaTime;
+        while (m_elapsed >= m_tile->animation.frames[m_currentFrame].duration * 1000) {
+            m_elapsed -= m_tile->animation.frames[m_currentFrame].duration * 1000;
+            m_currentFrame = (m_currentFrame + 1) % m_tile->animation.frames.size();
+        }
+
+        updateSprite();
+
+        if (m_flip != 0x0)
+            tmx::Logger::log(std::to_string(static_cast<int>(m_flip)));
+    }
+
+    void Map::Tile::updateSprite() {
+        if (m_tile->animation.frames.size() > 1) {
+            auto ID = m_tile->animation.frames[m_currentFrame].tileID;
+            auto tile = m_map.m_tilesetTiles[ID];
+            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+        }
+        else {
+            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
         }
     }
 
@@ -144,7 +146,7 @@ namespace engine::map {
         window->draw(m_tileLayers[layer]);
     }
 
-    void Map::updateTiles(sf::Int32 deltaTime) {
+    void Map::updateTiles(sf::Int64 deltaTime) {
         for (auto &layer : m_tileLayers) {
             for (std::size_t x = 0 ; x < m_map.getTileCount().x ; x++) {
                 for (std::size_t y = 0 ; y < m_map.getTileCount().y ; y++) {

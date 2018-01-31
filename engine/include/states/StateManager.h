@@ -35,7 +35,7 @@ namespace engine::states {
         * \brief Updates the states starting from the front and until it reaches a non-transcendant state.
         * \param deltatime The time since the last update
         */
-        void update(float deltatime);
+        void update(sf::Int64 deltatime);
 
         /**
         * \brief Draws the states starting from the front and until it reaches a non-transparent state.

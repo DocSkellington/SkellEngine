@@ -39,7 +39,7 @@ namespace engine::states {
         * \brief Updates the state
         * \param deltatime The time since the last update
         */
-        virtual void update(float deltatime) = 0;
+        virtual void update(sf::Int64 deltatime) = 0;
         /**
         * \brief Handles an event
         * \param event The event to process

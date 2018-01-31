@@ -31,7 +31,7 @@ namespace engine::states {
 
     }
 
-    void MainMenuState::update(float deltatime) {
+    void MainMenuState::update(sf::Int64 deltatime) {
 
     }
 

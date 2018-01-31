@@ -14,7 +14,7 @@ namespace engine::states {
         }
     }
 
-    void StateManager::update(float deltatime) {
+    void StateManager::update(sf::Int64 deltatime) {
         for (auto &state : m_states) {
             state.second->update(deltatime);
 
