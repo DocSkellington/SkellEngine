@@ -3,13 +3,14 @@
 #include "errors/BadLevelDescription.h"
 
 namespace engine::map {
-    Map::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags) :
+    Map::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha) :
         m_map(map),
         m_tile(tile),
         m_flip(flipFlags),
         m_currentFrame(0),
         m_elapsed(0) {
         m_sprite.setPosition(x * map.m_map.getTileSize().x, y * map.m_map.getTileSize().y);
+        m_sprite.setColor(sf::Color(255, 255, 255, alpha));
         updateSprite();
     }
 
@@ -172,7 +173,6 @@ namespace engine::map {
     }
 
     void Map::loadTilesets() {
-        auto &textureHolder = m_context.textureHolder;
         for (auto &tileset : m_map.getTilesets()) {
             for (const auto &tile : tileset.getTiles()) {
                 m_tilesetTiles.emplace(tile.ID, std::make_shared<tmx::Tileset::Tile>(tile));
@@ -188,8 +188,9 @@ namespace engine::map {
         for (std::size_t y = 0 ; y < m_map.getTileCount().y ; y++) {
             std::vector<Tile> row;
             for (std::size_t x = 0 ; x < m_map.getTileCount().x ; x++) {
+                std::uint8_t alpha = l.getOpacity() * 255;
                 const auto &tile = l.getTiles()[y * m_map.getTileCount().y + x];
-                Tile t(*this, x, y, m_tilesetTiles[tile.ID-1], tile.flipFlags);
+                Tile t(*this, x, y, m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha);
                 row.push_back(t);
             }
             la.tiles.push_back(row);

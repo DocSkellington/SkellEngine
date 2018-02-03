@@ -60,7 +60,7 @@ namespace engine::map {
     private:
         class Tile : public sf::Drawable, public sf::Transformable {
         public:
-            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags);
+            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha);
 
             void update(sf::Int32 deltaTime);
 
@@ -69,7 +69,6 @@ namespace engine::map {
             void updateSprite();
             void flipVertical();
             void flipHorizontal();
-            void flipDiagonal();
 
         private:
             Map &m_map;
