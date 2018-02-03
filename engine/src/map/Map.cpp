@@ -45,24 +45,46 @@ namespace engine::map {
         m_sprite.setTextureRect(sf::IntRect(0.f, 0.f, width, height));
         m_sprite.setRotation(0.f);
 
-        auto flip = m_flip;
-
-        while (flip != 0) {
-            tmx::Logger::log(std::to_string(flip));
-            if (flip & tmx::TileLayer::FlipFlag::Horizontal) {
-                tmx::Logger::log("Horizontal");
-                flipHorizontal();
-                flip -= tmx::TileLayer::FlipFlag::Horizontal;
+        if (m_flip & tmx::TileLayer::FlipFlag::Horizontal) {
+            if (m_flip & tmx::TileLayer::FlipFlag::Vertical) {
+                if (m_flip & tmx::TileLayer::FlipFlag::Diagonal) {
+                    // Horizontal + Vertical + Diagonal
+                    m_sprite.rotate(270.f);
+                    flipVertical();
+                }
+                else {
+                    // Horizontal + Vertical
+                    m_sprite.rotate(180.f);
+                }
             }
-            if (flip & tmx::TileLayer::FlipFlag::Vertical) {
-                tmx::Logger::log("Vertical");
-                flipVertical();
-                flip -= tmx::TileLayer::FlipFlag::Vertical;
+            else {
+                if (m_flip & tmx::TileLayer::FlipFlag::Diagonal) {
+                    // Horizontal + Diagonal
+                    m_sprite.rotate(90.f);
+                }
+                else {
+                    // Horizontal
+                    flipHorizontal();
+                }
             }
-            if (flip & tmx::TileLayer::FlipFlag::Diagonal) {
-                tmx::Logger::log("Diagonal");
-                flipDiagonal();
-                flip -= tmx::TileLayer::FlipFlag::Diagonal;
+        }
+        else {
+            if (m_flip & tmx::TileLayer::FlipFlag::Vertical) {
+                if (m_flip & tmx::TileLayer::FlipFlag::Diagonal) {
+                    // Vertical + Diagonal
+                    m_sprite.rotate(270.f);
+                }
+                else {
+                    // Vertical
+                    flipVertical();
+                }
+            }
+            else {
+                if (m_flip & tmx::TileLayer::FlipFlag::Diagonal) {
+                    // Diagonal
+                    m_sprite.rotate(90.f);
+                    flipVertical();
+                }
             }
         }
     }
@@ -75,11 +97,6 @@ namespace engine::map {
     void Map::Tile::flipHorizontal() {
         auto rect = m_sprite.getTextureRect();
         m_sprite.setTextureRect(sf::IntRect((rect.left == 0) ? rect.width : 0, rect.top, -rect.width, rect.height)); 
-    }
-
-    void Map::Tile::flipDiagonal() {
-        m_sprite.rotate(270.f);
-        flipVertical();
     }
 
     void Map::Tile::draw(sf::RenderTarget &target, sf::RenderStates states) const {
