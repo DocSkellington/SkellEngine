@@ -7,6 +7,8 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>
 
+#include "Layers.h"
+
 namespace engine{
     struct Context;
 }
@@ -16,6 +18,7 @@ namespace engine{
  */
 namespace engine::map {
     class Map {
+    friend class TileLayer;
     public:
         /**
          * \brief The constructor
@@ -42,11 +45,11 @@ namespace engine::map {
         void clear();
 
         /**
-         * \brief Updates the tiles' animations.
+         * \brief Updates the layers
          * 
          * \param deltaTime The elapsed time since the last call frame
          */
-        void updateTiles(sf::Int32 deltaTime);
+        void updateLayers(sf::Int32 deltaTime);
 
         /**
          * \brief Draws a layer
@@ -58,37 +61,10 @@ namespace engine::map {
         void drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view);
 
     private:
-        class Tile : public sf::Drawable, public sf::Transformable {
-        public:
-            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha);
-
-            void update(sf::Int32 deltaTime);
-
-        private:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-            void updateSprite();
-            void flipVertical();
-            void flipHorizontal();
-
-        private:
-            Map &m_map;
-            std::shared_ptr<const tmx::Tileset::Tile> m_tile;
-            std::uint8_t m_flip;
-            std::size_t m_currentFrame;
-            std::uint32_t m_elapsed;
-            sf::Sprite m_sprite;
-        };
-
-        struct TileLayer : public sf::Transformable, sf::Drawable {
-            std::vector<std::vector<Tile>> tiles;
-
-        protected:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-        };
-
-    private:
         void loadTilesets();
         void loadTileLayer(const tmx::Layer *layer);
+        void loadObjectLayer(const tmx::Layer *layer);
+        void loadImageLayer(const tmx::Layer *layer);
 
     private:
         Context &m_context;
@@ -96,10 +72,7 @@ namespace engine::map {
 
         tmx::Map m_map;
 
-        std::vector<TileLayer> m_tileLayers;
-
-        std::vector<std::size_t> m_objectLayers;
-        std::vector<std::size_t> m_imageLayers;
+        std::vector<std::unique_ptr<Layer>> m_layers;
 
         std::map<std::uint32_t, std::shared_ptr<const tmx::Tileset::Tile>> m_tilesetTiles;
     };

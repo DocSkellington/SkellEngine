@@ -37,7 +37,7 @@ namespace engine::states {
 
     void GameState::update(float deltatime) {
         getStateManager().getContext().systemManager->update(deltatime);
-        getStateManager().getContext().map->updateTiles(deltatime);
+        getStateManager().getContext().map->updateLayers(deltatime);
     }
 
     void GameState::handleEvent(sf::Event &event) {
