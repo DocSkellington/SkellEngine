@@ -24,13 +24,13 @@ namespace engine::map {
         return m_map;
     }
 
-    TileLayer::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha) :
+    TileLayer::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
         m_map(map),
         m_tile(tile),
         m_flip(flipFlags),
         m_currentFrame(0),
         m_elapsed(0) {
-        m_sprite.setPosition(x * map.m_map.getTileSize().x, y * map.m_map.getTileSize().y);
+        m_sprite.setPosition(x * map.m_map.getTileSize().x + offset.x, y * map.m_map.getTileSize().y + offset.y);
         m_sprite.setColor(sf::Color(255, 255, 255, alpha));
         updateSprite();
     }
@@ -130,8 +130,14 @@ namespace engine::map {
             std::vector<Tile> row;
             for (std::size_t x = 0 ; x < map.m_map.getTileCount().x ; x++) {
                 std::uint8_t alpha = layer.getOpacity() * 255;
+
                 const auto &tile = layer.getTiles()[y * map.m_map.getTileCount().y + x];
-                Tile t(map, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha);
+
+                tmx::Vector2i offset = layer.getOffset();
+                offset.x += map.m_tileOffset[tile.ID - 1]->x;
+                offset.y += map.m_tileOffset[tile.ID - 1]->y;
+
+                Tile t(map, x, y, map.m_tilesetTiles[tile.ID - 1], tile.flipFlags, alpha, offset);
                 row.push_back(t);
             }
             tiles.push_back(row);
@@ -151,16 +157,30 @@ namespace engine::map {
     }
 
     void TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+        states.transform *= getTransform();
         for (std::size_t y = 0 ; y < tiles.size() ; y++) {
             for (std::size_t x = 0 ; x < tiles[y].size() ; x++) {
-                target.draw(tiles[y][x]);
+                target.draw(tiles[y][x], states);
             }
         }
     }
 
     ImageLayer::ImageLayer(Map &map, const tmx::ImageLayer &layer) :
         Layer(map, layer.getVisible()) {
+        sf::Image image;
+        image.loadFromFile(layer.getImagePath());
 
+        std::string id = layer.getImagePath();
+        if (layer.hasTransparency()) {
+            image.createMaskFromColor(sf::Color(layer.getTransparencyColour().r, layer.getTransparencyColour().g, layer.getTransparencyColour().b, layer.getTransparencyColour().a));
+            id += std::to_string(layer.getTransparencyColour().r) + " " + std::to_string(layer.getTransparencyColour().g) + " " + std::to_string(layer.getTransparencyColour().b) + " " + std::to_string(layer.getTransparencyColour().a);
+        }
+
+        m_sprite.setTexture(getMap().m_context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
+
+        m_sprite.setColor(sf::Color(255, 255, 255, layer.getOpacity() * 255));
+
+        m_sprite.setPosition(layer.getOffset().x, layer.getOffset().y);
     }
 
     ImageLayer::~ImageLayer() {
@@ -174,9 +194,8 @@ namespace engine::map {
     }
 
     void ImageLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-        /**
-         * \todo Implement
-         */
+        states.transform *= getTransform();
+        target.draw(m_sprite, states);
     }
 
     ObjectLayer::ObjectLayer(Map &map, const tmx::ObjectGroup &layer) :

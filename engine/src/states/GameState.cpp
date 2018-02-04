@@ -50,5 +50,7 @@ namespace engine::states {
     void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
         getStateManager().getContext().systemManager->draw(window.get(), 0);
         getStateManager().getContext().systemManager->draw(window.get(), 1);
+        getStateManager().getContext().systemManager->draw(window.get(), 2);
+        getStateManager().getContext().systemManager->draw(window.get(), 3);
     }
 }

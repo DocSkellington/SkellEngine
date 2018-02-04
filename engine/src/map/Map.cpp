@@ -61,6 +61,7 @@ namespace engine::map {
         for (auto &tileset : m_map.getTilesets()) {
             for (const auto &tile : tileset.getTiles()) {
                 m_tilesetTiles.emplace(tile.ID, std::make_shared<tmx::Tileset::Tile>(tile));
+                m_tileOffset.emplace(tile.ID, std::make_unique<tmx::Vector2u>(tileset.getTileOffset()));
             }
         }
     }

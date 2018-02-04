@@ -19,6 +19,7 @@ namespace engine{
 namespace engine::map {
     class Map {
     friend class TileLayer;
+    friend class ImageLayer;
     public:
         /**
          * \brief The constructor
@@ -75,5 +76,6 @@ namespace engine::map {
         std::vector<std::unique_ptr<Layer>> m_layers;
 
         std::map<std::uint32_t, std::shared_ptr<const tmx::Tileset::Tile>> m_tilesetTiles;
+        std::map<std::uint32_t, std::unique_ptr<const tmx::Vector2u>> m_tileOffset;
     };
 }

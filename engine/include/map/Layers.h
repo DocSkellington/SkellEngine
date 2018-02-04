@@ -13,8 +13,9 @@ namespace engine::map {
     class Map;
 
     /**
-     * \brief A layer to use in a map
-     * \todo Offsets
+     * \brief A layer to use in a map.
+     * 
+     * For each layer type, the data is loaded from a tmx::Layer instance
      */
     class Layer : public sf::Drawable, public sf::Transformable {
     public:
@@ -59,12 +60,12 @@ namespace engine::map {
         /**
          * \brief A Tile.
          * 
-         * It handles flipping/rotation, opacity, animation.
+         * It handles flipping/rotation, opacity, animation and offset.
          * A Tile knows its position
          */
         class Tile : public sf::Drawable, public sf::Transformable {
         public:
-            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha);
+            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
 
             void update(sf::Int32 deltaTime);
 
@@ -87,6 +88,9 @@ namespace engine::map {
         std::vector<std::vector<Tile>> tiles;
     };
 
+    /**
+     * 
+     */
     class ImageLayer : public Layer {
     public:
         ImageLayer(Map &map, const tmx::ImageLayer &layer);
@@ -97,6 +101,9 @@ namespace engine::map {
 
     protected:
         void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+    private:
+        sf::Sprite m_sprite;
     };
 
     class ObjectLayer : public Layer {
