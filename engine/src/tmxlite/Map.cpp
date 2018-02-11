@@ -32,7 +32,7 @@ source distribution.
 #include <tmxlite/ObjectGroup.hpp>
 #include <tmxlite/ImageLayer.hpp>
 #include <tmxlite/TileLayer.hpp>
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 #include <tmxlite/detail/Android.hpp>
 
 #include <queue>

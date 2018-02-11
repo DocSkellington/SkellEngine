@@ -6,7 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <json.hpp>
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::files {
     /**

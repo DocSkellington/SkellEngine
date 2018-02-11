@@ -15,7 +15,7 @@
 #include "config.h"
 #include "states/MainMenuState.h"
 #include "files/FileManager.h"
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 using namespace std;
 

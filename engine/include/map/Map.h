@@ -17,9 +17,15 @@ namespace engine{
  * \brief Contains the map and utilities to interact with it
  */
 namespace engine::map {
+    /**
+     * \brief A 2D map.
+     * 
+     * The data is loaded from a Tiled file (.tmx).
+     */
     class Map {
     friend class TileLayer;
     friend class ImageLayer;
+    friend class ObjectLayer;
     public:
         /**
          * \brief The constructor

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="Test" tilewidth="32" tileheight="32" tilecount="4" columns="0">
+<tileset name="Test" tilewidth="32" tileheight="32" tilecount="6" columns="0">
  <tileoffset x="2" y="2"/>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
@@ -18,5 +18,11 @@
  </tile>
  <tile id="3">
   <image width="32" height="32" source="../images/gradiant.png"/>
+ </tile>
+ <tile id="5">
+  <image width="32" height="32" source="../images/test.png"/>
+ </tile>
+ <tile id="6">
+  <image width="32" height="32" source="../images/green.png"/>
  </tile>
 </tileset>

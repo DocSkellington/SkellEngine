@@ -2,7 +2,7 @@
 
 #include <Thor/Resources.hpp>
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 #include "map/Map.h"
 #include "Context.h"
 
@@ -31,7 +31,12 @@ namespace engine::map {
         m_currentFrame(0),
         m_elapsed(0) {
         m_sprite.setPosition(x * map.m_map.getTileSize().x + offset.x, y * map.m_map.getTileSize().y + offset.y);
+
+        // TODO: correct TextureRect
+        m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
+
         m_sprite.setColor(sf::Color(255, 255, 255, alpha));
+
         updateSprite();
     }
 

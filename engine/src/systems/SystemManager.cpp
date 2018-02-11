@@ -1,6 +1,6 @@
 #include "systems/SystemManager.h"
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::systems {
     SystemManager::SystemManager(Context& context) :

@@ -53,7 +53,7 @@ René Nyffenegger rene.nyffenegger@adp-gmbh.ch
 #define TMXLITE_TILE_FUNCS_HPP_
 
 #include <tmxlite/detail/Android.hpp>
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 #include <tmxlite/Types.hpp>
 
 #include <string>

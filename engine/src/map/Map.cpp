@@ -1,4 +1,5 @@
 #include "map/Map.h"
+#include <cstdlib>
 #include "Context.h"
 #include "errors/BadLevelDescription.h"
 
@@ -59,10 +60,46 @@ namespace engine::map {
 
     void Map::loadTilesets() {
         for (auto &tileset : m_map.getTilesets()) {
-            for (const auto &tile : tileset.getTiles()) {
-                m_tilesetTiles.emplace(tile.ID, std::make_shared<tmx::Tileset::Tile>(tile));
-                m_tileOffset.emplace(tile.ID, std::make_unique<tmx::Vector2u>(tileset.getTileOffset()));
+            tmx::Logger::log(std::to_string(tileset.getTiles().size()));
+            if (tileset.getTiles().size() > 0) {
+                // Collection of images
+                for (const auto &tile : tileset.getTiles()) {
+                    tmx::Logger::log(std::to_string(tile.imageSize.x));
+                    tmx::Logger::log(std::to_string(tile.imageSize.y));
+                    m_tilesetTiles.emplace(tile.ID, std::make_shared<tmx::Tileset::Tile>(tile));
+                    m_tileOffset.emplace(tile.ID, std::make_unique<tmx::Vector2u>(tileset.getTileOffset()));
+                }
             }
+            else {
+                tmx::Logger::log("Image tileset is not supported... The game will close", tmx::Logger::Type::Error);
+                exit(EXIT_FAILURE);
+                // Tileset Image
+                /*std::uint32_t rowCount = std::floor(tileset.getTileCount() / tileset.getColumnCount());
+                auto firstID = tileset.getFirstGID();
+                auto width = tileset.getTileSize().x, height = tileset.getTileSize().y;
+
+                for (std::size_t row = 0 ; row < rowCount ; row++) {
+                    for (std::size_t column = 0 ; column < tileset.getColumnCount() ; column++) {
+                        tmx::Vector2u imagePosition;
+                        imagePosition.x = column * width;
+                        if (column > 0)
+                            imagePosition.x += (column - 1) * tileset.getSpacing();
+                        imagePosition.y = row * height;
+                        if (row > 0)
+                            imagePosition.y += (row - 1) * tileset.getSpacing();
+
+                        tmx::Vector2u imageSize(width, height);
+
+                        tmx::Tileset::Tile tile;
+                        tile.imagePath = tileset.getImagePath();
+                        tile.imagePosition = imagePosition;
+                        tile.imageSize = imageSize;
+                        tile.properties = tileset.getProperties();
+                    }
+                }
+                */
+            }
+            tmx::Logger::log("Tileset");
         }
     }
 
