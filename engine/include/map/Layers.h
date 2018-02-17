@@ -72,6 +72,7 @@ namespace engine::map {
         private:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const;
             void updateSprite();
+            void handleFlip();
             void flipVertical();
             void flipHorizontal();
 

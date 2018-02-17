@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "tmxlite/detail/Log.hpp"
+#include <tmxlite/Log.hpp>
 
 namespace engine::errors {
     /**

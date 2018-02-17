@@ -32,9 +32,6 @@ namespace engine::map {
         m_elapsed(0) {
         m_sprite.setPosition(x * map.m_map.getTileSize().x + offset.x, y * map.m_map.getTileSize().y + offset.y);
 
-        // TODO: correct TextureRect
-        m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
-
         m_sprite.setColor(sf::Color(255, 255, 255, alpha));
 
         updateSprite();
@@ -55,20 +52,27 @@ namespace engine::map {
     }
 
     void TileLayer::Tile::updateSprite() {
+        // TODO: Animations mal gérées dans les layers plus hauts
+        auto tile = m_tile;
         if (m_tile->animation.frames.size() > 1) {
             auto ID = m_tile->animation.frames[m_currentFrame].tileID;
-            auto tile = m_map.m_tilesetTiles[ID];
+            tile = m_map.m_tilesetTiles[ID];
             m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
         }
         else {
-            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(m_tile->imagePath, thor::Resources::fromFile<sf::Texture>(m_tile->imagePath), thor::Resources::Reuse));
+            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
         }
 
-        auto width = m_sprite.getLocalBounds().width, height = m_sprite.getLocalBounds().height;
-        m_sprite.setOrigin(width / 2.f, height / 2.f);
-        m_sprite.setTextureRect(sf::IntRect(0.f, 0.f, width, height));
+        m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
+
+        m_sprite.setOrigin(tile->imageSize.x / 2.f, tile->imageSize.y / 2.f);
+
         m_sprite.setRotation(0.f);
 
+        handleFlip();
+    }
+
+    void TileLayer::Tile::handleFlip() {
         if (m_flip & tmx::TileLayer::FlipFlag::Horizontal) {
             if (m_flip & tmx::TileLayer::FlipFlag::Vertical) {
                 if (m_flip & tmx::TileLayer::FlipFlag::Diagonal) {
@@ -139,10 +143,10 @@ namespace engine::map {
                 const auto &tile = layer.getTiles()[y * map.m_map.getTileCount().y + x];
 
                 tmx::Vector2i offset = layer.getOffset();
-                offset.x += map.m_tileOffset[tile.ID - 1]->x;
-                offset.y += map.m_tileOffset[tile.ID - 1]->y;
+                offset.x += map.m_tileOffset[tile.ID-1]->x;
+                offset.y += map.m_tileOffset[tile.ID-1]->y;
 
-                Tile t(map, x, y, map.m_tilesetTiles[tile.ID - 1], tile.flipFlags, alpha, offset);
+                Tile t(map, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
                 row.push_back(t);
             }
             tiles.push_back(row);

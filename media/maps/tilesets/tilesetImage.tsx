@@ -4,7 +4,7 @@
  <tile id="0">
   <animation>
    <frame tileid="0" duration="400"/>
-   <frame tileid="3" duration="700"/>
+   <frame tileid="4" duration="700"/>
    <frame tileid="6" duration="300"/>
   </animation>
  </tile>
