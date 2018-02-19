@@ -6,7 +6,8 @@ Welcome on the documentation of my Game Engine.
 # Table of Contents
   - [The JSON files syntax](@ref json)
     - [The JSON components](@ref json_full_components)
-  - [The files hierarchy](@ref file_hierarchy)
+  - [Tiled Maps](@ref tiledMaps)
+  - [The files' hierarchy](@ref file_hierarchy)
   - [How to build](@ref building)
   - [Dependencies](@ref dependencies)
 
