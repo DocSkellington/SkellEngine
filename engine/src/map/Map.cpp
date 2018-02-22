@@ -58,6 +58,10 @@ namespace engine::map {
         }
     }
 
+    std::size_t Map::getLayerCount() const {
+        return m_layers.size();
+    }
+
     void Map::loadTilesets() {
         for (auto &tileset : m_map.getTilesets()) {
             for (const auto &tile : tileset.getTiles()) {

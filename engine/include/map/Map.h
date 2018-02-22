@@ -29,6 +29,7 @@ namespace engine::map {
     public:
         /**
          * \brief The constructor
+         * \param context The context
          * \param folder The path from "media" to the folder in which maps can be found
          */
         explicit Map(Context& context, const std::string &folder);
@@ -66,6 +67,12 @@ namespace engine::map {
          * \todo Optimise according to the view
          */
         void drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view);
+
+        /**
+         * \brief Gets the number of layers
+         * \return The number of layers
+         */
+        std::size_t getLayerCount() const;
 
     private:
         void loadTilesets();

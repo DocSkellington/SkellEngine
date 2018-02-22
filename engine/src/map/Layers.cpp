@@ -5,6 +5,7 @@
 #include <tmxlite/Log.hpp>
 #include "map/Map.h"
 #include "Context.h"
+#include "shapes/EllipseShape.h"
 
 namespace engine::map {
     Layer::Layer(Map &map, bool visible) :
@@ -52,7 +53,6 @@ namespace engine::map {
     }
 
     void TileLayer::Tile::updateSprite() {
-        // TODO: Animations mal gérées dans les layers plus hauts
         auto tile = m_tile;
         if (m_tile->animation.frames.size() > 1) {
             auto ID = m_tile->animation.frames[m_currentFrame].tileID;
@@ -197,9 +197,6 @@ namespace engine::map {
     }
 
     void ImageLayer::update(sf::Int32 deltaTime) {
-        /**
-         * \todo Implement
-         */
     }
 
     void ImageLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -209,7 +206,35 @@ namespace engine::map {
 
     ObjectLayer::ObjectLayer(Map &map, const tmx::ObjectGroup &layer) :
         Layer(map, layer.getVisible()) {
+        for (const auto &object : layer.getObjects()) {
+            std::unique_ptr<sf::Shape> shape;
 
+            tmx::FloatRect AABB = object.getAABB();
+            sf::Vector2f widthHeight = sf::Vector2f(AABB.width, AABB.height);
+
+            switch (object.getShape()) {
+            case tmx::Object::Shape::Rectangle:
+                shape = std::make_unique<sf::RectangleShape>(widthHeight);
+                break;
+            case tmx::Object::Shape::Ellipse:
+                shape = std::make_unique<engine::shapes::EllipseShape>(widthHeight);
+                break;
+            case tmx::Object::Shape::Polygon:
+                shape = handlePolygone(object);
+                break;
+            case tmx::Object::Shape::Polyline:
+                handlePolyLines(object);
+                continue;
+            case tmx::Object::Shape::Text:
+            default:
+                tmx::Logger::log("Shape not implemented", tmx::Logger::Type::Warning);
+                continue;
+            }
+
+            shape->setPosition(sf::Vector2f(AABB.left, AABB.top));
+
+            m_shapes.push_back(std::move(shape));
+        }
     }
 
     ObjectLayer::~ObjectLayer() {
@@ -217,14 +242,41 @@ namespace engine::map {
     }
 
     void ObjectLayer::update(sf::Int32 deltaTime) {
-        /**
-         * \todo Implement
-         */
     }
 
     void ObjectLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-        /**
-         * \todo Implement
-         */
+        states.transform *= getTransform();
+
+        for (auto &shape : m_shapes) {
+            target.draw(*shape, states);
+        }
+
+        for (auto &line : m_lines) {
+            target.draw(line, states);
+        }
+    }
+
+    void ObjectLayer::handlePolyLines(const tmx::Object& object) {
+        sf::VertexArray lines(sf::LineStrip, object.getPoints().size());
+
+        for (std::size_t i = 0 ; i < object.getPoints().size() ; i++) {
+            const auto &point = object.getPoints()[i] + object.getPosition();
+
+            lines[i].position = sf::Vector2f(point.x, point.y);
+            lines[i].color = sf::Color::White;
+        }
+
+        m_lines.push_back(lines);
+    }
+
+    std::unique_ptr<sf::Shape> ObjectLayer::handlePolygone(const tmx::Object &object) {
+        std::unique_ptr<sf::ConvexShape> polygone = std::make_unique<sf::ConvexShape>(object.getPoints().size());
+
+        for (std::size_t i = 0 ; i < object.getPoints().size() ; i++) {
+            const auto &point = object.getPoints()[i];
+            polygone->setPoint(i, sf::Vector2f(point.x, point.y));
+        }
+
+        return polygone;
     }
 }

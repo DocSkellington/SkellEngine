@@ -54,7 +54,7 @@ namespace engine::map {
         void update(sf::Int32 deltaTime) override;
 
     protected:
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
         /**
@@ -70,7 +70,7 @@ namespace engine::map {
             void update(sf::Int32 deltaTime);
 
         private:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+            void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
             void updateSprite();
             void handleFlip();
             void flipVertical();
@@ -90,7 +90,7 @@ namespace engine::map {
     };
 
     /**
-     * 
+     * \brief A layer made of a single image
      */
     class ImageLayer : public Layer {
     public:
@@ -101,7 +101,7 @@ namespace engine::map {
         void update(sf::Int32 deltaTime) override;
 
     protected:
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
         sf::Sprite m_sprite;
@@ -117,5 +117,13 @@ namespace engine::map {
 
     protected:
         void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+    private:
+        std::vector<std::unique_ptr<sf::Shape>> m_shapes;
+        std::vector<sf::VertexArray> m_lines;
+
+    private:
+        void handlePolyLines(const tmx::Object &object);
+        std::unique_ptr<sf::Shape> handlePolygone(const tmx::Object &object);
     };
 }
