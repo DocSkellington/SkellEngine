@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="14">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="22">
  <tileset firstgid="1" source="../tilesets/test.tsx"/>
  <tileset firstgid="8" source="../tilesets/tilesetImage.tsx"/>
  <tileset firstgid="24" source="../tilesets/test2.tsx"/>
@@ -79,13 +79,15 @@
   <image source="../images/imageLayer.jpg" trans="ffffff" width="640" height="480"/>
  </imagelayer>
  <objectgroup name="Object Layer 1">
-  <object id="13" x="83.4567" y="173.644">
+  <object id="19" x="277.292" y="67.3038" width="222.103" height="122.493" rotation="45">
    <properties>
-    <property name="fill" type="color" value="#ffd3d7cf"/>
-    <property name="outline" type="color" value="#fff57900"/>
+    <property name="fill" type="color" value="#ff4e9a06"/>
+    <property name="outline" type="color" value="#ff75507b"/>
     <property name="thickness" type="float" value="5"/>
    </properties>
-   <polygon points="-56.5352,76.7263 181.72,-152.107 538.43,92.8793 187.105,-64.6117"/>
+  </object>
+  <object id="21" x="28.2676" y="162.875" visible="0">
+   <polygon points="0,0 51.1509,-115.763 98.2636,65.9577 1.34608,56.5352"/>
   </object>
  </objectgroup>
 </map>

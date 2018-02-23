@@ -227,7 +227,8 @@ namespace engine::map {
         states.transform *= getTransform();
 
         for (auto &shape : m_shapes) {
-            target.draw(*shape, states);
+            if (shape.visible)
+                target.draw(*(shape.shape), states);
         }
 
         for (auto &line : m_lines) {
@@ -249,7 +250,7 @@ namespace engine::map {
             shape = std::make_unique<engine::shapes::EllipseShape>(widthHeight);
             break;
         case tmx::Object::Shape::Polygon:
-            shape = handlePolygone(object);
+            shape = handlePolygon(object);
             break;
         default:
             tmx::Logger::log("Shape not implemented", tmx::Logger::Type::Warning);
@@ -257,6 +258,7 @@ namespace engine::map {
         }
 
         shape->setPosition(sf::Vector2f(AABB.left, AABB.top));
+        shape->setRotation(object.getRotation());
 
         for (auto &property : object.getProperties()) {
             if (property.getName() == "fill") {
@@ -272,7 +274,9 @@ namespace engine::map {
             }
         }
 
-        m_shapes.push_back(std::move(shape));
+        tmx::Logger::log(std::to_string(object.visible()));
+        m_shapes.emplace_back(object.visible(), std::move(shape));
+        tmx::Logger::log(std::to_string(m_shapes.back().visible));
     }
 
     void ObjectLayer::handlePolyLines(const tmx::Object& object) {
@@ -288,7 +292,7 @@ namespace engine::map {
         m_lines.push_back(lines);
     }
 
-    std::unique_ptr<sf::Shape> ObjectLayer::handlePolygone(const tmx::Object &object) {
+    std::unique_ptr<sf::Shape> ObjectLayer::handlePolygon(const tmx::Object &object) {
         std::unique_ptr<sf::ConvexShape> polygone = std::make_unique<sf::ConvexShape>(object.getPoints().size());
 
         for (std::size_t i = 0 ; i < object.getPoints().size() ; i++) {
@@ -300,6 +304,6 @@ namespace engine::map {
     }
 
     void ObjectLayer::handleText(const tmx::Object &object) {
-
+        
     }
 }

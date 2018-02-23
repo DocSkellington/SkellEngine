@@ -119,8 +119,16 @@ namespace engine::map {
         void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
     private:
-        std::vector<std::unique_ptr<sf::Shape>> m_shapes;
+        struct Shape {
+            Shape(bool vis, std::unique_ptr<sf::Shape>s) : visible(vis), shape(std::move(s)) {}
+            bool visible;
+            std::unique_ptr<sf::Shape> shape;
+        };
+
+    private:
+        std::vector<Shape> m_shapes;
         std::vector<sf::VertexArray> m_lines;
+        std::vector<sf::Text> m_texts;
 
     private:
         // Every shape except lines
@@ -128,7 +136,7 @@ namespace engine::map {
         // object must describe a polyline
         void handlePolyLines(const tmx::Object &object);
         // object must describe a polygone
-        std::unique_ptr<sf::Shape> handlePolygone(const tmx::Object &object);
+        std::unique_ptr<sf::Shape> handlePolygon(const tmx::Object &object);
         // object must describe a text
         void handleText(const tmx::Object &object);
     };
