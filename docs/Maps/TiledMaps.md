@@ -26,9 +26,8 @@ Maps can be created with [Tiled map editor](http://www.mapeditor.org/).
     * Flips (and rotation)
 * Image layer
   * Transparent colour
-
-## Planned features
 * Object layers
+  * see @subpage map_objects for more information
 
 ## Unsupported features
 * Map:

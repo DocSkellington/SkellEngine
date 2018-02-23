@@ -123,7 +123,13 @@ namespace engine::map {
         std::vector<sf::VertexArray> m_lines;
 
     private:
+        // Every shape except lines
+        void handleShape(const tmx::Object &object);
+        // object must describe a polyline
         void handlePolyLines(const tmx::Object &object);
+        // object must describe a polygone
         std::unique_ptr<sf::Shape> handlePolygone(const tmx::Object &object);
+        // object must describe a text
+        void handleText(const tmx::Object &object);
     };
 }

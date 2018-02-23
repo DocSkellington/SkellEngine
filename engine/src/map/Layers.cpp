@@ -207,33 +207,12 @@ namespace engine::map {
     ObjectLayer::ObjectLayer(Map &map, const tmx::ObjectGroup &layer) :
         Layer(map, layer.getVisible()) {
         for (const auto &object : layer.getObjects()) {
-            std::unique_ptr<sf::Shape> shape;
-
-            tmx::FloatRect AABB = object.getAABB();
-            sf::Vector2f widthHeight = sf::Vector2f(AABB.width, AABB.height);
-
-            switch (object.getShape()) {
-            case tmx::Object::Shape::Rectangle:
-                shape = std::make_unique<sf::RectangleShape>(widthHeight);
-                break;
-            case tmx::Object::Shape::Ellipse:
-                shape = std::make_unique<engine::shapes::EllipseShape>(widthHeight);
-                break;
-            case tmx::Object::Shape::Polygon:
-                shape = handlePolygone(object);
-                break;
-            case tmx::Object::Shape::Polyline:
+            if (object.getShape() == tmx::Object::Shape::Polyline)
                 handlePolyLines(object);
-                continue;
-            case tmx::Object::Shape::Text:
-            default:
-                tmx::Logger::log("Shape not implemented", tmx::Logger::Type::Warning);
-                continue;
-            }
-
-            shape->setPosition(sf::Vector2f(AABB.left, AABB.top));
-
-            m_shapes.push_back(std::move(shape));
+            else if (object.getShape() == tmx::Object::Shape::Text)
+                handleText(object);
+            else
+                handleShape(object);
         }
     }
 
@@ -254,6 +233,46 @@ namespace engine::map {
         for (auto &line : m_lines) {
             target.draw(line, states);
         }
+    }
+
+    void ObjectLayer::handleShape(const tmx::Object &object) {
+        std::unique_ptr<sf::Shape> shape;
+
+        tmx::FloatRect AABB = object.getAABB();
+        sf::Vector2f widthHeight = sf::Vector2f(AABB.width, AABB.height);
+
+        switch (object.getShape()) {
+        case tmx::Object::Shape::Rectangle:
+            shape = std::make_unique<sf::RectangleShape>(widthHeight);
+            break;
+        case tmx::Object::Shape::Ellipse:
+            shape = std::make_unique<engine::shapes::EllipseShape>(widthHeight);
+            break;
+        case tmx::Object::Shape::Polygon:
+            shape = handlePolygone(object);
+            break;
+        default:
+            tmx::Logger::log("Shape not implemented", tmx::Logger::Type::Warning);
+            return;
+        }
+
+        shape->setPosition(sf::Vector2f(AABB.left, AABB.top));
+
+        for (auto &property : object.getProperties()) {
+            if (property.getName() == "fill") {
+                auto colour = property.getColourValue();
+                shape->setFillColor(sf::Color(colour.r, colour.g, colour.b, colour.a));
+            }
+            else if (property.getName() == "outline") {
+                auto colour = property.getColourValue();
+                shape->setOutlineColor(sf::Color(colour.r, colour.g, colour.b, colour.a));
+            }
+            else if (property.getName() == "thickness") {
+                shape->setOutlineThickness(property.getFloatValue());
+            }
+        }
+
+        m_shapes.push_back(std::move(shape));
     }
 
     void ObjectLayer::handlePolyLines(const tmx::Object& object) {
@@ -278,5 +297,9 @@ namespace engine::map {
         }
 
         return polygone;
+    }
+
+    void ObjectLayer::handleText(const tmx::Object &object) {
+
     }
 }

@@ -7,6 +7,7 @@ Welcome on the documentation of my Game Engine.
   - [The JSON files syntax](@ref json)
     - [The JSON components](@ref json_full_components)
   - [Tiled Maps](@ref tiledMaps)
+    - [Objects](@ref map_objects)
   - [The files' hierarchy](@ref file_hierarchy)
   - [How to build](@ref building)
   - [Dependencies](@ref dependencies)
