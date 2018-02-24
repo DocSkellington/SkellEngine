@@ -38,7 +38,7 @@ namespace engine::states {
 
     void GameState::update(sf::Int64 deltatime) {
         getStateManager().getContext().systemManager->update(deltatime);
-        getStateManager().getContext().map->updateTiles(deltatime);
+        getStateManager().getContext().map->updateLayers(deltatime);
     }
 
     void GameState::handleEvent(sf::Event &event) {
@@ -49,6 +49,8 @@ namespace engine::states {
     }
 
     void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
-        getStateManager().getContext().systemManager->draw(window.get(), 0);
+        for (std::size_t i = 0 ; i < getStateManager().getContext().map->getLayerCount() ; i++) {
+            getStateManager().getContext().systemManager->draw(window.get(), i);
+        }
     }
 }

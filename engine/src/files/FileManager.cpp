@@ -7,7 +7,7 @@
 #include "Context.h"
 #include "errors/FileNotFound.h"
 #include "errors/BadLevelDescription.h"
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :

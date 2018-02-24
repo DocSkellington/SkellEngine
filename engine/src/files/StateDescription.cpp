@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cctype>
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::files {
     void from_json(const nlohmann::json &j, StateDescription &s) {

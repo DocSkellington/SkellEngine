@@ -2,7 +2,7 @@
 
 #include <cctype>
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::systems {
     System::System(SystemManager& manager) :

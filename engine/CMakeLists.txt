@@ -2,7 +2,7 @@
 set(CXX_STANDARD 17)
 set(CXX_STANDARD_REQUIRED on)
 
-add_definitions(-Wall)
+add_definitions(-Wall -Wextra)
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DDEBUG)

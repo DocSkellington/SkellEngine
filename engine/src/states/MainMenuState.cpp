@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "states/GameState.h"
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::states {
     MainMenuState::MainMenuState(StateManager& manager) :

@@ -53,7 +53,7 @@ René Nyffenegger rene.nyffenegger@adp-gmbh.ch
 #define TMXLITE_TILE_FUNCS_HPP_
 
 #include <tmxlite/detail/Android.hpp>
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 #include <tmxlite/Types.hpp>
 
 #include <string>
@@ -165,7 +165,7 @@ namespace tmx
     }
 
     static inline std::string resolveFilePath(std::string path, const std::string& workingDir)
-    {
+    {      
         static const std::string match("../");
         std::size_t result = path.find(match);
         std::size_t count = 0;
@@ -175,6 +175,8 @@ namespace tmx
             path = path.substr(result + match.size());
             result = path.find(match);
         }
+
+        if (workingDir.empty()) return path;
 
         std::string outPath = workingDir;
         for (auto i = 0u; i < count; ++i)

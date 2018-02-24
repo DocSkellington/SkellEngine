@@ -1,7 +1,7 @@
 #include "files/GameDescription.h"
 
 #include <cctype>
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::files {
     void check_path_end(std::string &path) {

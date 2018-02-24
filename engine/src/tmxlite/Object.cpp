@@ -28,7 +28,7 @@ source distribution.
 #include <tmxlite/Object.hpp>
 #include <tmxlite/FreeFuncs.hpp>
 #include "detail/pugixml.hpp"
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 #include <sstream>
 
@@ -65,7 +65,8 @@ void Object::parse(const pugi::xml_node& node)
     m_AABB.height = node.attribute("height").as_float();
     m_rotation = node.attribute("rotation").as_float();
     m_tileID = node.attribute("gid").as_uint();
-    m_visible = node.attribute("visible").as_bool();
+    if (node.attribute("visible"))
+        m_visible = node.attribute("visible").as_bool();
 
     for (const auto& child : node.children())
     {

@@ -7,6 +7,8 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>
 
+#include "Layers.h"
+
 namespace engine{
     struct Context;
 }
@@ -15,10 +17,19 @@ namespace engine{
  * \brief Contains the map and utilities to interact with it
  */
 namespace engine::map {
+    /**
+     * \brief A 2D map.
+     * 
+     * The data is loaded from a Tiled file (.tmx).
+     */
     class Map {
+    friend class TileLayer;
+    friend class ImageLayer;
+    friend class ObjectLayer;
     public:
         /**
          * \brief The constructor
+         * \param context The context
          * \param folder The path from "media" to the folder in which maps can be found
          */
         explicit Map(Context& context, const std::string &folder);
@@ -42,11 +53,11 @@ namespace engine::map {
         void clear();
 
         /**
-         * \brief Updates the tiles' animations.
+         * \brief Updates the layers
          * 
          * \param deltaTime The elapsed time since the last call frame
          */
-        void updateTiles(sf::Int64 deltaTime);
+        void updateLayers(sf::Int64 deltaTime);
 
         /**
          * \brief Draws a layer
@@ -57,39 +68,17 @@ namespace engine::map {
          */
         void drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view);
 
-    private:
-        class Tile : public sf::Drawable, public sf::Transformable {
-        public:
-            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags);
-
-            void update(sf::Int64 deltaTime);
-
-        private:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-            void updateSprite();
-            void flipVertical();
-            void flipHorizontal();
-            void flipDiagonal();
-
-        private:
-            Map &m_map;
-            std::shared_ptr<const tmx::Tileset::Tile> m_tile;
-            std::uint8_t m_flip;
-            std::size_t m_currentFrame;
-            sf::Int64 m_elapsed;
-            sf::Sprite m_sprite;
-        };
-
-        struct TileLayer : public sf::Transformable, sf::Drawable {
-            std::vector<std::vector<Tile>> tiles;
-
-        protected:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-        };
+        /**
+         * \brief Gets the number of layers
+         * \return The number of layers
+         */
+        std::size_t getLayerCount() const;
 
     private:
         void loadTilesets();
         void loadTileLayer(const tmx::Layer *layer);
+        void loadObjectLayer(const tmx::Layer *layer);
+        void loadImageLayer(const tmx::Layer *layer);
 
     private:
         Context &m_context;
@@ -97,11 +86,9 @@ namespace engine::map {
 
         tmx::Map m_map;
 
-        std::vector<TileLayer> m_tileLayers;
-
-        std::vector<std::size_t> m_objectLayers;
-        std::vector<std::size_t> m_imageLayers;
+        std::vector<std::unique_ptr<Layer>> m_layers;
 
         std::map<std::uint32_t, std::shared_ptr<const tmx::Tileset::Tile>> m_tilesetTiles;
+        std::map<std::uint32_t, std::unique_ptr<const tmx::Vector2u>> m_tileOffset;
     };
 }

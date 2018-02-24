@@ -1,6 +1,6 @@
 #include "entities/Entity.h"
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 namespace engine::entities {
     Entity::Entity(Context &context) :

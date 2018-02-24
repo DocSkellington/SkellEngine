@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-#include <tmxlite/detail/Log.hpp>
+#include <tmxlite/Log.hpp>
 
 /**
  * \brief The errors specific to this engine
