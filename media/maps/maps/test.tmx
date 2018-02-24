@@ -79,7 +79,7 @@
   <image source="../images/imageLayer.jpg" trans="ffffff" width="640" height="480"/>
  </imagelayer>
  <objectgroup name="Object Layer 1">
-  <object id="19" x="277.292" y="67.3038" width="222.103" height="122.493" rotation="45">
+  <object id="19" x="277.292" y="67.3038" width="222.103" height="122.493" rotation="45" visible="0">
    <properties>
     <property name="fill" type="color" value="#ff4e9a06"/>
     <property name="outline" type="color" value="#ff75507b"/>
