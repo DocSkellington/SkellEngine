@@ -26,11 +26,11 @@ configure_file(
 )
 
 # Should the docs be built?
-engine_set_option(BUILD_DOC FALSE BOOL "TRUE to generate documentation, FALSE to ignore it")
+engine_set_option(ENGINE_BUILD_DOC FALSE BOOL "TRUE to generate documentation, FALSE to ignore it")
 
 set(EXECUTABLE_NAME "Engine")
 add_subdirectory(engine)
-if (BUILD_DOC)
+if (ENGINE_BUILD_DOC)
   add_subdirectory(docs)
 endif()
 
