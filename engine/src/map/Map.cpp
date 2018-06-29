@@ -26,13 +26,13 @@ namespace engine::map {
             const auto* layer = layers[i].get();
             switch(layer->getType()) {
             case tmx::Layer::Type::Tile:
-                loadTileLayer(layer);
+                loadTileLayer(layer, mapName);
                 break;
             case tmx::Layer::Type::Object:
-                loadObjectLayer(layer);                
+                loadObjectLayer(layer, mapName);
                 break;
             case tmx::Layer::Type::Image:
-                loadImageLayer(layer);
+                loadImageLayer(layer, mapName);
                 break;
             }
         }
@@ -76,18 +76,18 @@ namespace engine::map {
         }
     }
 
-    void Map::loadTileLayer(const tmx::Layer *layer) {
+    void Map::loadTileLayer(const tmx::Layer *layer, const std::string &mapName) {
         const auto& l = *dynamic_cast<const tmx::TileLayer*>(layer);
-        m_layers.push_back(std::make_unique<TileLayer>(*this, l));
+        m_layers.push_back(std::make_unique<TileLayer>(*this, mapName, l));
     }
 
-    void Map::loadObjectLayer(const tmx::Layer *layer) {
+    void Map::loadObjectLayer(const tmx::Layer *layer, const std::string &mapName) {
         const auto& l = *dynamic_cast<const tmx::ObjectGroup*>(layer);
-        m_layers.push_back(std::make_unique<ObjectLayer>(*this, l));
+        m_layers.push_back(std::make_unique<ObjectLayer>(*this, mapName, l));
     }
 
-    void Map::loadImageLayer(const tmx::Layer *layer) {
+    void Map::loadImageLayer(const tmx::Layer *layer, const std::string &mapName) {
         const auto& l = *dynamic_cast<const tmx::ImageLayer*>(layer);
-        m_layers.push_back(std::make_unique<ImageLayer>(*this, l));
+        m_layers.push_back(std::make_unique<ImageLayer>(*this, mapName, l));
     }
 }

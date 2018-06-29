@@ -76,9 +76,9 @@ namespace engine::map {
 
     private:
         void loadTilesets();
-        void loadTileLayer(const tmx::Layer *layer);
-        void loadObjectLayer(const tmx::Layer *layer);
-        void loadImageLayer(const tmx::Layer *layer);
+        void loadTileLayer(const tmx::Layer *layer, const std::string& mapName);
+        void loadObjectLayer(const tmx::Layer *layer, const std::string& mapName);
+        void loadImageLayer(const tmx::Layer *layer, const std::string& mapName);
 
     private:
         Context &m_context;

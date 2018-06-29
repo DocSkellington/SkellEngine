@@ -108,6 +108,16 @@ namespace tmx
 		}
 
         /*!
+        \brief Logs a message and an exception with the Error level.
+        The output is message + ":\n" + e.what()
+        \param message Message to log
+        \param e The exception to log
+        */
+        static void logError(const std::string &message, const std::exception& e) {
+            log(message + ":\n" + e.what(), Type::Error);
+        }
+
+        /*!
         \brief Logs a message to a given destination.
         \param message Message to log
         \param type Whether this message gets tagged as information, a warning or an error

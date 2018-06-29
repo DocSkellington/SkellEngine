@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="22">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="28">
  <tileset firstgid="1" source="../tilesets/test.tsx"/>
  <tileset firstgid="8" source="../tilesets/tilesetImage.tsx"/>
  <tileset firstgid="24" source="../tilesets/test2.tsx"/>
- <layer name="Tile Layer 1" width="20" height="20" offsetx="90" offsety="0">
+ <layer name="Tile Layer 1" width="20" height="20" visible="0" offsetx="90" offsety="0">
   <data encoding="csv">
 3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,4,
 3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,2684354564,
@@ -27,7 +27,7 @@
 3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,4
 </data>
  </layer>
- <layer name="Tile Layer 2" width="20" height="20" opacity="0.5" offsetx="50" offsety="70">
+ <layer name="Tile Layer 2" width="20" height="20" visible="0" opacity="0.5" offsetx="50" offsety="70">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
@@ -51,7 +51,7 @@
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
- <layer name="Tile Layer 3" width="20" height="20">
+ <layer name="Tile Layer 3" width="20" height="20" visible="0">
   <data encoding="csv">
 18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,
 18,18,18,18,18,18,18,18,18,18,13,18,18,18,18,18,18,18,18,18,
@@ -79,15 +79,21 @@
   <image source="../images/imageLayer.jpg" trans="ffffff" width="640" height="480"/>
  </imagelayer>
  <objectgroup name="Object Layer 1">
-  <object id="19" x="277.292" y="67.3038" width="222.103" height="122.493" rotation="45" visible="0">
+  <object id="19" x="277.292" y="67.3038" width="222.103" height="122.493" rotation="45">
    <properties>
     <property name="fill" type="color" value="#ff4e9a06"/>
     <property name="outline" type="color" value="#ff75507b"/>
     <property name="thickness" type="float" value="5"/>
    </properties>
   </object>
-  <object id="21" x="28.2676" y="162.875" visible="0">
+  <object id="21" x="28.2676" y="162.875">
    <polygon points="0,0 51.1509,-115.763 98.2636,65.9577 1.34608,56.5352"/>
+  </object>
+  <object id="22" x="386.813" y="136.5" width="92.375" height="19">
+   <text fontfamily="DejaVu Sans" wrap="1" color="#ffffff" italic="1">Hello World</text>
+  </object>
+  <object id="26" x="387.479" y="83.5" width="49.7087" height="12.6663">
+   <text fontfamily="DejaVu Sans" pixelsize="10" wrap="1" color="#8ae234" bold="1">Hello World</text>
   </object>
  </objectgroup>
 </map>

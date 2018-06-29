@@ -1,15 +1,19 @@
 #include "map/Layers.h"
 
 #include <Thor/Resources.hpp>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 #include <tmxlite/Log.hpp>
+
 #include "map/Map.h"
 #include "Context.h"
 #include "shapes/EllipseShape.h"
 
 namespace engine::map {
-    Layer::Layer(Map &map, bool visible) :
+    Layer::Layer(Map &map, const std::string& mapName, bool visible) :
         m_map(map),
+        m_mapName(mapName),
         m_visible(visible) {
     }
 
@@ -25,8 +29,13 @@ namespace engine::map {
         return m_map;
     }
 
-    TileLayer::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
+    const std::string& Layer::getMapName() const {
+        return m_mapName;
+    }
+
+    TileLayer::Tile::Tile(Map &map, const std::string& mapName, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
         m_map(map),
+        m_mapName(mapName),
         m_tile(tile),
         m_flip(flipFlags),
         m_currentFrame(0),
@@ -54,13 +63,18 @@ namespace engine::map {
 
     void TileLayer::Tile::updateSprite() {
         auto tile = m_tile;
-        if (m_tile->animation.frames.size() > 1) {
-            auto ID = m_tile->animation.frames[m_currentFrame].tileID;
-            tile = m_map.m_tilesetTiles[ID];
-            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+        try {
+            if (m_tile->animation.frames.size() > 1) {
+                auto ID = m_tile->animation.frames[m_currentFrame].tileID;
+                tile = m_map.m_tilesetTiles[ID];
+                m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+            }
+            else {
+                m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+            }
         }
-        else {
-            m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+        catch (thor::ResourceLoadingException& e) {
+            tmx::Logger::logError("Error while loading a tile texture in the map " + m_mapName, e);
         }
 
         m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
@@ -133,8 +147,8 @@ namespace engine::map {
         target.draw(m_sprite);
     }
 
-    TileLayer::TileLayer(Map &map, const tmx::TileLayer &layer) :
-        Layer(map, layer.getVisible()) {
+    TileLayer::TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer) :
+        Layer(map, mapName, layer.getVisible()) {
         for (std::size_t y = 0 ; y < map.m_map.getTileCount().y ; y++) {
             std::vector<Tile> row;
             for (std::size_t x = 0 ; x < map.m_map.getTileCount().x ; x++) {
@@ -146,7 +160,7 @@ namespace engine::map {
                 offset.x += map.m_tileOffset[tile.ID-1]->x;
                 offset.y += map.m_tileOffset[tile.ID-1]->y;
 
-                Tile t(map, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
+                Tile t(map, mapName, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
                 row.push_back(t);
             }
             tiles.push_back(row);
@@ -174,8 +188,8 @@ namespace engine::map {
         }
     }
 
-    ImageLayer::ImageLayer(Map &map, const tmx::ImageLayer &layer) :
-        Layer(map, layer.getVisible()) {
+    ImageLayer::ImageLayer(Map &map, const std::string& mapName, const tmx::ImageLayer &layer) :
+        Layer(map, mapName, layer.getVisible()) {
         sf::Image image;
         image.loadFromFile(layer.getImagePath());
 
@@ -185,7 +199,12 @@ namespace engine::map {
             id += std::to_string(layer.getTransparencyColour().r) + " " + std::to_string(layer.getTransparencyColour().g) + " " + std::to_string(layer.getTransparencyColour().b) + " " + std::to_string(layer.getTransparencyColour().a);
         }
 
-        m_sprite.setTexture(getMap().m_context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
+        try {
+            m_sprite.setTexture(getMap().m_context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
+        }
+        catch (thor::ResourceLoadingException& e) {
+            tmx::Logger::logError("Error while loading an image in the map " + getMapName(), e);
+        }
 
         m_sprite.setColor(sf::Color(255, 255, 255, layer.getOpacity() * 255));
 
@@ -204,8 +223,8 @@ namespace engine::map {
         target.draw(m_sprite, states);
     }
 
-    ObjectLayer::ObjectLayer(Map &map, const tmx::ObjectGroup &layer) :
-        Layer(map, layer.getVisible()) {
+    ObjectLayer::ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer) :
+        Layer(map, mapName, layer.getVisible()) {
         for (const auto &object : layer.getObjects()) {
             if (object.getShape() == tmx::Object::Shape::Polyline)
                 handlePolyLines(object);
@@ -233,6 +252,12 @@ namespace engine::map {
 
         for (auto &line : m_lines) {
             target.draw(line, states);
+        }
+
+        for (auto &text : m_texts) {
+            //target.draw(text, states);
+            float color[3] = {0.f, 0.f, 0.f};
+            ImGui::ColorEdit3("Test", color);
         }
     }
 
@@ -274,9 +299,7 @@ namespace engine::map {
             }
         }
 
-        tmx::Logger::log(std::to_string(object.visible()));
         m_shapes.emplace_back(object.visible(), std::move(shape));
-        tmx::Logger::log(std::to_string(m_shapes.back().visible));
     }
 
     void ObjectLayer::handlePolyLines(const tmx::Object& object) {
@@ -304,6 +327,58 @@ namespace engine::map {
     }
 
     void ObjectLayer::handleText(const tmx::Object &object) {
-        
+        sf::Text text;
+        try {
+            text.setFont(getMap().m_context.fontHolder->acquire(object.getText().fontFamily, thor::Resources::fromFile<sf::Font>("media/fonts/" + object.getText().fontFamily + ".ttf"), thor::Resources::Reuse));
+        }
+        catch (thor::ResourceLoadingException &e) {
+            tmx::Logger::logError("Error while loading a font in the map " + getMapName(), e);
+        }
+
+        text.setCharacterSize(object.getText().pixelSize);
+        auto colour = object.getText().colour;
+        text.setFillColor(sf::Color(colour.r, colour.g, colour.b, colour.a));
+
+        std::string content = object.getText().content;
+        text.setString(content);
+
+        if (object.getText().bold) {
+            text.setStyle(sf::Text::Bold);
+        }
+        if (object.getText().italic) {
+            text.setStyle(text.getStyle() | sf::Text::Italic);
+        }
+        if (object.getText().underline) {
+            text.setStyle(text.getStyle() | sf::Text::Underlined);
+        }
+        if (object.getText().strikethough) {
+            text.setStyle(text.getStyle() | sf::Text::StrikeThrough);
+        }
+
+        text.setPosition(object.getPosition().x, object.getPosition().y);
+
+        // TODO : wrap
+        sf::Vector2f textLimit(object.getAABB().left + object.getAABB().width, object.getAABB().top + object.getAABB().height);
+        std::size_t lastWhite = 0;
+        std::size_t i = 0;
+        while (i < content.size()) {
+            auto position = text.findCharacterPos(i);
+            if (isspace(text.getString()[i])) {
+                lastWhite = i;
+            }
+            else {
+                if (position.y >= textLimit.y) {
+                    content = content.substr(0, lastWhite);
+                }
+                else if (position.x >= textLimit.x) {
+                    content.replace(lastWhite, 1, "\n");
+                    i = lastWhite;
+                }
+                text.setString(content);
+            }
+            i++;
+        }        
+
+        m_texts.push_back(text);
     }
 }

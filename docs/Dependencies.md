@@ -13,3 +13,5 @@ The following dependencies are automatically downloaded:
 
 The following dependency is given with the source code:
   - A modified version of [tmx-lite](https://github.com/fallahn/tmxlite) distributed under [zlib/png license](https://opensource.org/licenses/Zlib).
+  - [ImGUI](https://github.com/ocornut/imgui) distributed under [MIT License](https://opensource.org/licenses/mit-license.html)
+  - [ImGUI-SFML](https://github.com/eliasdaler/imgui-sfml) distributed under [MIT License](https://opensource.org/licenses/mit-license.html)

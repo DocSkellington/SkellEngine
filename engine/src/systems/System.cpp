@@ -48,7 +48,7 @@ namespace engine::systems {
                 return system;
             }
             catch (std::bad_function_call e) {
-                tmx::Logger::log("Error while constructing the system " + systemName + ":\n" + e.what(), tmx::Logger::Type::Warning);
+                tmx::Logger::logError("Error while constructing the system " + systemName, e);
             }
         }
         return nullptr;

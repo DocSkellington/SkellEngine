@@ -30,6 +30,8 @@ namespace engine {
         std::shared_ptr<map::Map> map;
 
         std::shared_ptr<thor::ResourceHolder<sf::Texture, std::string>> textureHolder;
+        
+        std::shared_ptr<thor::ResourceHolder<sf::Font, std::string>> fontHolder;
 
         std::shared_ptr<states::StateManager> stateManager;
 

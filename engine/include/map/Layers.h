@@ -19,7 +19,7 @@ namespace engine::map {
      */
     class Layer : public sf::Drawable, public sf::Transformable {
     public:
-        Layer(Map &map, bool visible);
+        Layer(Map &map, const std::string& mapName, bool visible);
         Layer(const Layer&) = delete;
         virtual ~Layer();
 
@@ -36,9 +36,11 @@ namespace engine::map {
 
     protected:
         Map &getMap();
+        const std::string& getMapName() const;
 
     private:
         Map &m_map;
+        const std::string& m_mapName;
         bool m_visible;
     };
 
@@ -47,7 +49,7 @@ namespace engine::map {
      */
     class TileLayer : public Layer {
     public:
-        TileLayer(Map &map, const tmx::TileLayer &layer);
+        TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer);
         TileLayer(const TileLayer&) = delete;
         virtual ~TileLayer();
 
@@ -65,7 +67,7 @@ namespace engine::map {
          */
         class Tile : public sf::Drawable, public sf::Transformable {
         public:
-            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
+            Tile(Map &map, const std::string& mapName, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
 
             void update(sf::Int64 deltaTime);
 
@@ -78,6 +80,7 @@ namespace engine::map {
 
         private:
             Map &m_map;
+            const std::string& m_mapName;
             std::shared_ptr<const tmx::Tileset::Tile> m_tile;
             std::uint8_t m_flip;
             std::size_t m_currentFrame;
@@ -94,7 +97,7 @@ namespace engine::map {
      */
     class ImageLayer : public Layer {
     public:
-        ImageLayer(Map &map, const tmx::ImageLayer &layer);
+        ImageLayer(Map &map, const std::string& mapName, const tmx::ImageLayer &layer);
         ImageLayer(const ImageLayer&) = delete;
         virtual ~ImageLayer();
 
@@ -109,7 +112,7 @@ namespace engine::map {
 
     class ObjectLayer : public Layer {
     public:
-        ObjectLayer(Map &map, const tmx::ObjectGroup &layer);
+        ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer);
         ObjectLayer(const ObjectLayer&) = delete;
         virtual ~ObjectLayer();
 

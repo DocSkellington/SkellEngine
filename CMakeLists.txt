@@ -1,5 +1,5 @@
 # This file is partialy copied from https://github.com/SFML/SFML/wiki/Tutorial%3A-Build-your-SFML-project-with-CMake
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.11)
 
 # A macro to help defining an option (from https://github.com/SFML/SFML/blob/master/CMakeLists.txt)
 macro(engine_set_option var default type docstring)

@@ -47,7 +47,7 @@ namespace tmx
     */
     struct TMXLITE_EXPORT_API Text final
     {
-        std::string fontFamily;
+        std::string fontFamily = "Accanthis ADF Std";
         std::uint32_t pixelSize = 16; //!< pixels, not points
         bool wrap = false;
         Colour colour;
