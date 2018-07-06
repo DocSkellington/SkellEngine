@@ -1,8 +1,6 @@
 #include "map/Layers.h"
 
 #include <Thor/Resources.hpp>
-#include <imgui-SFML.h>
-#include <imgui.h>
 
 #include <tmxlite/Log.hpp>
 
@@ -253,12 +251,6 @@ namespace engine::map {
         for (auto &line : m_lines) {
             target.draw(line, states);
         }
-
-        for (auto &text : m_texts) {
-            //target.draw(text, states);
-            float color[3] = {0.f, 0.f, 0.f};
-            ImGui::ColorEdit3("Test", color);
-        }
     }
 
     void ObjectLayer::handleShape(const tmx::Object &object) {
@@ -327,58 +319,62 @@ namespace engine::map {
     }
 
     void ObjectLayer::handleText(const tmx::Object &object) {
-        sf::Text text;
-        try {
-            text.setFont(getMap().m_context.fontHolder->acquire(object.getText().fontFamily, thor::Resources::fromFile<sf::Font>("media/fonts/" + object.getText().fontFamily + ".ttf"), thor::Resources::Reuse));
-        }
-        catch (thor::ResourceLoadingException &e) {
-            tmx::Logger::logError("Error while loading a font in the map " + getMapName(), e);
-        }
+        // Rotation is not implemented in TGUI!
 
-        text.setCharacterSize(object.getText().pixelSize);
-        auto colour = object.getText().colour;
-        text.setFillColor(sf::Color(colour.r, colour.g, colour.b, colour.a));
+        const auto text = object.getText();
 
-        std::string content = object.getText().content;
-        text.setString(content);
+        auto label = tgui::Label::create();
 
-        if (object.getText().bold) {
-            text.setStyle(sf::Text::Bold);
+        label->setPosition(object.getPosition().x, object.getPosition().y);
+        label->setAutoSize(false);
+        label->setSize(object.getAABB().width, object.getAABB().height);
+
+        label->setText(text.content);
+
+        if (text.bold) {
+            label->setTextStyle(sf::Text::Bold);
         }
-        if (object.getText().italic) {
-            text.setStyle(text.getStyle() | sf::Text::Italic);
+        if (text.italic) {
+            label->setTextStyle(label->getTextStyle() | sf::Text::Italic);
         }
-        if (object.getText().underline) {
-            text.setStyle(text.getStyle() | sf::Text::Underlined);
+        if (text.underline) {
+            label->setTextStyle(label->getTextStyle() | sf::Text::Underlined);
         }
-        if (object.getText().strikethough) {
-            text.setStyle(text.getStyle() | sf::Text::StrikeThrough);
+        if (text.strikethough) {
+            label->setTextStyle(label->getTextStyle() | sf::Text::StrikeThrough);
         }
 
-        text.setPosition(object.getPosition().x, object.getPosition().y);
+        switch (text.hAlign) {
+        case tmx::Text::HAlign::Centre:
+            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
+            break;
+        case tmx::Text::HAlign::Left:
+            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Left);
+            break;
+        case tmx::Text::HAlign::Right:
+            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Right);
+            break;
+        }
 
-        // TODO : wrap
-        sf::Vector2f textLimit(object.getAABB().left + object.getAABB().width, object.getAABB().top + object.getAABB().height);
-        std::size_t lastWhite = 0;
-        std::size_t i = 0;
-        while (i < content.size()) {
-            auto position = text.findCharacterPos(i);
-            if (isspace(text.getString()[i])) {
-                lastWhite = i;
-            }
-            else {
-                if (position.y >= textLimit.y) {
-                    content = content.substr(0, lastWhite);
-                }
-                else if (position.x >= textLimit.x) {
-                    content.replace(lastWhite, 1, "\n");
-                    i = lastWhite;
-                }
-                text.setString(content);
-            }
-            i++;
-        }        
+        switch (text.vAlign) {
+        case tmx::Text::VAlign::Centre:
+            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
+            break;
+        case tmx::Text::VAlign::Bottom:
+            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Bottom);
+            break;
+        case tmx::Text::VAlign::Top:
+            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Top);
+            break;
+        }
 
-        m_texts.push_back(text);
+        label->setTextColor(tgui::Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
+        label->setTextSize(text.pixelSize);
+
+        if (!object.visible()) {
+            label->hide();
+        }
+
+        getMap().m_context.gui->add(label);
     }
 }

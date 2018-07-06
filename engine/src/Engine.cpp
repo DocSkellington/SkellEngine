@@ -11,8 +11,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <json.hpp>
-#include <imgui.h>
-#include <imgui-SFML.h>
 
 #include "config.h"
 #include "states/MainMenuState.h"
@@ -58,8 +56,8 @@ namespace engine {
 
         // Creating the window
         createWindow(description.window, description.version);
-
-        ImGui::SFML::Init(*m_context.window);
+        
+        m_context.gui = make_shared<tgui::Gui>(*m_context.window);
 
         // Launching the first state of the game
         if (description.states.firstState == "mainmenu" || description.states.firstState == "mainmenustate")
@@ -75,26 +73,26 @@ namespace engine {
         while (m_context.window->isOpen()) {
             sf::Event event;
             while (m_context.window->pollEvent(event)) {
-                ImGui::SFML::ProcessEvent(event);
-
                 if (event.type == sf::Event::Closed) {
                     m_context.window->close();
                 }
                 else {
                     m_context.stateManager->handleEvent(event);
                 }
+
+                m_context.gui->handleEvent(event);
             }
 
             sf::Time elapsed = clock.restart();
 
-            ImGui::SFML::Update(*m_context.window, elapsed);
-            ImGui::Begin("Test window");
-
             m_context.stateManager->update(elapsed.asMicroseconds());
 
+            m_context.window->clear();
+
             m_context.stateManager->draw(m_context.window);
-            ImGui::End();
-            ImGui::SFML::Render(*m_context.window);
+            m_context.gui->draw();
+
+            m_context.window->display();
 
             m_context.stateManager->processRemove();
         }

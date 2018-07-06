@@ -6,6 +6,7 @@
 #include <Thor/Resources.hpp>
 #include <sol.hpp>
 #include <tmxlite/Map.hpp>
+#include <TGUI/TGUI.hpp>
 
 #include "states/StateManager.h"
 #include "entities/EntityManager.h"
@@ -26,6 +27,8 @@ namespace engine {
         std::shared_ptr<sol::state> lua;
 
         std::shared_ptr<sf::RenderWindow> window;
+
+        std::shared_ptr<tgui::Gui> gui;
 
         std::shared_ptr<map::Map> map;
 

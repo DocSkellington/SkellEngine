@@ -19,23 +19,8 @@ file(GLOB_RECURSE
 include_directories(include)
 include_directories("${PROJECT_BINARY_DIR}")
 
-# ImGUI-SFML
-set(IMGUI_ROOT ${CMAKE_SOURCE_DIR}/engine/dependencies/imgui)
-set(IMGUI_SFML_ROOT ${CMAKE_SOURCE_DIR}/engine/dependencies/imgui-sfml)
-add_subdirectory(dependencies/imgui-sfml)
-include_directories(${IMGUI_ROOT} ${IMGUI_SFML_ROOT}) # Theoretically, IMGUI_SFML_INCLUDE_DIRS is supposed to work...
-file(READ ${IMGUI_SFML_ROOT}/imconfig-SFML.h CONTENTS)
-file(WRITE ${IMGUI_ROOT}/imconfig.h "${CONTENTS}")
-
-file(GLOB
-    IMGUI_SOURCES
-    ${IMGUI_ROOT}/imgui.cpp
-    ${IMGUI_ROOT}/imgui_draw.cpp
-    ${IMGUI_SFML_ROOT}/imgui-SFML.cpp
-)
-
 # Executable
-add_executable(${EXECUTABLE_NAME} ${IMGUI_SOURCES} ${SOURCES})
+add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 # OpenGL
 target_link_libraries(${EXECUTABLE_NAME} GL)
@@ -47,11 +32,19 @@ if(SFML_FOUND)
 endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+
 # Thor
 find_package(Thor REQUIRED)
 if(THOR_FOUND)
     include_directories(${THOR_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} thor)
+endif()
+
+# TGUI
+find_package(TGUI REQUIRED)
+if (TGUI_FOUND)
+    include_directories(${TGUI_INCLUDE_DIR})
+    target_link_libraries(${EXECUTABLE_NAME} tgui)
 endif()
 
 #Lua

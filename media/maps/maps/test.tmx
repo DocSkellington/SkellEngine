@@ -89,10 +89,10 @@
   <object id="21" x="28.2676" y="162.875">
    <polygon points="0,0 51.1509,-115.763 98.2636,65.9577 1.34608,56.5352"/>
   </object>
-  <object id="22" x="386.813" y="136.5" width="92.375" height="19">
-   <text fontfamily="DejaVu Sans" wrap="1" color="#ffffff" italic="1">Hello World</text>
+  <object id="22" x="386.813" y="136.5" width="79.9481" height="59.9333">
+   <text fontfamily="DejaVu Sans" wrap="1" color="#ffffff" bold="1" italic="1" underline="1" strikeout="1">Hello World</text>
   </object>
-  <object id="26" x="387.479" y="83.5" width="49.7087" height="12.6663">
+  <object id="26" x="387.479" y="83.5" width="79.7264" height="12.6663">
    <text fontfamily="DejaVu Sans" pixelsize="10" wrap="1" color="#8ae234" bold="1">Hello World</text>
   </object>
  </objectgroup>

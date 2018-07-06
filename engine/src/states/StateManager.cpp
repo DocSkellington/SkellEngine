@@ -24,14 +24,12 @@ namespace engine::states {
     }
 
     void StateManager::draw(std::shared_ptr<sf::RenderWindow> &window) {
-        window->clear();
         for (auto &state : m_states) {
             state.second->draw(window);
 
             if (!state.second->isTransparent())
                 break;
         }
-        window->display();
     }
 
     void StateManager::handleEvent(sf::Event &event) {

@@ -23,7 +23,7 @@ namespace engine::states {
     }
 
     void GameState::onDestroy() {
-
+        getStateManager().getContext().gui->removeAllWidgets();
     }
 
     void GameState::activate() {
