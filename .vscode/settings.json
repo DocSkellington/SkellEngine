@@ -56,7 +56,12 @@
         "*.ipp": "cpp",
         "forward_list": "cpp",
         "deque": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "strstream": "cpp",
+        "future": "cpp",
+        "bitset": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp"
     },
     "latex-workshop.debug.showUpdateMessage": false,
     "latex-workshop.message.update.show": false

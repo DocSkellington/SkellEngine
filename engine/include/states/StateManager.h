@@ -42,6 +42,11 @@ namespace engine::states {
         * \param window The RenderWindow in which the manager must draw
         */
         void draw(std::shared_ptr<sf::RenderWindow> &window);
+
+        /**
+         * \brief Handles the event
+         * \param event The event to process
+         */
         void handleEvent(sf::Event &event);
 
         /**
