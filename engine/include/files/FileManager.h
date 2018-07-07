@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include <sol.hpp>
 #include <map>
+#include <SFML/Graphics/Font.hpp>
 
 #include "files/GameDescription.h"
 #include "files/StateDescription.h"
@@ -57,6 +58,13 @@ namespace engine::files {
         */
         sol::table getEntityLevelLua(const std::string &entityType);
 
+        /**
+         * \brief Loads a font and stores it in the appropriate ressource holder.
+         * \param fontName The name of the font to load
+         * \return The loaded font
+         */
+        sf::Font& loadFont(const std::string &fontName);
+
     private:
         const Context &m_context;
         LevelDescription m_levelDescription;
@@ -97,5 +105,7 @@ namespace engine::files {
          * \brief Loads the state descriptions in media/states
          */
         void loadStateDescriptions();
+
+        const std::string fontPath(const std::string &fontName) const;
     };
 }

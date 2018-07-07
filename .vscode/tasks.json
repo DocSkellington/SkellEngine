@@ -45,7 +45,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "command": "make install && cd ../bin && ./Engine",
+            "command": "make -j4 install && cd ../bin && ./Engine",
             "problemMatcher": [],
             "group": {
                 "kind": "build",

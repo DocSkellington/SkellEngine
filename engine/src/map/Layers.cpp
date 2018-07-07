@@ -371,6 +371,16 @@ namespace engine::map {
         label->setTextColor(tgui::Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
         label->setTextSize(text.pixelSize);
 
+        if (text.fontFamily != "") {
+            // If the font is not found, we use default one
+            try {
+                getMap().m_context.fileManager->loadFont(text.fontFamily);
+            }
+            catch (thor::ResourceLoadingException& e) {
+                tmx::Logger::log("Could not load font: " + text.fontFamily + ". Default TGUI's font will be used.", tmx::Logger::Type::Warning);
+            }
+        }
+
         if (!object.visible()) {
             label->hide();
         }

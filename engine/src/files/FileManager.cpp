@@ -82,6 +82,10 @@ namespace engine::files {
         }
     }
 
+    sf::Font& FileManager::loadFont(const std::string &fontName) {
+        m_context.fontHolder->acquire("fonts/" + fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+    }
+
     nlohmann::json FileManager::fusion(const nlohmann::json &a, const nlohmann::json &b) const {
         nlohmann::json result(a);
         for (auto itr = b.begin() ; itr != b.end() ; ++itr) {
@@ -127,5 +131,10 @@ namespace engine::files {
         std::ifstream file("media/states/game.json");
         file >> game;
         m_stateDescriptions["game"] = game;
+    }
+
+    const std::string FileManager::fontPath(const std::string &fontName) const {
+        std::string path = "media/fonts/" + fontName + ".ttf";
+        return path;
     }
 }
