@@ -57,14 +57,15 @@ endif()
 # Sol2
 set(SINGLE ON)
 set(BUILD_LUA OFF)
-add_subdirectory(dependencies/sol2)
+# We disable install for this subdirectory
+add_subdirectory(dependencies/sol2 EXCLUDE_FROM_ALL)
+
 add_dependencies(${EXECUTABLE_NAME} sol2_single)
 
 target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
 
-
 # JSON for modern C++
-include(../cmake_modules/JSON.cmake)
+target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
 
 # CPack packaging
 # include(InstallRequiredSystemLibraries)

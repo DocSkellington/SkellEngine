@@ -1,3 +1,6 @@
 [submodule "engine/dependencies/sol2"]
 	path = engine/dependencies/sol2
 	url = https://github.com/ThePhD/sol2.git
+[submodule "engine/dependencies/json"]
+	path = engine/dependencies/json
+	url = https://github.com/nlohmann/json
