@@ -55,17 +55,26 @@ if (Lua_FOUND)
 endif()
 
 # Sol2
-set(SINGLE ON)
-set(BUILD_LUA OFF)
-# We disable install for this subdirectory
-add_subdirectory(dependencies/sol2 EXCLUDE_FROM_ALL)
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
+    # We force two options
+    set(SINGLE ON CACHE BOOL "" FORCE)
+    set(BUILD_LUA OFF CACHE BOOL "" FORCE)
+    # We disable install for this subdirectory
+    add_subdirectory(dependencies/sol2)
+    
+    add_dependencies(${EXECUTABLE_NAME} sol2_single)
 
-add_dependencies(${EXECUTABLE_NAME} sol2_single)
-
-target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
+else()
+    message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
 
 # JSON for modern C++
-target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
+else()
+    message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
 
 # CPack packaging
 # include(InstallRequiredSystemLibraries)
