@@ -15,12 +15,12 @@ file(GLOB_RECURSE
     src/*.c
 )
 
-# Includes
-include_directories(include)
-include_directories("${PROJECT_BINARY_DIR}")
-
 # Executable
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
+
+# Includes
+target_include_directories(${EXECUTABLE_NAME} PUBLIC include)
+target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PROJECT_BINARY_DIR}")
 
 # OpenGL
 target_link_libraries(${EXECUTABLE_NAME} GL)
@@ -36,27 +36,32 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Thor
 find_package(Thor REQUIRED)
 if(THOR_FOUND)
-    include_directories(${THOR_INCLUDE_DIR})
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${THOR_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} thor)
 endif()
 
 # TGUI
 find_package(TGUI REQUIRED)
 if (TGUI_FOUND)
-    include_directories(${TGUI_INCLUDE_DIR})
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${TGUI_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} tgui)
 endif()
 
 #Lua
 find_package(Lua 5.3 REQUIRED)
 if (Lua_FOUND)
-    include_directories(${LUA_INCLUDE_DIR})
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${LUA_INCLUDE_DIR})
     target_link_libraries(${EXECUTABLE_NAME} lua5.3)
 endif()
 
 # Sol2
-include(../cmake_modules/Sol2.cmake)
-add_dependencies(${EXECUTABLE_NAME} sol2)
+set(SINGLE ON)
+set(BUILD_LUA OFF)
+add_subdirectory(dependencies/sol2)
+add_dependencies(${EXECUTABLE_NAME} sol2_single)
+
+target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
+
 
 # JSON for modern C++
 include(../cmake_modules/JSON.cmake)
