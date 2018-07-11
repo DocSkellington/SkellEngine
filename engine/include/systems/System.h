@@ -14,6 +14,9 @@ namespace engine::systems {
      */
     class System {
     public:
+        /**
+         * \brief The type to use for a pointer to a System.
+         */
         typedef std::shared_ptr<System> Ptr;
 
     public:
@@ -36,15 +39,16 @@ namespace engine::systems {
          * 
          * If the system does not meet the requirements, it is not added (see checkComponents).
          * \param entity The shared pointer to the entity to add
-         * \return Whether the entity could be added or not
+         * \return True if the entity could be added to the System, false otherwise
          */
         virtual bool addEntity(engine::entities::Entity::Ptr entity);
 
         /**
          * \brief Tries to remove an entity from this system.
          * 
-         * If the entity is not in the system, nothing happens.
+         * If the entity is not in the system, nothing happens (but the function returns false).
          * \param entity The shared pointer to the entity to remove
+         * \return True if the entity could be removed, false otherwise.
          */
         virtual bool removeEntity(engine::entities::Entity::Ptr entity);
         
@@ -58,6 +62,9 @@ namespace engine::systems {
         static Ptr createInstance(const std::string &systemName, SystemManager& manager);
 
     protected:
+        /**
+         * \brief The type of the internal container mapping the name of a system to its constructor.
+         */
         typedef std::map<std::string, std::function<Ptr(SystemManager&)>> MapType;
 
         /**
@@ -92,8 +99,10 @@ namespace engine::systems {
 
         /**
          * \brief Checks if the entity meets the requirements of this system (if it has the needed components).
+         * 
+         * Each system must override this function to specify the components required to add an entity.
          * \param entity The shared pointer to the entity to check
-         * \return Whether the entity has the needed components or not
+         * \return True if the entity has the required components, false otherwise
          */
         virtual bool checkComponents(engine::entities::Entity::Ptr entity) const = 0;
         
