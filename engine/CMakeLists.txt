@@ -3,32 +3,72 @@ set(CXX_STANDARD 17)
 set(CXX_STANDARD_REQUIRED on)
 
 add_definitions(-Wall -Wextra)
+set(CMAKE_EXE_LINKER_FLAGS -L ${CMAKE_INSTALL_PREFIX})
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DDEBUG)
 endif()
 
 # Source files
-file(GLOB_RECURSE
-    SOURCES
-    src/*.cpp
-    src/*.c
+set(SOURCES
+    src/Engine.cpp
+
+    src/entities/Entity.cpp
+    src/entities/EntityManager.cpp
+
+    src/entities/components/Component.cpp
+    src/entities/components/ExternComponent.cpp
+    src/entities/components/GraphicalSpriteSheetComponent.cpp
+    src/entities/components/PositionComponent.cpp
+
+    src/files/FileManager.cpp
+    src/files/GameDescription.cpp
+    src/files/LevelDescription.cpp
+    src/files/StateDescription.cpp
+
+    src/map/Layers.cpp
+    src/map/Map.cpp
+
+    src/shapes/EllipseShape.cpp
+
+    src/states/GameState.cpp
+    src/states/MainMenuState.cpp
+    src/states/PauseState.cpp
+    src/states/State.cpp
+    src/states/StateManager.cpp
+
+    src/systems/GraphicalOrthogonalSystem.cpp
+    src/systems/GraphicalSystem.cpp
+    src/systems/System.cpp
+    src/systems/SystemManager.cpp
+
+    src/tmxlite/FreeFuncs.cpp
+    src/tmxlite/ImageLayer.cpp
+    src/tmxlite/Map.cpp
+    src/tmxlite/miniz.c
+    src/tmxlite/Object.cpp
+    src/tmxlite/ObjectGroup.cpp
+    src/tmxlite/Property.cpp
+    src/tmxlite/TileLayer.cpp
+    src/tmxlite/Tileset.cpp
+
+    src/tmxlite/detail/pugixml.cpp
 )
 
-# Executable
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+# Library
+add_library(${LIBRARY_NAME} SHARED ${SOURCES})
 
 # Includes
-target_include_directories(${EXECUTABLE_NAME} PUBLIC include)
-target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PROJECT_BINARY_DIR}")
+target_include_directories(${LIBRARY_NAME} PUBLIC include)
+target_include_directories(${LIBRARY_NAME} PUBLIC "${PROJECT_BINARY_DIR}")
 
 # OpenGL
-target_link_libraries(${EXECUTABLE_NAME} GL)
+target_link_libraries(${LIBRARY_NAME} GL)
 
 # Detect and add SFML
 find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 if(SFML_FOUND)
-    target_link_libraries(${EXECUTABLE_NAME} sfml-system sfml-graphics sfml-window sfml-audio)
+    target_link_libraries(${LIBRARY_NAME} sfml-system sfml-graphics sfml-window sfml-audio)
 endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
@@ -36,22 +76,22 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 # Thor
 find_package(Thor REQUIRED)
 if(THOR_FOUND)
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${THOR_INCLUDE_DIR})
-    target_link_libraries(${EXECUTABLE_NAME} thor)
+    target_include_directories(${LIBRARY_NAME} PUBLIC ${THOR_INCLUDE_DIR})
+    target_link_libraries(${LIBRARY_NAME} thor)
 endif()
 
 # TGUI
 find_package(TGUI REQUIRED)
 if (TGUI_FOUND)
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${TGUI_INCLUDE_DIR})
-    target_link_libraries(${EXECUTABLE_NAME} tgui)
+    target_include_directories(${LIBRARY_NAME} PUBLIC ${TGUI_INCLUDE_DIR})
+    target_link_libraries(${LIBRARY_NAME} tgui)
 endif()
 
 #Lua
 find_package(Lua 5.3 REQUIRED)
 if (Lua_FOUND)
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${LUA_INCLUDE_DIR})
-    target_link_libraries(${EXECUTABLE_NAME} lua5.3)
+    target_include_directories(${LIBRARY_NAME} PUBLIC ${LUA_INCLUDE_DIR})
+    target_link_libraries(${LIBRARY_NAME} lua5.3)
 endif()
 
 # Sol2
@@ -60,25 +100,29 @@ if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
     set(SINGLE ON CACHE BOOL "" FORCE)
     set(BUILD_LUA OFF CACHE BOOL "" FORCE)
     # We disable install for this subdirectory
-    add_subdirectory(dependencies/sol2)
+    add_subdirectory(dependencies/sol2 EXCLUDE_FROM_ALL)
     
-    add_dependencies(${EXECUTABLE_NAME} sol2_single)
+    add_dependencies(${LIBRARY_NAME} sol2_single)
 
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
+    target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
 else()
     message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 # JSON for modern C++
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
+    target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
 else()
     message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
-# CPack packaging
-# include(InstallRequiredSystemLibraries)
-# set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-# set(CPACK_PACKAGE_VERSION_MAJOR "${Engine_VERSION_MAJOR}")
-# set(CPACK_PACKAGE_VERSION_MINOR "${Engine_VERSION_MINOR}")
-# include(CPack)
+# Executable
+add_executable(${EXECUTABLE_NAME} src/main.cpp)
+target_link_libraries(${EXECUTABLE_NAME} ${LIBRARY_NAME})
+
+install(TARGETS ${LIBRARY_NAME} ${EXECUTABLE_NAME} 
+  RUNTIME DESTINATION .
+  LIBRARY DESTINATION .
+  ARCHIVE DESTINATION .
+)
+install(DIRECTORY ../media DESTINATION ${CMAKE_INSTALL_PREFIX})

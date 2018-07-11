@@ -43,7 +43,10 @@
             "label": "install & run",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin"
+                }
             },
             "command": "make -j4 install && cd ../bin && ./Engine",
             "problemMatcher": [],
@@ -60,6 +63,18 @@
             },
             "command": "make doc_doxygen",
             "problemMatcher": []
-        }
+        },
+        {
+            "label": "install & run tests",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin"
+                }
+            },
+            "command": "make -j4 install Engine-tests && cd ../bin && ./Engine-tests",
+            "problemMatcher": []
+        },
     ]
 }

@@ -23,14 +23,16 @@ namespace engine::systems {
             system.second->draw(window, layer, m_view);
     }
 
-    System::Ptr SystemManager::getSystem(const std::string &name) {
+    System::Ptr SystemManager::getSystem(std::string name) {
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
         auto system = m_systems.find(name);
         if (system == m_systems.end())
             return System::Ptr(nullptr);
         return system->second;
     }
 
-    bool SystemManager::addSystem(const std::string &name) {
+    bool SystemManager::addSystem(std::string name) {
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
         if (m_systems.find(name) != m_systems.end()) {
             tmx::Logger::log("impossible to use two systems of the same type (" + name + ").", tmx::Logger::Type::Error);
             return false;

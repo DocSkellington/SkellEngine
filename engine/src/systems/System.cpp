@@ -29,8 +29,9 @@ namespace engine::systems {
             return false;
         }
 
-        auto itrErase = getEntities().erase(itr);
-        return !(itr == itrErase);
+        std::size_t size = getEntities().size();
+        getEntities().erase(itr);
+        return size > getEntities().size();
     }
 
     System::Ptr System::createInstance(const std::string& systemName, SystemManager& manager) {

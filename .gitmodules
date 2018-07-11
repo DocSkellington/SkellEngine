@@ -4,3 +4,6 @@
 [submodule "engine/dependencies/json"]
 	path = engine/dependencies/json
 	url = https://github.com/nlohmann/json
+[submodule "engine/dependencies/Catch2"]
+	path = engine/dependencies/Catch2
+	url = https://github.com/catchorg/Catch2

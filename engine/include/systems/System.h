@@ -18,7 +18,7 @@ namespace engine::systems {
 
     public:
         explicit System(SystemManager& manager);
-        System(const SystemManager&) = delete;
+        System(const System&) = delete;
         virtual ~System();
 
         /**
@@ -46,7 +46,7 @@ namespace engine::systems {
          * If the entity is not in the system, nothing happens.
          * \param entity The shared pointer to the entity to remove
          */
-        bool removeEntity(engine::entities::Entity::Ptr entity);
+        virtual bool removeEntity(engine::entities::Entity::Ptr entity);
         
         /**
          * \brief Creates an instance of a system based on the given name. If the type is unknown, a generic system is returned.

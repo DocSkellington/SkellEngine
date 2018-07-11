@@ -34,20 +34,22 @@ namespace engine::systems {
         void draw(sf::RenderWindow* window, unsigned int layer);
 
         /**
-         * \brief Returns the system of the given type, if it exists in the manager
+         * \brief Returns the system of the given type, if it exists in the manager.
+         * 
+         * The name is case-insensitive.
          * \param name The name of the system
          * \return A shared pointer to the system of the given type. It the system is not in the manager, the pointer is empty.
          */
-        System::Ptr getSystem(const std::string &name);
+        System::Ptr getSystem(std::string name);
 
         /**
          * \brief Adds a system of the given type.
          * 
-         * If the system is already in the list of used systems, nothing happens.
+         * If the system is already in the list of used systems, nothing happens. The name is case-insensitive.
          * \param name The name of the system to add
          * \return Whether the system could be added or not
          */
-        bool addSystem(const std::string& name);
+        bool addSystem(std::string name);
 
         /**
          * \brief Clears the current systems and loads every system in the given list.

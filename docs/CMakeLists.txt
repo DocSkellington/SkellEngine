@@ -14,6 +14,7 @@ if(DOXYGEN_FOUND)
     COMMENT "Generating API documentation with Doxygen"
     VERBATIM
   )
+  add_dependencies(doc_doxygen ${EXECUTABLE_NAME})
 else()
   message("Doxygen must be installed to generate the documentation")
 endif()

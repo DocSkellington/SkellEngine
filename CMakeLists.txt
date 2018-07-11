@@ -29,11 +29,14 @@ configure_file(
 engine_set_option(ENGINE_BUILD_DOC FALSE BOOL "TRUE to generate documentation, FALSE to ignore it")
 
 set(EXECUTABLE_NAME "Engine")
+set(LIBRARY_NAME "SkellEngine")
 add_subdirectory(engine)
 if (ENGINE_BUILD_DOC)
   add_subdirectory(docs)
 endif()
 
-# Install target
-install(PROGRAMS ${CMAKE_BINARY_DIR}/engine/${EXECUTABLE_NAME} DESTINATION ${CMAKE_SOURCE_DIR}/bin)
-install(DIRECTORY media DESTINATION ${CMAKE_SOURCE_DIR}/bin)
+# Should the tests be built?
+engine_set_option(ENGINE_BUILD_TESTS FALSE BOOL "TRUE to generate the tests, FALSE to ignore them")
+if (ENGINE_BUILD_TESTS)
+  add_subdirectory(tests)
+endif()
