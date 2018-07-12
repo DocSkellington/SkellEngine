@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sol/table.hpp>
+#include <sol.hpp>
 #include <json.hpp>
 
 namespace engine{

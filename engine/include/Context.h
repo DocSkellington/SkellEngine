@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <Thor/Resources.hpp>
-#include <sol/table.hpp>
+#include <sol.hpp>
 #include <tmxlite/Map.hpp>
 #include <TGUI/TGUI.hpp>
 

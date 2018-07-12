@@ -72,12 +72,12 @@ if(SFML_FOUND)
 endif()
 
 # Thor
-add_subdirectory(dependencies/Thor)
+add_subdirectory(dependencies/Thor EXCLUDE_FROM_ALL)
 target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include)
 target_link_libraries(${LIBRARY_NAME} thor)
 
 # TGUI
-add_subdirectory(dependencies/TGUI)
+add_subdirectory(dependencies/TGUI EXCLUDE_FROM_ALL)
 target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/TGUI/include)
 target_link_libraries(${LIBRARY_NAME} tgui)
 
@@ -90,9 +90,15 @@ endif()
 
 # Sol2
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
+    # We force two options
+    set(SINGLE ON CACHE BOOL "" FORCE)
+    set(BUILD_LUA OFF CACHE BOOL "" FORCE)
+    # We disable install for this subdirectory
     add_subdirectory(dependencies/sol2 EXCLUDE_FROM_ALL)
+    
+    add_dependencies(${LIBRARY_NAME} sol2_single)
 
-    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/sol2)
+target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
 else()
     message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
@@ -114,3 +120,6 @@ install(TARGETS ${LIBRARY_NAME} ${EXECUTABLE_NAME}
   ARCHIVE DESTINATION .
 )
 install(DIRECTORY ../media DESTINATION ${CMAKE_INSTALL_PREFIX})
+# TODO: Let the user choose if the .so/.dll must be installed in the same directory or in a different one
+install(FILES $<TARGET_FILE:thor> DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES $<TARGET_FILE:tgui> DESTINATION ${CMAKE_INSTALL_PREFIX})
