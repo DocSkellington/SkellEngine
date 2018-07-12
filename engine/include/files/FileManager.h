@@ -1,7 +1,7 @@
 #pragma once
 
 #include <json.hpp>
-#include <sol.hpp>
+#include <sol/table.hpp>
 #include <map>
 #include <SFML/Graphics/Font.hpp>
 

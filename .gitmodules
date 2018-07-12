@@ -7,3 +7,9 @@
 [submodule "engine/dependencies/Catch2"]
 	path = engine/dependencies/Catch2
 	url = https://github.com/catchorg/Catch2
+[submodule "engine/dependencies/Thor"]
+	path = engine/dependencies/Thor
+	url = https://github.com/Bromeon/Thor
+[submodule "engine/dependencies/TGUI"]
+	path = engine/dependencies/TGUI
+	url = https://github.com/texus/TGUI
