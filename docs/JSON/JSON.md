@@ -14,7 +14,7 @@ where `type` is `string`, `integer`, `float`, `boolean`, `array` or `object`. `f
 Also, please see [w3schools](https://www.w3schools.com/js/js_json_syntax.asp) for more information on JSON syntax.
 
 # Game {#json_game}
-The `game.json` file supports the following field:
+The `game.json` file supports the following fields:
   - `game`: `object`: describes the game's description
     - `name`: `string`: the name of the game
     - `version`: `string`: the version of the game: x.x.x (where each x is an integer) is recommend but not mandatory
@@ -23,10 +23,7 @@ The `game.json` file supports the following field:
     - `output`: `string`: where the logger must write: `console` will write in the console/commad prompt, `file` will write in the `media/log.txt` file and `all` will write in both the console and file
   - `media`: `object`: the global media's settings
     - `baseSprites`: `string`: the path to the root of the sprites folder
-    - `maps`: `string` or `object` : the path to the folder containing the tiled maps or an object containing:
-      - `tilesets`: `string`: the path to the folder containing the tilesets files; if not defined, same as `maps`
-      - `images`: `string`: the path to the folder containing the images used by the maps; if not defined, same as `maps`
-      - `maps`: `string`: the path to the folder conainting the tiled maps
+    - `maps`: `string`: the path to the folder containing the tiled maps
   - `window`: `object`: the graphical window
     - `fullscreen`: `boolean`: whether the window must be fullscreen or not; the window's size is always the same as the desktop's size
     - `size`: `array`: the width and height of the window
