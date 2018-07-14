@@ -14,8 +14,6 @@ namespace engine::entities::components {
         virtual ~PositionComponent();
 
         virtual void create(Context &context, const nlohmann::json &jsonTable) override;
-        virtual void create(Context &context, const sol::table& luaTable) override;
-        virtual void create(Context &context, const nlohmann::json &jsonTable, const sol::table& luaTable) override;
 
     private:
         float m_x, m_y;

@@ -17,8 +17,6 @@ namespace engine::entities::components {
         virtual ~GraphicalSpriteSheetComponent();
 
         virtual void create(Context &context, const nlohmann::json &jsonTable) override;
-        virtual void create(Context &context, const sol::table &luaTable) override;
-        virtual void create(Context &context, const nlohmann::json &jsonTable, const sol::table &luaTable) override;
 
         /**
          * \brief Returns a const reference to the sprite

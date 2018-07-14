@@ -44,21 +44,6 @@ namespace engine::files {
         const StateDescription& getStateDescription(const std::string &state);
 
         /**
-         * \brief Loads the default Lua script of an entity (the one in media/entities/script), if it exists.
-         * \param entityType The type of the entity
-         * \throws engine::errors::FileNotFound If the file does not exist
-         */
-        void loadEntityDefaultLua(const std::string &entityType);
-
-        /**
-         * \brief Loads the level-specific Lua script of an entity (the one in media/levels/levelName/entities/script), if it exists.
-         * \param entityType The type of the entity
-         * \return The Lua table
-         * \throws engine::errors::FileNotFound If the file does not exist
-        */
-        sol::table getEntityLevelLua(const std::string &entityType);
-
-        /**
          * \brief Loads a font and stores it in the appropriate ressource holder.
          * \param fontName The name of the font to load
          * \return The loaded font

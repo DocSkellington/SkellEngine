@@ -11,17 +11,8 @@ namespace engine::entities::components {
 
     }
 
-    void PositionComponent::create(Context &context, const sol::table &luaTable) {
-
-    }
-
     void PositionComponent::create(Context &context, const nlohmann::json &jsonTable) {
         m_x = jsonTable[0].get<float>();
         m_y = jsonTable[1].get<float>();
     }
-
-    void PositionComponent::create(Context &context, const nlohmann::json &jsonTable, const sol::table &luaTable) {
-
-    }
 }
-    

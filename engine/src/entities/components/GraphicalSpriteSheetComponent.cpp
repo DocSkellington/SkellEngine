@@ -19,14 +19,6 @@ namespace engine::entities::components {
         m_sprite.setTexture(texture);
     }
 
-    void GraphicalSpriteSheetComponent::create(Context &context, const sol::table &luaTable) {
-
-    }
-
-    void GraphicalSpriteSheetComponent::create(Context &context, const nlohmann::json &jsonTable, const sol::table &luaTable) {
-
-    }
-
     const sf::Sprite& GraphicalSpriteSheetComponent::getSprite() const {
         return m_sprite;
     }

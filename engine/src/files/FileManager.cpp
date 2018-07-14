@@ -65,26 +65,6 @@ namespace engine::files {
         return m_entitiesGlobal[entityType];
     }
 
-    void FileManager::loadEntityDefaultLua(const std::string &entityType) {
-        if (!((*m_context.lua)[entityType].valid()))
-            m_context.lua->safe_script_file("media/entities/scripts/" + entityType + ".lua");
-    }
-
-    sol::table FileManager::getEntityLevelLua(const std::string &entityType) {
-        if (!m_levelDescription.name.empty()) {
-            if (!((*m_context.lua)[entityType].valid())) {
-                // If there isn't any script linked to that entity, we load the level one
-                m_context.lua->safe_script_file("media/levels/" + m_levelDescription.name + "/entities/scripts/" + entityType + ".lua");
-            }
-            else {
-                // If there is already a script, we merge them
-                sol::load_result script = m_context.lua->load_file("media/levels/" + m_levelDescription.name + "/entities/scripts" + entityType + ".lua");
-
-                // TODO: read every value. If table, go in it. Copy/overwrite data in m_context.lua
-            }
-        }
-    }
-
     sf::Font& FileManager::loadFont(const std::string &fontName) {
         m_context.fontHolder->acquire("fonts/" + fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
     }
