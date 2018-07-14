@@ -4,7 +4,7 @@ set(TESTS_SOURCES
     systems/systems_tests.cpp
 )
 
-set(TESTS_NAME Engine-tests)
+set(TESTS_NAME SkellTests)
 add_executable(${TESTS_NAME} ${TESTS_SOURCES})
 
 message(STATUS ${CMAKE_SOURCE_DIR})
@@ -12,8 +12,8 @@ target_include_directories(${TESTS_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/depen
 
 target_link_libraries(${TESTS_NAME} ${LIBRARY_NAME})
 
-install(TARGETS ${TESTS_NAME}
-    RUNTIME DESTINATION .
-    LIBRARY DESTINATION .
-    ARCHIVE DESTINATION .
-)
+set(TESTS_PATH ${CMAKE_INSTALL_PREFIX}/tests)
+install(TARGETS ${TESTS_NAME} RUNTIME DESTINATION ${TESTS_PATH})
+install(FILES $<TARGET_FILE:thor> DESTINATION ${TESTS_PATH})
+install(FILES $<TARGET_FILE:tgui> DESTINATION ${TESTS_PATH})
+install(FILES $<TARGET_FILE:SkellEngine> DESTINATION ${TESTS_PATH})

@@ -45,10 +45,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin"
+                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin/examples/test"
                 }
             },
-            "command": "make -j4 install && cd ../bin && ./Engine",
+            "command": "make -j4 install && cd ../bin/examples/test && ./test",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -70,10 +70,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin"
+                    "LD_LIBRARY_PATH": "${workspaceFolder}/bin/tests"
                 }
             },
-            "command": "make -j4 install Engine-tests && cd ../bin && ./Engine-tests",
+            "command": "make -j4 install && cd ../bin/tests && ./SkellTests",
             "problemMatcher": []
         },
     ]
