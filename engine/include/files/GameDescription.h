@@ -28,7 +28,7 @@ namespace engine::files {
         struct WindowDescription {
             bool fullscreen, titlebar, resize, close, version, engine;
             std::string title;
-            int width, height, aliasingLevel;
+            int width, height, antialiasingLevel;
         };
 
         /**

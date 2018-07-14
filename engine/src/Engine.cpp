@@ -25,7 +25,7 @@ namespace engine {
         // Erasing the old log
         remove("media/log.txt");
         // Setting default value to the output
-        tmx::Logger::setOutput(tmx::Logger::Output::All);
+        tmx::Logger::setOutput(tmx::Logger::Output::Console);
         #else
         tmx::Logger::setOutput(tmx::Logger::Output::None);
         #endif
@@ -113,10 +113,13 @@ namespace engine {
         if (!window.titlebar)
             style = sf::Style::None;
 
+        sf::ContextSettings settings;
+        settings.antialiasingLevel = window.antialiasingLevel;
+
         if (window.fullscreen)
-            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen);
+            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode::getDesktopMode(), title, sf::Style::Fullscreen, settings);
         else
-            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode(window.width, window.height, 32), title, style);
+            m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode(window.width, window.height, 32), title, style, settings);
 
     }
 }

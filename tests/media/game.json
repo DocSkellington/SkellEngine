@@ -1,0 +1,25 @@
+{
+    "version" : "Test Version",
+    "name" : "Catch2",
+    "log": {
+        "output": "all"
+    },
+    "window" : {
+        "fullscreen" : true,
+        "size" : [5241, 4952],
+        "antialiasingLevel" : 8,
+        "showTitlebar" : false,
+        "showResize" : false,
+        "showClose" : false,
+        "title" : "Testy",
+        "showVersion" : false,
+        "showEngine" : false
+    },
+    "media" : {
+        "baseSprites" : "path/to/sprite",
+        "maps" : "path/to/maps"
+    },
+    "states" : {
+        "first" : "MainMenu"
+    }
+}

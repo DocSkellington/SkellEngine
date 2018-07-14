@@ -14,6 +14,9 @@ namespace engine::files {
         m_context(context) {
         nlohmann::json gameJSON;
         std::ifstream file("media/game.json");
+        if (!file.is_open()) {
+            throw errors::FileNotFound("media/game.json could not be found. Please check that the media folder is complete and correct.");
+        }
         file >> gameJSON;
         m_gameDescription = gameJSON.get<GameDescription>();
         loadStateDescriptions();
