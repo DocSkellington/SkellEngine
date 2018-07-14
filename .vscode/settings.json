@@ -61,7 +61,9 @@
         "future": "cpp",
         "bitset": "cpp",
         "numeric": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "any": "cpp",
+        "valarray": "cpp"
     },
     "latex-workshop.debug.showUpdateMessage": false,
     "latex-workshop.message.update.show": false

@@ -13,8 +13,8 @@ endmacro()
 engine_set_option(CMAKE_BUILD_TYPE Debug STRING "Choose the type of the build (Debug or Release)")
 
 # C++17
-set(CXX_STANDARD 17)
-set(CXX_STANDARD_REQUIRED on)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 add_definitions(-Wall -Wextra)
 

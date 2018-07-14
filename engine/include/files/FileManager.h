@@ -50,12 +50,17 @@ namespace engine::files {
          */
         sf::Font& loadFont(const std::string &fontName);
 
+        void registerExternSystems();
+
+        sol::table& getSystemLuaTable(const std::string &systemName);
+
     private:
         const Context &m_context;
         LevelDescription m_levelDescription;
         std::map<std::string, nlohmann::json> m_entitiesGlobal;
         GameDescription m_gameDescription;
         std::map<std::string, StateDescription> m_stateDescriptions;
+        std::map<std::string, sol::table> m_externSystemsLua;
 
     private:
         /**

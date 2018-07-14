@@ -30,6 +30,7 @@ set(SOURCES
     src/systems/GraphicalSystem.cpp
     src/systems/System.cpp
     src/systems/SystemManager.cpp
+    src/systems/ExternSystem.cpp
 
     src/tmxlite/FreeFuncs.cpp
     src/tmxlite/ImageLayer.cpp
@@ -79,15 +80,7 @@ endif()
 
 # Sol2
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
-    # We force two options
-    set(SINGLE ON CACHE BOOL "" FORCE)
-    set(BUILD_LUA OFF CACHE BOOL "" FORCE)
-    # We disable install for this subdirectory
-    add_subdirectory(dependencies/sol2 EXCLUDE_FROM_ALL)
-    
-    add_dependencies(${LIBRARY_NAME} sol2_single)
-
-    target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/dependencies/sol2/single)
+    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/sol2/single/sol)
 else()
     message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
@@ -98,3 +91,13 @@ if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
 else()
     message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
+
+# std::filesystem for GCC
+if(CMAKE_COMPILER_IS_GNUCXX)
+    target_link_libraries(${LIBRARY_NAME} stdc++fs)
+endif()
+
+install(TARGETS ${LIBRARY_NAME}
+    LIBRARY DESTINATION .
+    ARCHIVE DESTINATION .
+)

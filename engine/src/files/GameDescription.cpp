@@ -128,7 +128,7 @@ namespace engine::files {
         }
     }
 
-    GameDescription::MediaDescription defaultMedia {"media/sprites/", "media/maps/"};
+    GameDescription::MediaDescription defaultMedia {"media/sprites/", "media/maps/", "media/systems/"};
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m) {
         auto baseSprites = j.find("baseSprites");
@@ -155,6 +155,16 @@ namespace engine::files {
         else {
             m.mapFolder = defaultMedia.mapFolder;
             tmx::Logger::log("game.json: media description does not contain the 'maps' field. 'media/maps' will be used as default.", tmx::Logger::Type::Warning);
+        }
+
+        auto systems = j.find("systems");
+        if (systems != j.end() && systems->is_string()) {
+            m.systemsFolder = *systems;
+            check_path_end(m.systemsFolder);
+        }
+        else {
+            m.systemsFolder = defaultMedia.systemsFolder;
+            tmx::Logger::log("game.json: media description does not contain the 'systems' field or its type is not valid (it should be a string). 'media/systems/' will be used as default", tmx::Logger::Type::Warning);
         }
     }
 

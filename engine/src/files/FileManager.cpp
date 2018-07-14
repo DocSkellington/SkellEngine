@@ -3,9 +3,12 @@
 #include <fstream>
 #include <cctype>
 #include <algorithm>
+#include <filesystem>
+#include <sol.hpp>
 
 #include "Context.h"
 #include "errors/FileNotFound.h"
+#include "errors/SystemNotFound.h"
 #include "errors/BadLevelDescription.h"
 #include <tmxlite/Log.hpp>
 
@@ -20,6 +23,8 @@ namespace engine::files {
         file >> gameJSON;
         m_gameDescription = gameJSON.get<GameDescription>();
         loadStateDescriptions();
+
+        registerExternSystems();
     }
 
     void FileManager::changeLevel(const std::string& levelName) {
@@ -67,6 +72,36 @@ namespace engine::files {
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
         m_context.fontHolder->acquire("fonts/" + fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+    }
+
+    void FileManager::registerExternSystems() {
+        namespace fs = std::filesystem;
+
+        for (auto &p : fs::directory_iterator(m_gameDescription.media.systemsFolder)) {
+            if (!p.is_directory()) {
+                std::smatch m;
+                std::regex regex("System.lua$");
+                std::string filename = p.path().filename().generic_string(); // regex_search does not support temporary strings
+
+                if (std::regex_search(filename, m, regex)) {
+                    std::string systemName = m.prefix();
+                    //sol::load_result res = m_context.lua->load_file(p.path());
+                }
+                else {
+                    /** \TODO */
+                }
+            }
+        }
+    }
+
+    sol::table& FileManager::getSystemLuaTable(const std::string &systemName) {
+        auto sys = m_externSystemsLua.find(systemName);
+        if (sys != m_externSystemsLua.end()) {
+            return sys->second;
+        }
+        else {
+            throw errors::SystemNotFound("The system " + systemName + " is unknown. Please verify that the Lua script is in the correct directory and that the filename is valid.");
+        }
     }
 
     nlohmann::json FileManager::fusion(const nlohmann::json &a, const nlohmann::json &b) const {

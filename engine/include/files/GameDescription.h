@@ -39,6 +39,7 @@ namespace engine::files {
         struct MediaDescription {
             std::string baseSprites;
             std::string mapFolder;
+            std::string systemsFolder;
         };
 
         /**

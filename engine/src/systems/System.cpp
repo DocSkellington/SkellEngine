@@ -3,6 +3,7 @@
 #include <cctype>
 
 #include <tmxlite/Log.hpp>
+#include "systems/ExternSystem.h"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
@@ -38,7 +39,7 @@ namespace engine::systems {
         auto systemConstructor = getMapToSystem()->find(systemName);
 
         if (systemConstructor == getMapToSystem()->end()) {
-            // TODO: return generic system
+            return std::make_shared<ExternSystem>(manager);
         }
         else if (!systemConstructor->second) {
             tmx::Logger::log("SYSTEMCONSTRUCTOR", tmx::Logger::Type::Info);
@@ -48,7 +49,7 @@ namespace engine::systems {
                 auto system = systemConstructor->second(manager);
                 return system;
             }
-            catch (std::bad_function_call e) {
+            catch (const std::bad_function_call &e) {
                 tmx::Logger::logError("Error while constructing the system " + systemName, e);
             }
         }

@@ -55,12 +55,9 @@ TEST_CASE("Game description loading", "[json_description]") {
 
         SECTION("Media description is verified") {
             GameDescription::MediaDescription media = game.media;
-            SECTION("'baseSprites' is correct") {
-                REQUIRE(media.baseSprites == "path/to/sprite/");
-            }
-            SECTION("'maps' is correct") {
-                REQUIRE(media.mapFolder == "path/to/maps/");
-            }
+            REQUIRE(media.baseSprites == "path/to/sprite/");
+            REQUIRE(media.mapFolder == "path/to/maps/");
+            REQUIRE(media.systemsFolder == "path/to/systems/");
         }
 
         SECTION("States description is verified") {

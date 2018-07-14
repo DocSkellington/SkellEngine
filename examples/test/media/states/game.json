@@ -1,5 +1,6 @@
 {
     "systems" : [
-        "GraphicalOrthogonal"
+        "GraphicalOrthogonal",
+        "Test"
     ]
 }

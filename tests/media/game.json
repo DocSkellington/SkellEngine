@@ -17,7 +17,8 @@
     },
     "media" : {
         "baseSprites" : "path/to/sprite",
-        "maps" : "path/to/maps"
+        "maps" : "path/to/maps",
+        "systems": "path/to/systems"
     },
     "states" : {
         "first" : "MainMenu"
