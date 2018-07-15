@@ -65,6 +65,6 @@
         "any": "cpp",
         "valarray": "cpp"
     },
-    "latex-workshop.debug.showUpdateMessage": false,
-    "latex-workshop.message.update.show": false
+    "latex-workshop.message.update.show": false,
+    "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

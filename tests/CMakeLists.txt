@@ -4,6 +4,8 @@ set(TESTS_SOURCES
     systems/systems_tests.cpp
 
     FileManager/gameDescription_tests.cpp
+
+    utilities/json_lua_tests.cpp
 )
 
 set(TESTS_NAME SkellTests)
