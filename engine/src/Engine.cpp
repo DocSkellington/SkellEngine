@@ -30,10 +30,10 @@ namespace engine {
         tmx::Logger::setOutput(tmx::Logger::Output::None);
         #endif
 
-        m_context.fileManager = make_shared<files::FileManager>(m_context);
-
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
+
+        m_context.fileManager = make_shared<files::FileManager>(m_context);
 
         m_context.textureHolder = make_shared<thor::ResourceHolder<sf::Texture, std::string>>();
 

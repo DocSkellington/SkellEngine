@@ -3,8 +3,8 @@
 #include <fstream>
 #include <cctype>
 #include <algorithm>
-#include <filesystem>
 #include <sol.hpp>
+#include <filesystem>
 
 #include "Context.h"
 #include "errors/FileNotFound.h"
@@ -71,36 +71,46 @@ namespace engine::files {
     }
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
-        m_context.fontHolder->acquire("fonts/" + fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+        return m_context.fontHolder->acquire("fonts/" + fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
     }
 
     void FileManager::registerExternSystems() {
-        namespace fs = std::filesystem;
+        for (auto &file : std::filesystem::directory_iterator(m_gameDescription.media.systemsFolder)) {
+            if (file.is_regular_file()) {
+                std::smatch match;
+                std::regex lua(".lua");
 
-        for (auto &p : fs::directory_iterator(m_gameDescription.media.systemsFolder)) {
-            if (!p.is_directory()) {
-                std::smatch m;
-                std::regex regex("System.lua$");
-                std::string filename = p.path().filename().generic_string(); // regex_search does not support temporary strings
+                std::string filename = file.path().filename();
 
-                if (std::regex_search(filename, m, regex)) {
-                    std::string systemName = m.prefix();
-                    //sol::load_result res = m_context.lua->load_file(p.path());
-                }
-                else {
-                    /** \TODO */
+                if (std::regex_search(filename, match, lua)) {
+                    // The file ends with ".lua"
+                    std::smatch matchSystemName;
+                    std::regex system("[Ss]ystem$");
+
+                    std::string systemName = match.prefix();
+
+                    if (std::regex_search(systemName, matchSystemName, system)) {
+                        // The name of the file is "BlablaSystem.lua"; we want to keep "Blabla"
+                        systemName = matchSystemName.prefix();
+                    }
+
+                    std::transform(systemName.begin(), systemName.end(), systemName.begin(), ::tolower);
+
+                    m_systemsPath[systemName] = filename;
+
+                    tmx::Logger::log("Registering " + systemName);
                 }
             }
         }
     }
 
-    sol::table& FileManager::getSystemLuaTable(const std::string &systemName) {
-        auto sys = m_externSystemsLua.find(systemName);
-        if (sys != m_externSystemsLua.end()) {
-            return sys->second;
+    std::string FileManager::getSystemPath(const std::string &systemName) {
+        auto itr = m_systemsPath.find(systemName);
+        if (itr != m_systemsPath.end()) {
+            return m_gameDescription.media.systemsFolder + itr->second;
         }
         else {
-            throw errors::SystemNotFound("The system " + systemName + " is unknown. Please verify that the Lua script is in the correct directory and that the filename is valid.");
+            throw errors::SystemNotFound("The system " + systemName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
         }
     }
 

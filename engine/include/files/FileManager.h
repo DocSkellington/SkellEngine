@@ -52,7 +52,7 @@ namespace engine::files {
 
         void registerExternSystems();
 
-        sol::table& getSystemLuaTable(const std::string &systemName);
+        std::string getSystemPath(const std::string &systemName);
 
     private:
         const Context &m_context;
@@ -60,7 +60,7 @@ namespace engine::files {
         std::map<std::string, nlohmann::json> m_entitiesGlobal;
         GameDescription m_gameDescription;
         std::map<std::string, StateDescription> m_stateDescriptions;
-        std::map<std::string, sol::table> m_externSystemsLua;
+        std::map<std::string, std::string> m_systemsPath;
 
     private:
         /**

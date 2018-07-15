@@ -39,7 +39,9 @@ namespace engine::systems {
         auto systemConstructor = getMapToSystem()->find(systemName);
 
         if (systemConstructor == getMapToSystem()->end()) {
-            return std::make_shared<ExternSystem>(manager);
+            ExternSystem::Ptr e = std::make_shared<ExternSystem>(manager);
+            e->loadLua(systemName);
+            return e;
         }
         else if (!systemConstructor->second) {
             tmx::Logger::log("SYSTEMCONSTRUCTOR", tmx::Logger::Type::Info);

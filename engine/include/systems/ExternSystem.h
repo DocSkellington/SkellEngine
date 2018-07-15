@@ -14,7 +14,7 @@ namespace engine::systems {
         ExternSystem(const ExternSystem&) = delete;
         virtual ~ExternSystem();
 
-        virtual void setLuaScript(sol::table &lua);
+        virtual void loadLua(const std::string &systemName);
 
         virtual bool update(sf::Int64 deltatime, sf::View &view);
 
@@ -22,6 +22,6 @@ namespace engine::systems {
         virtual bool checkComponents(engine::entities::Entity::Ptr entity) const;
 
     private:
-        sol::table m_lua;
+        sol::state m_lua;
     };
 }
