@@ -32,6 +32,8 @@ set(SOURCES
     src/systems/SystemManager.cpp
     src/systems/ExternSystem.cpp
 
+    src/utilities/json_lua.cpp
+
     src/tmxlite/FreeFuncs.cpp
     src/tmxlite/ImageLayer.cpp
     src/tmxlite/Map.cpp

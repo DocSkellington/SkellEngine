@@ -4,36 +4,16 @@
 #include <sol.hpp>
 
 namespace engine::utilities {
-    void json_to_lua(const nlohmann::json& json, sol::table& lua) {
-        if (json.is_array()) {
-            for (std::size_t i = 0 ; i < json.size() ; i++) {
-                lua[i] = json[i];
-            }
-        }
-        else if (json.is_object()) {
-            for (auto &o : json.items()) {
-                if (o.value().is_object() || o.value().is_array()) {
-                    lua.set(o.key(), json_to_lua(o.value()));
-                }
-                else if (o.value().is_boolean()) {
-                    lua.set(o.key(), o.value().get<bool>());
-                }
-                else if (o.value().is_number_float()) {
-                    lua.set(o.key(), o.value().get<float>());
-                }
-                else if (o.value().is_number_integer()) {
-                    lua.set(o.key(), o.value().get<long>());
-                }
-                else if (o.value().is_number_unsigned()) {
-                    lua.set(o.key(), o.value().get<unsigned long>());
-                }
-                else if (o.value().is_string()) {
-                    lua[o.key()] = o.value().get<std::string>();
-                }
-            }
-        }
-        else {
-            std::cout << "Hello\n";
-        }
-    }
+    /**
+     * \brief Converts a JSON object into a Lua table.
+     * 
+     * The JSON must be correct. Otherwise, the behaviour is undefined. For example, it must not be empty.
+     * 
+     * For an array, indices begin at 1, following the Lua grammar.
+     * 
+     * \param json The JSON object
+     * \param lua The Lua State (necessary to create the table(s))
+     * \return The Lua table
+     */
+    sol::table json_to_lua(const nlohmann::json& json, sol::state& lua);
 }

@@ -63,7 +63,8 @@
         "numeric": "cpp",
         "optional": "cpp",
         "any": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "filesystem": "cpp"
     },
     "latex-workshop.message.update.show": false,
     "C_Cpp.intelliSenseEngineFallback": "Disabled"
