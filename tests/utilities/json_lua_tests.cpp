@@ -7,7 +7,6 @@ using namespace engine::utilities;
 TEST_CASE("JSON to Lua table", "[utilities]") {
     sol::state luaState;
 
-    /*
     SECTION("A JSON can be just an array") {
         nlohmann::json json = {1,3};
 
@@ -40,7 +39,6 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
         REQUIRE(array.get<long>(3) == 5);
         REQUIRE(array.get<float>(4) == Approx(8.9));
     }
-    */
 
     SECTION("Nested objects") {
         nlohmann::json json {
@@ -66,7 +64,7 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
         REQUIRE_FALSE(level1["someBool"]);
 
         sol::table level2 = level1["level2"];
-        //REQUIRE(level2["someStr"] == "someStr");
-        REQUIRE(level2["someFloat"] == Approx(1.23));
+        REQUIRE(level2.get<std::string>("someStr") == "someStr");
+        REQUIRE(level2.get<float>("someFloat") == Approx(1.23));
     }
 }

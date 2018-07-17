@@ -10,7 +10,6 @@ namespace engine::utilities {
             sol::table table = lua.create_table();
             for (auto &o : json.items()) {
                 if (o.value().is_object() || o.value().is_array()) {
-                    std::cout << o.key() << '\n';
                     if (array)
                         table.set(std::stoi(o.key()) + 1, json_to_lua(o.value(), lua, o.value().is_array()), o.value().is_array());
                     else
@@ -45,9 +44,6 @@ namespace engine::utilities {
                         table.set(std::stoi(o.key()) + 1, o.value().get<std::string>());
                     else
                         table.set(o.key(), o.value().get<std::string>());
-                }
-                else {
-                    std::cout << o.key() << '\n';
                 }
             }
             return table;
