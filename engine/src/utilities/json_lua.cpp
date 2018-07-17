@@ -23,9 +23,9 @@ namespace engine::utilities {
                 }
                 else if (o.value().is_number_float()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<float>());
+                        table.set(std::stoi(o.key()) + 1, o.value().get<double>());
                     else
-                        table.set(o.key(), o.value().get<float>());
+                        table.set(o.key(), o.value().get<double>());
                 }
                 else if (o.value().is_number_unsigned()) {
                     if (array)
@@ -52,5 +52,62 @@ namespace engine::utilities {
 
     sol::table json_to_lua(const nlohmann::json& json, sol::state& lua) {
         return json_to_lua(json, lua, false);
+    }
+
+    bool simple_table(const sol::table &lua) {
+        for (auto &itr : lua) {
+            if (itr.first.get_type() != sol::type::number)
+                return false;
+        }
+        return true;
+    }
+
+    nlohmann::json lua_to_json(const sol::table &lua) {
+        nlohmann::json json;
+        bool table = simple_table(lua);
+        for (auto &itr : lua) {
+            switch(itr.second.get_type()) {
+            case sol::type::table:
+                if (table) {
+                    json[itr.first.as<int>()] = lua_to_json(itr.second);
+                }
+                else {
+                    json[itr.first.as<std::string>()] = lua_to_json(itr.second);
+                }
+                break;
+            case sol::type::number:
+                if (table) {
+                    json[itr.first.as<int>()] = itr.second.as<double>();
+                }
+                else {
+                    json[itr.first.as<std::string>()] = itr.second.as<double>();
+                }
+                break;
+            case sol::type::boolean:
+                if (table) {
+                    json[itr.first.as<int>()] = itr.second.as<bool>();
+                }
+                else {
+                    json[itr.first.as<std::string>()] = itr.second.as<bool>();
+                }
+                break;
+            case sol::type::string:
+                if (table) {
+                    json[itr.first.as<int>()] = itr.second.as<std::string>();
+                }
+                else {
+                    json[itr.first.as<std::string>()] = itr.second.as<std::string>();
+                }
+                break;
+            case sol::type::userdata:
+                break;
+            default:
+                std::cout << itr.first.as<std::string>() << '\n';
+                std::cout << "OTHER\n";
+                break;
+            }
+        }
+
+        return json;
     }
 }

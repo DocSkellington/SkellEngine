@@ -16,4 +16,16 @@ namespace engine::utilities {
      * \return The Lua table
      */
     sol::table json_to_lua(const nlohmann::json& json, sol::state& lua);
+
+    /**
+     * \brief Converts a Lua table into a JSON object
+     * 
+     * The Lua table must be correct. Otherwise, the behaviour is undefined.
+     * 
+     * Due to JSON limitations, if a Lua table mixes named and unnamed values, the JSON table indices are strings.
+     * 
+     * \param lua The Lua table
+     * \return The JSON object corresponding to the Lua table
+     */
+    nlohmann::json lua_to_json(const sol::table &lua);
 }
