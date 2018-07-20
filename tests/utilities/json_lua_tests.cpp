@@ -49,8 +49,8 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
         auto table = json_to_lua(json, luaState);
 
         REQUIRE(table["array"][1] == 3);
-        REQUIRE(table["array"][2][1]);
-        REQUIRE(table["array"][2][2] == "hello");
+        REQUIRE(table["array"][2][1].get<bool>());
+        REQUIRE(table["array"][2][2].get<std::string>() == "hello");
     }
 
     SECTION("Nested objects") {
@@ -99,6 +99,22 @@ TEST_CASE("Lua table to JSON", "[utilities]") {
         REQUIRE(json[3]);
     }
 
+    SECTION("Nested unnamed tables") {
+        luaState.script(R"(
+            table = {
+                5, {3.14, true, "string"}, false
+            }
+        )");
+
+        nlohmann::json json = lua_to_json(luaState["table"]);
+
+        REQUIRE(json[1] == 5);
+        REQUIRE(json[2][1] == Approx(3.14));
+        REQUIRE(json[2][2]);
+        REQUIRE(json[2][3] == "string");
+        REQUIRE_FALSE(json[3]);
+    }
+
     SECTION("Simple objects") {
         luaState.script(R"(
             table = {
@@ -121,5 +137,31 @@ TEST_CASE("Lua table to JSON", "[utilities]") {
             REQUIRE(json["2"] == 42);
             REQUIRE(json["string"] == "someString");
         }
+    }
+
+    SECTION("Nested named tables") {
+        luaState.script(R"(
+            table = {
+                pi = 3.14,
+                level2 = {
+                    string = "string",
+                    bool = true,
+                    level3 = {
+                        notBool = "true",
+                        notString = false
+                    }
+                },
+                pi2 = 6.28
+            }
+        )");
+
+        nlohmann::json json = lua_to_json(luaState["table"]);
+
+        REQUIRE(json["pi"] == Approx(3.14));
+        REQUIRE(json["level2"]["string"] == "string");
+        REQUIRE(json["level2"]["bool"]);
+        REQUIRE(json["level2"]["level3"]["notBool"] == "true");
+        REQUIRE_FALSE(json["level2"]["level3"]["notString"]);
+        REQUIRE(json["pi2"] == Approx(6.28));
     }
 }

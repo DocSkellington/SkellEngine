@@ -1,5 +1,7 @@
 #include "utilities/json_lua.h"
 
+#include "tmxlite/Log.hpp"
+
 namespace engine::utilities {
     // 'array' indicates if the current json object parsed is an array. If yes, the keys are converted into int. If no, the keys are still strings.
     sol::table json_to_lua(const nlohmann::json& json, sol::state& lua, bool array) {
@@ -99,11 +101,8 @@ namespace engine::utilities {
                     json[itr.first.as<std::string>()] = itr.second.as<std::string>();
                 }
                 break;
-            case sol::type::userdata:
-                break;
             default:
-                std::cout << itr.first.as<std::string>() << '\n';
-                std::cout << "OTHER\n";
+                tmx::Logger::log("Lua table to JSON object: the value of name/index " + itr.first.as<std::string>() + " is not supported. The value is ignored.", tmx::Logger::Type::Warning);
                 break;
             }
         }
