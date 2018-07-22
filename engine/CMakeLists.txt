@@ -65,7 +65,7 @@ endif()
 
 # Thor
 add_subdirectory(dependencies/Thor EXCLUDE_FROM_ALL)
-target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include)
+target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include dependencies/Thor/extlibs/aurora/include)
 target_link_libraries(${LIBRARY_NAME} thor)
 
 # TGUI

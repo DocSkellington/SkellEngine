@@ -67,5 +67,6 @@
         "filesystem": "cpp"
     },
     "latex-workshop.message.update.show": false,
-    "C_Cpp.intelliSenseEngineFallback": "Disabled"
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "cmake.configureOnOpen": false
 }
