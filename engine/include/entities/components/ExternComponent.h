@@ -27,8 +27,8 @@ namespace engine::entities::components {
 
         void set(const std::string &name, nlohmann::json value) override;
 
-        std::tuple<int, bool> getInt(const std::string &name) override;
-        std::tuple<sol::object, bool> getObject(const std::string &name) override;
+        std::pair<int, bool> getInt(const std::string &name) override;
+        std::pair<sol::object, bool> getObject(const std::string &name) override;
 
     private:
         nlohmann::json m_jsonTable;

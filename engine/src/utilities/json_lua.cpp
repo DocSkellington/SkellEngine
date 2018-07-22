@@ -13,37 +13,37 @@ namespace engine::utilities {
             for (auto &o : json.items()) {
                 if (o.value().is_object() || o.value().is_array()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, json_to_lua(o.value(), lua, o.value().is_array()), o.value().is_array());
+                        table.set(std::stoi(o.key()), json_to_lua(o.value(), lua, o.value().is_array()), o.value().is_array());
                     else
                         table.set(o.key(), json_to_lua(o.value(), lua, o.value().is_array()), o.value().is_array());
                 }
                 else if (o.value().is_boolean()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<bool>());
+                        table.set(std::stoi(o.key()), o.value().get<bool>());
                     else
                         table.set(o.key(), o.value().get<bool>());
                 }
                 else if (o.value().is_number_float()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<double>());
+                        table.set(std::stoi(o.key()), o.value().get<double>());
                     else
                         table.set(o.key(), o.value().get<double>());
                 }
                 else if (o.value().is_number_unsigned()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<unsigned long>());
+                        table.set(std::stoi(o.key()), o.value().get<unsigned long>());
                     else
                         table.set(o.key(), o.value().get<unsigned long>());
                 }
                 else if (o.value().is_number_integer()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<long>());
+                        table.set(std::stoi(o.key()), o.value().get<long>());
                     else
                         table.set(o.key(), o.value().get<long>());
                 }
                 else if (o.value().is_string()) {
                     if (array)
-                        table.set(std::stoi(o.key()) + 1, o.value().get<std::string>());
+                        table.set(std::stoi(o.key()), o.value().get<std::string>());
                     else
                         table.set(o.key(), o.value().get<std::string>());
                 }

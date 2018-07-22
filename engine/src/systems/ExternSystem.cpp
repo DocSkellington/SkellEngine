@@ -17,9 +17,7 @@ namespace engine::systems {
     }
 
     void ExternSystem::loadLua(const std::string &systemName) {
-        std::cout << "LOADLUA\n";
         m_lua.do_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
-        std::cout << "ENDLUA\n";
         m_lua["init"]();
     }
 

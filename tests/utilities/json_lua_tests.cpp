@@ -12,7 +12,8 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
 
         auto table = json_to_lua(json, luaState);
 
-        REQUIRE(table[1] == 1);
+        REQUIRE(table[0] == 1);
+        REQUIRE(table[1] == 3);
     }
 
     SECTION("Simple object") {
@@ -34,11 +35,11 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
         REQUIRE(table.get<bool>("boolean"));
         
         sol::table array = table["array"];
-        REQUIRE(array.get<long>(1) == 1);
-        REQUIRE(array.get<long>(2) == 3);
-        REQUIRE(array.get<long>(3) == 5);
-        REQUIRE(array.get<double>(4) == Approx(8.9));
-        REQUIRE(array.get<std::string>(5) == "string");
+        REQUIRE(array.get<long>(0) == 1);
+        REQUIRE(array.get<long>(1) == 3);
+        REQUIRE(array.get<long>(2) == 5);
+        REQUIRE(array.get<double>(3) == Approx(8.9));
+        REQUIRE(array.get<std::string>(4) == "string");
     }
 
     SECTION("Nested arrays") {
@@ -48,9 +49,9 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
 
         auto table = json_to_lua(json, luaState);
 
-        REQUIRE(table["array"][1] == 3);
-        REQUIRE(table["array"][2][1].get<bool>());
-        REQUIRE(table["array"][2][2].get<std::string>() == "hello");
+        REQUIRE(table["array"][0] == 3);
+        REQUIRE(table["array"][1][0].get<bool>());
+        REQUIRE(table["array"][1][1].get<std::string>() == "hello");
     }
 
     SECTION("Nested objects") {

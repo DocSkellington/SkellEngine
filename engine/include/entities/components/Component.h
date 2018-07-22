@@ -45,8 +45,8 @@ namespace engine::entities::components {
 
         virtual void set(const std::string &name, nlohmann::json value) = 0;
 
-        virtual std::tuple<int, bool> getInt(const std::string &name) = 0;
-        virtual std::tuple<sol::object, bool> getObject(const std::string &name) = 0;
+        virtual std::pair<int, bool> getInt(const std::string &name) = 0;
+        virtual std::pair<sol::object, bool> getObject(const std::string &name) = 0;
 
         /**
          * \brief Creates an instance of a component based on the given name. If the type is unknown, a generic component is returned.

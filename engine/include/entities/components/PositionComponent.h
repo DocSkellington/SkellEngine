@@ -24,8 +24,8 @@ namespace engine::entities::components {
 
         virtual void set(const std::string &name, nlohmann::json value) override;
 
-        virtual std::tuple<int, bool> getInt(const std::string &name) override;
-        virtual std::tuple<sol::object, bool> getObject(const std::string &name) override;
+        virtual std::pair<int, bool> getInt(const std::string &name) override;
+        virtual std::pair<sol::object, bool> getObject(const std::string &name) override;
 
     private:
         float m_x, m_y;

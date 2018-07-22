@@ -73,7 +73,6 @@ namespace engine::systems {
     bool SystemManager::addEntity(entities::Entity::Ptr entity) {
         bool atLeastOne = false;
         for (auto &system : m_systems) {
-            std::cout << system.first << '\n';
             if (system.second->addEntity(entity))
                 atLeastOne = true;
         }

@@ -47,11 +47,11 @@ namespace engine::entities::components {
 
     }
 
-    std::tuple<int, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
+    std::pair<int, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
 
     }
 
-    std::tuple<sol::object, bool> GraphicalSpriteSheetComponent::getObject(const std::string &name) {
+    std::pair<sol::object, bool> GraphicalSpriteSheetComponent::getObject(const std::string &name) {
 
     }
 }

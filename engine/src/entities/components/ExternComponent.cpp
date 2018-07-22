@@ -19,7 +19,6 @@ namespace engine::entities::components {
     }
 
     void ExternComponent::set(const std::string &name, int value) {
-        std::cout << "LONG\n";
         m_jsonTable[name] = value;
     }
 
@@ -46,27 +45,24 @@ namespace engine::entities::components {
         m_jsonTable[name] = value;
     }
 
-    std::tuple<int, bool> ExternComponent::getInt(const std::string &name) {
+    std::pair<int, bool> ExternComponent::getInt(const std::string &name) {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
-            return std::make_tuple(itr->get<int>(), true);
+            return std::make_pair(itr->get<int>(), true);
         }
         else {
             tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
-            return std::make_tuple(0, false);
+            return std::make_pair(0, false);
         }
     }
 
-    std::tuple<sol::object, bool> ExternComponent::getObject(const std::string &name) {
-        std::cout << name << '\n';
-        std::cout << m_jsonTable << '\n';
+    std::pair<sol::object, bool> ExternComponent::getObject(const std::string &name) {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
-            std::cout << *itr << '\n';
-            std::cout << itr->type_name() << '\n';
             sol::object o;
             switch(itr->type()) {
             case nlohmann::json::value_t::array:
+            case nlohmann::json::value_t::object:
                 o = utilities::json_to_lua(*itr, *(getContext().lua));
                 break;
             case nlohmann::json::value_t::number_float:
@@ -84,9 +80,9 @@ namespace engine::entities::components {
             case nlohmann::json::value_t::string:
                 o = sol::make_object<std::string>(*getContext().lua, itr->get<std::string>());
                 break;
-            case nlohmann::json::value_t::object:
-                std::cout << "object\n";
-                o = sol::make_object<std::string>(*getContext().lua, "OBJECT");
+            case nlohmann::json::value_t::null:
+                // We create an empty table
+                o = getContext().lua->create_table();
                 break;
             default:
                 std::cout << "What are you?\n";
@@ -95,8 +91,8 @@ namespace engine::entities::components {
             return std::make_pair(o, true);
         }
         else {
-            tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
-            return std::make_tuple(sol::nil, false);
+            tmx::Logger::log("ExternComponent: the value " + name + " is undefined.", tmx::Logger::Type::Warning);
+            return std::make_pair(sol::nil, false);
         }
     }
 }

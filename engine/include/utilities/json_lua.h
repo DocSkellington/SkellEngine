@@ -9,7 +9,7 @@ namespace engine::utilities {
      * 
      * The JSON must be correct. Otherwise, the behaviour is undefined. For example, it must not be empty.
      * 
-     * For an array, indices begin at 1, following the Lua grammar.
+     * Once converted, arrays start at 0.
      * 
      * \param json The JSON object
      * \param lua The Lua State (necessary to create the table(s))
@@ -23,6 +23,7 @@ namespace engine::utilities {
      * The Lua table must be correct. Otherwise, the behaviour is undefined.
      * 
      * Due to JSON limitations, if a Lua table mixes named and unnamed values, the JSON table indices are strings.
+     * Due to Sol2 limitations, all numbers are stored as double, even if they were initially integers.
      * 
      * \param lua The Lua table
      * \return The JSON object corresponding to the Lua table
