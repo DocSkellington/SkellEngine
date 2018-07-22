@@ -26,28 +26,47 @@ namespace engine::entities {
         ~Entity();
 
         /**
-         * \brief Adds a component into this entity
+         * \brief Create and add an empty component into this entity.
          * \param componentType The type of the component to create
-         * \param jsonTable The JSON table to use to initialise the component
+         * \return A shared pointer to the created component
          */
-        void addComponent(const std::string &componentType, const nlohmann::json &jsonTable);
-        /**
-         * \brief Adds a component into this entity
-         * \param componentType The type of the component to create
-         * \param luaTable The Lua table/script to use to initialise the component
-         */
-        void addComponent(const std::string &componentType, const sol::table &luaTable);
-        /**
-         * \brief Adds a component into this entity
-         * \param componentType The type of the component to create
-         * \param jsonTable The JSON table to use to initialise the component
-         * \param luaTable The Lua table/script to use to initialise the component
-         */
-        void addComponent(const std::string &componentType, const nlohmann::json &jsonTable, const sol::table &luaTable);
+        components::Component::Ptr addComponent(const std::string &componentType);
 
+        /**
+         * \brief Adds a component into this entity
+         * \param componentType The type of the component to create
+         * \param jsonTable The JSON table to use to initialise the component
+         * \return A shared pointer to the created component
+         */
+        components::Component::Ptr addComponent(const std::string &componentType, const nlohmann::json &jsonTable);
+
+        /**
+         * \brief Adds a component into this entity
+         * \param componentType The type of the component to create
+         * \param luaTable The Lua table
+         * \return A shared pointer to the created component
+         */
+        components::Component::Ptr addComponent(const std::string &componentType, const sol::table &luaTable);
+
+        /**
+         * \brief Does this entity have the component?
+         * \param componentType The type of the component to look for
+         * \return True if the entity has the component, false otherwise
+         */
         bool hasComponent(const std::string &componentType) const;
 
+        /**
+         * \brief Gets the component, if it exists
+         * \param componentType The type of the component to look for
+         * \return A shared pointer to the component (empty if the entity does not have the component)
+         */
         components::Component::Ptr getComponent(const std::string &componentType);
+
+        /**
+         * \brief Registers the Lua functions associated with this class
+         * \param lua The Lua state
+         */
+        static void luaFunctions(sol::state &lua);
 
     private:
         Context &m_context;

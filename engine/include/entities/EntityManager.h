@@ -20,14 +20,22 @@ namespace engine::entities {
         /**
          * \brief Adds an empty entity of the given type
          * \param type The type of the entity
+         * \return A shared pointer to the entity
          */
-        void addEntity(const std::string &type);
+        Entity::Ptr addEntity(const std::string &type);
         /**
          * \brief Adds an entity of the given type and constructs it with the given JSON table
          * \param type The type of the entity
          * \param entityDescription The JSON table describing the entity
+         * \return A shared pointer to the entity
          */
-        void addEntity(const std::string &type, const nlohmann::json &entityDescription);
+        Entity::Ptr addEntity(const std::string &type, const nlohmann::json &entityDescription);
+
+        /**
+         * \brief Registers the Lua functions associated with this class
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua);
 
     private:
         std::vector<Entity::Ptr> m_entities;

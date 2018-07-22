@@ -1,6 +1,8 @@
 #include "entities/Entity.h"
 
 #include <tmxlite/Log.hpp>
+#include "utilities/json_lua.h"
+#include "entities/components/ExternComponent.h"
 
 namespace engine::entities {
     Entity::Entity(Context &context) :
@@ -17,20 +19,30 @@ namespace engine::entities {
 
     }
 
-    void Entity::addComponent(const std::string &componentType, const nlohmann::json &jsonTable) {
+    components::Component::Ptr Entity::addComponent(const std::string &componentType) {
         if (m_components.find(componentType) != m_components.end()) {
             tmx::Logger::log("it is impossible to add two components of the same type (" + componentType + ")", tmx::Logger::Type::Error);
-            return;
+            return nullptr;
         }
 
-        auto compo = components::Component::createInstance(componentType);
+        auto compo = components::Component::createInstance(m_context, componentType);
         if (!compo) {
             tmx::Logger::log("Impossible to create a " + componentType, tmx::Logger::Type::Error);
-            return;
+            return nullptr;
         }
+        return compo;
+    }
 
-        compo->create(m_context, jsonTable);
+    components::Component::Ptr Entity::addComponent(const std::string &componentType, const nlohmann::json &jsonTable) {
+        auto compo = addComponent(componentType);
+
+        compo->create(jsonTable);
         m_components[componentType] = compo;
+        return compo;
+    }
+
+    components::Component::Ptr Entity::addComponent(const std::string &componentType, const sol::table &luaTable) {
+        return addComponent(componentType, utilities::lua_to_json(luaTable));
     }
 
     bool Entity::hasComponent(const std::string &componentType) const {
@@ -42,5 +54,14 @@ namespace engine::entities {
         if (itr == m_components.end())
             return components::Component::Ptr();
         return itr->second;
+    }
+
+    void Entity::luaFunctions(sol::state &lua) {
+        lua.new_usertype<Entity>("Entity",
+            "addComponent", sol::overload(
+                sol::resolve<components::Component::Ptr(const std::string&, const sol::table&)>(&Entity::addComponent),
+                sol::resolve<components::Component::Ptr(const std::string&)>(&Entity::addComponent)
+            )
+        );
     }
 }
