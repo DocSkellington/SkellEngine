@@ -62,6 +62,10 @@ namespace engine::entities {
          */
         components::Component::Ptr getComponent(const std::string &componentType);
 
+        std::size_t getNumberOfComponents();
+
+        std::vector<std::string> getComponentsNames();
+
         /**
          * \brief Registers the Lua functions associated with this class
          * \param lua The Lua state

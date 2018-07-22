@@ -30,6 +30,9 @@ namespace engine::entities {
             tmx::Logger::log("Impossible to create a " + componentType, tmx::Logger::Type::Error);
             return nullptr;
         }
+
+        m_components[componentType] = compo;
+
         return compo;
     }
 
@@ -37,7 +40,6 @@ namespace engine::entities {
         auto compo = addComponent(componentType);
 
         compo->create(jsonTable);
-        m_components[componentType] = compo;
         return compo;
     }
 
@@ -54,6 +56,19 @@ namespace engine::entities {
         if (itr == m_components.end())
             return components::Component::Ptr();
         return itr->second;
+    }
+
+    std::size_t Entity::getNumberOfComponents() {
+        return m_components.size();
+    }
+
+    std::vector<std::string> Entity::getComponentsNames() {
+        std::vector<std::string> vec(m_components.size());
+        std::size_t i = 0;
+        for (auto &c : m_components) {
+            vec[i++] = c.first;
+        }
+        return vec;
     }
 
     void Entity::luaFunctions(sol::state &lua) {

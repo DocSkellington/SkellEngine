@@ -36,16 +36,20 @@ namespace engine::entities::components {
          */
         virtual void create(const nlohmann::json &jsonTable) = 0;
 
-        virtual void set(const std::string &name, int value) = 0;
-        virtual void set(const std::string &name, const std::string& value) = 0;
+        virtual void set(const std::string &name, long value) = 0;
+        virtual void set(const std::string &name, double value) = 0;
         virtual void set(const std::string &name, bool value) = 0;
+        virtual void set(const std::string &name, const std::string& value) = 0;
 
         virtual void set(const std::string &name, sol::nil_t value) = 0;
         virtual void set(const std::string &name, const sol::table& value) = 0;
 
         virtual void set(const std::string &name, nlohmann::json value) = 0;
 
-        virtual std::pair<int, bool> getInt(const std::string &name) = 0;
+        virtual std::pair<long, bool> getInt(const std::string &name) = 0;
+        virtual std::pair<double, bool> getFloat(const std::string &name) = 0;
+        virtual std::pair<bool, bool> getBool(const std::string &name) = 0;
+        virtual std::pair<std::string, bool> getString(const std::string &name) = 0;
         virtual std::pair<sol::object, bool> getObject(const std::string &name) = 0;
 
         /**

@@ -18,15 +18,19 @@ namespace engine::entities::components {
         this->m_jsonTable = jsonTable;
     }
 
-    void ExternComponent::set(const std::string &name, int value) {
+    void ExternComponent::set(const std::string &name, long value) {
         m_jsonTable[name] = value;
     }
 
-    void ExternComponent::set(const std::string &name, const std::string &value) {
+    void ExternComponent::set(const std::string &name, double value) {
         m_jsonTable[name] = value;
     }
 
     void ExternComponent::set(const std::string &name, bool value) {
+        m_jsonTable[name] = value;
+    }
+
+    void ExternComponent::set(const std::string &name, const std::string &value) {
         m_jsonTable[name] = value;
     }
 
@@ -45,14 +49,47 @@ namespace engine::entities::components {
         m_jsonTable[name] = value;
     }
 
-    std::pair<int, bool> ExternComponent::getInt(const std::string &name) {
+    std::pair<long, bool> ExternComponent::getInt(const std::string &name) {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<int>(), true);
+            return std::make_pair(itr->get<long>(), true);
         }
         else {
             tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
             return std::make_pair(0, false);
+        }
+    }
+
+    std::pair<double, bool> ExternComponent::getFloat(const std::string &name) {
+        auto itr = m_jsonTable.find(name);
+        if (itr != m_jsonTable.end()) {
+            return std::make_pair(itr->get<double>(), true);
+        }
+        else {
+            tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
+            return std::make_pair(0.f, false);
+        }
+    }
+
+    std::pair<bool, bool> ExternComponent::getBool(const std::string &name) {
+        auto itr = m_jsonTable.find(name);
+        if (itr != m_jsonTable.end()) {
+            return std::make_pair(itr->get<bool>(), true);
+        }
+        else {
+            tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
+            return std::make_pair(false, false);
+        }
+    }
+
+    std::pair<std::string, bool> ExternComponent::getString(const std::string &name) {
+        auto itr = m_jsonTable.find(name);
+        if (itr != m_jsonTable.end()) {
+            return std::make_pair(itr->get<std::string>(), true);
+        }
+        else {
+            tmx::Logger::log("ExternComponent: the value " + name + " is undefined.");
+            return std::make_pair("", false);
         }
     }
 

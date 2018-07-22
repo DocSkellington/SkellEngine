@@ -33,9 +33,10 @@ namespace engine::entities::components {
             "get", &ExternComponent::getObject,
 
             "set", sol::overload(
-                sol::resolve<void(const std::string&, int)>(&Component::set),
-                sol::resolve<void(const std::string&, const std::string&)>(&Component::set),
+                sol::resolve<void(const std::string&, long)>(&Component::set),
+                sol::resolve<void(const std::string&, double)>(&Component::set),
                 sol::resolve<void(const std::string&, bool)>(&Component::set),
+                sol::resolve<void(const std::string&, const std::string&)>(&Component::set),
                 sol::resolve<void(const std::string&, const sol::table&)>(&Component::set),
                 sol::resolve<void(const std::string&, sol::nil_t)>(&Component::set)
             )

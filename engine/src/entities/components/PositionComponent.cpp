@@ -4,7 +4,9 @@ namespace engine::entities::components {
     Component::RegisterComponent<PositionComponent> PositionComponent::rcpc("position");
 
     PositionComponent::PositionComponent() :
-        Component() {
+        Component(),
+        m_x(0),
+        m_y(0) {
     }
 
     PositionComponent::~PositionComponent() {
@@ -12,11 +14,21 @@ namespace engine::entities::components {
     }
 
     void PositionComponent::create(const nlohmann::json &jsonTable) {
-        m_x = jsonTable[0].get<float>();
-        m_y = jsonTable[1].get<float>();
+        if (jsonTable.type() == nlohmann::json::value_t::array) {
+            m_x = jsonTable[0].get<float>();
+            m_y = jsonTable[1].get<float>();
+        }
+        else if (jsonTable.type() == nlohmann::json::value_t::object) {
+            m_x = jsonTable["x"].get<float>();
+            m_y = jsonTable["y"].get<float>();
+        }
     }
 
-    void PositionComponent::set(const std::string &name, int value) {
+    void PositionComponent::set(const std::string &name, long value) {
+        tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
+    }
+
+    void PositionComponent::set(const std::string &name, double value) {
         if (name == "x") {
             m_x = value;
         }
@@ -29,15 +41,15 @@ namespace engine::entities::components {
     }
 
     void PositionComponent::set(const std::string &name, const std::string &value) {
-        tmx::Logger::log("Position Component: only integer values are accepted", tmx::Logger::Type::Warning);
+        tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
 
     void PositionComponent::set(const std::string &name, bool value) {
-        tmx::Logger::log("Position Component: only integer values are accepted", tmx::Logger::Type::Warning);
+        tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
 
     void PositionComponent::set(const std::string &name, sol::nil_t value) {
-        tmx::Logger::log("Position Component: only integer values are accepted", tmx::Logger::Type::Warning);
+        tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
 
     void PositionComponent::set(const std::string &name, const sol::table &value) {
@@ -45,10 +57,13 @@ namespace engine::entities::components {
     }
 
     void PositionComponent::set(const std::string &name, nlohmann::json value) {
-        tmx::Logger::log("Position Component: only integer values are accepted", tmx::Logger::Type::Warning);
+        tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
 
-    std::pair<int, bool> PositionComponent::getInt(const std::string &name) {
+    std::pair<long, bool> PositionComponent::getInt(const std::string &name) {
+    }
+
+    std::pair<double, bool> PositionComponent::getFloat(const std::string &name) {
         if (name == "x") {
             return std::make_pair(m_x, true);
         }
@@ -61,8 +76,14 @@ namespace engine::entities::components {
         }
     }
 
+    std::pair<bool, bool> PositionComponent::getBool(const std::string &name) {
+    }
+
+    std::pair<std::string, bool> PositionComponent::getString(const std::string &name) {
+    }
+
     std::pair<sol::object, bool> PositionComponent::getObject(const std::string &name) {
-        auto t = getInt(name);
+        auto t = getFloat(name);
         return std::make_pair(sol::make_object<int>(*getContext().lua, t.first), t.second);
     }
 }

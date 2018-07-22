@@ -23,35 +23,39 @@ namespace engine::entities::components {
         return m_sprite;
     }
 
-    void GraphicalSpriteSheetComponent::set(const std::string &name, int value) {
-
+    void GraphicalSpriteSheetComponent::set(const std::string &name, long value) {
     }
 
-    void GraphicalSpriteSheetComponent::set(const std::string &name, const std::string &value) {
-
+    void GraphicalSpriteSheetComponent::set(const std::string &name, double value) {
     }
 
     void GraphicalSpriteSheetComponent::set(const std::string &name, bool value) {
+    }
 
+    void GraphicalSpriteSheetComponent::set(const std::string &name, const std::string &value) {
     }
 
     void GraphicalSpriteSheetComponent::set(const std::string &name, sol::nil_t value) {
-
     }
 
     void GraphicalSpriteSheetComponent::set(const std::string &name, const sol::table &value) {
-
     }
 
     void GraphicalSpriteSheetComponent::set(const std::string &name, nlohmann::json value) {
-
     }
 
-    std::pair<int, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
+    std::pair<long, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
+    }
 
+    std::pair<double, bool> GraphicalSpriteSheetComponent::getFloat(const std::string &name) {
+    }
+
+    std::pair<bool, bool> GraphicalSpriteSheetComponent::getBool(const std::string &name) {
+    }
+
+    std::pair<std::string, bool> GraphicalSpriteSheetComponent::getString(const std::string &name) {
     }
 
     std::pair<sol::object, bool> GraphicalSpriteSheetComponent::getObject(const std::string &name) {
-
     }
 }

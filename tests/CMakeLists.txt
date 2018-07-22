@@ -1,9 +1,11 @@
 set(TESTS_SOURCES
     main.cpp
 
-    systems/systems_tests.cpp
+    entities/entity_test.cpp
 
-    FileManager/gameDescription_tests.cpp
+    files/gameDescription_tests.cpp
+
+    systems/systems_tests.cpp
 
     utilities/json_lua_tests.cpp
 )
