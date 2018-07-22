@@ -8,6 +8,19 @@ namespace engine::entities {
 
     }
 
+    bool EntityManager::removeEntity(Entity::Ptr entity) {
+        m_context.systemManager->removeEntity(entity);
+
+        bool deleted = false;
+        for (auto itr = m_entities.begin() ; itr != m_entities.end() ; ++itr) {
+            if (*itr == entity) {
+                m_entities.erase(itr);
+                deleted = true;
+            }
+        }
+        return deleted;
+    }
+
     Entity::Ptr EntityManager::addEntity(const std::string &entityType) {
         Entity::Ptr entity = std::make_shared<Entity>(m_context, entityType);
         return entity;

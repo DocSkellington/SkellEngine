@@ -17,6 +17,8 @@ namespace engine::entities {
         explicit EntityManager(Context &context);
         EntityManager(const EntityManager&) = delete;
 
+        bool removeEntity(Entity::Ptr entity);
+
         /**
          * \brief Adds an empty entity of the given type
          * \param type The type of the entity
