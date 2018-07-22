@@ -16,21 +16,19 @@ namespace engine::entities::components {
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
 
-        void create(Context &context, const nlohmann::json &jsonTable) override;
+        void create(const nlohmann::json &jsonTable) override;
 
-        void set(const std::string &name, long value);
-        void set(const std::string &name, unsigned long value);
-        void set(const std::string &name, std::string value);
-        void set(const std::string &name, bool value);
+        void set(const std::string &name, int value) override;
+        void set(const std::string &name, const std::string& value) override;
+        void set(const std::string &name, bool value) override;
 
-        void set(const std::string &name, sol::nil_t value);
-        void set(const std::string &name, sol::table value);
+        void set(const std::string &name, sol::nil_t value) override;
+        void set(const std::string &name, const sol::table& value) override;
 
-        void set(const std::string &name, nlohmann::json value);
+        void set(const std::string &name, nlohmann::json value) override;
 
-        int get(const std::string &name);
-
-        static void luaFunctions(sol::state &lua);
+        std::tuple<int, bool> getInt(const std::string &name) override;
+        std::tuple<sol::object, bool> getObject(const std::string &name) override;
 
     private:
         nlohmann::json m_jsonTable;

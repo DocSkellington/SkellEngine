@@ -12,14 +12,46 @@ namespace engine::entities::components {
 
     }
 
-    void GraphicalSpriteSheetComponent::create(Context &context, const nlohmann::json &jsonTable) {
+    void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable) {
         std::string filepath = jsonTable.at("filePath").get<std::string>();
-        auto basePath = context.fileManager->getGameDescription().media.baseSprites;
-        auto &texture = context.textureHolder->acquire(filepath, thor::Resources::fromFile<sf::Texture>(basePath + filepath), thor::Resources::Reuse);
+        auto basePath = getContext().fileManager->getGameDescription().media.baseSprites;
+        auto &texture = getContext().textureHolder->acquire(filepath, thor::Resources::fromFile<sf::Texture>(basePath + filepath), thor::Resources::Reuse);
         m_sprite.setTexture(texture);
     }
 
     const sf::Sprite& GraphicalSpriteSheetComponent::getSprite() const {
         return m_sprite;
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, int value) {
+
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, const std::string &value) {
+
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, bool value) {
+
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, sol::nil_t value) {
+
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, const sol::table &value) {
+
+    }
+
+    void GraphicalSpriteSheetComponent::set(const std::string &name, nlohmann::json value) {
+
+    }
+
+    std::tuple<int, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
+
+    }
+
+    std::tuple<sol::object, bool> GraphicalSpriteSheetComponent::getObject(const std::string &name) {
+
     }
 }

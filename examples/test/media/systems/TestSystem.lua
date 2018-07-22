@@ -1,11 +1,9 @@
-function update(deltatime, view)
-    c = component.new()
-
-    return true
+function init()
+    entity = entMan:addEntity("test")
+    compoTest = entity:addComponent("compoTest")
+    compoTest:set("IntTest", 5)
+    print(compoTest:get("IntTest"))
 end
 
-c = component.new()
-c:setValue("Hello", true)
-c:setValue("Hi", 5)
-c:setValue("'morning", {"Idea"})
-c:setValue("jpoj", nil)
+function update(deltatime, view)
+end

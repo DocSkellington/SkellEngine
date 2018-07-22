@@ -28,12 +28,25 @@ namespace engine::entities::components {
         Component(const Component&) = delete;
         virtual ~Component();
 
+        void setContext(Context &context);
+
         /**
          * \brief Initialises a component with the given jsonTable.
-         * \param context The context
          * \param jsonTable The JSON table
          */
-        virtual void create(Context &context, const nlohmann::json &jsonTable) = 0;
+        virtual void create(const nlohmann::json &jsonTable) = 0;
+
+        virtual void set(const std::string &name, int value) = 0;
+        virtual void set(const std::string &name, const std::string& value) = 0;
+        virtual void set(const std::string &name, bool value) = 0;
+
+        virtual void set(const std::string &name, sol::nil_t value) = 0;
+        virtual void set(const std::string &name, const sol::table& value) = 0;
+
+        virtual void set(const std::string &name, nlohmann::json value) = 0;
+
+        virtual std::tuple<int, bool> getInt(const std::string &name) = 0;
+        virtual std::tuple<sol::object, bool> getObject(const std::string &name) = 0;
 
         /**
          * \brief Creates an instance of a component based on the given name. If the type is unknown, a generic component is returned.
@@ -41,10 +54,15 @@ namespace engine::entities::components {
          * The component must be registered to be known.
          * \param componentType The type of the component to create
          */
-        static Ptr createInstance(const std::string &componentType);
+        static Ptr createInstance(Context &context, const std::string &componentType);
+
+        static void luaFunctions(sol::state &lua);
 
     protected:
         typedef std::map<std::string, std::function<Ptr()>> MapType;
+
+    protected:
+        Context& getContext();
 
         /**
          * \brief Returns the map<string, constructor>
@@ -67,5 +85,8 @@ namespace engine::entities::components {
                 getMapToComponent()->insert(std::make_pair(name, std::make_shared<T>));
             }
         };
+
+    private:
+        Context *m_context;
     };
 }
