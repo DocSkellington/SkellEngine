@@ -62,9 +62,25 @@ namespace engine::entities {
          */
         components::Component::Ptr getComponent(const std::string &componentType);
 
+        /**
+         * \brief Returns the number of components this entity has
+         * \return The number of components this entity has
+         */
         std::size_t getNumberOfComponents();
 
+        /**
+         * \brief Returns a vector with the names of the components this entity has.
+         * 
+         * The vector is sorted.
+         * \return A vector of strings with the names of components this entity has
+         */
         std::vector<std::string> getComponentsNames();
+
+        /**
+         * \brief Returns the type of the entity
+         * \return The type of the entity
+         */
+        const std::string& getType() const;
 
         /**
          * \brief Registers the Lua functions associated with this class

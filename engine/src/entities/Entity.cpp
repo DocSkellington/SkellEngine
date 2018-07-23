@@ -68,7 +68,12 @@ namespace engine::entities {
         for (auto &c : m_components) {
             vec[i++] = c.first;
         }
+        std::sort(vec.begin(), vec.end());
         return vec;
+    }
+
+    const std::string &Entity::getType() const {
+        return m_type;
     }
 
     void Entity::luaFunctions(sol::state &lua) {
@@ -76,7 +81,13 @@ namespace engine::entities {
             "addComponent", sol::overload(
                 sol::resolve<components::Component::Ptr(const std::string&, const sol::table&)>(&Entity::addComponent),
                 sol::resolve<components::Component::Ptr(const std::string&)>(&Entity::addComponent)
-            )
+            ),
+            "hasComponent", &Entity::hasComponent,
+            "getComponent", &Entity::getComponent,
+            "getComponentsNames", &Entity::getComponentsNames,
+            "getNumberOfComponents", &Entity::getNumberOfComponents,
+            "size", &Entity::getNumberOfComponents,
+            "getType", &Entity::getType
         );
     }
 }

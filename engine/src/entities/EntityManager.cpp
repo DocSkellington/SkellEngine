@@ -37,6 +37,25 @@ namespace engine::entities {
         return entity;
     }
 
+    Entity::Ptr EntityManager::getEntity(const std::string &type) {
+        for (auto &entity : m_entities) {
+            if (entity->getType() == type) {
+                return entity;
+            }
+        }
+        return nullptr;
+    }
+
+    Entity::Ptr EntityManager::getEntity(const std::string &type, std::vector<std::string> components) {
+        std::sort(components.begin(), components.end());
+        for (auto &entity : m_entities) {
+            if (entity->getType() == type && std::includes(entity->getComponentsNames().begin(), entity->getComponentsNames().end(), components.begin(), components.end())) {
+                return entity;
+            }
+        }
+        return nullptr;
+    }
+
     void EntityManager::luaFunctions(sol::state &lua) {
         lua.new_usertype<EntityManager>("EntityManager",
             "addEntity", sol::resolve<Entity::Ptr(const std::string&)>(&EntityManager::addEntity)

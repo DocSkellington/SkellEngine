@@ -17,6 +17,13 @@ namespace engine::entities {
         explicit EntityManager(Context &context);
         EntityManager(const EntityManager&) = delete;
 
+        /**
+         * \brief Removes the entity from the engine.
+         * 
+         * It also removes the entity from the SystemManager (and the systems).
+         * \param entity The entity to remove
+         * \brief True if the entity could be removed, false otherwise
+         */
         bool removeEntity(Entity::Ptr entity);
 
         /**
@@ -32,6 +39,21 @@ namespace engine::entities {
          * \return A shared pointer to the entity
          */
         Entity::Ptr addEntity(const std::string &type, const nlohmann::json &entityDescription);
+
+        /**
+         * \brief Gets the first entity of the given type
+         * \param type The type of the entity
+         * \return A shared pointer to the first entity that has the given type
+         */
+        Entity::Ptr getEntity(const std::string &type);
+
+        /**
+         * \brief Gets the first entity that has the given type and that has at least the given components.
+         * \param type The type of the entity
+         * \param components The components the entity must have. The entity can have another components
+         * \return A shared pointer to the first entity that has the given type
+         */
+        Entity::Ptr getEntity(const std::string &type, std::vector<std::string> components);
 
         /**
          * \brief Registers the Lua functions associated with this class
