@@ -63,21 +63,30 @@ if(SFML_FOUND)
     target_link_libraries(${LIBRARY_NAME} sfml-system sfml-graphics sfml-window sfml-audio)
 endif()
 
-# Thor
-add_subdirectory(dependencies/Thor EXCLUDE_FROM_ALL)
-target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include dependencies/Thor/extlibs/aurora/include)
-target_link_libraries(${LIBRARY_NAME} thor)
-
-# TGUI
-add_subdirectory(dependencies/TGUI EXCLUDE_FROM_ALL)
-target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/TGUI/include)
-target_link_libraries(${LIBRARY_NAME} tgui)
-
-#Lua
+# Lua
 find_package(Lua 5.3 REQUIRED)
 if (Lua_FOUND)
     target_include_directories(${LIBRARY_NAME} PUBLIC ${LUA_INCLUDE_DIR})
     target_link_libraries(${LIBRARY_NAME} lua5.3)
+endif()
+
+# Local dependencies
+# Thor
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/CMakeLists.txt)
+    add_subdirectory(dependencies/Thor EXCLUDE_FROM_ALL)
+    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include dependencies/Thor/extlibs/aurora/include)
+    target_link_libraries(${LIBRARY_NAME} thor)
+else()
+    message(FATAL_ERROR "An external dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
+# TGUI
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
+    add_subdirectory(dependencies/TGUI EXCLUDE_FROM_ALL)
+    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/TGUI/include)
+    target_link_libraries(${LIBRARY_NAME} tgui)
+else()
+    message(FATAL_ERROR "An external dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 # Sol2
