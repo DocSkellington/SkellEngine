@@ -43,7 +43,7 @@ SCENARIO("Entity test", "[entities]") {
             }
         }
 
-        AND_WHEN("We can a 'position' component with a JSON table") {
+        AND_WHEN("We can add a 'position' component with a JSON table") {
             nlohmann::json json {
                 {"x", 19},
                 {"y", 20}

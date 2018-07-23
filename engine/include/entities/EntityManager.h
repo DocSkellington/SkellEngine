@@ -56,6 +56,12 @@ namespace engine::entities {
         Entity::Ptr getEntity(const std::string &type, std::vector<std::string> components);
 
         /**
+         * \brief Gets the number of entities
+         * \return The number of entities in the engine
+         */
+        std::size_t getNumberOfEntities() const;
+
+        /**
          * \brief Registers the Lua functions associated with this class
          * \param lua The Lua state
          */

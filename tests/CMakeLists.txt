@@ -2,6 +2,7 @@ set(TESTS_SOURCES
     main.cpp
 
     entities/entity_test.cpp
+    entities/entity_manager_test.cpp
 
     files/gameDescription_tests.cpp
 
