@@ -18,6 +18,7 @@ namespace engine::entities::components {
 
         void create(const nlohmann::json &jsonTable) override;
 
+        /*
         void set(const std::string &name, long value) override;
         void set(const std::string &name, double value) override;
         void set(const std::string &name, bool value) override;
@@ -27,6 +28,7 @@ namespace engine::entities::components {
         void set(const std::string &name, const sol::table& value) override;
 
         void set(const std::string &name, nlohmann::json value) override;
+        */
 
         std::pair<long, bool> getInt(const std::string &name) override;
         std::pair<double, bool> getFloat(const std::string &name) override;

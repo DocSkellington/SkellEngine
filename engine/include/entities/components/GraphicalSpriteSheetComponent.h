@@ -23,6 +23,7 @@ namespace engine::entities::components {
          */
         const sf::Sprite &getSprite() const;
 
+        /*
         virtual void set(const std::string &name, long value) override;
         virtual void set(const std::string &name, double value) override;
         virtual void set(const std::string &name, bool value) override;
@@ -32,6 +33,7 @@ namespace engine::entities::components {
         virtual void set(const std::string &name, const sol::table &value) override;
 
         virtual void set(const std::string &name, nlohmann::json value) override;
+        */
 
         virtual std::pair<long, bool> getInt(const std::string &name) override;
         virtual std::pair<double, bool> getFloat(const std::string &name) override;

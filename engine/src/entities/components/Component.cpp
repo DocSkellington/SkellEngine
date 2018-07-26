@@ -11,6 +11,15 @@ namespace engine::entities::components {
 
     }
 
+    void Component::set(const std::string &name, std::any value) {
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            std::cout << itr->second.first.name() << '\n';
+            // We check that we can construct the data
+            if (std::is_constructible_v<itr->second.first, value.type()>)
+        }
+    }
+
     void Component::setContext(Context &context) {
         m_context = &context;
     }
@@ -30,8 +39,9 @@ namespace engine::entities::components {
 
     void Component::luaFunctions(sol::state &lua) {
         lua.new_usertype<Component>("component",
-            "get", &ExternComponent::getObject,
+            "get", &ExternComponent::getObject
 
+            /*
             "set", sol::overload(
                 sol::resolve<void(const std::string&, long)>(&Component::set),
                 sol::resolve<void(const std::string&, double)>(&Component::set),
@@ -40,6 +50,7 @@ namespace engine::entities::components {
                 sol::resolve<void(const std::string&, const sol::table&)>(&Component::set),
                 sol::resolve<void(const std::string&, sol::nil_t)>(&Component::set)
             )
+            */
         );
     }
 

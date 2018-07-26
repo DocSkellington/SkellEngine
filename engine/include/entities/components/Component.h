@@ -1,7 +1,13 @@
 #pragma once
 
+#include <any>
+#include <typeinfo>
+#include <typeindex>
+
 #include <sol.hpp>
 #include <json.hpp>
+
+#include "tmxlite/Log.hpp"
 
 namespace engine{
     struct Context;
@@ -36,15 +42,17 @@ namespace engine::entities::components {
          */
         virtual void create(const nlohmann::json &jsonTable) = 0;
 
-        virtual void set(const std::string &name, long value) = 0;
-        virtual void set(const std::string &name, double value) = 0;
-        virtual void set(const std::string &name, bool value) = 0;
-        virtual void set(const std::string &name, const std::string& value) = 0;
+        virtual void set(const std::string &name, std::any value);
 
-        virtual void set(const std::string &name, sol::nil_t value) = 0;
-        virtual void set(const std::string &name, const sol::table& value) = 0;
+        //virtual void set(const std::string &name, long value) = 0;
+        //virtual void set(const std::string &name, double value) = 0;
+        //virtual void set(const std::string &name, bool value) = 0;
+        //virtual void set(const std::string &name, const std::string& value) = 0;
 
-        virtual void set(const std::string &name, nlohmann::json value) = 0;
+        //virtual void set(const std::string &name, sol::nil_t value) = 0;
+        //virtual void set(const std::string &name, const sol::table& value) = 0;
+
+        //virtual void set(const std::string &name, nlohmann::json value) = 0;
 
         virtual std::pair<long, bool> getInt(const std::string &name) = 0;
         virtual std::pair<double, bool> getFloat(const std::string &name) = 0;
@@ -90,7 +98,19 @@ namespace engine::entities::components {
             }
         };
 
+        template <typename T>
+        void registerMember(const std::string &name, T* member) {
+            if (mapMembers.find(name) != mapMembers.end()) {
+                tmx::Logger::log("Component: registerMember: " + name + " is already used. The value will be overwritten by the new assignation.", tmx::Logger::Type::Warning);
+            }
+
+            auto pair = std::make_pair(std::type_index(typeid(T)), member);
+            mapMembers.insert(std::make_pair(name, pair));
+        }
+
     private:
         Context *m_context;
+
+        std::map<std::string, std::pair<std::type_index, std::any>> mapMembers;
     };
 }

@@ -7,6 +7,10 @@ namespace engine::entities::components {
         Component(),
         m_x(0),
         m_y(0) {
+        registerMember<double>("x", &m_x);
+        std::cout << "before " << m_x << '\n';
+        set("x", 10);
+        std::cout << "after " << m_x << '\n';
     }
 
     PositionComponent::~PositionComponent() {
@@ -24,6 +28,7 @@ namespace engine::entities::components {
         }
     }
 
+    /*
     void PositionComponent::set(const std::string &name, long value) {
         tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
@@ -59,6 +64,7 @@ namespace engine::entities::components {
     void PositionComponent::set(const std::string &name, nlohmann::json value) {
         tmx::Logger::log("Position Component: only float values are accepted", tmx::Logger::Type::Warning);
     }
+    */
 
     std::pair<long, bool> PositionComponent::getInt(const std::string &name) {
     }

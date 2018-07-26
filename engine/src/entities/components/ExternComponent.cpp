@@ -18,6 +18,7 @@ namespace engine::entities::components {
         this->m_jsonTable = jsonTable;
     }
 
+    /*
     void ExternComponent::set(const std::string &name, long value) {
         m_jsonTable[name] = value;
     }
@@ -48,6 +49,7 @@ namespace engine::entities::components {
     void ExternComponent::set(const std::string &name, nlohmann::json value) {
         m_jsonTable[name] = value;
     }
+    */
 
     std::pair<long, bool> ExternComponent::getInt(const std::string &name) {
         auto itr = m_jsonTable.find(name);

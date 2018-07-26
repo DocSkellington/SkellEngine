@@ -23,6 +23,7 @@ namespace engine::entities::components {
         return m_sprite;
     }
 
+    /*
     void GraphicalSpriteSheetComponent::set(const std::string &name, long value) {
     }
 
@@ -43,6 +44,7 @@ namespace engine::entities::components {
 
     void GraphicalSpriteSheetComponent::set(const std::string &name, nlohmann::json value) {
     }
+    */
 
     std::pair<long, bool> GraphicalSpriteSheetComponent::getInt(const std::string &name) {
     }
