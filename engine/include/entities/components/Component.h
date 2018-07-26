@@ -42,17 +42,14 @@ namespace engine::entities::components {
          */
         virtual void create(const nlohmann::json &jsonTable) = 0;
 
-        virtual void set(const std::string &name, std::any value);
+        virtual void set(const std::string &name, int value);
+        virtual void set(const std::string &name, long value);
+        virtual void set(const std::string &name, float value);
+        virtual void set(const std::string &name, double value);
+        virtual void set(const std::string &name, bool value);
+        virtual void set(const std::string &name, const std::string& value);
 
-        //virtual void set(const std::string &name, long value) = 0;
-        //virtual void set(const std::string &name, double value) = 0;
-        //virtual void set(const std::string &name, bool value) = 0;
-        //virtual void set(const std::string &name, const std::string& value) = 0;
-
-        //virtual void set(const std::string &name, sol::nil_t value) = 0;
-        //virtual void set(const std::string &name, const sol::table& value) = 0;
-
-        //virtual void set(const std::string &name, nlohmann::json value) = 0;
+        virtual void set(const std::string &name, const nlohmann::json& value);
 
         virtual std::pair<long, bool> getInt(const std::string &name) = 0;
         virtual std::pair<double, bool> getFloat(const std::string &name) = 0;
@@ -104,13 +101,12 @@ namespace engine::entities::components {
                 tmx::Logger::log("Component: registerMember: " + name + " is already used. The value will be overwritten by the new assignation.", tmx::Logger::Type::Warning);
             }
 
-            auto pair = std::make_pair(std::type_index(typeid(T)), member);
-            mapMembers.insert(std::make_pair(name, pair));
+            mapMembers.insert(std::make_pair(name, member));
         }
 
     private:
         Context *m_context;
 
-        std::map<std::string, std::pair<std::type_index, std::any>> mapMembers;
+        std::map<std::string, std::any> mapMembers;
     };
 }

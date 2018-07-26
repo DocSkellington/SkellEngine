@@ -7,10 +7,12 @@ namespace engine::entities::components {
         Component(),
         m_x(0),
         m_y(0) {
-        registerMember<double>("x", &m_x);
+        registerMember("x", &m_x);
+        registerMember("int", &m_int);
         std::cout << "before " << m_x << '\n';
-        set("x", 10);
+        set("x", 5.f);
         std::cout << "after " << m_x << '\n';
+        set("int", 5.);
     }
 
     PositionComponent::~PositionComponent() {
