@@ -47,6 +47,7 @@ namespace engine::entities::components {
         virtual void set(const std::string &name, float value);
         virtual void set(const std::string &name, double value);
         virtual void set(const std::string &name, bool value);
+        virtual void set(const std::string &name, const char* value);
         virtual void set(const std::string &name, const std::string& value);
 
         virtual void set(const std::string &name, const nlohmann::json& value);

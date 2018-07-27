@@ -110,6 +110,10 @@ namespace engine::entities::components {
         }
     }
 
+    void Component::set(const std::string &name, const char* value) {
+        set(name, std::string(value));
+    }
+
     void Component::set(const std::string &name, const std::string& value) {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
