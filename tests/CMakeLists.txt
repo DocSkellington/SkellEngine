@@ -3,6 +3,7 @@ set(TESTS_SOURCES
 
     entities/entity_test.cpp
     entities/entity_manager_test.cpp
+    entities/components/component_setter_getter_test.cpp
 
     files/gameDescription_tests.cpp
 
@@ -13,7 +14,6 @@ set(TESTS_SOURCES
 
 set(TESTS_NAME SkellTests)
 add_executable(${TESTS_NAME} ${TESTS_SOURCES})
-
 message(STATUS ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/CMakeLists.tx)
 if (EXISTS ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/CMakeLists.txt)
     target_include_directories(${TESTS_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/single_include)
