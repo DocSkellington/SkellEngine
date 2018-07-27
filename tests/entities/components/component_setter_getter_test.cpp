@@ -30,12 +30,6 @@ public:
 
     virtual void create(const nlohmann::json &jsonTable) {}
 
-    virtual std::pair<long, bool> getInt(const std::string &name) {}
-    virtual std::pair<double, bool> getFloat(const std::string &name) {}
-    virtual std::pair<bool, bool> getBool(const std::string &name) {}
-    virtual std::pair<std::string, bool> getString(const std::string &name) {}
-    virtual std::pair<sol::object, bool> getObject(const std::string &name) {}
-
     int m_int;
     long m_long;
     float m_float;
@@ -272,6 +266,9 @@ SCENARIO("Test of setters") {
             };
             compo.set("json", json);
             REQUIRE(compo.m_json == json);
+
+            compo.set("json", sol::nil_t());
+            REQUIRE(compo.m_json == nlohmann::json());
         }
     }
 }

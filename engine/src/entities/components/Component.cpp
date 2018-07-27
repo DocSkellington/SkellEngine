@@ -2,6 +2,8 @@
 
 #include "entities/components/ExternComponent.h"
 
+#include "utilities/json_lua.h"
+
 namespace engine::entities::components {
     Component::Component() {
 
@@ -129,6 +131,45 @@ namespace engine::entities::components {
         }
     }
 
+    void Component::set(const std::string &name, sol::nil_t value) {
+        // We set the variable at the default value
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(int*)) {
+                convertAndSet<int>(itr->second, 0);
+            }
+            else if (itr->second.type() == typeid(long*)) {
+                convertAndSet<long>(itr->second, 0L);
+            }
+            else if (itr->second.type() == typeid(float*)) {
+                convertAndSet<float>(itr->second, 0.f);
+            }
+            else if (itr->second.type() == typeid(double*)) {
+                convertAndSet<double>(itr->second, 0.);
+            }
+            else if (itr->second.type() == typeid(bool*)) {
+                convertAndSet<bool>(itr->second, false);
+            }
+            else if (itr->second.type() == typeid(std::string*)) {
+                convertAndSet<std::string>(itr->second, "");
+            }
+            else if (itr->second.type() == typeid(nlohmann::json*)) {
+                convertAndSet<nlohmann::json>(itr->second, nlohmann::json());
+            }
+            else {
+                tmx::Logger::log("Component: set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+    }
+
+    void Component::set(const std::string &name, const sol::table& value) {
+        set(name, utilities::lua_to_json(value));
+    }
+
     void Component::set(const std::string &name, const nlohmann::json &value) {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
@@ -142,6 +183,26 @@ namespace engine::entities::components {
         else {
             tmx::Logger::log("Component: set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
         }
+    }
+
+    std::pair<long, bool> Component::getInt(const std::string &name) {
+
+    }
+
+    std::pair<double, bool> Component::getFloat(const std::string &name) {
+
+    }
+     
+    std::pair<bool, bool> Component::getBool(const std::string &name) {
+        
+    }
+     
+    std::pair<std::string, bool> Component::getString(const std::string &name) {
+        
+    }
+     
+    std::pair<sol::object, bool> Component::getObject(const std::string &name) {
+        
     }
 
     void Component::setContext(Context &context) {
@@ -169,7 +230,9 @@ namespace engine::entities::components {
                 sol::resolve<void(const std::string&, long)>(&Component::set),
                 sol::resolve<void(const std::string&, double)>(&Component::set),
                 sol::resolve<void(const std::string&, bool)>(&Component::set),
-                sol::resolve<void(const std::string&, const std::string&)>(&Component::set)
+                sol::resolve<void(const std::string&, const std::string&)>(&Component::set),
+                sol::resolve<void(const std::string&, sol::nil_t)>(&Component::set),
+                sol::resolve<void(const std::string&, const sol::table&)>(&Component::set)
             )
         );
     }
