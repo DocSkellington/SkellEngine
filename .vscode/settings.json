@@ -68,5 +68,11 @@
     },
     "latex-workshop.message.update.show": false,
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "cmake.configureSettings": {
+        "ENGINE_BUILD_DOC": true,
+        "ENGINE_BUILD_TESTS": true,
+        "ENGINE_BUILD_EXAMPLES": true,
+        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/bin"
+    }
 }
