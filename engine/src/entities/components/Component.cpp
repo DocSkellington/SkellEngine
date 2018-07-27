@@ -1,8 +1,8 @@
 #include "entities/components/Component.h"
 
 #include "entities/components/ExternComponent.h"
-
 #include "utilities/json_lua.h"
+#include "Context.h"
 
 namespace engine::entities::components {
     Component::Component() {
@@ -293,7 +293,40 @@ namespace engine::entities::components {
     }
      
     std::pair<sol::object, bool> Component::getObject(const std::string &name) {
-        // TODO
+        std::pair<sol::object, bool> pair = std::make_pair(sol::nil_t(), false);
+
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(int*)) {
+                pair = std::make_pair(sol::make_object<long>(*m_context->lua, getValue<int>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(long*)) {
+                pair = std::make_pair(sol::make_object<long>(*m_context->lua, getValue<long>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(float*)) {
+                pair = std::make_pair(sol::make_object<double>(*m_context->lua, getValue<float>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(double*)) {
+                pair = std::make_pair(sol::make_object<double>(*m_context->lua, getValue<double>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(bool*)) {
+                pair = std::make_pair(sol::make_object<bool>(*m_context->lua, getValue<bool>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(std::string*)) {
+                pair = std::make_pair(sol::make_object<std::string>(*m_context->lua, getValue<std::string>(itr->second)), true);
+            }
+            else if (itr->second.type() == typeid(nlohmann::json*)) {
+                pair = std::make_pair(sol::make_object<nlohmann::json>(*m_context->lua, getValue<nlohmann::json>(itr->second)), true);
+            }
+            else {
+                tmx::Logger::log("Component: getObject: " + name + " does not have an appropriate type", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: getObject: " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
     }
 
     void Component::setContext(Context &context) {

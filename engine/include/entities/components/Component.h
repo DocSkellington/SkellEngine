@@ -49,17 +49,17 @@ namespace engine::entities::components {
         virtual void set(const std::string &name, bool value);
         virtual void set(const std::string &name, const char* value);
         virtual void set(const std::string &name, const std::string& value);
+        virtual void set(const std::string &name, const nlohmann::json& value);
 
         virtual void set(const std::string &name, sol::nil_t value);
         virtual void set(const std::string &name, const sol::table& value);
-
-        virtual void set(const std::string &name, const nlohmann::json& value);
 
         virtual std::pair<long, bool> getInt(const std::string &name);
         virtual std::pair<double, bool> getFloat(const std::string &name);
         virtual std::pair<bool, bool> getBool(const std::string &name);
         virtual std::pair<std::string, bool> getString(const std::string &name);
         virtual std::pair<nlohmann::json, bool> getJSON(const std::string &name);
+
         virtual std::pair<sol::object, bool> getObject(const std::string &name);
 
         /**
