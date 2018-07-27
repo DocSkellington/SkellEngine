@@ -1,11 +1,11 @@
 #include "systems/SystemManager.h"
 
 #include <tmxlite/Log.hpp>
+#include "Context.h"
 
 namespace engine::systems {
     SystemManager::SystemManager(Context& context) :
         m_context(context) {
-
     }
 
     SystemManager::~SystemManager() {
@@ -19,6 +19,7 @@ namespace engine::systems {
     }
     
     void SystemManager::draw(sf::RenderWindow *window, unsigned int layer) {
+        getContext().window->setView(m_view);
         for (auto &system : m_graphicalSystems)
             system.second->draw(window, layer, m_view);
     }

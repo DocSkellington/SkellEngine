@@ -4,6 +4,7 @@
 
 #include <tmxlite/Log.hpp>
 #include "systems/ExternSystem.h"
+#include "errors/ConstructorNotValid.h"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
@@ -44,7 +45,7 @@ namespace engine::systems {
             return e;
         }
         else if (!systemConstructor->second) {
-            tmx::Logger::log("SYSTEMCONSTRUCTOR", tmx::Logger::Type::Info);
+            throw errors::ConstructorNotValid(systemName + " is a known system but can not be constructed. It's probably an engine bug.");
         }
         else {
             try {
