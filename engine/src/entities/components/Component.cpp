@@ -185,24 +185,115 @@ namespace engine::entities::components {
         }
     }
 
-    std::pair<long, bool> Component::getInt(const std::string &name) {
+    template <typename T>
+    T getValue(std::any variable) {
+        T *va = std::any_cast<T*>(variable);
+        return *va;
+    }
 
+    std::pair<long, bool> Component::getInt(const std::string &name) {
+        std::pair<long, bool> pair = std::make_pair(0, false);
+
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(int*)) {
+                pair = std::make_pair(getValue<int>(itr->second), true);
+            }
+            else if (itr->second.type() == typeid(long*))  {
+                pair = std::make_pair(getValue<long>(itr->second), true);
+            }
+            else {
+                tmx::Logger::log("Component: get " + name + ": " + name + " is not an integer (int or long) variable", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
     }
 
     std::pair<double, bool> Component::getFloat(const std::string &name) {
+        std::pair<double, bool> pair = std::make_pair(0., false);
 
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(float*)) {
+                pair = std::make_pair(getValue<float>(itr->second), true);
+            }
+            else if (itr->second.type() == typeid(double*))  {
+                pair = std::make_pair(getValue<double>(itr->second), true);
+            }
+            else {
+                tmx::Logger::log("Component: get " + name + ": " + name + " is not a floating point (float or double) variable", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
     }
      
     std::pair<bool, bool> Component::getBool(const std::string &name) {
-        
+        std::pair<bool, bool> pair = std::make_pair(false, false);
+
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(bool*)) {
+                pair = std::make_pair(getValue<bool>(itr->second), true);
+            }
+            else {
+                tmx::Logger::log("Component: get " + name + ": " + name + " is not a boolean variable", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
     }
      
     std::pair<std::string, bool> Component::getString(const std::string &name) {
-        
+        std::pair<std::string, bool> pair = std::make_pair("", false);
+
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(std::string*)) {
+                pair = std::make_pair(getValue<std::string>(itr->second), true);
+            }
+            else {
+                tmx::Logger::log("Component: get " + name + ": " + name + " is not a std::string variable", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
+    }
+
+    std::pair<nlohmann::json, bool> Component::getJSON(const std::string &name) {
+        std::pair<nlohmann::json, bool> pair = std::make_pair(nlohmann::json(), false);
+
+        auto itr = mapMembers.find(name);
+        if (itr != mapMembers.end()) {
+            if (itr->second.type() == typeid(nlohmann::json*)) {
+                pair = std::make_pair(getValue<nlohmann::json>(itr->second), true);
+            }
+            else {
+                tmx::Logger::log("Component: get " + name + ": " + name + " is not a JSON variable", tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            tmx::Logger::log("Component: get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+        }
+
+        return pair;
     }
      
     std::pair<sol::object, bool> Component::getObject(const std::string &name) {
-        
+        // TODO
     }
 
     void Component::setContext(Context &context) {

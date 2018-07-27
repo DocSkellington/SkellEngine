@@ -59,6 +59,7 @@ namespace engine::entities::components {
         virtual std::pair<double, bool> getFloat(const std::string &name);
         virtual std::pair<bool, bool> getBool(const std::string &name);
         virtual std::pair<std::string, bool> getString(const std::string &name);
+        virtual std::pair<nlohmann::json, bool> getJSON(const std::string &name);
         virtual std::pair<sol::object, bool> getObject(const std::string &name);
 
         /**
