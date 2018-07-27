@@ -85,8 +85,15 @@ namespace engine::systems {
              * \param name The name of the system
              */
             RegisterSystem (const std::string &name) {
-                std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {  return std::make_shared<T>(manager); };
-                getMapToSystem()->insert(std::make_pair(name, func));
+                if (name == "extern") {
+                    tmx::Logger::log(name + " is not a valid name for a system.", tmx::Logger::Type::Warning);
+                }
+                else {
+                    std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {
+                        return std::make_shared<T>(manager);
+                    };
+                    getMapToSystem()->insert(std::make_pair(name, func));
+                }
             }
         };
 
