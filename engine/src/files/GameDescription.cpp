@@ -185,7 +185,6 @@ namespace engine::files {
 
     void from_json(const nlohmann::json &j, GameDescription &g) {
         // We load the log description only in Debug build
-        #ifdef DEBUG
         auto log = j.find("log");
         if (log != j.end() && log->is_object()) {
             g.log = *log;
@@ -194,7 +193,7 @@ namespace engine::files {
             g.log = defaultLog;
             tmx::Logger::log("game.json: the log description is not present. Default values will be used", tmx::Logger::Type::Warning);
         }
-        #endif
+
         auto window = j.find("window");
         if (window != j.end() && window->is_object()) {
             g.window = *window;

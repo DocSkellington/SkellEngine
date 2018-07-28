@@ -21,14 +21,10 @@ using namespace std;
 
 namespace engine {
     Engine::Engine() {
-        #ifdef DEBUG
         // Erasing the old log
         remove("media/log.txt");
         // Setting default value to the output
         tmx::Logger::setOutput(tmx::Logger::Output::Console);
-        #else
-        tmx::Logger::setOutput(tmx::Logger::Output::None);
-        #endif
 
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
@@ -48,9 +44,7 @@ namespace engine {
         // Opening the config file
         auto description = m_context.fileManager->getGameDescription();
 
-        #ifdef DEBUG
         tmx::Logger::setOutput(description.log.output);
-        #endif
 
         m_context.map = make_shared<map::Map>(m_context, description.media.mapFolder);
 
