@@ -26,5 +26,5 @@ Each component has a unique description. Please, see @subpage json_full_componen
 
 # Levels {#json_levels}
 Each level must be described as following:
-  - `map`: `string`: the name of the map to load; the map must be found in the folder defined in the game description (see [the appropriate documentation](@ref json_game)
+  - `map`: `string`: the name of the map to load; the map must be found in the folder defined in the game description (see [the appropriate documentation](@ref json_game_description)
   - `entities`: `object`: the list of entities as described [here](@ref json_entities)

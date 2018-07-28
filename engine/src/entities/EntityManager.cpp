@@ -1,6 +1,7 @@
 #include "entities/EntityManager.h"
 
 #include "Context.h"
+#include "utilities/json_lua.h"
 
 namespace engine::entities {
     EntityManager::EntityManager(Context &context) :
@@ -62,9 +63,25 @@ namespace engine::entities {
 
     void EntityManager::luaFunctions(sol::state &lua) {
         lua.new_usertype<EntityManager>("EntityManager",
-            "addEntity", sol::resolve<Entity::Ptr(const std::string&)>(&EntityManager::addEntity)
+            "addEntity", sol::overload(
+                sol::resolve<Entity::Ptr(const std::string&)>(&EntityManager::addEntity),
+                sol::resolve<Entity::Ptr(const std::string&, const sol::table&)>(&EntityManager::addEntity)
+            ),
+            "getEntity", sol::overload(
+                sol::resolve<Entity::Ptr(const std::string&)>(&EntityManager::getEntity),
+                sol::resolve<Entity::Ptr(const std::string&, const sol::table&)>(&EntityManager::getEntity)
+            ),
+            "removeEntity", &EntityManager::removeEntity
         );
 
-        lua["entMan"] = this;
+        lua["game"]["entityManager"] = this;
+    }
+
+    Entity::Ptr EntityManager::addEntity(const std::string &name, const sol::table &luaTable) {
+        return addEntity(name, utilities::lua_to_json(luaTable));
+    }
+
+    Entity::Ptr EntityManager::getEntity(const std::string &name, const sol::table &components) {
+        // TODO
     }
 }

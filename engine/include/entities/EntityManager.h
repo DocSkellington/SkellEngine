@@ -70,5 +70,9 @@ namespace engine::entities {
     private:
         std::vector<Entity::Ptr> m_entities;
         Context &m_context;
+
+    private:
+        Entity::Ptr addEntity(const std::string &name, const sol::table &luaTable);
+        Entity::Ptr getEntity(const std::string &name, const sol::table &components);
     };
 }

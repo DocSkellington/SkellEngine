@@ -1,5 +1,5 @@
 function init()
-    entity = entMan:addEntity("test")
+    entity = game.entityManager:addEntity("test")
     entity:addComponent("position", {x=2, y=38})
     print(entity:hasComponent("position"))
     position = entity:getComponent("position")
