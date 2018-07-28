@@ -149,7 +149,7 @@ namespace engine::files {
             }
             else {
                 m.mapFolder = defaultMedia.mapFolder;
-                tmx::Logger::log("game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'media/maps' will be used as default.", tmx::Logger::Type::Warning);
+                tmx::Logger::log("game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'media/maps/' will be used as default.", tmx::Logger::Type::Warning);
             }
         }
         else {
