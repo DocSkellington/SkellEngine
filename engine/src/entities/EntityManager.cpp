@@ -28,7 +28,7 @@ namespace engine::entities {
     }
 
     Entity::Ptr EntityManager::addEntity(const std::string &entityType, const nlohmann::json &jsonTable) {
-        Entity::Ptr entity = std::make_shared<Entity>(m_context, entityType);
+        Entity::Ptr entity = addEntity(entityType);
         
         for (auto itr = jsonTable.begin() ; itr != jsonTable.end() ; ++itr) {
             entity->addComponent(itr.key(), itr.value());
@@ -82,6 +82,25 @@ namespace engine::entities {
     }
 
     Entity::Ptr EntityManager::getEntity(const std::string &name, const sol::table &components) {
-        // TODO
+        std::vector<std::string> componentsVector(components.size());
+
+        std::size_t i = 0;
+        for (auto &compo : components) {
+            // We want only unnamed tables
+            if (compo.first.get_type() == sol::type::number) {
+                // We accept only strings
+                if (compo.second.get_type() == sol::type::string) {
+                    componentsVector[i++] = compo.second.as<std::string>();
+                }
+                else {
+                    tmx::Logger::log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain string values. The named value " + std::to_string(compo.first.as<int>()) + " will be ignored.", tmx::Logger::Type::Warning);
+                }
+            }
+            else {
+                tmx::Logger::log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain unnamed values. The named value " + compo.first.as<std::string>() + " will be ignored.", tmx::Logger::Type::Warning);
+            }
+        }
+
+        return getEntity(name, componentsVector);
     }
 }

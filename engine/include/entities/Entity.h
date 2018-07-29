@@ -41,14 +41,6 @@ namespace engine::entities {
         components::Component::Ptr addComponent(const std::string &componentType, const nlohmann::json &jsonTable);
 
         /**
-         * \brief Adds a component into this entity
-         * \param componentType The type of the component to create
-         * \param luaTable The Lua table
-         * \return A shared pointer to the created component
-         */
-        components::Component::Ptr addComponent(const std::string &componentType, const sol::table &luaTable);
-
-        /**
          * \brief Does this entity have the component?
          * \param componentType The type of the component to look for
          * \return True if the entity has the component, false otherwise
@@ -92,5 +84,14 @@ namespace engine::entities {
         Context &m_context;
         std::string m_type;
         std::map<std::string, components::Component::Ptr> m_components;
+
+    private:
+        /**
+         * \brief Adds a component into this entity
+         * \param componentType The type of the component to create
+         * \param luaTable The Lua table
+         * \return A shared pointer to the created component
+         */
+        components::Component::Ptr addComponent(const std::string &componentType, const sol::table &luaTable);
     };
 }

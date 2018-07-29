@@ -3,6 +3,7 @@ function init()
     entity:addComponent("position", {x=2, y=38})
     print(entity:hasComponent("position"))
     position = entity:getComponent("position")
+    position:set("x", 5.1)
     print(position:get("x"))
     print(position:get("y"))
 
@@ -29,6 +30,27 @@ function init()
     r1:intersects(r2, intersection)
     print(intersection.left, intersection.top, intersection.width, intersection.height)
     print(intersection == DoubleRect.new(1, 1, 1, 1))
+
+    entity2 = game.entityManager:addEntity("TestGet", {position = {1.2, 3.4}})
+    pos2 = entity2:getComponent("position")
+    print(pos2:get("x"), pos2:get("y"))
+
+    entity3 = game.entityManager:addEntity("ohh")
+    pos3 = entity3:getComponent("position")
+    print(pos3)
+
+    entity3 = game.entityManager:getEntity("TestGet", {"position"})
+    print(entity2)
+    print(entity3)
+    pos3 = entity3:getComponent("position")
+    print(pos2:get("x") == pos3:get("x"), pos2:get("y") == pos3:get("y"))
+
+    game.entityManager:removeEntity(entity3)
+    print(entity3)
+    print(entity3 == nil)
+
+    entity4 = game.entityManager:getEntity("TestGet", {"position"})
+    print(entity4)
 end
 
 function update(deltatime, view)
