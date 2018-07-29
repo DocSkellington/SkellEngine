@@ -27,7 +27,6 @@ namespace engine::systems {
     bool System::removeEntity(entities::Entity::Ptr entity) {
         auto itr = std::find(getEntities().begin(), getEntities().end(), entity);
         if (itr == getEntities().end()) {
-            tmx::Logger::log("impossible to remove an entity not used in a system", tmx::Logger::Type::Error);
             return false;
         }
 
