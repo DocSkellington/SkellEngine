@@ -41,5 +41,21 @@ SCENARIO("Entity Manager", "[entities]") {
                 REQUIRE_FALSE(entMan->getEntity("entity"));
             }
         }
+
+        WHEN("We add an entity with a position component") {
+            // We only check that the entity is correctly constructed
+            auto entity = entMan->addEntity("entity", {{"position", {4.1, 7}}});
+
+            REQUIRE(entity);
+            REQUIRE(entMan->getNumberOfEntities() == 1);
+
+            auto position = entity->getComponent("position");
+            REQUIRE(position);
+            REQUIRE(position->getFloat("x").first == Approx(4.1));
+            REQUIRE(position->getFloat("y").first == Approx(7));
+
+            std::vector<std::string> components = {"position"};
+            REQUIRE(entMan->getEntity("entity", {"position"}) == entity);
+        }
     }
 }
