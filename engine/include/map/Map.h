@@ -19,6 +19,7 @@ namespace engine{
 namespace engine::map {
     /**
      * \brief A 2D map.
+     * \ingroup Engine
      * 
      * The data is loaded from a Tiled file (.tmx).
      */

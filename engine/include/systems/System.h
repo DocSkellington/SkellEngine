@@ -9,6 +9,7 @@ namespace engine::systems {
 
     /**
      * \brief Defines the base of every system.
+     * \ingroup Engine
      * 
      * If you define your system, you must register it before being able to use it. Please, see RegisterSystem
      */

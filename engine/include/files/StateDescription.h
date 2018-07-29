@@ -8,6 +8,7 @@
 namespace engine::files {
     /**
      * \brief Describes a State of the game
+     * \ingroup Engine
      * 
      * It should be loaded trough JSON.
      */

@@ -8,6 +8,7 @@
 namespace engine::entities::components {
     /**
      * \brief Describes the sprite sheet of a component
+     * \ingroup Engine
      * \todo Animations
      */
     class GraphicalSpriteSheetComponent : public Component {

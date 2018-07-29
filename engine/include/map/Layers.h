@@ -14,6 +14,7 @@ namespace engine::map {
 
     /**
      * \brief A layer to use in a map.
+     * \ingroup Engine
      * 
      * For each layer type, the data is loaded from a tmx::Layer instance
      */

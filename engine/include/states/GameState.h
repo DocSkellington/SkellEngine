@@ -5,6 +5,7 @@
 namespace engine::states {
     /**
     * \brief Default implementation of the Game state
+    * \ingroup Engine
     */
     class GameState : public State {
     public:

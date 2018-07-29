@@ -6,6 +6,7 @@
 namespace engine::entities::components {
     /**
     * \brief Describes the position of a component in the world
+    * \ingroup Engine
     */
     class PositionComponent : public Component {
     public:

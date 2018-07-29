@@ -19,6 +19,7 @@ namespace engine {
 namespace engine::files {
     /**
     * \brief Handles the files.
+    * \ingroup Engine
     */
     class FileManager {
     public:

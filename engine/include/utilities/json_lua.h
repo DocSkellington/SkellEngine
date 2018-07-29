@@ -6,6 +6,7 @@
 namespace engine::utilities {
     /**
      * \brief Converts a JSON object into a Lua table.
+     * \ingroup Engine
      * 
      * The JSON must be correct. Otherwise, the behaviour is undefined. For example, it must not be empty.
      * 
@@ -19,6 +20,7 @@ namespace engine::utilities {
 
     /**
      * \brief Converts a Lua table into a JSON object
+     * \ingroup Engine
      * 
      * The Lua table must be correct. Otherwise, the behaviour is undefined.
      * 

@@ -11,6 +11,7 @@
 namespace engine::errors {
     /**
     * \brief Defines the error to throw when a file does not exist
+    * \ingroup Engine
     */
     class SystemNotFound : public std::runtime_error {
     public:

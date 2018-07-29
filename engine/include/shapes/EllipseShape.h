@@ -8,6 +8,7 @@
 namespace engine::shapes {
     /**
      * \brief Specialized shape representing a shape.
+     * \ingroup Engine
      * 
      * Mostly taken from https://www.sfml-dev.org/tutorials/2.4/graphics-shape.php
      */

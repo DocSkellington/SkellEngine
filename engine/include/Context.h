@@ -17,6 +17,7 @@
 namespace engine {
     /**
     * \brief Defines the context of the engine.
+    * \ingroup Engine
     */
     struct Context {
         Context() {}

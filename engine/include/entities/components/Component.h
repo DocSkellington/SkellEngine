@@ -19,6 +19,7 @@ namespace engine{
 namespace engine::entities::components {
     /**
     * \brief The base of every component.
+    * \ingroup Engine
     *
     * It defines one family of functions to create the component from a lua script and/or a JSON table.
     * It also defines one static function to create an instance of a component.

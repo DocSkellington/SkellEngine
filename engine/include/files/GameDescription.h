@@ -11,6 +11,7 @@
 namespace engine::files {
     /**
      * \brief The game's parameters.
+     * \ingroup Engine
      * 
      * It should be loaded trough JSON. It contains every information global to the entire game (such as the window's parameters, the media and so on).
      */

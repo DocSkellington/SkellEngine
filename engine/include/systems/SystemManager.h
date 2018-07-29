@@ -15,6 +15,7 @@ namespace engine {
 namespace engine::systems {
     /**
      * \brief The system manager of the engine
+     * \ingroup Engine
      */
     class SystemManager final {
     public:

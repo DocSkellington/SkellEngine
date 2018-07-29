@@ -8,6 +8,7 @@
 namespace engine::errors {
     /**
      * \brief The error to throw if a level description is incorrect
+     * \ingroup Engine
      */
     class BadLevelDescription : public std::runtime_error {
     public:

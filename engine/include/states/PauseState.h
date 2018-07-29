@@ -5,6 +5,7 @@
 namespace engine::states {
     /**
      * \brief Default implementation of the pause state.
+     * \ingroup Engine
      */ 
     class PauseState : public State {
         PauseState(StateManager& manager);

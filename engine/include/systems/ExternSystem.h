@@ -5,6 +5,10 @@
 #include "systems/System.h"
 
 namespace engine::systems {
+    /**
+     * \brief A system defined in a Lua script
+     * \ingroup Engine
+     */
     class ExternSystem : public System {
     public:
         typedef std::shared_ptr<ExternSystem> Ptr;

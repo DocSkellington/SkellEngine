@@ -8,6 +8,7 @@
 namespace engine::files {
     /**
      * \brief Describes a level.
+     * \ingroup Engine
      * 
      * It should be loaded trough JSON (except for the level's name).
      */

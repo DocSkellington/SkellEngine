@@ -8,6 +8,7 @@
 namespace engine::errors {
     /**
      * \brief The error to throw if a system/component is known but can not be constructed
+     * \ingroup Engine
      */
     class ConstructorNotValid : public std::runtime_error {
     public:
