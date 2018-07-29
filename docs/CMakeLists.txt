@@ -1,3 +1,6 @@
+# Doxygen-lua
+engine_set_option(DOXYGEN_LUA "" FILEPATH "The path to the lua2dox executable. If the variable is not set, the Lua documentation is not generated.")
+
 # Doxygen
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
