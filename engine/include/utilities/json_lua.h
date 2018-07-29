@@ -25,6 +25,8 @@ namespace engine::utilities {
      * Due to JSON limitations, if a Lua table mixes named and unnamed values, the JSON table indices are strings.
      * Due to Sol2 limitations, all numbers are stored as double, even if they were initially integers.
      * 
+     * Once converted, the JSON array start at index 0.
+     * 
      * \param lua The Lua table
      * \return The JSON object corresponding to the Lua table
      */

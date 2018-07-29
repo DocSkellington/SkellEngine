@@ -86,6 +86,23 @@ TEST_CASE("JSON to Lua table", "[utilities]") {
 TEST_CASE("Lua table to JSON", "[utilities]") {
     sol::state luaState;
 
+    SECTION("An unnamed table") {
+        auto table = luaState.create_table();
+
+        table[1] = "Hello";
+        table[2] = 5.24;
+        table[3] = true;
+        table[4] = luaState.create_table();
+        table[4][1] = 3.1415;
+
+        nlohmann::json json = lua_to_json(table);
+
+        REQUIRE(json[0] == "Hello");
+        REQUIRE(json[1] == 5.24);
+        REQUIRE(json[2]);
+        REQUIRE(json[3][0] == 3.1415);
+    }
+
     SECTION("Just a table") {
         luaState.script(R"(
             table = {
@@ -95,9 +112,9 @@ TEST_CASE("Lua table to JSON", "[utilities]") {
 
         nlohmann::json json = lua_to_json(luaState["table"]);
 
-        REQUIRE(json[1] == 5);
-        REQUIRE(json[2] == "string");
-        REQUIRE(json[3]);
+        REQUIRE(json[0] == 5);
+        REQUIRE(json[1] == "string");
+        REQUIRE(json[2]);
     }
 
     SECTION("Nested unnamed tables") {
@@ -109,11 +126,11 @@ TEST_CASE("Lua table to JSON", "[utilities]") {
 
         nlohmann::json json = lua_to_json(luaState["table"]);
 
-        REQUIRE(json[1] == 5);
-        REQUIRE(json[2][1] == Approx(3.14));
-        REQUIRE(json[2][2]);
-        REQUIRE(json[2][3] == "string");
-        REQUIRE_FALSE(json[3]);
+        REQUIRE(json[0] == 5);
+        REQUIRE(json[1][0] == Approx(3.14));
+        REQUIRE(json[1][1]);
+        REQUIRE(json[1][2] == "string");
+        REQUIRE_FALSE(json[2]);
     }
 
     SECTION("Simple objects") {

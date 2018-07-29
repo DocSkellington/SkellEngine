@@ -71,7 +71,7 @@ namespace engine::utilities {
             switch(itr.second.get_type()) {
             case sol::type::table:
                 if (table) {
-                    json[itr.first.as<int>()] = lua_to_json(itr.second);
+                    json[itr.first.as<int>()-1] = lua_to_json(itr.second);
                 }
                 else {
                     json[itr.first.as<std::string>()] = lua_to_json(itr.second);
@@ -79,7 +79,7 @@ namespace engine::utilities {
                 break;
             case sol::type::number:
                 if (table) {
-                    json[itr.first.as<int>()] = itr.second.as<double>();
+                    json[itr.first.as<int>()-1] = itr.second.as<double>();
                 }
                 else {
                     json[itr.first.as<std::string>()] = itr.second.as<double>();
@@ -87,7 +87,7 @@ namespace engine::utilities {
                 break;
             case sol::type::boolean:
                 if (table) {
-                    json[itr.first.as<int>()] = itr.second.as<bool>();
+                    json[itr.first.as<int>()-1] = itr.second.as<bool>();
                 }
                 else {
                     json[itr.first.as<std::string>()] = itr.second.as<bool>();
@@ -95,7 +95,7 @@ namespace engine::utilities {
                 break;
             case sol::type::string:
                 if (table) {
-                    json[itr.first.as<int>()] = itr.second.as<std::string>();
+                    json[itr.first.as<int>()-1] = itr.second.as<std::string>();
                 }
                 else {
                     json[itr.first.as<std::string>()] = itr.second.as<std::string>();
