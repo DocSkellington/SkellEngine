@@ -113,6 +113,8 @@ namespace engine::systems {
         System(manager) {
         m_lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table, sol::lib::math);
 
+        m_lua.create_named_table("game");
+
         registerSFMLLuaFunctions(m_lua);
 
         entities::components::Component::luaFunctions(m_lua);
@@ -132,13 +134,20 @@ namespace engine::systems {
     }
 
     void ExternSystem::loadLua(const std::string &systemName) {
-        m_lua.do_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
-        sol::protected_function initFunc = m_lua["init"];
-        if (initFunc) {
-            sol::protected_function_result res = initFunc();
-            if (!res.valid()) {
-                sol::error e = res;
-                tmx::Logger::logError("ExternSystem: error during init. The system could not be properly initiliazed and may not work as intented. For more details: ", e);
+        tmx::Logger::log(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+        sol::protected_function_result load = m_lua.do_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+        if (!load.valid()) {
+            sol::error e = load;
+            tmx::Logger::logError("ExternSystem: impossible to load the file of the system " + systemName, e);
+        }
+        else {
+            sol::protected_function initFunc = m_lua["init"];
+            if (initFunc) {
+                sol::protected_function_result res = initFunc();
+                if (!res.valid()) {
+                    sol::error e = res;
+                    tmx::Logger::logError("ExternSystem: error during init. The system could not be properly initiliazed and may not work as intented", e);
+                }
             }
         }
     }
@@ -149,7 +158,7 @@ namespace engine::systems {
             sol::protected_function_result res = updateFunc(deltatime, view);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: error during update. For more details: ", e);
+                tmx::Logger::logError("ExternSystem: error during update", e);
                 return false;
             }
         }
@@ -166,7 +175,7 @@ namespace engine::systems {
             }
             else {
                 sol::error e = res;
-                tmx::Logger::logError("ExterSystem: error during checkComponents. No entities will be added in the system. For more details: ", e);
+                tmx::Logger::logError("ExterSystem: error during checkComponents. No entities will be added in the system", e);
             }
         }
         return false;
