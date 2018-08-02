@@ -1,10 +1,14 @@
 build/*
 bin/*
 doc_doxygen/*
-.vscode/tags
 *.aux
 *.log
 *.gz
+
+.vscode/tags
 .vscode/.cmaketools.json
 .vscode/c_cpp_properties.json
 .vscode/launch.json
+
+# LDOC
+config.ld
