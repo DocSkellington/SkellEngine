@@ -4,7 +4,7 @@ Dependencies {#dependencies}
 
 # Building {#dependencies_building}
 The library files are needed for these dependencies. Please, see the web sites to know how to compile or download these files for your operation system.
-  - [Lua](http://www.lua.org/) distributed under [MIT license](https://opensource.org/licenses/mit-license.html).
+  - [Lua](http://www.lua.org/) distributed under [MIT license](https://opensource.org/licenses/mit-license.html). Lua5.2+ is recommended (Lua5.1 has some performance issues and lacks some useful functions).
   - [SFML 2.5](https://www.sfml-dev.org/) distributed under [zlib/png license](https://opensource.org/licenses/Zlib).
 
 The following dependencies are given with the source code:
@@ -18,3 +18,4 @@ The following dependencies are given with the source code:
 # Documentation {#dependencies_documentation}
 The following dependencies are needed to build the documentation:
   - [Doxygen](http://www.stack.nl/~dimitri/doxygen/index.html) distributed under [GNU General Public License](https://opensource.org/licenses/GPL-2.0).
+  - [LDoc](https://github.com/stevedonovan/LDoc) distributed under [zlib/png license](https://opensource.org/licenses/Zlib).

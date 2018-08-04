@@ -5,6 +5,7 @@ Game Description      {#json_game_description}
 The game description file must be named `game.json` and must be in the root of `media`.
 
 # Accepted fields     {#json_game_description_fields}
+If a _name of the field_ starts with a tabulation, then it means it belongs to the last defined _object_.
 
 | Name of the field         | Expected type       | Description                                                                                                         | Default value  |
 |-------------------        |---------------      |-----------------------------------------------------                                                                |----------------|
