@@ -14,7 +14,7 @@ SCENARIO("Entity test", "[entities]") {
 
     WHEN("The entity is empty") {
         THEN("The component does not have any component") {
-            REQUIRE(entity.getNumberOfComponents() == 0);
+            REQUIRE(entity.size() == 0);
             REQUIRE_FALSE(entity.hasComponent("position"));
         }
 
@@ -23,7 +23,7 @@ SCENARIO("Entity test", "[entities]") {
 
             THEN("The component is no longer empty") {
                 REQUIRE(entity.hasComponent("position"));
-                REQUIRE(entity.getNumberOfComponents() == 1);
+                REQUIRE(entity.size() == 1);
             }
 
             THEN("We can retrieve the component") {

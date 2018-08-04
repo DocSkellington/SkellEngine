@@ -58,11 +58,11 @@ namespace engine::entities {
         return itr->second;
     }
 
-    std::size_t Entity::getNumberOfComponents() {
+    std::size_t Entity::size() const {
         return m_components.size();
     }
 
-    std::vector<std::string> Entity::getComponentsNames() {
+    std::vector<std::string> Entity::getComponentsNames() const {
         std::vector<std::string> vec(m_components.size());
         std::size_t i = 0;
         for (auto &c : m_components) {
@@ -85,8 +85,6 @@ namespace engine::entities {
             "hasComponent", &Entity::hasComponent,
             "getComponent", &Entity::getComponent,
             "getComponentsNames", &Entity::getComponentsNames,
-            "getNumberOfComponents", &Entity::getNumberOfComponents,
-            "size", &Entity::getNumberOfComponents,
             "getType", &Entity::getType
         );
     }

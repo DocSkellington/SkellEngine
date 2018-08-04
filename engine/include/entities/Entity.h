@@ -59,7 +59,7 @@ namespace engine::entities {
          * \brief Returns the number of components this entity has
          * \return The number of components this entity has
          */
-        std::size_t getNumberOfComponents();
+        std::size_t size() const;
 
         /**
          * \brief Returns a vector with the names of the components this entity has.
@@ -67,7 +67,7 @@ namespace engine::entities {
          * The vector is sorted.
          * \return A vector of strings with the names of components this entity has
          */
-        std::vector<std::string> getComponentsNames();
+        std::vector<std::string> getComponentsNames() const;
 
         /**
          * \brief Returns the type of the entity
