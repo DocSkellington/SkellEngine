@@ -16,9 +16,11 @@ namespace engine::entities {
      * An entity with zero components is called "empty".
      * An entity has a 'type', a name
      */
-    class Entity final {
+    class Entity final : public sol::is_container<Entity> {
     public:
         typedef std::shared_ptr<Entity> Ptr;
+        typedef std::map<std::string, components::Component::Ptr>::iterator iterator;
+        typedef std::map<std::string, components::Component::Ptr>::const_iterator const_iterator;
     
     public:
         explicit Entity(Context &context);
@@ -76,6 +78,30 @@ namespace engine::entities {
         const std::string& getType() const;
 
         /**
+         * \brief The begin iterator
+         * \return The iterator to the begin of the components' map
+         */
+        iterator begin();
+
+        /**
+         * \brief The end iterator
+         * \return The iterator to the end of the components' map
+         */
+        iterator end();
+
+        /**
+         * \brief The const begin iterator
+         * \return The const iterator to the begin of the components' map
+         */
+        const_iterator cbegin() const;
+
+        /**
+         * \brief The const end iterator
+         * \return The const iterator to the end of the components' map
+         */
+        const_iterator cend() const;
+
+        /**
          * \brief Registers the Lua functions associated with this class
          * \param lua The Lua state
          */
@@ -94,5 +120,9 @@ namespace engine::entities {
          * \return A shared pointer to the created component
          */
         components::Component::Ptr addComponent(const std::string &componentType, const sol::table &luaTable);
+
+        // Begin and end for Sol2
+        static iterator begin(lua_State*, Entity& entity);
+        static iterator end(lua_State*, Entity& entity);
     };
 }

@@ -76,6 +76,22 @@ namespace engine::entities {
         return m_type;
     }
 
+    Entity::iterator Entity::begin() {
+        return m_components.begin();
+    }
+
+    Entity::iterator Entity::end() {
+        return m_components.end();
+    }
+
+    Entity::const_iterator Entity::cbegin() const {
+        return m_components.cbegin();
+    }
+
+    Entity::const_iterator Entity::cend() const {
+        return m_components.cend();
+    }
+
     void Entity::luaFunctions(sol::state &lua) {
         lua.new_usertype<Entity>("Entity",
             "addComponent", sol::overload(
@@ -87,5 +103,13 @@ namespace engine::entities {
             "getComponentsNames", &Entity::getComponentsNames,
             "getType", &Entity::getType
         );
+    }
+
+    Entity::iterator Entity::begin(lua_State*, Entity& entity) {
+        return entity.begin();
+    }
+
+    Entity::iterator Entity::end(lua_State*, Entity& entity) {
+        return entity.end();
     }
 }

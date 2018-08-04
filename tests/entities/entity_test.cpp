@@ -41,6 +41,12 @@ SCENARIO("Entity test", "[entities]") {
             THEN("We cannot add a new 'position' component") {
                 REQUIRE_FALSE(entity.addComponent("position"));
             }
+
+            THEN("We can iterator over the entity") {
+                for (auto &itr : entity) {
+                    REQUIRE(itr.first == "position");
+                }
+            }
         }
 
         AND_WHEN("We can add a 'position' component with a JSON table") {

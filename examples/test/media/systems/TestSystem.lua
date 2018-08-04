@@ -8,6 +8,11 @@ function init()
     print(position:get("y"))
 
     print(#entity)
+
+    for i, n, c in pairs(entity) do
+        print(i, n, c)
+        print(c:get("x"))
+    end
 end
 
 function update(deltatime, view)
