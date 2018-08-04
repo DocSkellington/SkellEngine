@@ -21,6 +21,8 @@ Finally, the user can remove an entity from the Entity Manager with `removeEntit
 # Components {#entities_components}
 Once the user has a reference to an entity, it's possible to add a new component (`addComponent`), check if the entity has a specific component (`hasComponent`) and to get a component (`getComponent`). It's impossible to remove a component.
 
+It's also possible to iterate over the components.
+
 # Example {#entities_examples}
 Here are full examples with creating, getting and removing entities.
 
@@ -39,6 +41,13 @@ entity->addComponent("position", {5.1, 9});
 entity->addComponent("position", {{"x", 5.1}, {"y", 9}});
 // Don't forget to add it to the System Manager
 context.systemManager->addEntity(entity);
+
+// We can iterate over the components
+for (auto &itr : entity) {
+  if (itr.first == "position") {
+    std::cout << "We have a position, Houston\n";
+  }
+}
 
 // Now, we create an entity with a position component
 context.entityManager->addEntity("entityPosition", {{"position", {48, 91.7}}});
@@ -65,6 +74,13 @@ position:set("y", 9)
 -- The three lines can be remplaced by entity:addComponent("position", {x=5.1, y=9}) or by entity:addComponent("position", {5.1, 9})
 -- Don't forget to add it to the System Manager
 game.systemManager:addEntity(entity)
+
+--- We can iterate over the components
+for index, name, component in pairs(entity) do
+  if name == "position"
+    std::cout << "We have a position, Houston\n";
+  end
+end
 
 -- Now, we create an entity with a position component
 game.entityManager:addEntity("entityPosition", {position={48, 91.7}})
