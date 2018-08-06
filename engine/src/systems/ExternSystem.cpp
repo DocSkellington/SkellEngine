@@ -170,12 +170,17 @@ namespace engine::systems {
         if (checkFunc) {
             sol::protected_function_result res = checkFunc(entity);
             if (res.valid()) {
-                bool r = res;
-                return r;
+                if (res.get_type() == sol::type::boolean) {
+                    bool r = res;
+                    return r;
+                }
+                else {
+                    tmx::Logger::log("ExternSystem: checkComponents must return a boolean.", tmx::Logger::Type::Error);
+                }
             }
             else {
                 sol::error e = res;
-                tmx::Logger::logError("ExterSystem: error during checkComponents. No entities will be added in the system", e);
+                tmx::Logger::logError("ExternSystem: error during checkComponents. No entities will be added in the system", e);
             }
         }
         return false;
