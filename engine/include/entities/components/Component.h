@@ -67,6 +67,7 @@ namespace engine::entities::components {
          * \brief Creates an instance of a component based on the given name. If the type is unknown, a generic component is returned.
          * 
          * The component must be registered to be known.
+         * \param context The context
          * \param componentType The type of the component to create
          */
         static Ptr createInstance(Context &context, const std::string &componentType);

@@ -20,7 +20,7 @@ namespace engine::systems {
 
         virtual void loadLua(const std::string &systemName);
 
-        virtual bool update(sf::Int64 deltatime, sf::View &view);
+        virtual bool update(sf::Int64 deltatime, sf::View &view) override;
 
     protected:
         virtual bool checkComponents(engine::entities::Entity::Ptr entity) const;
