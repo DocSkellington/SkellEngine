@@ -84,21 +84,29 @@ namespace engine::files {
 
                 if (std::regex_search(filename, match, lua)) {
                     // The file ends with ".lua"
-                    std::smatch matchSystemName;
-                    std::regex system("[Ss]ystem$");
-
                     std::string systemName = match.prefix();
 
-                    if (std::regex_search(systemName, matchSystemName, system)) {
-                        // The name of the file is "BlablaSystem.lua"; we want to keep "Blabla"
-                        systemName = matchSystemName.prefix();
+                    std::smatch isGraphical;
+                    std::regex graphical("graphical", std::regex::icase);
+                    if (std::regex_search(systemName, isGraphical, graphical)) {
+                        // The name starts with "graphical"/i. We reject every graphical system in Lua.
+                        tmx::Logger::log("Registering extern systems: a system defined in Lua can not be graphical and can not start with the word 'graphical' (case does not matter). " + filename + " is not correct. Ignoring...", tmx::Logger::Type::Warning);
                     }
+                    else {
+                        std::smatch matchSystemName;
+                        std::regex system("[Ss]ystem$");
 
-                    std::transform(systemName.begin(), systemName.end(), systemName.begin(), ::tolower);
+                        if (std::regex_search(systemName, matchSystemName, system)) {
+                            // The name of the file is "BlablaSystem.lua"; we want to keep "Blabla"
+                            systemName = matchSystemName.prefix();
+                        }
 
-                    m_systemsPath[systemName] = filename;
+                        std::transform(systemName.begin(), systemName.end(), systemName.begin(), ::tolower);
 
-                    tmx::Logger::log("Registering " + systemName);
+                        m_systemsPath[systemName] = filename;
+
+                        tmx::Logger::log("Registering " + systemName);
+                    }
                 }
             }
         }
