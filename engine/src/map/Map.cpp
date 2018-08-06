@@ -1,5 +1,4 @@
 #include "map/Map.h"
-#include <cstdlib>
 #include "Context.h"
 #include "errors/BadLevelDescription.h"
 

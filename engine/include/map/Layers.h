@@ -72,6 +72,9 @@ namespace engine::map {
 
             void update(sf::Int64 deltaTime);
 
+        public:
+            bool isAnimated() const;
+
         private:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
             void updateSprite();
@@ -90,7 +93,8 @@ namespace engine::map {
         };
 
     private:
-        std::vector<std::vector<Tile>> tiles;
+        std::vector<std::vector<std::shared_ptr<Tile>>> tiles;
+        std::vector<std::shared_ptr<Tile>> animatedTiles;
     };
 
     /**
@@ -111,6 +115,9 @@ namespace engine::map {
         sf::Sprite m_sprite;
     };
 
+    /**
+     * \brief A layer made of multiple shapes and texts
+     */
     class ObjectLayer : public Layer {
     public:
         ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer);

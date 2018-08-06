@@ -16,7 +16,6 @@ function init()
 end
 
 function update(deltatime, view)
-    view:rotate(4 * deltatime / 10000)
 end
 
 function checkComponents(entity)

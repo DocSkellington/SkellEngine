@@ -46,10 +46,6 @@ namespace engine::map {
     }
 
     void TileLayer::Tile::update(sf::Int64 deltaTime) {
-        // We update if we only have an animation
-        if (m_tile->animation.frames.size() <= 1)
-            return;
-
         m_elapsed += deltaTime;
         while (m_elapsed >= m_tile->animation.frames[m_currentFrame].duration * 1000) {
             m_elapsed -= m_tile->animation.frames[m_currentFrame].duration * 1000;
@@ -57,6 +53,10 @@ namespace engine::map {
         }
 
         updateSprite();
+    }
+
+    bool TileLayer::Tile::isAnimated() const {
+        return m_tile->animation.frames.size() > 1;
     }
 
     void TileLayer::Tile::updateSprite() {
@@ -148,7 +148,7 @@ namespace engine::map {
     TileLayer::TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer) :
         Layer(map, mapName, layer.getVisible()) {
         for (std::size_t y = 0 ; y < map.m_map.getTileCount().y ; y++) {
-            std::vector<Tile> row;
+            std::vector<std::shared_ptr<Tile>> row;
             for (std::size_t x = 0 ; x < map.m_map.getTileCount().x ; x++) {
                 std::uint8_t alpha = layer.getOpacity() * 255;
 
@@ -158,8 +158,12 @@ namespace engine::map {
                 offset.x += map.m_tileOffset[tile.ID-1]->x;
                 offset.y += map.m_tileOffset[tile.ID-1]->y;
 
-                Tile t(map, mapName, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
+                std::shared_ptr<Tile> t = std::make_shared<Tile>(map, mapName, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
                 row.push_back(t);
+
+                if (t->isAnimated()) {
+                    animatedTiles.push_back(t);
+                }
             }
             tiles.push_back(row);
         }
@@ -170,10 +174,8 @@ namespace engine::map {
     }
 
     void TileLayer::update(sf::Int64 deltaTime) {
-        for (std::size_t x = 0 ; x < tiles.size() ; x++) {
-            for (std::size_t y = 0 ; y < tiles[x].size() ; y++) {
-                tiles[x][y].update(deltaTime);
-            }
+        for (auto &tile : animatedTiles) {
+            tile->update(deltaTime);
         }
     }
 
@@ -181,7 +183,7 @@ namespace engine::map {
         states.transform *= getTransform();
         for (std::size_t y = 0 ; y < tiles.size() ; y++) {
             for (std::size_t x = 0 ; x < tiles[y].size() ; x++) {
-                target.draw(tiles[y][x], states);
+                target.draw(*tiles[y][x], states);
             }
         }
     }
