@@ -215,7 +215,7 @@ namespace engine::map {
 
     }
 
-    void ImageLayer::update(sf::Int64 deltaTime) {
+    void ImageLayer::update(sf::Int64) {
     }
 
     void ImageLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -239,7 +239,7 @@ namespace engine::map {
 
     }
 
-    void ObjectLayer::update(sf::Int64 deltaTime) {
+    void ObjectLayer::update(sf::Int64) {
     }
 
     void ObjectLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {

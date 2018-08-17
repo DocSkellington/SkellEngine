@@ -11,6 +11,7 @@ Welcome on the documentation of my Game Engine.
     - [Objects](@ref map_objects)
   - [Entities](@ref entities)
   - [Systems](@ref systems)
+  - [States](@ref states)
   - [Lua reference](../../doc_doxygen/doc_lua/index.html)
   - [The files' hierarchy](@ref file_hierarchy)
   - [How to build](@ref building)

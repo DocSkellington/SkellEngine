@@ -131,7 +131,7 @@ namespace engine::entities::components {
         }
     }
 
-    void Component::set(const std::string &name, sol::nil_t value) {
+    void Component::set(const std::string &name, sol::nil_t) {
         // We set the variable at the default value
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
