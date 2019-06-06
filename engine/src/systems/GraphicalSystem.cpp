@@ -1,4 +1,4 @@
-#include "systems/GraphicalSystem.h"
+#include "SkellEngine/systems/GraphicalSystem.h"
 
 namespace engine::systems {
     GraphicalSystem::GraphicalSystem(SystemManager &manager) :

@@ -25,8 +25,8 @@ and must not be misrepresented as being the original software.
 source distribution.
 *********************************************************************/
 
-#include <tmxlite/FreeFuncs.hpp>
-#include <tmxlite/Log.hpp>
+#include <SkellEngine/tmxlite/FreeFuncs.hpp>
+#include <SkellEngine/tmxlite/Log.hpp>
 #include "miniz.h"
 
 #include <cstring>

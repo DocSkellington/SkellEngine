@@ -1,8 +1,8 @@
 #include <catch.hpp>
 
-#include "entities/EntityManager.h"
-#include "Context.h"
-#include "systems/SystemManager.h"
+#include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/systems/SystemManager.h"
 
 using namespace engine;
 using namespace entities;

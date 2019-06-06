@@ -1,4 +1,4 @@
-#include "entities/components/GraphicalSpriteSheetComponent.h"
+#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
 
 namespace engine::entities::components {
     Component::RegisterComponent<GraphicalSpriteSheetComponent> GraphicalSpriteSheetComponent::rcpc("spritesheet");

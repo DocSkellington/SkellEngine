@@ -1,6 +1,6 @@
-#include "Engine.h"
+#include "SkellEngine/Engine.h"
 
-#include "utilities/json_lua.h"
+#include "SkellEngine/utilities/json_lua.h"
 
 using namespace engine;
 

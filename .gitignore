@@ -1,6 +1,5 @@
-build/*
-bin/*
-doc_doxygen/*
+build/
+bin/
 *.aux
 *.log
 *.gz
@@ -9,6 +8,7 @@ doc_doxygen/*
 .vscode/.cmaketools.json
 .vscode/c_cpp_properties.json
 .vscode/launch.json
+.vscode/ipch
 
 # LDOC
 config.ld

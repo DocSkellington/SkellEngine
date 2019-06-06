@@ -1,16 +1,16 @@
-#include "files/FileManager.h"
+#include "SkellEngine/files/FileManager.h"
 
 #include <fstream>
 #include <cctype>
 #include <algorithm>
-#include <sol.hpp>
+#include <sol/sol.hpp>
 #include <filesystem>
 
-#include "Context.h"
-#include "errors/FileNotFound.h"
-#include "errors/SystemNotFound.h"
-#include "errors/BadLevelDescription.h"
-#include <tmxlite/Log.hpp>
+#include "SkellEngine/Context.h"
+#include "SkellEngine/errors/FileNotFound.h"
+#include "SkellEngine/errors/SystemNotFound.h"
+#include "SkellEngine/errors/BadLevelDescription.h"
+#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
     FileManager::FileManager(const Context &context) :

@@ -1,3 +1,39 @@
+# SFML
+find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
+
+# Lua
+find_package(Lua 5.3 REQUIRED)
+
+# Local dependencies
+# Thor
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/CMakeLists.txt)
+    add_subdirectory(dependencies/Thor)
+else()
+    message(FATAL_ERROR "An external dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
+# TGUI
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
+    add_subdirectory(dependencies/TGUI)
+else()
+    message(FATAL_ERROR "An external dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
+# Sol2
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
+    message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
+# JSON for modern C++
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
+    message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine/config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.h
+)
+
 # Source files
 set(SOURCES
     src/Engine.cpp
@@ -48,67 +84,143 @@ set(SOURCES
 )
 
 # Library
-add_library(${LIBRARY_NAME} SHARED ${SOURCES})
+add_library(${LIBRARY_NAME} SHARED
+    ${SOURCES}
+)
 
-# Includes
-target_include_directories(${LIBRARY_NAME} PUBLIC include)
-target_include_directories(${LIBRARY_NAME} PUBLIC "${PROJECT_BINARY_DIR}")
+target_include_directories(${LIBRARY_NAME}
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/extlibs/aurora/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/include>
+        $<INSTALL_INTERFACE:include>
+        ${LUA_INCLUDE_DIR}
+)
 
-# OpenGL
-target_link_libraries(${LIBRARY_NAME} GL)
+target_link_libraries(${LIBRARY_NAME}
+    PUBLIC
+        lua5.3
+        thor
+        tgui
+        GL
+        sfml-system
+        sfml-graphics
+        sfml-window
+        sfml-audio
+)
 
-# Detect and add SFML
-find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
-if(SFML_FOUND)
-    target_link_libraries(${LIBRARY_NAME} sfml-system sfml-graphics sfml-window sfml-audio)
-endif()
+target_compile_features(${LIBRARY_NAME}
+    PUBLIC
+        cxx_std_17
+)
 
-# Lua
-find_package(Lua 5.3 REQUIRED)
-if (Lua_FOUND)
-    target_include_directories(${LIBRARY_NAME} PUBLIC ${LUA_INCLUDE_DIR})
-    target_link_libraries(${LIBRARY_NAME} lua5.3)
-endif()
-
-# Local dependencies
-# Thor
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/CMakeLists.txt)
-    add_subdirectory(dependencies/Thor EXCLUDE_FROM_ALL)
-    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/Thor/include dependencies/Thor/extlibs/aurora/include)
-    target_link_libraries(${LIBRARY_NAME} thor)
-else()
-    message(FATAL_ERROR "An external dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
-
-# TGUI
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
-    add_subdirectory(dependencies/TGUI EXCLUDE_FROM_ALL)
-    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/TGUI/include)
-    target_link_libraries(${LIBRARY_NAME} tgui)
-else()
-    message(FATAL_ERROR "An external dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
-
-# Sol2
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/CMakeLists.txt)
-    target_include_directories(${LIBRARY_NAME} PUBLIC dependencies/sol2/single/sol)
-else()
-    message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
-
-# JSON for modern C++
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
-    target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/json/single_include/nlohmann)
-else()
-    message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
+target_compile_options(${LIBRARY_NAME}
+    PRIVATE
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+            -Wall
+            -Wextra
+            -pedantic
+        >
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /Wall
+        >
+)
 
 # std::filesystem for GCC
 if(CMAKE_COMPILER_IS_GNUCXX)
-    target_link_libraries(${LIBRARY_NAME} stdc++fs)
+    target_link_libraries(${LIBRARY_NAME}
+        PRIVATE
+            stdc++fs
+    )
 endif()
 
+# Thor
+install(TARGETS thor
+    EXPORT thorConfig
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(EXPORT thorConfig
+    FILE thorConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/thor
+)
+
+export(EXPORT thorConfig
+    FILE thorConfig.cmake
+)
+
+# TGUI
+install(TARGETS tgui
+    EXPORT tguiConfig
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(EXPORT tguiConfig
+    FILE tguiConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tgui
+)
+
+export(EXPORT tguiConfig
+    FILE tguiConfig.cmake
+)
+
+# sol
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/sol
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# JSON for modern C++
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include/nlohmann
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# SkellEngine
 install(TARGETS ${LIBRARY_NAME}
-    LIBRARY DESTINATION .
-    ARCHIVE DESTINATION .
+    EXPORT ${LIBRARY_NAME}-targets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT ${LIBRARY_NAME}-targets
+    FILE ${LIBRARY_NAME}-targets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
+
+# Config file
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+    ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
+    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
+
+write_basic_package_version_file(
+    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+    VERSION ${SkellEngine_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+
+install(
+    FILES
+        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
+
+export(EXPORT ${LIBRARY_NAME}-targets
+    FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
 )

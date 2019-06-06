@@ -1,6 +1,6 @@
-#include "map/Map.h"
-#include "Context.h"
-#include "errors/BadLevelDescription.h"
+#include "SkellEngine/map/Map.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/errors/BadLevelDescription.h"
 
 namespace engine::map {
     Map::Map(Context &context, const std::string &folder) :

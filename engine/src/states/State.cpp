@@ -1,6 +1,6 @@
-#include "states/State.h"
+#include "SkellEngine/states/State.h"
 
-#include "states/StateManager.h"
+#include "SkellEngine/states/StateManager.h"
 
 namespace engine::states {
     State::State(StateManager &manager) :

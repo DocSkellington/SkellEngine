@@ -1,6 +1,6 @@
 #include <catch.hpp>
 
-#include "utilities/json_lua.h"
+#include "SkellEngine/utilities/json_lua.h"
 
 using namespace engine::utilities;
 

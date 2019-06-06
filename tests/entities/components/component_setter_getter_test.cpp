@@ -1,6 +1,6 @@
 #include <catch.hpp>
 
-#include "entities/components/Component.h"
+#include "SkellEngine/entities/components/Component.h"
 
 using namespace engine;
 using namespace entities;

@@ -1,8 +1,8 @@
-#include "entities/Entity.h"
+#include "SkellEngine/entities/Entity.h"
 
-#include <tmxlite/Log.hpp>
-#include "utilities/json_lua.h"
-#include "entities/components/ExternComponent.h"
+#include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/utilities/json_lua.h"
+#include "SkellEngine/entities/components/ExternComponent.h"
 
 namespace engine::entities {
     Entity::Entity(Context &context) :

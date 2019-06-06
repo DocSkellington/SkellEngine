@@ -2,10 +2,10 @@
 #include <memory>
 
 #include "catch.hpp"
-#include "systems/System.h"
-#include "systems/SystemManager.h"
-#include "Context.h"
-#include "entities/Entity.h"
+#include "SkellEngine/systems/System.h"
+#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/entities/Entity.h"
 
 using namespace engine;
 using namespace systems;

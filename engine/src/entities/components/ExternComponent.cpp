@@ -1,8 +1,8 @@
-#include "entities/components/ExternComponent.h"
-#include <sol.hpp>
+#include "SkellEngine/entities/components/ExternComponent.h"
+#include <sol/sol.hpp>
 
-#include "utilities/json_lua.h"
-#include "Context.h"
+#include "SkellEngine/utilities/json_lua.h"
+#include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
     ExternComponent::ExternComponent() :

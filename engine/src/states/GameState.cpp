@@ -1,9 +1,9 @@
-#include "states/GameState.h"
+#include "SkellEngine/states/GameState.h"
 
 #include <iostream>
 
-#include "states/MainMenuState.h"
-#include "Context.h"
+#include "SkellEngine/states/MainMenuState.h"
+#include "SkellEngine/Context.h"
 
 namespace engine::states {
     GameState::GameState(StateManager& manager) :

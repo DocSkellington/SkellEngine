@@ -1,7 +1,7 @@
-#include "files/GameDescription.h"
+#include "SkellEngine/files/GameDescription.h"
 
 #include <cctype>
-#include <tmxlite/Log.hpp>
+#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
     void check_path_end(std::string &path) {

@@ -66,13 +66,12 @@
         "valarray": "cpp",
         "filesystem": "cpp"
     },
-    "latex-workshop.message.update.show": false,
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "cmake.configureOnOpen": false,
     "cmake.configureSettings": {
-        "ENGINE_BUILD_DOC": true,
-        "ENGINE_BUILD_TESTS": true,
-        "ENGINE_BUILD_EXAMPLES": true,
+        "SKELLENGINE_BUILD_DOCUMENTATION": "TRUE",
+        "SKELLENGINE_BUILD_TESTS": "TRUE",
+        "SKELLENGINE_BUILD_EXAMPLES": "TRUE",
         "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/bin"
     }
 }

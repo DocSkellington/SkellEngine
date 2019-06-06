@@ -1,7 +1,7 @@
-#include "systems/SystemManager.h"
+#include "SkellEngine/systems/SystemManager.h"
 
-#include <tmxlite/Log.hpp>
-#include "Context.h"
+#include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/Context.h"
 
 namespace engine::systems {
     SystemManager::SystemManager(Context& context) :

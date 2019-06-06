@@ -1,0 +1,8 @@
+title="SkellEngine Lua API"
+project="SkellEngine"
+
+description="2D homemade game engine"
+
+file={"@CMAKE_CURRENT_SOURCE_DIR@/lua"}
+
+dir="@CMAKE_CURRENT_BINARY_DIR@/lua"

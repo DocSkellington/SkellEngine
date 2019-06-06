@@ -1,10 +1,10 @@
-#include "systems/System.h"
+#include "SkellEngine/systems/System.h"
 
 #include <cctype>
 
-#include <tmxlite/Log.hpp>
-#include "systems/ExternSystem.h"
-#include "errors/ConstructorNotValid.h"
+#include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/systems/ExternSystem.h"
+#include "SkellEngine/errors/ConstructorNotValid.h"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :

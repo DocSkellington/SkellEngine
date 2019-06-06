@@ -1,8 +1,8 @@
-#include "systems/ExternSystem.h"
+#include "SkellEngine/systems/ExternSystem.h"
 
-#include "systems/SystemManager.h"
-#include "Context.h"
-#include "entities/components/ExternComponent.h"
+#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/entities/components/ExternComponent.h"
 
 // V: type of the vector (sf::Vector2f, sf::Vector2u and so on)
 // T: type of the data in the vector (float, unsigned int and so on)

@@ -1,8 +1,8 @@
-#include "states/PauseState.h"
+#include "SkellEngine/states/PauseState.h"
 
 #include <iostream>
 
-#include "states/GameState.h"
+#include "SkellEngine/states/GameState.h"
 
 namespace engine::states {
     PauseState::PauseState(StateManager& manager) :

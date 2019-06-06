@@ -1,7 +1,7 @@
-#include "files/LevelDescription.h"
+#include "SkellEngine/files/LevelDescription.h"
 
-#include "errors/BadLevelDescription.h"
-#include <tmxlite/Log.hpp>
+#include "SkellEngine/errors/BadLevelDescription.h"
+#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
     void LevelDescription::clear() {

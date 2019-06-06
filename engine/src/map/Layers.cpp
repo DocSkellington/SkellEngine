@@ -1,12 +1,12 @@
-#include "map/Layers.h"
+#include "SkellEngine/map/Layers.h"
 
 #include <Thor/Resources.hpp>
 
-#include <tmxlite/Log.hpp>
+#include <SkellEngine/tmxlite/Log.hpp>
 
-#include "map/Map.h"
-#include "Context.h"
-#include "shapes/EllipseShape.h"
+#include "SkellEngine/map/Map.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/shapes/EllipseShape.h"
 
 namespace engine::map {
     Layer::Layer(Map &map, const std::string& mapName, bool visible) :

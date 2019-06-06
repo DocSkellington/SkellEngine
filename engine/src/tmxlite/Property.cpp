@@ -25,10 +25,10 @@ and must not be misrepresented as being the original software.
 source distribution.
 *********************************************************************/
 
-#include <tmxlite/Property.hpp>
+#include <SkellEngine/tmxlite/Property.hpp>
 #include "detail/pugixml.hpp"
-#include <tmxlite/Log.hpp>
-#include <tmxlite/FreeFuncs.hpp>
+#include <SkellEngine/tmxlite/Log.hpp>
+#include <SkellEngine/tmxlite/FreeFuncs.hpp>
 
 using namespace tmx;
 

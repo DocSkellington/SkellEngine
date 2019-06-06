@@ -1,6 +1,6 @@
-#include "utilities/json_lua.h"
+#include "SkellEngine/utilities/json_lua.h"
 
-#include "tmxlite/Log.hpp"
+#include "SkellEngine/tmxlite/Log.hpp"
 
 namespace engine::utilities {
     // 'array' indicates if the current json object parsed is an array. If yes, the keys are converted into int. If no, the keys are still strings.

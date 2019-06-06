@@ -13,19 +13,17 @@ set(TESTS_SOURCES
 )
 
 set(TESTS_NAME SkellTests)
+
 add_executable(${TESTS_NAME} ${TESTS_SOURCES})
-message(STATUS ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/CMakeLists.tx)
-if (EXISTS ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/CMakeLists.txt)
-    target_include_directories(${TESTS_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/single_include)
-else()
-    message(FATAL_ERROR "An external dependency (Catch2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
 
-target_link_libraries(${TESTS_NAME} ${LIBRARY_NAME})
+target_include_directories(${TESTS_NAME}
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/single_include
+)
 
-set(TESTS_PATH ${CMAKE_INSTALL_PREFIX}/tests)
-install(TARGETS ${TESTS_NAME} RUNTIME DESTINATION ${TESTS_PATH})
-install(DIRECTORY media DESTINATION ${TESTS_PATH})
-install(FILES $<TARGET_FILE:thor> DESTINATION ${TESTS_PATH})
-install(FILES $<TARGET_FILE:tgui> DESTINATION ${TESTS_PATH})
-install(FILES $<TARGET_FILE:SkellEngine> DESTINATION ${TESTS_PATH})
+target_link_libraries(${TESTS_NAME}
+    PRIVATE
+        ${LIBRARY_NAME}
+)
+
+add_test(${TESTS_NAME} ${TESTS_NAME})

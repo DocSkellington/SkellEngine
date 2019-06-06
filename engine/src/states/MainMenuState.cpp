@@ -1,9 +1,9 @@
-#include "states/MainMenuState.h"
+#include "SkellEngine/states/MainMenuState.h"
 
 #include <iostream>
 
-#include "states/GameState.h"
-#include <tmxlite/Log.hpp>
+#include "SkellEngine/states/GameState.h"
+#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::states {
     MainMenuState::MainMenuState(StateManager& manager) :

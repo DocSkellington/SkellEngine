@@ -1,8 +1,8 @@
-#include "entities/components/Component.h"
+#include "SkellEngine/entities/components/Component.h"
 
-#include "entities/components/ExternComponent.h"
-#include "utilities/json_lua.h"
-#include "Context.h"
+#include "SkellEngine/entities/components/ExternComponent.h"
+#include "SkellEngine/utilities/json_lua.h"
+#include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
     Component::Component() {

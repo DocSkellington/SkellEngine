@@ -1,7 +1,7 @@
-#include "entities/EntityManager.h"
+#include "SkellEngine/entities/EntityManager.h"
 
-#include "Context.h"
-#include "utilities/json_lua.h"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/utilities/json_lua.h"
 
 namespace engine::entities {
     EntityManager::EntityManager(Context &context) :

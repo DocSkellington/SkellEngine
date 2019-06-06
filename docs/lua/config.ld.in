@@ -1,8 +1,0 @@
-title="Engine Lua API"
-project="Engine"
-
-file = {
-    "entityManager.lua"
-}
-
-dir = "@CMAKE_SOURCE_DIR@/doc_doxygen/doc_lua"

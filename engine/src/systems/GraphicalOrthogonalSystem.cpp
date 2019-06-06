@@ -1,9 +1,9 @@
-#include "systems/GraphicalOrthogonalSystem.h"
+#include "SkellEngine/systems/GraphicalOrthogonalSystem.h"
 
 #include <memory>
 #include <iostream>
 
-#include "entities/components/GraphicalSpriteSheetComponent.h"
+#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
 
 namespace engine::systems {
     System::RegisterSystem<GraphicalOrthogonalSystem> GraphicalOrthogonalSystem::rsgos("graphicalorthogonal");

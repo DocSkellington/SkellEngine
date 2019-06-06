@@ -1,9 +1,9 @@
-#include "files/StateDescription.h"
+#include "SkellEngine/files/StateDescription.h"
 
 #include <algorithm>
 #include <cctype>
 
-#include <tmxlite/Log.hpp>
+#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
     void from_json(const nlohmann::json &j, StateDescription &s) {

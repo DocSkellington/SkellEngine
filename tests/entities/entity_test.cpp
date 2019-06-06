@@ -1,8 +1,8 @@
 #include <catch.hpp>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
-#include "entities/Entity.h"
-#include "Context.h"
+#include "SkellEngine/entities/Entity.h"
+#include "SkellEngine/Context.h"
 
 using namespace engine;
 using namespace entities;

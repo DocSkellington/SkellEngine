@@ -1,4 +1,4 @@
-#include "Engine.h"
+#include "SkellEngine/Engine.h"
 
 #include <memory>
 #include <fstream>
@@ -10,12 +10,12 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
-#include "config.h"
-#include "states/MainMenuState.h"
-#include "files/FileManager.h"
-#include <tmxlite/Log.hpp>
+#include "SkellEngine/config.h"
+#include "SkellEngine/states/MainMenuState.h"
+#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/tmxlite/Log.hpp"
 
 using namespace std;
 
