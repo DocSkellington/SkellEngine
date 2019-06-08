@@ -3,6 +3,8 @@ find_package(Doxygen
 )
 
 if (DOXYGEN_FOUND)
+    set(DOXYGEN_EXCLUDE_PATTERNS "*/tmxlite/*")
+
     doxygen_add_docs(documentation
         .
         ${CMAKE_SOURCE_DIR}/engine/include
@@ -25,7 +27,7 @@ if (DOXYGEN_FOUND)
             VERBATIM
         )
 
-        add_dependencies(lua_documentation documentation)
+        add_dependencies(documentation lua_documentation)
     else()
         message(STATUS "LDOC_EXECUTABLE or LUA_EXECUTABLE is not set. The Lua documentation will not be built.")
     endif()
