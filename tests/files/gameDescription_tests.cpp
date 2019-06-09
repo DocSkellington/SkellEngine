@@ -7,10 +7,10 @@
 using namespace engine;
 using namespace files;
 
-TEST_CASE("Game description loading", "[json_description]") {
+TEST_CASE("Game description loading", "[json_description][files]") {
     nlohmann::json json;
     SECTION("A game.json that overrides every option") {
-        std::ifstream file("media/game.json");
+        std::ifstream file("@CMAKE_CURRENT_SOURCE_DIR@/media/game.json");
         file >> json;
         GameDescription game = json.get<GameDescription>();
 
@@ -55,9 +55,13 @@ TEST_CASE("Game description loading", "[json_description]") {
 
         SECTION("Media description is verified") {
             GameDescription::MediaDescription media = game.media;
-            REQUIRE(media.baseSprites == "path/to/sprite/");
-            REQUIRE(media.mapFolder == "path/to/maps/");
-            REQUIRE(media.systemsFolder == "path/to/systems/");
+            REQUIRE(media.baseSprites.compare("path/to/sprite") == 0);
+            REQUIRE(media.mapFolder.compare("path/to/maps") == 0);
+            REQUIRE(media.systemsFolder.compare("path/to/systems") == 0);
+            REQUIRE(media.fontsFolder.compare("path/to/fonts") == 0);
+            REQUIRE(media.entitiesFolder.compare("path/to/entities") == 0);
+            REQUIRE(media.levelsFolder.compare("path/to/levels") == 0);
+            REQUIRE(media.statesFolder.compare("path/to/states") == 0);
         }
 
         SECTION("States description is verified") {
@@ -78,7 +82,7 @@ TEST_CASE("Game description loading", "[json_description]") {
     }
 
     SECTION("The file is empty") {
-        std::ifstream file("media/emptyGame.json");
+        std::ifstream file("@CMAKE_CURRENT_SOURCE_DIR@/media/emptyGame.json");
         file >> json;
         GameDescription game = json.get<GameDescription>();
 
@@ -101,8 +105,12 @@ TEST_CASE("Game description loading", "[json_description]") {
         }
         SECTION("Media description is initialised by default") {
             GameDescription::MediaDescription media = game.media;
-            REQUIRE(media.baseSprites == "media/sprites/");
-            REQUIRE(media.mapFolder == "media/maps/");
+            REQUIRE(media.baseSprites == "sprites/");
+            REQUIRE(media.mapFolder == "maps/");
+            REQUIRE(media.systemsFolder == "systems/");
+            REQUIRE(media.entitiesFolder == "entities/");
+            REQUIRE(media.levelsFolder == "levels/");
+            REQUIRE(media.fontsFolder == "fonts/");
         }
         SECTION("States description is initialiased by default") {
             GameDescription::StatesDescription states = game.states;

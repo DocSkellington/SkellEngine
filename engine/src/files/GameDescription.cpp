@@ -4,11 +4,6 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
-    void check_path_end(std::string &path) {
-        if (path[path.size()-1] != '/' && path[path.size()-1] != '\\')
-            path.push_back('/');
-    }
-
     GameDescription::LogDescription defaultLog {tmx::Logger::Output::None};
 
     void from_json(const nlohmann::json &j, GameDescription::LogDescription &l) {
@@ -128,43 +123,84 @@ namespace engine::files {
         }
     }
 
-    GameDescription::MediaDescription defaultMedia {"media/sprites/", "media/maps/", "media/systems/"};
+    GameDescription::MediaDescription defaultMedia {
+        "sprites/",
+        "maps/",
+        "systems/",
+        "fonts/",
+        "entities/",
+        "levels/",
+        "states/"
+    };
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m) {
         auto baseSprites = j.find("baseSprites");
         if (baseSprites != j.end() && baseSprites->is_string()) {
-            m.baseSprites = *baseSprites;
-            check_path_end(m.baseSprites);
+            m.baseSprites = baseSprites->get<std::string>();
         }
         else {
             m.baseSprites = defaultMedia.baseSprites;
-            tmx::Logger::log("game.json: media description does not contain the 'baseSprites' field or its type is not valid (it should be a string). 'media/sprites/' will be used as default.", tmx::Logger::Type::Warning);
+            tmx::Logger::log("game.json: media description does not contain the 'baseSprites' field or its type is not valid (it should be a string). 'sprites/' will be used as default.", tmx::Logger::Type::Warning);
         }
 
         auto maps = j.find("maps");
         if (maps != j.end()) {
             if (maps->is_string()) {
-                m.mapFolder = *maps;
-                check_path_end(m.mapFolder);
+                m.mapFolder = maps->get<std::string>();
             }
             else {
                 m.mapFolder = defaultMedia.mapFolder;
-                tmx::Logger::log("game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'media/maps/' will be used as default.", tmx::Logger::Type::Warning);
+                tmx::Logger::log("game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'maps/' will be used as default.", tmx::Logger::Type::Warning);
             }
         }
         else {
             m.mapFolder = defaultMedia.mapFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'maps' field. 'media/maps' will be used as default.", tmx::Logger::Type::Warning);
+            tmx::Logger::log("game.json: media description does not contain the 'maps' field. 'maps' will be used as default.", tmx::Logger::Type::Warning);
         }
 
         auto systems = j.find("systems");
         if (systems != j.end() && systems->is_string()) {
-            m.systemsFolder = *systems;
-            check_path_end(m.systemsFolder);
+            m.systemsFolder = systems->get<std::string>();
         }
         else {
             m.systemsFolder = defaultMedia.systemsFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'systems' field or its type is not valid (it should be a string). 'media/systems/' will be used as default", tmx::Logger::Type::Warning);
+            tmx::Logger::log("game.json: media description does not contain the 'systems' field or its type is not valid (it should be a string). 'systems/' will be used as default", tmx::Logger::Type::Warning);
+        }
+
+        auto fonts = j.find("fonts");
+        if (fonts != j.end() && fonts->is_string()) {
+            m.fontsFolder = fonts->get<std::string>();
+        }
+        else {
+            m.fontsFolder = defaultMedia.fontsFolder;
+            tmx::Logger::log("game.json: media description does not contain the 'fonts' field or its type is not valid (it should be a string). 'fonts/' will be used as default", tmx::Logger::Type::Warning);
+        }
+
+        auto entities = j.find("entities");
+        if (entities != j.end() && entities->is_string()) {
+            m.entitiesFolder = entities->get<std::string>();
+        }
+        else {
+            m.entitiesFolder = defaultMedia.entitiesFolder;
+            tmx::Logger::log("game.json: media description does not contain the 'entities' field or its type is not valid (it should be a string). 'entities/' will be used as default", tmx::Logger::Type::Warning);
+        }
+
+        auto levels = j.find("levels");
+        if (levels != j.end() && levels->is_string()) {
+            m.levelsFolder = levels->get<std::string>();
+        }
+        else {
+            m.levelsFolder = defaultMedia.levelsFolder;
+            tmx::Logger::log("game.json: media description does not contain the 'levels' field or its type is not valid (it should be a string). 'levels/' will be used as default", tmx::Logger::Type::Warning);
+        }
+
+        auto states = j.find("states");
+        if (states != j.end() && states->is_string()) {
+            m.statesFolder = states->get<std::string>();
+        }
+        else {
+            m.statesFolder = defaultMedia.statesFolder;
+            tmx::Logger::log("game.json: media description does not contain the 'states' field or its type is not valid (it should be a string). 'states/' will be used as default", tmx::Logger::Type::Warning);
         }
     }
 

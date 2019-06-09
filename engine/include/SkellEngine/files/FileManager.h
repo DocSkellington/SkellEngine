@@ -1,5 +1,7 @@
 #pragma once
 
+#include <filesystem>
+
 #include <nlohmann/json.hpp>
 #include <sol/sol.hpp>
 #include <map>
@@ -23,7 +25,12 @@ namespace engine::files {
     */
     class FileManager {
     public:
-        explicit FileManager(const Context &context);
+        /**
+         * The constructor
+         * \param context The context
+         * \param baseMediapath The path to the folder containing the "media" folder
+         */
+        explicit FileManager(const Context &context, const std::string& baseMediapath);
         FileManager(const FileManager&) = delete;
 
         /**
@@ -53,7 +60,7 @@ namespace engine::files {
 
         void registerExternSystems();
 
-        std::string getSystemPath(const std::string &systemName);
+        std::filesystem::path getSystemPath(const std::string &systemName);
 
     private:
         const Context &m_context;
@@ -97,6 +104,6 @@ namespace engine::files {
          */
         void loadStateDescriptions();
 
-        const std::string fontPath(const std::string &fontName) const;
+        const std::filesystem::path fontPath(const std::string &fontName) const;
     };
 }

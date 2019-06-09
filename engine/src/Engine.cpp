@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include <cstdio>
+#include <filesystem>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -20,39 +21,50 @@
 using namespace std;
 
 namespace engine {
-    Engine::Engine() {
+    Engine::Engine(const std::string &baseMediapath) {
         // Erasing the old log
-        remove("media/log.txt");
+        filesystem::path logPath = baseMediapath + "/media/log.txt";
+        filesystem::remove(logPath);
         // Setting default value to the output
         tmx::Logger::setOutput(tmx::Logger::Output::Console);
 
         m_context.lua = make_shared<sol::state>();
         m_context.lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
 
-        m_context.fileManager = make_shared<files::FileManager>(m_context);
+        m_context.fileManager = make_shared<files::FileManager>(m_context, baseMediapath);
+
+        // We set the logger output according to the game description
+        auto description = m_context.fileManager->getGameDescription();
+        tmx::Logger::setOutput(description.log.output);
+        
+        tmx::Logger::log("File manager ready");
 
         m_context.textureHolder = make_shared<thor::ResourceHolder<sf::Texture, std::string>>();
+        tmx::Logger::log("Texture holder ready");
 
         m_context.fontHolder = make_shared<thor::ResourceHolder<sf::Font, std::string>>();
+        tmx::Logger::log("Font holder ready");
 
         m_context.stateManager = make_shared<states::StateManager>(m_context);
+        tmx::Logger::log("State manager ready");
         
         m_context.entityManager = make_shared<entities::EntityManager>(m_context);
+        tmx::Logger::log("Entity manager ready");
 
         m_context.systemManager = make_shared<systems::SystemManager>(m_context);
-
-        // Opening the config file
-        auto description = m_context.fileManager->getGameDescription();
-
-        tmx::Logger::setOutput(description.log.output);
+        tmx::Logger::log("System manager ready");
 
         m_context.map = make_shared<map::Map>(m_context, description.media.mapFolder);
+        tmx::Logger::log("Map system ready");
 
         // Creating the window
         createWindow(description.window, description.version);
+        tmx::Logger::log("Window created");
         
         m_context.gui = make_shared<tgui::Gui>(*m_context.window);
+        tmx::Logger::log("Graphical user interface system ready");
 
+        tmx::Logger::log("Launching the first state");
         // Launching the first state of the game
         if (description.states.firstState == "mainmenu" || description.states.firstState == "mainmenustate")
             m_context.stateManager->switchTo<states::MainMenuState>();

@@ -35,7 +35,7 @@ namespace engine::systems {
     bool SystemManager::addSystem(std::string name) {
         std::transform(name.begin(), name.end(), name.begin(), ::tolower);
         if (m_systems.find(name) != m_systems.end()) {
-            tmx::Logger::log("impossible to use two systems of the same type (" + name + ").", tmx::Logger::Type::Error);
+            tmx::Logger::log("Impossible to use two systems of the same type (" + name + ").", tmx::Logger::Type::Error);
             return false;
         }
 

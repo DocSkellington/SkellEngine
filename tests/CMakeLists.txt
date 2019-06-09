@@ -1,3 +1,6 @@
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/files/gameDescription_tests.cpp ${CMAKE_CURRENT_BINARY_DIR}/files/gameDescription_tests.cpp)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/files/fileManager_tests.cpp ${CMAKE_CURRENT_BINARY_DIR}/files/fileManager_tests.cpp)
+
 set(TESTS_SOURCES
     main.cpp
 
@@ -5,7 +8,8 @@ set(TESTS_SOURCES
     entities/entity_manager_test.cpp
     entities/components/component_setter_getter_test.cpp
 
-    files/gameDescription_tests.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/files/gameDescription_tests.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/files/fileManager_tests.cpp
 
     systems/systems_tests.cpp
 
@@ -18,7 +22,7 @@ add_executable(${TESTS_NAME} ${TESTS_SOURCES})
 
 target_include_directories(${TESTS_NAME}
     PRIVATE
-        ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/single_include
+        ${CMAKE_SOURCE_DIR}/engine/dependencies/Catch2/single_include/catch2
 )
 
 target_link_libraries(${TESTS_NAME}

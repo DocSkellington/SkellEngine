@@ -24,9 +24,13 @@ If a _name of the field_ starts with a tabulation, then it means it belongs to t
 | &emsp;`title`             | String              | The string to show in the titlebar.                                                                                 | Empty string   |
 | &emsp;`antialiasingLevel` | Integer             | The level of the antialiasing.                                                                                      | Empty string   |
 | `media`                   | Object              | Describes the folders to use. The pathes are relative to the `media` root.                                          | See the fields |
-| &emsp;`baseSprites`       | String              | The base folder for sprites. Every sprite must be in this folder.                                                   | `media/sprites`|
-| &emsp;`maps`              | String              | The base folder for maps. Every map file must be in this folder.                                                    | `media/maps`   |
-| &emsp;`systems`           | String              | The folder that contains every . Every map file must be in this folder.                                             | `media/systems`|
+| &emsp;`baseSprites`       | String              | The base folder for sprites. Every sprite must be in this folder.                                                   | `sprites`|
+| &emsp;`maps`              | String              | The base folder for maps. Every map file must be in this folder.                                                    | `maps`   |
+| &emsp;`systems`           | String              | The folder that contains every system. Every Lua system file must be in this folder.                              | `systems`|
+| &emsp;`fonts`             | String              | The folder that contains the font files. Every font file must be in this folder.                              | `fonts`|
+| &emsp;`entities`          | String              | The base folder for entities. Every entity file must be in this folder.                                             | `entities`|
+| &emsp;`states`            | String              | The base folder for states. Every state file must be in this folder.                                                | `states`|
+| &emsp;`levels`            | String              | The base folder for levels. Every level file must be in this folder.                                                | `levels`|
 | `states`                  | Object              | Describes the states.                                                                                               | See the fields |
 | &emsp;`first`             | String              | The name of the first state to launch at game startup.                                                              | `intro`    |
 
@@ -51,9 +55,13 @@ Before your amazed eyes, let me show you an example of a `game.json` file.
         "antialiasingLevel": 8
       },
       "media" : {
-        "baseSprites": "media/sprites/path",
-        "maps": "media/path/to/maps",
-        "systems": "media/path/to/systems"
+        "baseSprites": "sprites/path",
+        "maps": "path/to/maps",
+        "systems": "path/to/systems",
+        "entities": "path/to/entities",
+        "fonts": "path/to/fonts",
+        "states": "path/to/states",
+        "levels": "path/to/levels"
       },
       "states" : {
         "first": "MainMenu"

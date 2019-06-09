@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
@@ -38,9 +39,13 @@ namespace engine::files {
          * It should be loaded trough JSON.
          */
         struct MediaDescription {
-            std::string baseSprites;
-            std::string mapFolder;
-            std::string systemsFolder;
+            std::filesystem::path baseSprites;
+            std::filesystem::path mapFolder;
+            std::filesystem::path systemsFolder;
+            std::filesystem::path fontsFolder;
+            std::filesystem::path entitiesFolder;
+            std::filesystem::path levelsFolder;
+            std::filesystem::path statesFolder;
         };
 
         /**

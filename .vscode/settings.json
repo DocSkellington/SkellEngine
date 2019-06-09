@@ -73,5 +73,9 @@
         "SKELLENGINE_BUILD_TESTS": "TRUE",
         "SKELLENGINE_BUILD_EXAMPLES": "TRUE",
         "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/bin"
-    }
+    },
+    "cmake.preferredGenerators": [
+        "Unix Makefiles",
+        "Ninja"
+    ]
 }
