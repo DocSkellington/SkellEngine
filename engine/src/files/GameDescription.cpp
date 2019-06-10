@@ -4,22 +4,35 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::files {
-    GameDescription::LogDescription defaultLog {tmx::Logger::Output::None};
+    GameDescription::LogDescription defaultLog {tmx::Logger::Output::None, "log.txt"};
 
     void from_json(const nlohmann::json &j, GameDescription::LogDescription &l) {
+        auto file = j.find("file");
+
+        if (file != j.end() && file->is_string()) {
+            l.logPath = file->get<std::string>();
+        }
+        else {
+            tmx::Logger::log("game.json: log description: the value of 'file' is not present or not valid. 'log.txt' will be used as default.");
+        }
+
         auto output = j.find("output");
 
         if (output != j.end()) {
             if (output->is_string()) {
                 std::string o = *output;
-                if (o == "console")
+                if (o == "console") {
                     l.output = tmx::Logger::Output::Console;
-                else if (o == "file")
+                }
+                else if (o == "file") {
                     l.output = tmx::Logger::Output::File;
-                else if (o == "all")
+                }
+                else if (o == "all") {
                     l.output = tmx::Logger::Output::All;
-                else if (o == "none")
+                }
+                else if (o == "none") {
                     l.output = tmx::Logger::Output::None;
+                }
                 else {
                     l.output = defaultLog.output;
                     tmx::Logger::log("game.json: log description: the value of 'output' is not valid. It must be \"none\", \"console\", \"file\" or \"all\". 'none' will be used as default", tmx::Logger::Type::Warning);

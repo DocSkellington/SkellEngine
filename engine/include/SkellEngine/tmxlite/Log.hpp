@@ -43,6 +43,7 @@ choose the output
 #include <list>
 #include <ctime>
 #include <memory>
+#include <filesystem>
 
 #ifdef _MSC_VER
 #define NOMINMAX
@@ -85,6 +86,10 @@ namespace tmx
             Warning,
             Error
         };
+
+        static void setLogPath(const std::filesystem::path &logPath) {
+            (*getLogFilePtr()) = logPath;
+        }
 		
 		static void setOutput(Output out) {
 			(*getOutputPtr()) = out;
@@ -172,7 +177,7 @@ namespace tmx
             if (getOutput() == Output::File || getOutput() == Output::All)
             {
                 //output to a log file
-                std::ofstream file("media/log.txt", std::ios::app);
+                std::ofstream file(*getLogFilePtr(), std::ios::app);
                 if (file.good())
                 {
 #ifndef __ANDROID__
@@ -196,7 +201,10 @@ namespace tmx
         static const std::string& bufferString(){ return stringOutput(); }
 
     private:
-		static std::unique_ptr<Output> output;
+        static std::filesystem::path* getLogFilePtr() {
+            static std::unique_ptr<std::filesystem::path> path = std::make_unique<std::filesystem::path>("log.txt");
+            return path.get();
+        }
         static Output* getOutputPtr() {
 			static std::unique_ptr<Output> output = std::make_unique<Output>(Output::None);
             return output.get();

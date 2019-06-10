@@ -23,7 +23,7 @@ namespace engine {
          * The constructor
          * \param baseMediapath The path to the folder containing the "media" folder
          */
-        explicit Engine(const std::string &baseMediapath = ".");
+        explicit Engine(const std::filesystem::path &baseMediapath = ".");
         Engine(const Engine&) = delete;
         ~Engine();
 

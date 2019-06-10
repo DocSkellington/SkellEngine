@@ -2,6 +2,7 @@
     "version" : "0.0.2",
     "name" : "Game",
     "log" : {
+        "file": "log.txt",
         "output" : "all"
     },
     "window" : {
@@ -21,7 +22,8 @@
         "systems": "systems",
         "fonts": "fonts",
         "entities": "entities",
-        "levels": "levels"
+        "levels": "levels",
+        "states": "states"
     },
     "states" : {
         "first" : "MainMenu"

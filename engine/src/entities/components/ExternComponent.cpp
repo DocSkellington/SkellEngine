@@ -124,6 +124,7 @@ namespace engine::entities::components {
                 o = getContext().lua->create_table();
                 break;
             default:
+                // TODO:
                 std::cout << "What are you?\n";
                 break;
             }

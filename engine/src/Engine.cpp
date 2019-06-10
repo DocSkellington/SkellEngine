@@ -21,9 +21,9 @@
 using namespace std;
 
 namespace engine {
-    Engine::Engine(const std::string &baseMediapath) {
+    Engine::Engine(const std::filesystem::path &baseMediapath) {
         // Erasing the old log
-        filesystem::path logPath = baseMediapath + "/media/log.txt";
+        filesystem::path logPath = baseMediapath / "log.txt";
         filesystem::remove(logPath);
         // Setting default value to the output
         tmx::Logger::setOutput(tmx::Logger::Output::Console);
@@ -36,6 +36,8 @@ namespace engine {
         // We set the logger output according to the game description
         auto description = m_context.fileManager->getGameDescription();
         tmx::Logger::setOutput(description.log.output);
+        description.log.logPath = baseMediapath / description.log.logPath;
+        tmx::Logger::setLogPath(description.log.logPath);
         
         tmx::Logger::log("File manager ready");
 

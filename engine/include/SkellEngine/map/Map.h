@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 
 #include <SFML/Graphics.hpp>
 
@@ -33,7 +34,7 @@ namespace engine::map {
          * \param context The context
          * \param folder The path from "media" to the folder in which maps can be found
          */
-        explicit Map(Context& context, const std::string &folder);
+        explicit Map(Context& context, const std::filesystem::path &folder);
         Map(const Map&) = delete;
         ~Map();
 
@@ -83,7 +84,7 @@ namespace engine::map {
 
     private:
         Context &m_context;
-        const std::string m_folder;
+        const std::filesystem::path m_folder;
 
         tmx::Map m_map;
 

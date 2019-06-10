@@ -3,7 +3,7 @@
 #include "SkellEngine/errors/BadLevelDescription.h"
 
 namespace engine::map {
-    Map::Map(Context &context, const std::string &folder) :
+    Map::Map(Context &context, const std::filesystem::path &folder) :
         m_context(context),
         m_folder(folder) {
     }
@@ -14,9 +14,11 @@ namespace engine::map {
 
     void Map::load(const std::string& mapName) {
         clear();
-        std::string mapPath = m_folder + mapName + ".tmx";
-        if (!m_map.load(mapPath))
-            throw errors::BadLevelDescription("Map could not be loaded. Please check that the map is in the correct folder and that the tmx file is correct.");
+        std::filesystem::path mapPath = m_folder / mapName;
+        mapPath += ".tmx";
+        if (!m_map.load(mapPath)) {
+            throw errors::BadLevelDescription("Map " + mapName + " could not be loaded. Please check that the map is in the correct folder and that the tmx file is correct.");
+        }
         
         loadTilesets();
 

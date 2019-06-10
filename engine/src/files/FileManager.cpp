@@ -34,6 +34,7 @@ namespace engine::files {
         m_gameDescription.media.fontsFolder = basePath / m_gameDescription.media.fontsFolder;
         m_gameDescription.media.entitiesFolder = basePath / m_gameDescription.media.entitiesFolder;
         m_gameDescription.media.levelsFolder = basePath / m_gameDescription.media.levelsFolder;
+        m_gameDescription.media.statesFolder = basePath / m_gameDescription.media.statesFolder;
 
         loadStateDescriptions();
 
@@ -155,12 +156,17 @@ namespace engine::files {
     void FileManager::loadLevelDescription() {
         if (!m_levelDescription.name.empty()) {
             std::ifstream file;
-            file.open("media/levels/" + m_levelDescription.name + "/" + m_levelDescription.name + ".json");
+            std::filesystem::path levelPath = m_gameDescription.media.levelsFolder / m_levelDescription.name /m_levelDescription.name;
+            levelPath += ".json";
+            file.open(levelPath);
 
             if (file.is_open()) {
                 nlohmann::json levelJSON;
                 file >> levelJSON;
                 m_levelDescription = levelJSON.get<LevelDescription>();
+            }
+            else {
+                throw errors::FileNotFound("Level" + m_levelDescription.name + " not found");
             }
         }
     }
@@ -186,13 +192,14 @@ namespace engine::files {
     void FileManager::loadStateDescriptions() {
         /**\todo The other states */
         nlohmann::json mainmenu, game, pause;
-        std::ifstream file(m_gameDescription.media.statesFolder / "game.json");
+        std::filesystem::path gamePath = m_gameDescription.media.statesFolder / "game.json";
+        std::ifstream file(gamePath);
         if (file.is_open()) {
             file >> game;
             m_stateDescriptions["game"] = game;
         }
         else {
-            tmx::Logger::log("No game state", tmx::Logger::Type::Info);
+            tmx::Logger::log("No game state", tmx::Logger::Type::Warning);
         }
     }
 

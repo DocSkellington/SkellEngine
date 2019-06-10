@@ -12,3 +12,5 @@ bin/
 
 # LDOC
 config.ld
+
+log.txt

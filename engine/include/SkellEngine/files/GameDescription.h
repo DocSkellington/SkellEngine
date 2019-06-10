@@ -20,6 +20,7 @@ namespace engine::files {
     public:
         struct LogDescription {
             tmx::Logger::Output output;
+            std::filesystem::path logPath;
         };
 
         /**
