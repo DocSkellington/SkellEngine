@@ -17,6 +17,9 @@ namespace engine::files {
         std::string map;
         std::vector<nlohmann::json> entities;
 
+        /**
+         * \brief Clears the level description by resetting every field
+         */
         void clear();
     };
 

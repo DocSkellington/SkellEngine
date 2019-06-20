@@ -10,7 +10,7 @@ using namespace entities;
 SCENARIO("Entity test", "[entities]") {
     Context context;
     
-    Entity entity(context);
+    Entity entity(context, "dummy");
 
     WHEN("The entity is empty") {
         THEN("The component does not have any component") {

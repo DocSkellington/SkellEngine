@@ -27,6 +27,11 @@ namespace engine {
         Engine(const Engine&) = delete;
         ~Engine();
 
+        /**
+         * \brief Runs the engine
+         * 
+         * Only stops when the user requests game termination.
+         */
         void run();
 
     private:

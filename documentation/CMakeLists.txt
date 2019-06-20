@@ -4,10 +4,12 @@ find_package(Doxygen
 
 if (DOXYGEN_FOUND)
     set(DOXYGEN_EXCLUDE_PATTERNS "*/tmxlite/*")
+    set(DOXYGEN_SOURCE_BROWSER TRUE)
 
     doxygen_add_docs(documentation
         .
         ${CMAKE_SOURCE_DIR}/engine/include
+        ${CMAKE_SOURCE_DIR}/engine/src
     )
 
     find_program(LUA_EXECUTABLE lua)

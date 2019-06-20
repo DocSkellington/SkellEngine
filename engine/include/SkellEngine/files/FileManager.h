@@ -58,8 +58,21 @@ namespace engine::files {
          */
         sf::Font& loadFont(const std::string &fontName);
 
+        /**
+         * \brief Register the systems written in Lua.
+         * 
+         * Every external system must be in the folder defined in game.json (media.systems field)
+         * \see @ref json_game_description
+         */
         void registerExternSystems();
 
+        /**
+         * \brief Gets the path to the given system
+         * 
+         * The system must be an external system
+         * \param systemName The name of the system
+         * \return The path
+         */
         std::filesystem::path getSystemPath(const std::string &systemName);
 
     private:

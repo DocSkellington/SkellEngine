@@ -18,6 +18,11 @@ namespace engine::files {
      */
     struct GameDescription {
     public:
+        /**
+         * \brief Describes the logging system.
+         * 
+         * It should be loaded trough JSON
+         */
         struct LogDescription {
             tmx::Logger::Output output;
             std::filesystem::path logPath;

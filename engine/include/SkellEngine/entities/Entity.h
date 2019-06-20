@@ -18,12 +18,25 @@ namespace engine::entities {
      */
     class Entity final : public sol::is_container<Entity> {
     public:
+        /**
+         * \brief Every entity should be manipulated through this pointer type
+         */
         typedef std::shared_ptr<Entity> Ptr;
+        /**
+         * \brief Allows to iterate over the components
+         */
         typedef std::map<std::string, components::Component::Ptr>::iterator iterator;
+        /**
+         * \brief Allows to iterate (with a const iterator) over the components
+         */
         typedef std::map<std::string, components::Component::Ptr>::const_iterator const_iterator;
     
     public:
-        explicit Entity(Context &context);
+        /**
+         * \brief Constructs a new entity of given type
+         * \param context The context
+         * \param type The type of the entity
+         */
         explicit Entity(Context &context, const std::string &type);
         Entity(const Entity&) = delete;
         ~Entity();

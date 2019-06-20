@@ -13,6 +13,11 @@ namespace engine::entities::components {
 
     }
 
+    /**
+     * \brief Writes the value of given type in a std::any variable
+     * \param variable The variable to modify
+     * \param value The value to write
+     */
     template <typename T>
     void convertAndSet(std::any variable, T value) noexcept {
         T *va = std::any_cast<T*>(variable);
@@ -185,6 +190,12 @@ namespace engine::entities::components {
         }
     }
 
+    /**
+     * \brief Gets the value of a std::any variable as the type T
+     * \param variable The variable to read
+     * \return The value cast to T
+     * \throw std::bad_any_cast When the value can not be converted to T
+     */
     template <typename T>
     T getValue(std::any variable) {
         T *va = std::any_cast<T*>(variable);
@@ -298,25 +309,25 @@ namespace engine::entities::components {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             if (itr->second.type() == typeid(int*)) {
-                pair = std::make_pair(sol::make_object<long>(*m_context->lua, getValue<int>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<long>(*getContext().lua, getValue<int>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(long*)) {
-                pair = std::make_pair(sol::make_object<long>(*m_context->lua, getValue<long>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<long>(*getContext().lua, getValue<long>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(float*)) {
-                pair = std::make_pair(sol::make_object<double>(*m_context->lua, getValue<float>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<double>(*getContext().lua, getValue<float>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(double*)) {
-                pair = std::make_pair(sol::make_object<double>(*m_context->lua, getValue<double>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<double>(*getContext().lua, getValue<double>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(bool*)) {
-                pair = std::make_pair(sol::make_object<bool>(*m_context->lua, getValue<bool>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<bool>(*getContext().lua, getValue<bool>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(std::string*)) {
-                pair = std::make_pair(sol::make_object<std::string>(*m_context->lua, getValue<std::string>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<std::string>(*getContext().lua, getValue<std::string>(itr->second)), true);
             }
             else if (itr->second.type() == typeid(nlohmann::json*)) {
-                pair = std::make_pair(sol::make_object<nlohmann::json>(*m_context->lua, getValue<nlohmann::json>(itr->second)), true);
+                pair = std::make_pair(sol::make_object<nlohmann::json>(*getContext().lua, getValue<nlohmann::json>(itr->second)), true);
             }
             else {
                 tmx::Logger::log("Component: getObject: " + name + " does not have an appropriate type", tmx::Logger::Type::Warning);

@@ -18,6 +18,10 @@ namespace engine::systems {
         ExternSystem(const ExternSystem&) = delete;
         virtual ~ExternSystem();
 
+        /**
+         * \brief Loads the system from a Lua script
+         * \param systemName The name of the system to load
+         */
         virtual void loadLua(const std::string &systemName);
 
         virtual bool update(sf::Int64 deltatime, sf::View &view) override;

@@ -15,6 +15,10 @@ namespace engine::entities {
      */
     class EntityManager final {
     public:
+        /**
+         * \brief The constructor
+         * \param context The context
+         */
         explicit EntityManager(Context &context);
         EntityManager(const EntityManager&) = delete;
 

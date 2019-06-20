@@ -52,7 +52,15 @@ namespace engine::states {
         */
         virtual void draw(std::shared_ptr<sf::RenderWindow> &window) = 0;
 
+        /**
+         * \brief If the state is transcendant, the events can be processed by the following state (in the stack)
+         * \return True iff the state is transcendant
+         */
         bool isTranscendant() const;
+        /**
+         * \brief If the state is transparent, the following state (in the stack) can be drawn
+         * \return True iff the state is transparent
+         */
         bool isTransparent() const;
 
     protected:

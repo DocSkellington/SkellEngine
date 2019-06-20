@@ -5,10 +5,6 @@
 #include "SkellEngine/entities/components/ExternComponent.h"
 
 namespace engine::entities {
-    Entity::Entity(Context &context) :
-        m_context(context) {
-
-    }
 
     Entity::Entity(Context &context, const std::string &type) :
         m_context(context), m_type(type) {
