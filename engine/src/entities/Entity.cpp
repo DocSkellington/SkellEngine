@@ -80,12 +80,12 @@ namespace engine::entities {
         return m_components.end();
     }
 
-    Entity::const_iterator Entity::cbegin() const {
-        return m_components.cbegin();
+    Entity::const_iterator Entity::begin() const {
+        return m_components.begin();
     }
 
-    Entity::const_iterator Entity::cend() const {
-        return m_components.cend();
+    Entity::const_iterator Entity::end() const {
+        return m_components.end();
     }
 
     void Entity::luaFunctions(sol::state &lua) {
@@ -99,13 +99,5 @@ namespace engine::entities {
             "getComponentsNames", &Entity::getComponentsNames,
             "getType", &Entity::getType
         );
-    }
-
-    Entity::iterator Entity::begin(lua_State*, Entity& entity) {
-        return entity.begin();
-    }
-
-    Entity::iterator Entity::end(lua_State*, Entity& entity) {
-        return entity.end();
     }
 }

@@ -16,20 +16,26 @@ namespace engine::entities {
      * An entity with zero components is called "empty".
      * An entity has a 'type', a name
      */
-    class Entity final : public sol::is_container<Entity> {
+    class Entity final {
     public:
         /**
          * \brief Every entity should be manipulated through this pointer type
          */
         typedef std::shared_ptr<Entity> Ptr;
+        using mapType = std::map<std::string, components::Component::Ptr>;
         /**
          * \brief Allows to iterate over the components
          */
-        typedef std::map<std::string, components::Component::Ptr>::iterator iterator;
+        using iterator = mapType::iterator;
         /**
          * \brief Allows to iterate (with a const iterator) over the components
          */
-        typedef std::map<std::string, components::Component::Ptr>::const_iterator const_iterator;
+        using const_iterator = mapType::const_iterator;
+
+        using key_type = mapType::key_type;
+        using mapped_type = mapType::mapped_type;
+
+        using value_type = mapType::value_type;
     
     public:
         /**
@@ -74,7 +80,7 @@ namespace engine::entities {
          * \brief Returns the number of components this entity has
          * \return The number of components this entity has
          */
-        std::size_t size() const;
+        mapType::size_type size() const;
 
         /**
          * \brief Returns a vector with the names of the components this entity has.
@@ -106,13 +112,13 @@ namespace engine::entities {
          * \brief The const begin iterator
          * \return The const iterator to the begin of the components' map
          */
-        const_iterator cbegin() const;
+        const_iterator begin() const;
 
         /**
          * \brief The const end iterator
          * \return The const iterator to the end of the components' map
          */
-        const_iterator cend() const;
+        const_iterator end() const;
 
         /**
          * \brief Registers the Lua functions associated with this class
@@ -123,7 +129,7 @@ namespace engine::entities {
     private:
         Context &m_context;
         std::string m_type;
-        std::map<std::string, components::Component::Ptr> m_components;
+        mapType m_components;
 
     private:
         /**
@@ -133,9 +139,5 @@ namespace engine::entities {
          * \return A shared pointer to the created component
          */
         components::Component::Ptr addComponent(const std::string &componentType, const sol::table &luaTable);
-
-        // Begin and end for Sol2
-        static iterator begin(lua_State*, Entity& entity);
-        static iterator end(lua_State*, Entity& entity);
     };
 }

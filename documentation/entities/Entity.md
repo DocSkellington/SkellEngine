@@ -76,7 +76,7 @@ position:set("y", 9)
 game.systemManager:addEntity(entity)
 
 --- We can iterate over the components
-for index, name, component in pairs(entity) do
+for name, component in pairs(entity) do
   if name == "position"
     std::cout << "We have a position, Houston\n";
   end

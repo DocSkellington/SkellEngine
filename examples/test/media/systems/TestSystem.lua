@@ -7,10 +7,11 @@ function init()
     print(position:get("x"))
     print(position:get("y"))
 
+    print("Size of entity :")
     print(#entity)
 
-    for i, n, c in pairs(entity) do
-        print(i, n, c)
+    for n, c in pairs(entity) do
+        print(n, c)
         print(c:get("x"))
     end
 end
