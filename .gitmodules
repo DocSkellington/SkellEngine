@@ -12,7 +12,7 @@
 	url = https://github.com/Bromeon/Thor
 [submodule "engine/dependencies/TGUI"]
 	path = engine/dependencies/TGUI
-	url = https://github.com/DocSkellington/TGUI
+	url = https://github.com/texus/TGUI/
 [submodule "engine/dependencies/LDoc"]
 	path = engine/dependencies/LDoc
 	url = https://github.com/stevedonovan/LDoc

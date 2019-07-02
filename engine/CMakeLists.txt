@@ -157,22 +157,6 @@ export(EXPORT thorConfig
     FILE thorConfig.cmake
 )
 
-# TGUI
-install(TARGETS tgui
-    EXPORT tguiConfig
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-install(EXPORT tguiConfig
-    FILE tguiConfig.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tgui
-)
-
-export(EXPORT tguiConfig
-    FILE tguiConfig.cmake
-)
 
 # sol
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/include/sol

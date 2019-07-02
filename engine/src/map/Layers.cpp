@@ -334,16 +334,16 @@ namespace engine::map {
         label->setText(text.content);
 
         if (text.bold) {
-            label->setTextStyle(sf::Text::Bold);
+            label->getRenderer()->setTextStyle(sf::Text::Bold);
         }
         if (text.italic) {
-            label->setTextStyle(label->getTextStyle() | sf::Text::Italic);
+            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::Italic);
         }
         if (text.underline) {
-            label->setTextStyle(label->getTextStyle() | sf::Text::Underlined);
+            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::Underlined);
         }
         if (text.strikethough) {
-            label->setTextStyle(label->getTextStyle() | sf::Text::StrikeThrough);
+            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::StrikeThrough);
         }
 
         switch (text.hAlign) {
@@ -370,7 +370,7 @@ namespace engine::map {
             break;
         }
 
-        label->setTextColor(tgui::Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
+        label->getRenderer()->setTextColor(tgui::Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
         label->setTextSize(text.pixelSize);
 
         if (text.fontFamily != "") {
@@ -384,7 +384,7 @@ namespace engine::map {
         }
 
         if (!object.visible()) {
-            label->hide();
+            label->setVisible(false);
         }
 
         getMap().m_context.gui->add(label);
