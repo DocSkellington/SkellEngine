@@ -108,7 +108,6 @@ target_link_libraries(${LIBRARY_NAME}
         lua5.3
         thor
         tgui
-        sol2_single
         GL
         sfml-system
         sfml-graphics
@@ -186,44 +185,44 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include/n
 )
 
 # SkellEngine
-# install(TARGETS ${LIBRARY_NAME}
-#     EXPORT ${LIBRARY_NAME}-targets
-#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
+install(TARGETS ${LIBRARY_NAME}
+    EXPORT ${LIBRARY_NAME}-targets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
-# install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
-#     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-# )
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
 
-# install(EXPORT ${LIBRARY_NAME}-targets
-#     FILE ${LIBRARY_NAME}-targets.cmake
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
+install(EXPORT ${LIBRARY_NAME}-targets
+    FILE ${LIBRARY_NAME}-targets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
 
 # Config file
-# include(CMakePackageConfigHelpers)
+include(CMakePackageConfigHelpers)
 
-# configure_package_config_file(
-#     ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
-#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-#     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
+configure_package_config_file(
+    ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
+    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
 
-# write_basic_package_version_file(
-#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-#     VERSION ${SkellEngine_VERSION}
-#     COMPATIBILITY AnyNewerVersion
-# )
+write_basic_package_version_file(
+    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+    VERSION ${SkellEngine_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
 
-# install(
-#     FILES
-#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
+install(
+    FILES
+        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
 
-# export(EXPORT ${LIBRARY_NAME}-targets
-#     FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
-# )
+export(EXPORT ${LIBRARY_NAME}-targets
+    FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
+)
