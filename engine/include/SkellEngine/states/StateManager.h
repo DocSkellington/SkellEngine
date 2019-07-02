@@ -68,7 +68,8 @@ namespace engine::states {
                     // We move the state to the front
                     std::unique_ptr<State> state = std::move(itr->second);
                     m_states.erase(itr);
-                    m_states.emplace_front(typeid(*state), std::move(state));
+                    const auto &s = *state.get();
+                    m_states.emplace_front(typeid(s), std::move(state));
                     // And we activate it
                     m_states.front().second->activate();
 

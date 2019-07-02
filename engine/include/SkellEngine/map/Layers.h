@@ -109,7 +109,7 @@ namespace engine::map {
         void update(sf::Int64 deltaTime) override;
 
     protected:
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+        virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
         sf::Sprite m_sprite;
@@ -127,7 +127,7 @@ namespace engine::map {
         void update(sf::Int64 deltaTime) override;
 
     protected:
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+        virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
         struct Shape {

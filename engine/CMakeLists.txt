@@ -133,7 +133,7 @@ target_compile_options(${LIBRARY_NAME}
 )
 
 # std::filesystem for GCC
-if(CMAKE_COMPILER_IS_GNUCXX)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     target_link_libraries(${LIBRARY_NAME}
         PRIVATE
             stdc++fs
