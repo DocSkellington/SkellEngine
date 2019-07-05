@@ -22,6 +22,9 @@ namespace engine::entities {
          * \brief Every entity should be manipulated through this pointer type
          */
         typedef std::shared_ptr<Entity> Ptr;
+        /**
+         * \brief The type of the internal map
+         */
         using mapType = std::map<std::string, components::Component::Ptr>;
         /**
          * \brief Allows to iterate over the components
@@ -32,9 +35,27 @@ namespace engine::entities {
          */
         using const_iterator = mapType::const_iterator;
 
+        /**
+         * \brief The type of the keys
+         * 
+         * Needed for Sol2 interaction
+         * \see mapType
+         */
         using key_type = mapType::key_type;
+        /**
+         * \brief The type of the values stored in the map
+         * 
+         * Needed for Sol2 interaction
+         * \see mapType
+         */
         using mapped_type = mapType::mapped_type;
 
+        /**
+         * \brief The type of the values stored in the map
+         * 
+         * Needed for Sol2 interaction
+         * \see mapType
+         */
         using value_type = mapType::value_type;
     
     public:

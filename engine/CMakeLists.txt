@@ -48,6 +48,9 @@ set(SOURCES
     src/entities/components/GraphicalSpriteSheetComponent.cpp
     src/entities/components/PositionComponent.cpp
 
+    src/events/EventHandler.cpp
+    src/events/Event.cpp
+
     src/files/FileManager.cpp
     src/files/GameDescription.cpp
     src/files/LevelDescription.cpp
@@ -71,6 +74,7 @@ set(SOURCES
     src/systems/ExternSystem.cpp
 
     src/utilities/json_lua.cpp
+    src/utilities/MemberStorage.cpp
 
     src/tmxlite/FreeFuncs.cpp
     src/tmxlite/ImageLayer.cpp

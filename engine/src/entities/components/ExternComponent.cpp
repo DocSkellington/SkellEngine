@@ -18,7 +18,6 @@ namespace engine::entities::components {
         this->m_jsonTable = jsonTable;
     }
 
-    /*
     void ExternComponent::set(const std::string &name, long value) {
         m_jsonTable[name] = value;
     }
@@ -35,6 +34,10 @@ namespace engine::entities::components {
         m_jsonTable[name] = value;
     }
 
+    void ExternComponent::set(const std::string &name, const nlohmann::json &value) {
+        m_jsonTable[name] = value;
+    }
+
     void ExternComponent::set(const std::string &name, sol::nil_t value) {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
@@ -46,12 +49,7 @@ namespace engine::entities::components {
         set(name, utilities::lua_to_json(value));
     }
 
-    void ExternComponent::set(const std::string &name, nlohmann::json value) {
-        m_jsonTable[name] = value;
-    }
-    */
-
-    std::pair<long, bool> ExternComponent::getInt(const std::string &name) {
+    std::pair<long, bool> ExternComponent::getInt(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             return std::make_pair(itr->get<long>(), true);
@@ -62,7 +60,7 @@ namespace engine::entities::components {
         }
     }
 
-    std::pair<double, bool> ExternComponent::getFloat(const std::string &name) {
+    std::pair<double, bool> ExternComponent::getFloat(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             return std::make_pair(itr->get<double>(), true);
@@ -73,7 +71,7 @@ namespace engine::entities::components {
         }
     }
 
-    std::pair<bool, bool> ExternComponent::getBool(const std::string &name) {
+    std::pair<bool, bool> ExternComponent::getBool(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             return std::make_pair(itr->get<bool>(), true);
@@ -84,7 +82,7 @@ namespace engine::entities::components {
         }
     }
 
-    std::pair<std::string, bool> ExternComponent::getString(const std::string &name) {
+    std::pair<std::string, bool> ExternComponent::getString(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             return std::make_pair(itr->get<std::string>(), true);
@@ -95,7 +93,7 @@ namespace engine::entities::components {
         }
     }
 
-    std::pair<sol::object, bool> ExternComponent::getObject(const std::string &name) {
+    std::pair<sol::object, bool> ExternComponent::getObject(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             sol::object o;
@@ -134,5 +132,20 @@ namespace engine::entities::components {
             tmx::Logger::log("ExternComponent: the value " + name + " is undefined.", tmx::Logger::Type::Warning);
             return std::make_pair(sol::nil, false);
         }
+    }
+
+    void ExternComponent::luaFunctions(sol::state &lua) {
+        lua.new_usertype<ExternComponent>("externComponent",
+            "get", &ExternComponent::getObject,
+            "set", sol::overload(
+                sol::resolve<void(const std::string&, long)>(&ExternComponent::set),
+                sol::resolve<void(const std::string&, double)>(&ExternComponent::set),
+                sol::resolve<void(const std::string&, bool)>(&ExternComponent::set),
+                sol::resolve<void(const std::string&, const std::string&)>(&ExternComponent::set),
+                sol::resolve<void(const std::string&, sol::nil_t)>(&ExternComponent::set),
+                sol::resolve<void(const std::string&, const sol::table&)>(&ExternComponent::set)
+            ),
+            sol::base_classes, sol::bases<utilities::MemberStorage, components::Component>()
+        );
     }
 }

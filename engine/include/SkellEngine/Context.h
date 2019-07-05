@@ -13,6 +13,7 @@
 #include "SkellEngine/systems/SystemManager.h"
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/map/Map.h"
+#include "SkellEngine/events/EventHandler.h"
 
 namespace engine {
     /**
@@ -78,5 +79,10 @@ namespace engine {
          * \brief The system manager
          */
         std::shared_ptr<systems::SystemManager> systemManager;
+
+        /**
+         * \brief The event handler
+         */
+        std::shared_ptr<events::EventHandler> eventHandler;
     };
 }

@@ -117,7 +117,9 @@ namespace engine::systems {
 
         registerSFMLLuaFunctions(m_lua);
 
+        utilities::MemberStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
+        entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);
         manager.getContext().entityManager->luaFunctions(m_lua);
     }

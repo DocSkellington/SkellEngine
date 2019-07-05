@@ -7,8 +7,12 @@ function init()
     print(position:get("x"))
     print(position:get("y"))
 
-    print("Size of entity :")
-    print(#entity)
+    component = entity:addComponent("test", {t=2, e=1, s=1})
+
+    print("Size of entity :" .. #entity)
+    print(component:get("t"))
+    component:set("t", 5)
+    print(component:get("t"))
 
     for n, c in pairs(entity) do
         print(n, c)

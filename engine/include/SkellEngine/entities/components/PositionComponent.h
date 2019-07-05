@@ -18,7 +18,6 @@ namespace engine::entities::components {
 
     private:
         double m_x, m_y;
-        int m_int;
         static Component::RegisterComponent<PositionComponent> rcpc;
     };
 }

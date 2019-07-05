@@ -65,10 +65,11 @@
         "any": "cpp",
         "valarray": "cpp",
         "filesystem": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "unordered_set": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
-    "cmake.configureOnOpen": false,
+    "cmake.configureOnOpen": true,
     "cmake.configureSettings": {
         "SKELLENGINE_BUILD_DOCUMENTATION": "TRUE",
         "SKELLENGINE_BUILD_TESTS": "TRUE",
