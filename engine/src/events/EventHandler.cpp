@@ -11,32 +11,37 @@ namespace engine::events {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
+            tmx::Logger::log("Event handler: register callback: addind a new type of event: " + eventType, tmx::Logger::Type::Info);
             itr = m_callbacksPerEventType.emplace(eventType, CallbackStorage()).first;
         }
 
         return itr->second.addCallback(callback);
     }
 
-    void EventHandler::removeCallback(const std::string &eventType, int ID) {
+    bool EventHandler::removeCallback(const std::string &eventType, int ID) {
         auto callbacks = m_callbacksPerEventType.find(eventType);
         if (callbacks == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: remove a callback: unknown event type", tmx::Logger::Type::Warning);
-            return;
+            tmx::Logger::log("Event handler: remove a callback: unknown event type: " + eventType, tmx::Logger::Type::Warning);
+            return false;
         }
 
-        m_callbacksPerEventType.at(eventType).removeCallback(ID);
+        return callbacks->second.removeCallback(ID);
     }
 
-    void EventHandler::sendEvent(const Event& event) const {
+    void EventHandler::clear() {
+        m_callbacksPerEventType.clear();
+    }
+
+    bool EventHandler::sendEvent(const Event& event) const {
         const std::string& type = event.getType();
         auto itr = m_callbacksPerEventType.find(type);
 
         if (itr == m_callbacksPerEventType.end()) {
             tmx::Logger::log("Event handler: impossible to send an event of type " + type + " because no listener are registered for this type");
-            return;
+            return false;
         }
 
-        itr->second.sendEvent(event);
+        return itr->second.sendEvent(event);
     }
 
     int EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {
@@ -59,25 +64,34 @@ namespace engine::events {
         return ID;
     }
 
-    void EventHandler::CallbackStorage::removeCallback(int ID) {
+    bool EventHandler::CallbackStorage::removeCallback(int ID) {
+        tmx::Logger::log("removing callback");
         if (ID < 0 || ID > m_callbacks.size()) {
             tmx::Logger::log("Event handler: invalid callback ID: " + std::to_string(ID), tmx::Logger::Type::Warning);
-            return;
+            return false;
         }
 
         if (!m_usedIDs.test(ID)) {
             tmx::Logger::log("Event handler: impossible to remove an unused callback ID: " + std::to_string(ID), tmx::Logger::Type::Warning);
-            return;
+            return false;
         }
 
-        m_callbacks.erase(ID);
-        m_usedIDs.reset(ID);
+        int n = m_callbacks.erase(ID);
+        // The callback was removed
+        if (n == 1) {
+            m_usedIDs.reset(ID);
+            return true;
+        }
+        return false;
     }
 
-    void EventHandler::CallbackStorage::sendEvent(const Event &event) const {
+    bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
+        bool atLeastOne = false;
         for (const auto& itr : m_callbacks) {
+            atLeastOne = true;
             const auto& callback = itr.second;
             callback(event);
         }
+        return atLeastOne;
     }
 }

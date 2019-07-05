@@ -31,6 +31,8 @@ namespace engine::events {
 
         /**
          * \brief Add a callback (a listener) for a specific event type
+         * 
+         * If the event type is unkown, the listener is still registered. So, make sure to write the type correctly.
          * \param eventType The type of the event to listen to
          * \param callback The callback to add
          * \return -1 if the callback could not be added or the ID of the callback
@@ -41,8 +43,9 @@ namespace engine::events {
          * \brief Remove a callback from the list associated with an event type
          * \param eventType The type of the event
          * \param callback The ID of the callback to remove
+         * \return True iff the callback was removed
          */
-        void removeCallback(const std::string &eventType, int ID);
+        bool removeCallback(const std::string &eventType, int ID);
 
         /**
          * \brief Remove every callback
@@ -54,17 +57,18 @@ namespace engine::events {
          * 
          * The event type is deduced from the given event
          * \param event The event to send
+         * \return True iff the event was sent to at least one receiver
          */
-        void sendEvent(const events::Event &event) const;
+        bool sendEvent(const events::Event &event) const;
 
     private:
         class CallbackStorage {
         public:
             int addCallback(const callbackSignature &callback);
 
-            void removeCallback(int ID);
+            bool removeCallback(int ID);
 
-            void sendEvent(const Event& event) const;
+            bool sendEvent(const Event& event) const;
 
         private:
             std::bitset<sizeof(int) / 2> m_usedIDs;

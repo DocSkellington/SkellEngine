@@ -4,6 +4,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/files/fileManager_tests.cpp ${CMAKE_C
 set(TESTS_SOURCES
     main.cpp
 
+    events/event_handler_test.cpp
+
     entities/entity_test.cpp
     entities/entity_manager_test.cpp
     entities/components/component_setter_getter_test.cpp

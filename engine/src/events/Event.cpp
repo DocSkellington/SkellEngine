@@ -20,10 +20,29 @@ namespace engine::events {
         return map;
     }
 
+    std::string Event::getLogErrorPrefix() const {
+        return "Event";
+    }
+
     void Event::luaFunctions(sol::state &lua) {
         lua.new_usertype<Event>("event",
             "getType", &Event::getType,
             sol::base_classes, sol::bases<utilities::MemberStorage>()
         );
+    }
+
+    Event::Ptr Event::createEvent(const std::string &type) {
+        auto constructor = getMapToEvents()->find(type);
+        Event::Ptr ptr;
+
+        if (constructor == getMapToEvents()->end()) {
+            // TODO: ExternalEvent (once Lua interface with systems is done)
+            ptr = nullptr;
+        }
+        else {
+            ptr = constructor->second();
+        }
+
+        return ptr;
     }
 }

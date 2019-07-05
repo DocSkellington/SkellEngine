@@ -33,6 +33,13 @@ namespace engine::events {
 
         static void luaFunctions(sol::state &lua);
 
+        /**
+         * \brief Create an event of given type
+         * \param type The type
+         * \return A shared pointer to the created event
+         */
+        static Ptr createEvent(const std::string &type);
+
     protected:
         /**
          * \brief The structure to use to register a new event class
@@ -47,6 +54,9 @@ namespace engine::events {
             }
         };
 
+    protected:
+        virtual std::string getLogErrorPrefix() const override;
+
     private:
         using mapType = std::map<std::string, std::function<Ptr()>>;
 
@@ -57,5 +67,3 @@ namespace engine::events {
         const std::string m_type;
     };
 }
-
-// TODO: ExternalEvent (once Lua interface with systems is done)
