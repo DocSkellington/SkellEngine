@@ -33,12 +33,17 @@ namespace engine::entities {
 
         /**
          * \brief Adds an empty entity of the given type
+         * 
+         * If the entity is constructed this way, it must be manually added in the system manager to be used by systems
          * \param type The type of the entity
          * \return A shared pointer to the entity
+         * \see engine::systems::SystemManager::addEntity to add the entity
          */
         Entity::Ptr addEntity(const std::string &type);
         /**
          * \brief Adds an entity of the given type and constructs it with the given JSON table
+         * 
+         * It also adds the entity in the system manager (and the systems)
          * \param type The type of the entity
          * \param entityDescription The JSON table describing the entity
          * \return A shared pointer to the entity
