@@ -8,10 +8,6 @@ namespace engine::systems {
         m_context(context) {
     }
 
-    SystemManager::~SystemManager() {
-
-    }
-
     void SystemManager::update(sf::Int64 deltatime) {
         for (auto& system : m_systems) {
             system.second->update(deltatime, m_view);
@@ -91,5 +87,14 @@ namespace engine::systems {
 
     Context &SystemManager::getContext() const {
         return m_context;
+    }
+
+    void SystemManager::luaFunctions(sol::state &lua) const {
+        lua.new_usertype<SystemManager>("SystemManager",
+            "addEntity", &SystemManager::addEntity,
+            "removeEntity", &SystemManager::removeEntity
+        );
+
+        lua["game"]["systemManager"] = this;
     }
 }

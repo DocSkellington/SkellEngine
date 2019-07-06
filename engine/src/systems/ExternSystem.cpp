@@ -3,6 +3,7 @@
 #include "SkellEngine/systems/SystemManager.h"
 #include "SkellEngine/Context.h"
 #include "SkellEngine/entities/components/ExternComponent.h"
+#include "SkellEngine/events/ExternEvent.h"
 
 // V: type of the vector (sf::Vector2f, sf::Vector2u and so on)
 // T: type of the data in the vector (float, unsigned int and so on)
@@ -121,7 +122,11 @@ namespace engine::systems {
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);
+        events::Event::luaFunctions(m_lua);
+        events::ExternEvent::luaFunctions(m_lua);
         manager.getContext().entityManager->luaFunctions(m_lua);
+        manager.getContext().systemManager->luaFunctions(m_lua);
+        manager.getContext().eventHandler->luaFunctions(m_lua);
     }
 
     ExternSystem::~ExternSystem() {
@@ -136,11 +141,13 @@ namespace engine::systems {
     }
 
     void ExternSystem::loadLua(const std::string &systemName) {
-        tmx::Logger::log(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+        m_systemName = systemName;
+
         sol::protected_function_result load = m_lua.do_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+
         if (!load.valid()) {
             sol::error e = load;
-            tmx::Logger::logError("ExternSystem: impossible to load the file of the system " + systemName, e);
+            tmx::Logger::logError("ExternSystem: " + m_systemName + ": impossible to load the file of the system " + systemName, e);
         }
         else {
             sol::protected_function initFunc = m_lua["init"];
@@ -148,7 +155,7 @@ namespace engine::systems {
                 sol::protected_function_result res = initFunc();
                 if (!res.valid()) {
                     sol::error e = res;
-                    tmx::Logger::logError("ExternSystem: error during init. The system could not be properly initiliazed and may not work as intented", e);
+                    tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during init. The system could not be properly initiliazed and may not work as intented", e);
                 }
             }
         }
@@ -160,9 +167,12 @@ namespace engine::systems {
             sol::protected_function_result res = updateFunc(deltatime, view);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: error during update", e);
+                tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during update", e);
                 return false;
             }
+        }
+        else {
+            tmx::Logger::log("ExternSystem: " + m_systemName + " does not have an update function", tmx::Logger::Type::Warning);
         }
         return true;
     }
@@ -177,13 +187,16 @@ namespace engine::systems {
                     return r;
                 }
                 else {
-                    tmx::Logger::log("ExternSystem: checkComponents must return a boolean.", tmx::Logger::Type::Error);
+                    tmx::Logger::log("ExternSystem: " + m_systemName + ": checkComponents must return a boolean.", tmx::Logger::Type::Error);
                 }
             }
             else {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: error during checkComponents. No entities will be added in the system", e);
+                tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during checkComponents. No entities will be added in the system", e);
             }
+        }
+        else {
+            tmx::Logger::log("ExternSystem: " + m_systemName + " does not have a checkComponents function. Therefore, no entities will be added in the system.", tmx::Logger::Type::Warning);
         }
         return false;
     }

@@ -20,7 +20,7 @@ namespace engine::systems {
     class SystemManager final {
     public:
         explicit SystemManager(Context& context);
-        ~SystemManager();
+        SystemManager(const SystemManager&) = delete;
 
         /**
          * \brief Updates the system manager
@@ -95,6 +95,11 @@ namespace engine::systems {
          * \return The context
          */
         Context& getContext() const;
+
+        /**
+         * \brief Registers the Lua functions
+         */
+        void luaFunctions(sol::state &lua) const;
 
     private:
         Context &m_context;

@@ -9,7 +9,7 @@ function init()
 
     component = entity:addComponent("test", {t=2, e=1, s=1})
 
-    print("Size of entity :" .. #entity)
+    print("Size of entity: " .. #entity)
     print(component:get("t"))
     component:set("t", 5)
     print(component:get("t"))
@@ -18,6 +18,9 @@ function init()
         print(n, c)
         print(c:get("x"))
     end
+
+    game.eventHandler:registerCallback("test", callbackTest)
+    game.eventHandler:sendEvent("test", {integer=10, floating=50.05})
 end
 
 function update(deltatime, view)
@@ -25,4 +28,8 @@ end
 
 function checkComponents(entity)
     return true;
+end
+
+function callbackTest(event)
+    print(event:getType() .. " " .. event:get("integer") .. " " .. event:get("floating"))
 end

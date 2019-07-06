@@ -59,7 +59,7 @@ namespace engine {
         m_context.map = make_shared<map::Map>(m_context, description.media.mapFolder);
         tmx::Logger::log("Map system ready");
 
-        m_context.eventHandler = make_shared<events::EventHandler>();
+        m_context.eventHandler = make_shared<events::EventHandler>(m_context);
         tmx::Logger::log("Event handler ready");
 
         // Creating the window

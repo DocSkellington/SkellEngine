@@ -21,9 +21,15 @@ namespace engine::events {
          * \brief Constructs an event
          * \param type The type of the event
          */
-        explicit Event(const std::string &type);
+        explicit Event(Context &context, const std::string &type);
         Event(const Event&) = delete;
         virtual ~Event();
+
+        /**
+         * \brief Initialises an event with the given JSON table
+         * \param jsonTable The JSON table
+         */
+        virtual void create(const nlohmann::json &jsonTable) = 0;
 
         /**
          * \brief Get the type of the event
@@ -31,6 +37,10 @@ namespace engine::events {
          */
         const std::string &getType() const noexcept;
 
+        /**
+         * \brief Register Lua functions
+         * \param lua The Lua state
+         */
         static void luaFunctions(sol::state &lua);
 
         /**
@@ -38,7 +48,16 @@ namespace engine::events {
          * \param type The type
          * \return A shared pointer to the created event
          */
-        static Ptr createEvent(const std::string &type);
+        static Ptr createEvent(const std::string &type, Context &context);
+
+        /**
+         * \brief Create an event of given type and immediately sets variables defined in the JSON table
+         * \param type The type
+         * \param context The context
+         * \param jsonTable The JSON table containing the variables to set in the event
+         * \return A shared pointer to the created event
+         */
+        static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable);
 
     protected:
         /**
@@ -50,7 +69,7 @@ namespace engine::events {
                 if (getMapToEvents()->find(name) != getMapToEvents()->end()) {
                     tmx::Logger::log("Event: register event: " + name + " is already defined. The value will be overwritten", tmx::Logger::Type::Warning);
                 }
-                getMapToEvents()->emplace(name, std::make_shared<T>);
+                getMapToEvents()->emplace(name, std::make_shared<T, Context&>);
             }
         };
 
@@ -58,7 +77,7 @@ namespace engine::events {
         virtual std::string getLogErrorPrefix() const override;
 
     private:
-        using mapType = std::map<std::string, std::function<Ptr()>>;
+        using mapType = std::map<std::string, std::function<Ptr(Context &)>>;
 
     private:
         static std::shared_ptr<mapType> getMapToEvents();

@@ -3,14 +3,20 @@
 #include "SkellEngine/events/Event.h"
 #include "SkellEngine/events/EventHandler.h"
 
+#include "SkellEngine/Context.h"
+
 using namespace engine;
 
 class TestEvent : public events::Event {
 public:
-    TestEvent() :
-        events::Event("test")
+    TestEvent(Context &context) :
+        events::Event(context, "test")
         {
         registerMember("integer", &integer);
+    }
+
+    void create(const nlohmann::json &jsonTable) override {
+
     }
 
     int integer = 0;
@@ -37,9 +43,11 @@ void unknownCallback(const events::Event &event) {
 }
 
 SCENARIO("Event handler", "[events]") {
-    events::EventHandler handler;
+    Context context;
 
-    events::Event::Ptr event = events::Event::createEvent("test");
+    events::EventHandler handler(context);
+
+    events::Event::Ptr event = events::Event::createEvent("test", context);
     event->set("integer", 10);
 
     called1 = called2 = false;

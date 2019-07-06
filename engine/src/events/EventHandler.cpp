@@ -1,9 +1,13 @@
 #include "SkellEngine/events/EventHandler.h"
 
 #include "SkellEngine/tmxlite/Log.hpp"
+#include "SkellEngine/Context.h"
+#include "SkellEngine/utilities/json_lua.h"
 
 namespace engine::events {
-    EventHandler::EventHandler() {
+    EventHandler::EventHandler(Context &context) :
+        m_context(context)
+        {
 
     }
 
@@ -42,6 +46,37 @@ namespace engine::events {
         }
 
         return itr->second.sendEvent(event);
+    }
+
+    bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values) {
+        auto event = Event::createEvent(type, getContext(), values);
+        return sendEvent(*event);
+    }
+
+    void EventHandler::luaFunctions(sol::state &lua) const {
+        lua.new_usertype<EventHandler>("EventHandler",
+            "registerCallback", &EventHandler::registerCallback,
+            "removeCallback", &EventHandler::removeCallback,
+            "clear", &EventHandler::clear,
+            "sendEvent", sol::overload(
+                sol::resolve<bool(const Event&)const>(&EventHandler::sendEvent),
+                sol::resolve<const std::string&, const sol::table&>(&EventHandler::sendEvent)
+            )
+        );
+
+        lua["game"]["eventHandler"] = this;
+    }
+
+    Context& EventHandler::getContext() {
+        return m_context;
+    }
+
+    const Context& EventHandler::getContext() const {
+        return m_context;
+    }
+
+    bool EventHandler::sendEvent(const std::string &type, const sol::table &luaTable) {
+        return sendEvent(type, utilities::lua_to_json(luaTable));
     }
 
     int EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {

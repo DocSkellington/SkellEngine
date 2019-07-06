@@ -31,5 +31,6 @@ namespace engine::systems {
 
     private:
         sol::state m_lua;
+        std::string m_systemName;
     };
 }

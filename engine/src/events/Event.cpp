@@ -1,8 +1,12 @@
 #include "SkellEngine/events/Event.h"
 
+#include "SkellEngine/Context.h"
+#include "SkellEngine/events/ExternEvent.h"
+
 namespace engine::events {
-    Event::Event(const std::string &type) :
-        m_type(type) 
+    Event::Event(Context &context, const std::string &type) :
+        MemberStorage(context),
+        m_type(type)
         {
         registerMember("type", &m_type);
     }
@@ -31,18 +35,23 @@ namespace engine::events {
         );
     }
 
-    Event::Ptr Event::createEvent(const std::string &type) {
+    Event::Ptr Event::createEvent(const std::string &type, Context &context) {
         auto constructor = getMapToEvents()->find(type);
         Event::Ptr ptr;
 
         if (constructor == getMapToEvents()->end()) {
-            // TODO: ExternalEvent (once Lua interface with systems is done)
-            ptr = nullptr;
+            ptr = std::make_shared<ExternEvent>(type, context);
         }
         else {
-            ptr = constructor->second();
+            ptr = constructor->second(context);
         }
 
         return ptr;
+    }
+
+    Event::Ptr Event::createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable) {
+        Event::Ptr event = createEvent(type, context);
+        event->create(jsonTable);
+        return event;
     }
 }

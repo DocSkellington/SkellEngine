@@ -9,6 +9,10 @@
 
 #include "SkellEngine/events/Event.h"
 
+namespace engine {
+    struct Context;
+}
+
 namespace engine::events {
     /**
      * \brief Handles events in the engine
@@ -26,7 +30,7 @@ namespace engine::events {
         using callbackSignature = std::function<void(const Event&)>;
 
     public:
-        EventHandler();
+        EventHandler(Context &context);
         EventHandler(const EventHandler&) = delete;
 
         /**
@@ -61,6 +65,20 @@ namespace engine::events {
          */
         bool sendEvent(const events::Event &event) const;
 
+        /**
+         * \brief Construct and send an event
+         * \param type The type of the even to send
+         * \param values The values to set in the event
+         * \return True iff the event was sent to at least one receiver
+         */
+        bool sendEvent(const std::string &type, const nlohmann::json &values);
+
+        /**
+         * \brief Register the Lua functions
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua) const;
+
     private:
         class CallbackStorage {
         public:
@@ -77,6 +95,13 @@ namespace engine::events {
         };
 
     private:
+        Context& getContext();
+        const Context& getContext() const;
+
+        bool sendEvent(const std::string &type, const sol::table &luaTable);
+
+    private:
         std::map<std::string, CallbackStorage> m_callbacksPerEventType;
+        Context &m_context;
     };
 }

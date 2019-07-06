@@ -50,6 +50,7 @@ set(SOURCES
 
     src/events/EventHandler.cpp
     src/events/Event.cpp
+    src/events/ExternEvent.cpp
 
     src/files/FileManager.cpp
     src/files/GameDescription.cpp
