@@ -10,7 +10,7 @@ namespace engine::entities::components {
     */
     class PositionComponent : public Component {
     public:
-        explicit PositionComponent();
+        explicit PositionComponent(Context &);
         PositionComponent(const Component&) = delete;
         virtual ~PositionComponent();
 

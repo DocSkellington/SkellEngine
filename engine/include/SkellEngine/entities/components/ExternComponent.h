@@ -13,15 +13,18 @@ namespace engine::entities::components {
      */
     class ExternComponent : public Component {
     public:
-        ExternComponent();
+        ExternComponent(Context &context);
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
 
         void create(const nlohmann::json &jsonTable) override;
 
+        void set(const std::string &name, int value) override;
         void set(const std::string &name, long value) override;
+        void set(const std::string &name, float value) override;
         void set(const std::string &name, double value) override;
         void set(const std::string &name, bool value) override;
+        void set(const std::string &name, const char* value) override;
         void set(const std::string &name, const std::string& value) override;
         void set(const std::string &name, const nlohmann::json& value) override;
 

@@ -1,6 +1,7 @@
 #include <catch.hpp>
 
 #include "SkellEngine/entities/components/Component.h"
+#include "SkellEngine/Context.h"
 
 using namespace engine;
 using namespace entities;
@@ -8,8 +9,8 @@ using namespace components;
 
 class TestComponent : public Component {
 public:
-    TestComponent() :
-        Component(),
+    TestComponent(Context &context) :
+        Component(context),
         m_int(0),
         m_long(0),
         m_float(0.f),
@@ -40,7 +41,8 @@ public:
 };
 
 SCENARIO("Test of setters", "[entities][components]") {
-    TestComponent compo;
+    Context context;
+    TestComponent compo(context);
 
     GIVEN("An integer variable") {
         REQUIRE(compo.m_int == 0);
@@ -276,7 +278,8 @@ SCENARIO("Test of setters", "[entities][components]") {
 SCENARIO("Test of getters", "[entities][components]") {
     nlohmann::json json = {1,2,3};
 
-    TestComponent compo;
+    Context context;
+    TestComponent compo(context);
     compo.m_int = 4;
     compo.m_float = 3.14f;
     compo.m_bool = true;

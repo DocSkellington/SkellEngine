@@ -26,7 +26,7 @@ namespace engine::entities::components {
         typedef std::shared_ptr<Component> Ptr;
 
     public:
-        Component();
+        Component(Context &context);
         Component(const Component&) = delete;
         virtual ~Component();
 
@@ -45,6 +45,10 @@ namespace engine::entities::components {
          */
         static Ptr createInstance(Context &context, const std::string &componentType);
 
+        /**
+         * \brief Register Lua functions
+         * \param lua The Lua state
+         */
         static void luaFunctions(sol::state &lua);
 
     protected:
@@ -61,10 +65,12 @@ namespace engine::entities::components {
              * \param name The name of the component
              */
             RegisterComponent(const std::string &name) {
+                static_assert(std::is_base_of<Component, T>::value, "RegisterComponent: T must inherit from Component");
+
                 if (getMapToComponent()->find(name) != getMapToComponent()->end()) {
                     tmx::Logger::log("Component: register component: " + name + " is already defined. The value will be overwritten", tmx::Logger::Type::Warning);
                 }
-                getMapToComponent()->insert(std::make_pair(name, std::make_shared<T>));
+                getMapToComponent()->insert(std::make_pair(name, std::make_shared<T, Context&>));
             }
         };
 
@@ -75,7 +81,7 @@ namespace engine::entities::components {
         /**
          * \brief The type of the map used to store the components' constructors
          */
-        using MapType = std::map<std::string, std::function<Ptr()>>;
+        using MapType = std::map<std::string, std::function<Ptr(Context&)>>;
 
     private:
 

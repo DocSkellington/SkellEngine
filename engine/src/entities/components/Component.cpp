@@ -4,7 +4,9 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
-    Component::Component() {
+    Component::Component(Context &context) :
+        MemberStorage(context)
+        {
 
     }
 
@@ -16,12 +18,11 @@ namespace engine::entities::components {
         auto compoConstructor = getMapToComponent()->find(componentType);
         Component::Ptr ptr;
         if (compoConstructor == getMapToComponent()->end()) {
-            ptr = std::make_shared<ExternComponent>();
+            ptr = std::make_shared<ExternComponent>(context);
         }
         else {
-            ptr = compoConstructor->second();
+            ptr = compoConstructor->second(context);
         }
-        ptr->setContext(context);
         return ptr;
     }
 

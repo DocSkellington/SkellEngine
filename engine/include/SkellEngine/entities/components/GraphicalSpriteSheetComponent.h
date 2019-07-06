@@ -13,7 +13,7 @@ namespace engine::entities::components {
      */
     class GraphicalSpriteSheetComponent : public Component {
     public:
-        explicit GraphicalSpriteSheetComponent();
+        explicit GraphicalSpriteSheetComponent(Context &context);
         GraphicalSpriteSheetComponent(const GraphicalSpriteSheetComponent&) = delete;
         virtual ~GraphicalSpriteSheetComponent();
 

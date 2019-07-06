@@ -5,7 +5,8 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::utilities {
-    MemberStorage::MemberStorage() {
+    MemberStorage::MemberStorage(Context &context) :
+        m_context(context) {
 
     }
 
@@ -356,15 +357,11 @@ namespace engine::utilities {
         );
     }
 
-    void MemberStorage::setContext(Context &context) {
-        m_context = &context;
-    }
-
     Context &MemberStorage::getContext() {
-        return *m_context;
+        return m_context;
     }
 
     const Context &MemberStorage::getContext() const {
-        return *m_context;
+        return m_context;
     }
 }

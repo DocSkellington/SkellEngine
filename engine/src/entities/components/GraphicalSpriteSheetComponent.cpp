@@ -3,8 +3,8 @@
 namespace engine::entities::components {
     Component::RegisterComponent<GraphicalSpriteSheetComponent> GraphicalSpriteSheetComponent::rcpc("spritesheet");
 
-    GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent() :
-        Component() {
+    GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(Context &context) :
+        Component(context) {
 
     }
 

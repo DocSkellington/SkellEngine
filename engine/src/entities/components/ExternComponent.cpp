@@ -5,8 +5,8 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
-    ExternComponent::ExternComponent() :
-        Component() {
+    ExternComponent::ExternComponent(Context &context) :
+        Component(context) {
 
     }
 
@@ -18,7 +18,15 @@ namespace engine::entities::components {
         this->m_jsonTable = jsonTable;
     }
 
+    void ExternComponent::set(const std::string &name, int value) {
+        m_jsonTable[name] = value;
+    }
+
     void ExternComponent::set(const std::string &name, long value) {
+        m_jsonTable[name] = value;
+    }
+
+    void ExternComponent::set(const std::string &name, float value) {
         m_jsonTable[name] = value;
     }
 
@@ -27,6 +35,10 @@ namespace engine::entities::components {
     }
 
     void ExternComponent::set(const std::string &name, bool value) {
+        m_jsonTable[name] = value;
+    }
+
+    void ExternComponent::set(const std::string &name, const char* value) {
         m_jsonTable[name] = value;
     }
 
@@ -135,7 +147,7 @@ namespace engine::entities::components {
     }
 
     void ExternComponent::luaFunctions(sol::state &lua) {
-        lua.new_usertype<ExternComponent>("externComponent",
+        lua.new_usertype<ExternComponent>("ExternComponent",
             "get", &ExternComponent::getObject,
             "set", sol::overload(
                 sol::resolve<void(const std::string&, long)>(&ExternComponent::set),

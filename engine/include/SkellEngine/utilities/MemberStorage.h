@@ -23,7 +23,7 @@ namespace engine::utilities {
      */
     class MemberStorage {
     public:
-        MemberStorage();
+        MemberStorage(Context &context);
         virtual ~MemberStorage();
 
         /**
@@ -172,13 +172,10 @@ namespace engine::utilities {
          * \brief Gets the context
          */
         Context& getContext();
-        const Context& getContext() const;
-
         /**
-         * \brief Sets the context of the component
-         * \param context The context
+         * \brief Gets the context
          */
-        void setContext(Context &context);
+        const Context& getContext() const;
 
         /**
          * \brief What to print in front of the log messages
@@ -192,6 +189,6 @@ namespace engine::utilities {
     private:
         std::map<std::string, std::any> mapMembers;
 
-        Context *m_context;
+        Context &m_context;
     };
 }

@@ -3,8 +3,8 @@
 namespace engine::entities::components {
     Component::RegisterComponent<PositionComponent> PositionComponent::rcpc("position");
 
-    PositionComponent::PositionComponent() :
-        Component(),
+    PositionComponent::PositionComponent(Context &context) :
+        Component(context),
         m_x(0),
         m_y(0) {
         registerMember("x", &m_x);
