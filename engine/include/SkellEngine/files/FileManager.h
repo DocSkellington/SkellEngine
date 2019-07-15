@@ -94,14 +94,6 @@ namespace engine::files {
         nlohmann::json getEntityJSON(const std::string &entityType);
 
         /**
-         * \brief Fuses a and b. Be warn that b overrides data in a!
-         * \param a The base json
-         * \param b The overwriting json
-         * \return The fusion of a and b (where common keys have b values)
-        */
-        nlohmann::json fusion(const nlohmann::json &a, const nlohmann::json &b) const;
-
-        /**
          * \brief Opens the media/levels/levelName/levelName.json file and copies its content into the level description
          */
         void loadLevelDescription();

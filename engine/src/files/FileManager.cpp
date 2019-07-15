@@ -11,6 +11,7 @@
 #include "SkellEngine/errors/SystemNotFound.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
 #include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/utilities/json_fusion.h"
 
 namespace engine::files {
     FileManager::FileManager(const Context &context, const std::string &baseMediapath) :
@@ -83,7 +84,7 @@ namespace engine::files {
             if (levelGlobal.is_open()) {
                 levelGlobal >> lev;
             }
-            m_entitiesGlobal[entityType] = fusion(def, lev);
+            m_entitiesGlobal[entityType] = utilities::json_fusion(def, lev);
         }
         return m_entitiesGlobal[entityType];
     }
@@ -145,14 +146,6 @@ namespace engine::files {
         }
     }
 
-    nlohmann::json FileManager::fusion(const nlohmann::json &a, const nlohmann::json &b) const {
-        nlohmann::json result(a);
-        for (auto itr = b.begin() ; itr != b.end() ; ++itr) {
-            result[itr.key()] = itr.value();
-        }
-        return result;
-    }
-
     void FileManager::loadLevelDescription() {
         if (!m_levelDescription.name.empty()) {
             std::ifstream file;
@@ -183,7 +176,7 @@ namespace engine::files {
             auto data = (*itr)["data"];
             // We add these data into the global definition known
             auto entityGlobal = getEntityJSON(type);
-            auto entity = fusion(entityGlobal, data);
+            auto entity = utilities::json_fusion(entityGlobal, data);
             // Finally, we create the new entity
             m_context.entityManager->addEntity(type, entity);
         }
