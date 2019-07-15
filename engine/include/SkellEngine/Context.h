@@ -14,6 +14,7 @@
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/map/Map.h"
 #include "SkellEngine/events/EventHandler.h"
+#include "SkellEngine/input/InputHandler.hpp"
 
 namespace engine {
     /**
@@ -84,5 +85,10 @@ namespace engine {
          * \brief The event handler
          */
         std::shared_ptr<events::EventHandler> eventHandler;
+
+        /**
+         * \brief The input handler
+         */
+        std::shared_ptr<input::InputHandler> inputHandler;
     };
 }

@@ -62,6 +62,9 @@ namespace engine {
         m_context.eventHandler = make_shared<events::EventHandler>(m_context);
         tmx::Logger::log("Event handler ready");
 
+        m_context.inputHandler = make_shared<input::InputHandler>(m_context);
+        tmx::Logger::log("Input handler ready");
+
         // Creating the window
         createWindow(description.window, description.version);
         tmx::Logger::log("Window created");
@@ -88,6 +91,7 @@ namespace engine {
                     m_context.window->close();
                 }
                 else {
+                    m_context.inputHandler->proccess(event);
                     m_context.stateManager->handleEvent(event);
                 }
 
