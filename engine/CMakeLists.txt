@@ -1,15 +1,11 @@
 # SFML
 find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 
+# Lua
+add_subdirectory(dependencies/lua)
+
 # Sol2
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/CMakeLists.txt)
-    add_subdirectory(dependencies/sol2)
-    # Build Lua
-    set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/cmake/Modules" "${CMAKE_MODULE_PATH}")
-    set(BUILD_LUA_AS_DLL FALSE) # Since headers and sources are in the same directory, we simply build the Lua as a static library
-    find_package(LuaBuild)
-    message(STATUS ${LUA_LIBRARIES})
-else()
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/CMakeLists.txt)
     message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
@@ -23,6 +19,7 @@ endif()
 
 # TGUI
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
+    set(TGUI_PKGCONFIG_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig CACHE FILEPATH "" FORCE)
     add_subdirectory(dependencies/TGUI)
 else()
     message(FATAL_ERROR "An external dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
@@ -110,11 +107,11 @@ target_include_directories(${LIBRARY_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/extlibs/aurora/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/include>
         $<INSTALL_INTERFACE:include>
-        ${LUA_INCLUDE_DIR}
 )
 
 target_link_libraries(${LIBRARY_NAME}
     PUBLIC
+        lua
         thor
         tgui
         GL
@@ -122,8 +119,6 @@ target_link_libraries(${LIBRARY_NAME}
         sfml-graphics
         sfml-window
         sfml-audio
-    PRIVATE
-        ${LUA_LIBRARIES}
 )
 
 target_compile_features(${LIBRARY_NAME}
