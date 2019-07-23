@@ -79,5 +79,9 @@
     "cmake.preferredGenerators": [
         "Unix Makefiles",
         "Ninja"
-    ]
+    ],
+    "files.watcherExclude": {
+        "**/bin/*": true,
+        "**/build/*": true
+    }
 }

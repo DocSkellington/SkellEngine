@@ -38,6 +38,7 @@ configure_file(
 # Source files
 set(SOURCES
     src/Engine.cpp
+    src/Context.cpp
 
     src/entities/Entity.cpp
     src/entities/EntityManager.cpp

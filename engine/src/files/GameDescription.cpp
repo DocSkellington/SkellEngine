@@ -143,7 +143,8 @@ namespace engine::files {
         "fonts/",
         "entities/",
         "levels/",
-        "states/"
+        "states/",
+        "keys.json"
     };
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m) {
@@ -214,6 +215,15 @@ namespace engine::files {
         else {
             m.statesFolder = defaultMedia.statesFolder;
             tmx::Logger::log("game.json: media description does not contain the 'states' field or its type is not valid (it should be a string). 'states/' will be used as default", tmx::Logger::Type::Warning);
+        }
+
+        auto input = j.find("input");
+        if (input != j.end() && input->is_string()) {
+            m.inputDescription = input->get<std::string>();
+        }
+        else {
+            m.statesFolder = defaultMedia.inputDescription;
+            tmx::Logger::log("game.json: media description does not contain the 'input' field or its type is not valid (it should be a string). 'keys.json' will be used as default", tmx::Logger::Type::Warning);
         }
     }
 

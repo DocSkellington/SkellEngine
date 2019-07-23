@@ -46,6 +46,7 @@ namespace engine::states {
 
         /**
          * \brief Handles the event
+         * \todo TODO: to keep?
          * \param event The event to process
          */
         void handleEvent(sf::Event &event);

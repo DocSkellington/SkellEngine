@@ -15,7 +15,7 @@ namespace engine::events {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: register callback: addind a new type of event: " + eventType, tmx::Logger::Type::Info);
+            tmx::Logger::log("Event handler: register callback: adding a new type of event: " + eventType, tmx::Logger::Type::Info);
             itr = m_callbacksPerEventType.emplace(eventType, CallbackStorage()).first;
         }
 
@@ -46,6 +46,10 @@ namespace engine::events {
         }
 
         return itr->second.sendEvent(event);
+    }
+
+    bool EventHandler::sendEvent(const std::string &type) {
+        return sendEvent(type, nlohmann::json());
     }
 
     bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values) {

@@ -17,6 +17,7 @@
 #include "SkellEngine/states/MainMenuState.h"
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/tmxlite/Log.hpp"
+#include "SkellEngine/errors/FileNotFound.h"
 
 using namespace std;
 
@@ -62,8 +63,18 @@ namespace engine {
         m_context.eventHandler = make_shared<events::EventHandler>(m_context);
         tmx::Logger::log("Event handler ready");
 
+        m_context.eventHandler->registerCallback("WindowClosed", [&](const engine::events::Event &event) { tmx::Logger::log("Closing the window"); m_context.window->close(); });
+
         m_context.inputHandler = make_shared<input::InputHandler>(m_context);
         tmx::Logger::log("Input handler ready");
+
+        std::ifstream inputFile(description.media.inputDescription);
+        if (!inputFile.is_open()) {
+            throw errors::FileNotFound(description.media.inputDescription.string() + " could not be found.");
+        }
+        nlohmann::json inputDescription;
+        inputFile >> inputDescription;
+        m_context.inputHandler->loadConfiguration(inputDescription);
 
         // Creating the window
         createWindow(description.window, description.version);
@@ -85,18 +96,17 @@ namespace engine {
     void Engine::run() {
         sf::Clock clock;
         while (m_context.window->isOpen()) {
+            m_context.inputHandler->clearInputs();
+
             sf::Event event;
             while (m_context.window->pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    m_context.window->close();
-                }
-                else {
-                    m_context.inputHandler->proccess(event);
-                    m_context.stateManager->handleEvent(event);
-                }
-
                 m_context.gui->handleEvent(event);
+
+                m_context.inputHandler->proccess(event);
+                // m_context.stateManager->handleEvent(event);
             }
+
+            m_context.inputHandler->triggerEvents();
 
             sf::Time elapsed = clock.restart();
 
@@ -136,5 +146,6 @@ namespace engine {
         else
             m_context.window = make_shared<sf::RenderWindow>(sf::VideoMode(window.width, window.height, 32), title, style, settings);
 
+        m_context.window->setKeyRepeatEnabled(false);
     }
 }

@@ -52,6 +52,7 @@ namespace engine::files {
             std::filesystem::path entitiesFolder;
             std::filesystem::path levelsFolder;
             std::filesystem::path statesFolder;
+            std::filesystem::path inputDescription;
         };
 
         /**

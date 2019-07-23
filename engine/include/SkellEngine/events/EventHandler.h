@@ -66,12 +66,19 @@ namespace engine::events {
         bool sendEvent(const events::Event &event) const;
 
         /**
+         * \brief Construct and send an empty event (with just the type)
+         * \param type The type of the event to send
+         * \return True iff the event was sent to at least one receiver
+         */
+        bool sendEvent(const std::string &type); // is not const because of the ExternalEvent implementation
+
+        /**
          * \brief Construct and send an event
-         * \param type The type of the even to send
+         * \param type The type of the event to send
          * \param values The values to set in the event
          * \return True iff the event was sent to at least one receiver
          */
-        bool sendEvent(const std::string &type, const nlohmann::json &values);
+        bool sendEvent(const std::string &type, const nlohmann::json &values); // is not const because of the ExternalEvent implementation
 
         /**
          * \brief Register the Lua functions

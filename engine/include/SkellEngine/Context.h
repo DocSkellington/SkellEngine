@@ -14,7 +14,7 @@
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/map/Map.h"
 #include "SkellEngine/events/EventHandler.h"
-#include "SkellEngine/input/InputHandler.hpp"
+#include "SkellEngine/input/InputHandler.h"
 
 namespace engine {
     /**
@@ -22,9 +22,18 @@ namespace engine {
     * \ingroup Engine
     */
     struct Context {
-        Context() {}
+    public:
+        Context();
         Context(const Context&) = delete;
 
+        /**
+         * \brief Closes the engine
+         * 
+         * Actually, it closes the window. The engine will shutdown itself at the next loop iteration
+         */
+        void closeEngine();
+
+    public:
         /**
          * \brief The file manager
          */

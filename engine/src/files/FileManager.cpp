@@ -23,7 +23,7 @@ namespace engine::files {
 
         std::ifstream file(gameJSONPath);
         if (!file.is_open()) {
-            throw errors::FileNotFound("media/game.json could not be found. Please check that the base media folder path is correct and that this folder contains the file 'game.json'.");
+            throw errors::FileNotFound(gameJSONPath.string() + " could not be found. Please check that the base media folder path is correct and that this folder contains the file 'game.json'.");
         }
         file >> gameJSON;
         m_gameDescription = gameJSON.get<GameDescription>();
@@ -36,6 +36,7 @@ namespace engine::files {
         m_gameDescription.media.entitiesFolder = basePath / m_gameDescription.media.entitiesFolder;
         m_gameDescription.media.levelsFolder = basePath / m_gameDescription.media.levelsFolder;
         m_gameDescription.media.statesFolder = basePath / m_gameDescription.media.statesFolder;
+        m_gameDescription.media.inputDescription = basePath / m_gameDescription.media.inputDescription;
 
         loadStateDescriptions();
 

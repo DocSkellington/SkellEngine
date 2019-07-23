@@ -1,0 +1,77 @@
+{
+    "WindowClosed": {
+        "type": "Closed",
+        "control": true
+    },
+    "PlayerUpPressed": {
+        "type": "KeyPressed",
+        "key": "Up",
+        "message": "this is a message"
+    },
+    "PlayerUpReleased": {
+        "type": "KeyReleased",
+        "key": "Up"
+    },
+    "PlayerDown": {
+        "type": "KeyReleased",
+        "key": "Down"
+    },
+    "PlayerLeft": {
+        "type": "KeyHold",
+        "key": "Left"
+    },
+    "PlayerRight": {
+        "type": "KeyHold",
+        "key": "Right",
+        "shift": true
+    },
+    "Scroll": {
+        "type": "MouseWheelScrolled"
+    },
+    "ShootPressed": {
+        "type": "MouseButtonPressed",
+        "mouse button": "Left"
+    },
+    "ShootRelease": {
+        "type": "MouseButtonReleased",
+        "mouse button": "Left"
+    },
+    "UnShoot": {
+        "type": "MouseButtonPressed",
+        "mouse button": "Right",
+        "control": true
+    },
+    "LeftHold": {
+        "type": "MouseButtonHold",
+        "mouse button": "Left"
+    },
+    "JoystickUp": {
+        "type": "JoystickMoved",
+        "joystick id": 0,
+        "axis": "X"
+    },
+    "ShootPressedJoy": {
+        "type": "JoystickButtonPressed",
+        "joystick id": 0,
+        "joystick button": 0
+    },
+    "UnShootHold": {
+        "type": "JoystickButtonHold",
+        "joystick id": 0,
+        "joystick button": 1
+    },
+    "MultipleChoices": [
+        {
+            "type": "KeyPressed",
+            "key": "A"
+        },
+        {
+            "type": "KeyPressed",
+            "key": "Z"
+        },
+        {
+            "type": "KeyPressed",
+            "key": "E"
+        }
+    ]
+}

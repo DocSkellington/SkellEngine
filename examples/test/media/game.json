@@ -23,7 +23,8 @@
         "fonts": "fonts",
         "entities": "entities",
         "levels": "levels",
-        "states": "states"
+        "states": "states",
+        "input": "keys.json"
     },
     "states" : {
         "first" : "MainMenu"
