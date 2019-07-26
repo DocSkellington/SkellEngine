@@ -62,6 +62,7 @@ TEST_CASE("Game description loading", "[json_description][files]") {
             REQUIRE(media.entitiesFolder.compare("path/to/entities") == 0);
             REQUIRE(media.levelsFolder.compare("path/to/levels") == 0);
             REQUIRE(media.statesFolder.compare("path/to/states") == 0);
+            REQUIRE(media.inputDescription.compare("path/to/input.json") == 0);
         }
 
         SECTION("States description is verified") {
@@ -111,6 +112,8 @@ TEST_CASE("Game description loading", "[json_description][files]") {
             REQUIRE(media.entitiesFolder == "entities/");
             REQUIRE(media.levelsFolder == "levels/");
             REQUIRE(media.fontsFolder == "fonts/");
+            REQUIRE(media.statesFolder.compare("states/") == 0);
+            REQUIRE(media.inputDescription.compare("keys.json") == 0);
         }
         SECTION("States description is initialiased by default") {
             GameDescription::StatesDescription states = game.states;

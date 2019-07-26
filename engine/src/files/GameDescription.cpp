@@ -222,7 +222,7 @@ namespace engine::files {
             m.inputDescription = input->get<std::string>();
         }
         else {
-            m.statesFolder = defaultMedia.inputDescription;
+            m.inputDescription = defaultMedia.inputDescription;
             tmx::Logger::log("game.json: media description does not contain the 'input' field or its type is not valid (it should be a string). 'keys.json' will be used as default", tmx::Logger::Type::Warning);
         }
     }

@@ -22,7 +22,8 @@
         "fonts": "path/to/fonts",
         "levels": "path/to/levels",
         "entities": "path/to/entities",
-        "states": "path/to/states"
+        "states": "path/to/states",
+        "input": "path/to/input.json"
     },
     "states" : {
         "first" : "MainMenu"
