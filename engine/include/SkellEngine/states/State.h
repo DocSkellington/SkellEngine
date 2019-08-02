@@ -9,7 +9,6 @@ namespace engine::states {
 
     /**
     * \brief Defines the base of every state
-    * \ingroup Engine
     * \todo all
     */
     class State {

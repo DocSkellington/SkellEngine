@@ -11,7 +11,6 @@
 namespace engine::entities {
     /**
      * \brief An entity is made of zero, one or multiple components.
-     * \ingroup Engine
      * 
      * An entity with zero components is called "empty".
      * An entity has a 'type', a name

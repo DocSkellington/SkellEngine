@@ -11,7 +11,6 @@ namespace engine {
 namespace engine::entities {
     /**
      * \brief Handles the entities of the engine
-     * \ingroup Engine
      */
     class EntityManager final {
     public:

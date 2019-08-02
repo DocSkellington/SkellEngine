@@ -5,7 +5,6 @@
 namespace engine::systems {
     /**
      * \brief The system that renders an orthogonal level
-     * \ingroup Engine
      */ 
     class GraphicalOrthogonalSystem : public GraphicalSystem {
     public:

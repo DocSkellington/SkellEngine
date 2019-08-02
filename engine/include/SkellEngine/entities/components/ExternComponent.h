@@ -6,7 +6,6 @@
 namespace engine::entities::components {
     /**
      * \brief This component is defined only through JSON.
-     * \ingroup Engine
      * 
      * It can be modified in Lua and C++
      * Its purpose is to be used in systems created by the user.

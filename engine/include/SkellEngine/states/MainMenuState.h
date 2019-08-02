@@ -6,7 +6,6 @@
 namespace engine::states {
     /**
     * \brief Default implementation of the main menu state
-    * \ingroup Engine
     */
     class MainMenuState : public State {
     public:

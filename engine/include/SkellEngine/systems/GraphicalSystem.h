@@ -7,7 +7,6 @@
 namespace engine::systems {
     /**
      * \brief Defines the base of every drawing system.
-     * \ingroup Engine
      * 
      * Every drawing system must start with "Graphical" to be correctly used
      */

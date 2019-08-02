@@ -19,7 +19,6 @@ namespace engine {
 namespace engine::states {
     /**
     * \brief Handles the different states of the game.
-    * \ingroup Engine
     *
     * Updates and draws the states that must be updated/rendered (depending on their transparent/transcendant parameter).
     * It also provides functions to add or remove a state.

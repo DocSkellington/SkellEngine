@@ -14,8 +14,7 @@
 */
 namespace engine {
     /**
-    * \brief The engine
-    * \ingroup Engine
+    * \brief The class that effectively starts the engine
     */
     class Engine final {
     public:
