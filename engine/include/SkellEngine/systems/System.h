@@ -1,17 +1,22 @@
+/**
+ * \file System.h
+ */
+
 #pragma once
 
 #include <SFML/Graphics/View.hpp>
 
 #include "SkellEngine/entities/Entity.h"
+#include "SkellEngine/utilities/RegisterClass.h"
 
 namespace engine::systems {
     class SystemManager;
 
     /**
      * \brief Defines the base of every system.
-     * \ingroup Engine
      * 
-     * If you define your system, you must register it before being able to use it. Please, see RegisterSystem
+     * If you define your system, you must register it before being able to use it.
+    * \see REGISTER_SYSTEM for an helper macro to register a system
      */
     class System {
     public:
@@ -63,40 +68,10 @@ namespace engine::systems {
         static Ptr createInstance(const std::string &systemName, SystemManager& manager);
 
     protected:
-        /**
-         * \brief The type of the internal container mapping the name of a system to its constructor.
-         */
-        typedef std::map<std::string, std::function<Ptr(SystemManager&)>> MapType;
+        using RegisteredSystems = utilities::RegisterClass<System, SystemManager&>;
 
-        /**
-         * \brief Returns the (name, constructor) map
-         */
-        static std::shared_ptr<MapType> getMapToSystem();
-
-        /**
-         * \brief Structure to use when you want to register a system.
-         * 
-         * Create an instance of this structure in the .h file, then construct it in the .cpp file
-         * \tparam The type/name of the system you want to register
-         */
         template <typename T>
-        struct RegisterSystem {
-            /**
-             * \brief Link the name of the system to its constructor
-             * \param name The name of the system
-             */
-            RegisterSystem (const std::string &name) {
-                if (name == "extern") {
-                    tmx::Logger::log(name + " is not a valid name for a system.", tmx::Logger::Type::Warning);
-                }
-                else {
-                    std::function<Ptr(SystemManager&)> func = [](SystemManager &manager) {
-                        return std::make_shared<T>(manager);
-                    };
-                    getMapToSystem()->insert(std::make_pair(name, func));
-                }
-            }
-        };
+        using RegisterSystem = RegisteredSystems::Register<T>;
 
     protected:
         /**
@@ -125,3 +100,21 @@ namespace engine::systems {
         std::vector<engine::entities::Entity::Ptr> m_entities;
     };
 }
+
+/**
+ * \brief Registers the system TYPE under the name NAME
+ * 
+ * \warning It must be placed <b>inside</b> of the class definition. For example, do something like:
+ * \code
+ * class ExampleSystem : public System {
+ *  public:
+ *      ExampleSystem(Context& context) : System(context) { ... }
+ *      ...
+ *      REGISTER_SYSTEM(ExampleSystem, "example")
+ * };
+ * \endcode
+ * 
+ * \note This macro adds a private member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same system under different names
+ * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
+ */
+#define REGISTER_SYSTEM(TYPE, NAME) REGISTER_CLASS(RegisterSystem, TYPE, NAME)

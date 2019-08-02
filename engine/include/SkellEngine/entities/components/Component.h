@@ -1,3 +1,7 @@
+/**
+ * \file Component.h
+ */
+
 #pragma once
 
 #include <sol/sol.hpp>
@@ -5,18 +9,22 @@
 
 #include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/utilities/MemberStorage.h"
+#include "SkellEngine/utilities/RegisterClass.h"
 
 /**
-* \brief Contains the definitions of the base components
+* \brief Contains the definitions of the components directly provided by the engine
+*
+* Every component should inherit from Component.
+* \see REGISTER_COMPONENT to easily register a new component in the engine
 */
 namespace engine::entities::components {
     /**
     * \brief The base of every component.
-    * \ingroup Engine
     *
     * It defines one static function to create an instance of a component.
     *
     * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent in .h file. In the .cpp file, simply initialise the member by passing the name of your component to the constructor of the member.
+    * \see REGISTER_COMPONENT for an helper macro to register a component
     */
     class Component : public utilities::MemberStorage {
     public:
@@ -52,42 +60,30 @@ namespace engine::entities::components {
         static void luaFunctions(sol::state &lua);
 
     protected:
-        /**
-         * \brief Structure to use when you want to register a component.
-         * 
-         * Create an instance of this structure in the .h file, then construct it in the .cpp file
-         * \tparam The type of the component you want to register
-         */
-        template <typename T>
-        struct RegisterComponent {
-            /**
-             * \brief Link the name of the component to its constructor
-             * \param name The name of the component
-             */
-            RegisterComponent(const std::string &name) {
-                static_assert(std::is_base_of<Component, T>::value, "RegisterComponent: T must inherit from Component");
+        using RegisteredComponents = utilities::RegisterClass<Component, Context&>;
 
-                if (getMapToComponent()->find(name) != getMapToComponent()->end()) {
-                    tmx::Logger::log("Component: register component: " + name + " is already defined. The value will be overwritten", tmx::Logger::Type::Warning);
-                }
-                getMapToComponent()->insert(std::make_pair(name, std::make_shared<T, Context&>));
-            }
-        };
+        template <typename T>
+        using RegisterComponent = RegisteredComponents::Register<T>;
 
     protected:
         virtual std::string getLogErrorPrefix() const override;
-    
-    private:
-        /**
-         * \brief The type of the map used to store the components' constructors
-         */
-        using MapType = std::map<std::string, std::function<Ptr(Context&)>>;
-
-    private:
-
-        /**
-         * \brief Returns the map<string, constructor>
-         */
-        static std::shared_ptr<MapType> getMapToComponent();
     };
 }
+    
+/**
+ * \brief Registers the component TYPE under the name NAME
+ * 
+ * \warning It must be placed <b>inside</b> of the class definition. For example, do something like:
+ * \code
+ * class ExampleComponent : public Component {
+ *  public:
+ *      ExampleComponent(Context& context) : Component(context) { ... }
+ *      ...
+ *      REGISTER_COMPONENT(ExampleComponent, "example")
+ * };
+ * \endcode
+ * 
+ * \note This macro adds a private member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same component under different names
+ * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
+ */
+#define REGISTER_COMPONENT(TYPE, NAME) REGISTER_CLASS(RegisterComponent, TYPE, NAME)

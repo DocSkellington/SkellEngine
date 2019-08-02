@@ -1,8 +1,6 @@
 #include "SkellEngine/entities/components/PositionComponent.h"
 
 namespace engine::entities::components {
-    Component::RegisterComponent<PositionComponent> PositionComponent::rcpc("position");
-
     PositionComponent::PositionComponent(Context &context) :
         Component(context),
         m_x(0),

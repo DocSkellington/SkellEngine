@@ -36,31 +36,15 @@ namespace engine::systems {
     }
 
     System::Ptr System::createInstance(const std::string& systemName, SystemManager& manager) {
-        auto systemConstructor = getMapToSystem()->find(systemName);
+        Ptr ptr = RegisteredSystems::construct(systemName, manager);
 
-        if (systemConstructor == getMapToSystem()->end()) {
+        if (!ptr) { // We create an external system
             ExternSystem::Ptr e = std::make_shared<ExternSystem>(manager);
             e->loadLua(systemName);
             return e;
         }
-        else if (!systemConstructor->second) {
-            throw errors::ConstructorNotValid(systemName + " is a known system but can not be constructed. It's probably an engine bug.");
-        }
-        else {
-            try {
-                auto system = systemConstructor->second(manager);
-                return system;
-            }
-            catch (const std::bad_function_call &e) {
-                tmx::Logger::logError("Error while constructing the system " + systemName, e);
-            }
-        }
-        return nullptr;
-    }
 
-    std::shared_ptr<System::MapType> System::getMapToSystem() {
-        static std::shared_ptr<MapType> map = std::make_shared<MapType>();
-        return map;
+        return ptr;
     }
 
     SystemManager& System::getSystemManager() {

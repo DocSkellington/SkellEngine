@@ -8,8 +8,7 @@
 namespace engine::entities::components {
     /**
      * \brief Describes the sprite sheet of a component
-     * \ingroup Engine
-     * \todo Animations
+     * \todo TODO: Animations
      */
     class GraphicalSpriteSheetComponent : public Component {
     public:
@@ -27,6 +26,6 @@ namespace engine::entities::components {
     private:
         sf::Sprite m_sprite;
 
-        static Component::RegisterComponent<GraphicalSpriteSheetComponent> rcpc;
+        REGISTER_COMPONENT(GraphicalSpriteSheetComponent, "spritesheet")
     };
 }

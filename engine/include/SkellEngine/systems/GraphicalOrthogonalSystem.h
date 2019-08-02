@@ -18,7 +18,6 @@ namespace engine::systems {
     protected:
         virtual bool checkComponents(entities::Entity::Ptr entity) const override;
 
-    private:
-        static System::RegisterSystem<GraphicalOrthogonalSystem> rsgos;
+        REGISTER_SYSTEM(GraphicalOrthogonalSystem, "graphicalorthogonal")
     };
 }

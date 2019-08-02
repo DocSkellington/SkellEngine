@@ -17,13 +17,13 @@ namespace engine::entities {
 
     components::Component::Ptr Entity::addComponent(const std::string &componentType) {
         if (m_components.find(componentType) != m_components.end()) {
-            tmx::Logger::log("it is impossible to add two components of the same type (" + componentType + ")", tmx::Logger::Type::Error);
+            tmx::Logger::log("Entity: Impossible to add two components of the same type (" + componentType + ")", tmx::Logger::Type::Error);
             return nullptr;
         }
 
         auto compo = components::Component::createInstance(m_context, componentType);
         if (!compo) {
-            tmx::Logger::log("Impossible to create a " + componentType, tmx::Logger::Type::Error);
+            tmx::Logger::log("Entity: Impossible to create a " + componentType, tmx::Logger::Type::Error);
             return nullptr;
         }
 

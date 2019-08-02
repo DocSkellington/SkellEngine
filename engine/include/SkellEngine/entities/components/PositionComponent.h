@@ -6,7 +6,6 @@
 namespace engine::entities::components {
     /**
     * \brief Describes the position of a component in the world
-    * \ingroup Engine
     */
     class PositionComponent : public Component {
     public:
@@ -18,6 +17,7 @@ namespace engine::entities::components {
 
     private:
         double m_x, m_y;
-        static Component::RegisterComponent<PositionComponent> rcpc;
+
+        REGISTER_COMPONENT(PositionComponent, "position")
     };
 }

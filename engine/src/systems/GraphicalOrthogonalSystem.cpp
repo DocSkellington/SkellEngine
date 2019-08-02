@@ -6,8 +6,6 @@
 #include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
 
 namespace engine::systems {
-    System::RegisterSystem<GraphicalOrthogonalSystem> GraphicalOrthogonalSystem::rsgos("graphicalorthogonal");
-
     GraphicalOrthogonalSystem::GraphicalOrthogonalSystem(SystemManager &manager) :
         GraphicalSystem(manager) {
     }

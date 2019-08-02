@@ -15,20 +15,13 @@ namespace engine::entities::components {
     }
 
     Component::Ptr Component::createInstance(Context &context, const std::string &componentType) {
-        auto compoConstructor = getMapToComponent()->find(componentType);
-        Component::Ptr ptr;
-        if (compoConstructor == getMapToComponent()->end()) {
+        Ptr ptr = RegisteredComponents::construct(componentType, context);
+
+        if (!ptr) {
+            tmx::Logger::log("Component: createInstance: creating an ExternComponent since " + componentType + " is not registered");
             ptr = std::make_shared<ExternComponent>(context);
         }
-        else {
-            ptr = compoConstructor->second(context);
-        }
         return ptr;
-    }
-
-    std::shared_ptr<Component::MapType> Component::getMapToComponent() {
-        static std::shared_ptr<Component::MapType> map = std::make_shared<Component::MapType>();
-        return map;
     }
 
     std::string Component::getLogErrorPrefix() const {
