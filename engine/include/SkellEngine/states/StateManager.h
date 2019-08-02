@@ -15,6 +15,7 @@ namespace engine {
 
 /**
 * \brief The states
+* \see REGISTER_STATE to easily register a new state in the engine 
 */
 namespace engine::states {
     /**
@@ -51,52 +52,20 @@ namespace engine::states {
         void handleEvent(sf::Event &event);
 
         /**
-        * \brief Changes the front state to the one provided.
-        *
-        * If the state does not exist, it is created.
-        * \tparam T The type of the state
-        */
-        template <typename T>
-        void switchTo() {
-            // First, we check if the state is already in the list
-            for (auto itr = m_states.begin() ; itr != m_states.end() ; itr++) {
-                if (itr->first == typeid(T) && itr->second) {
-                    // We have found it
-                    // We deactivate the front one
-                    m_states.front().second->deactivate();
-
-                    // We move the state to the front
-                    std::unique_ptr<State> state = std::move(itr->second);
-                    m_states.erase(itr);
-                    const auto &s = *state.get();
-                    m_states.emplace_front(typeid(s), std::move(state));
-                    // And we activate it
-                    m_states.front().second->activate();
-
-                    return;
-                }
-            }
-
-            // We haven't found it. We will create a new state
-            // We deactivate the front one (if it exists)
-            if (m_states.size() != 0)
-                m_states.front().second->deactivate();
-
-            // Creation
-            std::unique_ptr<State> state = std::make_unique<T>(*this);
-            state->onCreate();
-            state->activate();
-            m_states.emplace_front(typeid(T), std::move(state));
-        }
+         * \brief Changes the front state to the one of the given name
+         * 
+         * If the state does not exist yet, it is created
+         * 
+         * The state must have been registered
+         * \param name The name of the state to switch to
+         */
+        void switchTo(const std::string &name);
 
         /**
         * \brief Asks to remove the given state.
-        * \tparam The type of the state to remove.
+        * \param name The name of the state to remove
         */
-        template <typename T>
-        void remove() {
-            m_toRemove.push_back(typeid(T));
-        }
+        void remove(const std::string &name);
 
         /**
         * \brief Process the remove requests received from remove().
@@ -108,8 +77,11 @@ namespace engine::states {
         Context &getContext();
 
     private:
-        std::list<std::pair<std::type_index, std::unique_ptr<State>>> m_states;
-        std::list<std::type_index> m_toRemove;
+        using StateInList = std::pair<std::string, State::Ptr>;
+
+    private:
+        std::list<StateInList> m_states;
+        std::list<std::string> m_toRemove;
         Context &m_context;
     };
 }

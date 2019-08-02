@@ -10,9 +10,7 @@ namespace engine::states {
 
     }
 
-    PauseState::~PauseState() {
-
-    }
+    PauseState::~PauseState() = default;
 
     void PauseState::onCreate() {
     }

@@ -30,4 +30,14 @@ namespace engine::states {
     void State::setView(const sf::View &view) {
         m_view = view;
     }
+
+    State::Ptr State::createInstance(const std::string &name, StateManager &manager) {
+        Ptr ptr = RegisteredStates::construct(name, manager);
+
+        if (!ptr) {
+            // TODO: ExternalState
+        }
+
+        return ptr;
+    }
 }

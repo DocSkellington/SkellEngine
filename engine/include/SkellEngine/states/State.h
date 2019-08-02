@@ -4,14 +4,20 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SkellEngine/utilities/RegisterClass.h"
+
 namespace engine::states {
     class StateManager;
 
     /**
     * \brief Defines the base of every state
     * \todo all
+    * \see REGISTER_STATE for a macro to register a new state
     */
     class State {
+    public:
+        using Ptr = std::shared_ptr<State>;
+
     public:
         explicit State(StateManager &manager);
         State(const State&) = delete;
@@ -62,6 +68,13 @@ namespace engine::states {
          */
         bool isTransparent() const;
 
+        static Ptr createInstance(const std::string &name, StateManager &manager);
+
+    protected:
+        using RegisteredStates = utilities::RegisterClass<State, StateManager&>;
+        template <typename T>
+        using RegisterState = RegisteredStates::Register<T>;
+
     protected:
         StateManager& getStateManager() const;
         sf::View getView() const;
@@ -75,3 +88,22 @@ namespace engine::states {
         sf::View m_view;
     };
 }
+
+/**
+ * \brief Registers the state TYPE under the name NAME
+ * 
+ * \warning It must be placed <b>inside</b> of the class definition. For example, do something like:
+ * \code
+ * class ExampleState : public State {
+ *  public:
+ *      ExampleState(StateManager& manager) : State(manager) { ... }
+ *      ...
+ *      REGISTER_STATE(ExampleState, "example")
+ * };
+ * \endcode
+ * 
+ * \note This macro adds a private member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same component under different names
+ * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
+ */
+#define REGISTER_STATE(TYPE, NAME)              \
+    REGISTER_CLASS(RegisterState, TYPE, NAME)

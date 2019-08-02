@@ -43,8 +43,8 @@ namespace engine::states {
 
     void GameState::handleEvent(sf::Event &event) {
         if (event.type == sf::Event::KeyPressed) {
-            getStateManager().switchTo<MainMenuState>();
-            getStateManager().remove<GameState>();
+            getStateManager().switchTo("mainmenu");
+            getStateManager().remove("game");
         }
     }
 

@@ -5,6 +5,10 @@
 #pragma once
 
 #include <typeinfo>
+#include <memory>
+#include <functional>
+
+#include "SkellEngine/tmxlite/Log.hpp"
 
 /**
  * \brief Defines some classes and functions that are used by different parts of the engine
@@ -29,6 +33,8 @@ namespace engine::utilities {
     public:
         /**
          * \brief Effecively registers the class T under the name "name"
+         * 
+         * If "name" is already used, the value is overriden
          * 
          * Since we want to register a class without having to create an instance of the class, the instances of Register must be "static":
          * \code

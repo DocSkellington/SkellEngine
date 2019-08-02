@@ -86,7 +86,7 @@ namespace engine {
         tmx::Logger::log("Launching the first state");
         // Launching the first state of the game
         if (description.states.firstState == "mainmenu" || description.states.firstState == "mainmenustate")
-            m_context.stateManager->switchTo<states::MainMenuState>();
+            m_context.stateManager->switchTo("mainmenu");
     }
 
     Engine::~Engine() {
