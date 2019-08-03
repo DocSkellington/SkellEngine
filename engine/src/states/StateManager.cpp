@@ -42,6 +42,11 @@ namespace engine::states {
     }
 
     void StateManager::switchTo(const std::string &name) {
+        if (name == "all") {
+            tmx::Logger::log("State manager: 'all' is an invalid state name (it's a reserved keyword)", tmx::Logger::Type::Warning);
+            return;
+        }
+
         // First, we check if the state is already in the list
         for (auto itr = m_states.begin() ; itr != m_states.end() ; itr++) {
             if (itr->first == name && itr->second) {
@@ -95,5 +100,13 @@ namespace engine::states {
 
     Context &StateManager::getContext() {
         return m_context;
+    }
+
+    const std::string &StateManager::getCurrentState() const {
+        return m_states.front().first;
+    }
+
+    bool StateManager::isCurrentState(const std::string &name) const {
+        return getCurrentState() == name;
     }
 }

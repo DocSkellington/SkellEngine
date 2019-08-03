@@ -103,7 +103,7 @@ namespace engine {
                 m_context.gui->handleEvent(event);
 
                 m_context.inputHandler->proccess(event);
-                // m_context.stateManager->handleEvent(event);
+                m_context.stateManager->handleEvent(event);
             }
 
             m_context.inputHandler->triggerEvents();

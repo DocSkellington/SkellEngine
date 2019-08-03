@@ -76,6 +76,18 @@ namespace engine::states {
 
         Context &getContext();
 
+        /**
+         * \brief Gives the name of the state that is currently in front
+         * \return The name of the front state
+         */
+        const std::string &getCurrentState() const;
+
+        /**
+         * \brief True iff the given state name is the same as the name of the current front state
+         * \return True iff state is the name of the current front state
+         */
+        bool isCurrentState(const std::string &state) const;
+
     private:
         using StateInList = std::pair<std::string, State::Ptr>;
 

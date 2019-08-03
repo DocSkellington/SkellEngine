@@ -17,13 +17,16 @@ namespace engine::states {
 
     void GameState::onCreate() {
         getStateManager().getContext().systemManager->clear();
+
         auto game = getStateManager().getContext().fileManager->getStateDescription("game");
+
         getStateManager().getContext().systemManager->loadSystems(game.systems);
         //getStateManager().getContext().window->setView(sf::View(sf::Vector2f(310, 310), sf::Vector2f(640, 640)));
     }
 
     void GameState::onDestroy() {
         getStateManager().getContext().gui->removeAllWidgets();
+        getStateManager().getContext().eventHandler->clear();
     }
 
     void GameState::activate() {

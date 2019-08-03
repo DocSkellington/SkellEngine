@@ -76,6 +76,7 @@ namespace engine::input {
          * \brief Adds a new input for the given event type
          * \param eventType The event type
          * \param inputDescription The description of the input
+         * \return An object that can be used to disconnect the input. If you do not need that, you can just ignore it.
          */
         InputConnection connectInput(const std::string &eventType, nlohmann::json inputDescription);
 
@@ -114,7 +115,7 @@ namespace engine::input {
          */
         struct EventInformation {
             EventInformation();
-            EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload);
+            EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload, const std::string &state);
 
             nlohmann::json toJSON() const;
 
@@ -122,6 +123,7 @@ namespace engine::input {
             thor::Action m_action;
             std::string m_eventType;
             std::list<nlohmann::json> m_payload;
+            std::string m_state;
         };
 
     private:

@@ -270,7 +270,7 @@ inline void parseInputDescriptionObjectModifiers(nlohmann::json &inputDescriptio
     }
 }
 
-void parseInputDescriptionObject(nlohmann::json &inputDescription, sf::Event &event, bool &hold, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol, nlohmann::json &payload) {
+void parseInputDescriptionObject(nlohmann::json &inputDescription, sf::Event &event, bool &hold, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol, std::string &state, nlohmann::json &payload) {
     // First, we need to know the type of the sf::Event to create
     // Then, we parse the specific information needed for this type (and we remove the fields from the JSON object)
     // Finally, every unused field as considered as the JSON payload
@@ -339,6 +339,19 @@ void parseInputDescriptionObject(nlohmann::json &inputDescription, sf::Event &ev
     if (event.type == sf::Event::EventType::Count) {
         tmx::Logger::log("Input handler: error while parsing an input description: the 'type' field is absent from the input description. Description received: " + inputDescription.dump(4), tmx::Logger::Type::Warning);
         return;
+    }
+
+    if (auto s = inputDescription.find("state") ; s != inputDescription.end()) {
+        if (s->is_string()) {
+            state = *s;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'state' valid must be a string. It default to 'all'.", tmx::Logger::Type::Warning);
+            state = "all";
+        }
+    }
+    else {
+        state = "all";
     }
 
     // Third: JSON payload
@@ -461,6 +474,10 @@ namespace engine::input {
         }
 
         const EventInformation &information = itr->second;
+        // We check if the action must be effectively processed (if we are currently in an appropriate state)
+        if (information.m_state != "all" && !m_context.stateManager->isCurrentState(information.m_state)) {
+            return;
+        }
         nlohmann::json json;
 
         auto jsonPayload = information.m_payload.begin();
@@ -550,21 +567,25 @@ namespace engine::input {
         event.type = sf::Event::EventType::Count;
         nlohmann::json json;
         bool hold = false, lalt = false, lshift = false, lcontrol = false, ralt = false, rshift = false, rcontrol = false;
+        std::string state = "all";
 
         if (inputDescription.is_string()) {
             event.type = stringToEventType(inputDescription.get<std::string>());
             setDefaultKeyButton(event);
         }
         else if (inputDescription.is_object()) {
-            parseInputDescriptionObject(inputDescription, event, hold, lalt, lshift, lcontrol, ralt, rshift, rcontrol, json);
+            parseInputDescriptionObject(inputDescription, event, hold, lalt, lshift, lcontrol, ralt, rshift, rcontrol, state, json);
         }
         else if (inputDescription.is_array()) { // An array is an OR operation
             if (!allowTables) {
                 tmx::Logger::log("Input handler: the input description is invalid: nested tables are not allowed", tmx::Logger::Type::Warning);
                 return EventInformation();
             }
+
             EventInformation information;
             information.m_eventType = eventType;
+            information.m_state = state;
+
             for (auto description = inputDescription.begin() ; description != inputDescription.end() ; ++description) {
                 EventInformation tempInformation = createEventInformation(eventType, *description, false);
 
@@ -699,15 +720,16 @@ namespace engine::input {
             break;
         }
 
-        return EventInformation(event, holdActivated, action, eventType, json);
+        return EventInformation(event, holdActivated, action, eventType, json, state);
     }
 
     InputHandler::EventInformation::EventInformation() {
     }
 
-    InputHandler::EventInformation::EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string &eventType, const nlohmann::json &payload) :
+    InputHandler::EventInformation::EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string &eventType, const nlohmann::json &payload, const std::string &state) :
         m_action(action),
-        m_eventType(eventType) {
+        m_eventType(eventType),
+        m_state(state) {
         m_input.emplace_back(input, isHold);
         m_payload.emplace_back(payload);
     }

@@ -1,7 +1,8 @@
 {
     "WindowClosed": {
         "type": "Closed",
-        "control": true
+        "control": true,
+        "state": "mainmenu"
     },
     "PlayerUpPressed": {
         "type": "KeyPressed",
