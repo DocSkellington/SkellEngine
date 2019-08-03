@@ -3,6 +3,11 @@
 #include "SkellEngine/Context.h"
 #include "SkellEngine/utilities/json_fusion.h"
 
+const auto AnyKey = sf::Keyboard::Key::KeyCount;
+const auto AnyMouseButton = sf::Mouse::Button::ButtonCount;
+const auto AnyJoystickButton = sf::Joystick::ButtonCount;
+const auto AnyJoystickID = sf::Joystick::Count;
+
 sf::Event::EventType stringToEventType(std::string type) {
     std::transform(type.begin(), type.end(), type.begin(), [](unsigned char c) { return std::tolower(c); });
 
@@ -34,18 +39,255 @@ sf::Event::EventType stringToEventType(std::string type) {
     return itr->second;
 }
 
-void parseInputDescriptionObject(const nlohmann::json &inputDescription, sf::Event &event, bool &hold, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol, float &threshold, bool &above, nlohmann::json &json) {
+/**
+ * \brief The default key/button is the "Any" key/button
+ * \param event The event to modify
+ */
+void setDefaultKeyButton(sf::Event &event) {
+    switch (event.type) {
+    case sf::Event::EventType::KeyPressed:
+    case sf::Event::EventType::KeyReleased:
+        event.key.code = AnyKey;
+        break;
+    case sf::Event::EventType::MouseButtonPressed:
+    case sf::Event::EventType::MouseButtonReleased:
+        event.mouseButton.button = AnyMouseButton;
+        break;
+    case sf::Event::EventType::JoystickButtonPressed:
+    case sf::Event::EventType::JoystickButtonReleased:
+        event.joystickButton.button = AnyJoystickButton;
+    case sf::Event::EventType::JoystickMoved:
+        event.joystickMove.joystickId = AnyJoystickID;
+        break;
+    default:
+        break;
+    }
+}
+
+inline void parseInputDescriptionObjectKeyboard(nlohmann::json &inputDescription, sf::Event &event) {
+    if (auto key = inputDescription.find("key"); key != inputDescription.end()) {
+        if (key->is_string()) {
+            try {
+                event.key.code = thor::toKeyboardKey(*key);
+            }
+            catch (const thor::StringConversionException &error) { // The key was invalid
+                if (*key == "Any" || *key == "any") {
+                    setDefaultKeyButton(event);
+                }
+                else {
+                    tmx::Logger::log("Input handler: error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>(), tmx::Logger::Type::Warning);
+                }
+            }
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>(), tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(key);
+    }
+}
+
+inline void parseInputDescriptionObjectMouseButton(nlohmann::json &inputDescription, sf::Event &event) {
+    if (auto mouseButton = inputDescription.find("mouse button") ; mouseButton != inputDescription.end()) {
+        if (mouseButton->is_string()) {
+            try {
+                event.mouseButton.button = thor::toMouseButton(*mouseButton);
+            }
+            catch (const thor::StringConversionException &error) { // The mouse button was invalid
+                if (*mouseButton == "Any" || *mouseButton == "any") {
+                    setDefaultKeyButton(event);
+                }
+                else {
+                    tmx::Logger::log("Input handler: error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>(), tmx::Logger::Type::Warning);
+                }
+            }
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>(), tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(mouseButton);
+    }
+}
+
+inline void parseInputDescriptionObjectJoystickButton(nlohmann::json &inputDescription, sf::Event &event) {
+    if (auto id = inputDescription.find("joystick id") ; id != inputDescription.end()) {
+        if (id->is_number_integer()) {
+            event.joystickButton.joystickId = *id;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick id' field must be an unsigned integer", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(id);
+    }
+    else {
+        event.joystickButton.joystickId = AnyJoystickID;
+    }
+
+    if (auto button = inputDescription.find("joystick button") ; button != inputDescription.end()) {
+        if (button->is_number_unsigned()) {
+            event.joystickButton.button = *button;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick button' field must be an unsigned integer", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(button);
+    }
+}
+
+inline void parseInputDescriptionObjectJoystickMove(nlohmann::json &inputDescription, sf::Event &event) {
+    if (auto id = inputDescription.find("joystick id") ; id != inputDescription.end()) {
+        if (id->is_number_integer()) {
+            event.joystickMove.joystickId = *id;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick id' field must be an unsigned integer", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(id);
+    }
+    else {
+        event.joystickMove.joystickId = AnyJoystickID;
+    }
+
+    if (auto axis = inputDescription.find("axis") ; axis != inputDescription.end()) {
+        if (axis->is_string()) {
+            try {
+                event.joystickMove.axis = thor::toJoystickAxis(*axis);
+            }
+            catch (const thor::StringConversionException &error) { // The axis was invalid
+                event.type = sf::Event::EventType::Count;
+                tmx::Logger::log("Input handler: error while parsing an input description: the 'axis' field could not be converted to a joystick axis. Received: " + axis->get<std::string>(), tmx::Logger::Type::Warning);
+            }
+        }
+        else {
+            event.type = sf::Event::EventType::Count;
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'axis' field must be a string", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(axis);
+    }
+    else {
+        event.type = sf::Event::EventType::Count;
+        tmx::Logger::log("Input handler: while parsing the input description: the 'axis' field is not present for a JoystickMove input", tmx::Logger::Type::Warning);
+    }
+}
+
+inline void parseInputDescriptionObjectModifiers(nlohmann::json &inputDescription, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol) {
+    if (auto modifier = inputDescription.find("shift") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lshift = rshift = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'shift' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("lshift") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lshift = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'lshift' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("rshift") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            rshift = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'rshift' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+
+    if (auto modifier = inputDescription.find("alt") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lalt = ralt = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'alt' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("lalt") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lalt = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'lalt' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("ralt") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            ralt = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'ralt' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+
+    if (auto modifier = inputDescription.find("control") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lcontrol = rcontrol = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'control' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("lcontrol") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            lcontrol = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'lcontrol' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+    if (auto modifier = inputDescription.find("rcontrol") ; modifier != inputDescription.end()) {
+        if (modifier->is_boolean()) {
+            rcontrol = *modifier;
+        }
+        else {
+            tmx::Logger::log("Input handler: error while parsing an input description: the 'rcontrol' field must be a boolean", tmx::Logger::Type::Warning);
+        }
+
+        inputDescription.erase(modifier);
+    }
+}
+
+void parseInputDescriptionObject(nlohmann::json &inputDescription, sf::Event &event, bool &hold, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol, nlohmann::json &payload) {
+    // First, we need to know the type of the sf::Event to create
+    // Then, we parse the specific information needed for this type (and we remove the fields from the JSON object)
+    // Finally, every unused field as considered as the JSON payload
     auto type = inputDescription.find("type");
     bool isJoystickMove = false;
 
+    // First: the type of the input
     if (type != inputDescription.end() && type->is_string()) {
         try {
             event.type = stringToEventType(*type);
+            setDefaultKeyButton(event);
+
             if (event.type == sf::Event::EventType::JoystickMoved) {
                 isJoystickMove = true;
             }
         }
-        catch(const std::invalid_argument &error) {
+        catch(const std::invalid_argument &error) { // The type of the event is not an SFML event
             std::string v = type->get<std::string>();
             std::transform(v.begin(), v.end(), v.begin(), [](const char& c) { return std::tolower(c); });
 
@@ -64,135 +306,44 @@ void parseInputDescriptionObject(const nlohmann::json &inputDescription, sf::Eve
             else {
                 throw error;
             }
+            setDefaultKeyButton(event);
         }
     }
     else {
         tmx::Logger::log("Input handler: error while parsing an input description: the type of the input must be present and must be a string", tmx::Logger::Type::Warning);
     }
 
-    for (auto &[key, value] : inputDescription.items()) {
-        if (key == "type") {
-        }
-        else if (key == "key") {
-            if (value.is_string()) {
-                event.key.code = thor::toKeyboardKey(value);
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + value.get<std::string>(), tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "mouse button") {
-            if (value.is_string()) {
-                event.mouseButton.button = thor::toMouseButton(value);
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'mouse button' field could not be converted to a keyboard key. Received key: " + value.get<std::string>(), tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "shift" || key == "lshift") {
-            if (value.is_boolean()) {
-                lshift = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "alt" || key == "lalt") {
-            if (value.is_boolean()) {
-                lalt = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "control" || key == "lcontrol") {
-            if (value.is_boolean()) {
-                lcontrol = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "rshift") {
-            if (value.is_boolean()) {
-                rshift = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "ralt") {
-            if (value.is_boolean()) {
-                ralt = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "rcontrol") {
-            if (value.is_boolean()) {
-                rcontrol = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "joystick id") {
-            if (value.is_number_integer()) {
-                if (isJoystickMove) {
-                    event.joystickMove.joystickId = value;
-                }
-                else {
-                    event.joystickButton.joystickId = value;
-                }
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be an unsigned integer", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "axis") {
-            if (value.is_string()) {
-                if (isJoystickMove) {
-                    event.joystickMove.axis = thor::toJoystickAxis(value);
-                }
-                else {
-                    tmx::Logger::log("Input handler: error while parsing an input description: the 'axis' field can only be used for JoystickMoved event", tmx::Logger::Type::Warning);
-                }
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a string", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "threshold") {
-            if (value.is_number_float()) {
-                threshold = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a float", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "above") {
-            if (value.is_boolean()) {
-                above = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be a boolean", tmx::Logger::Type::Warning);
-            }
-        }
-        else if (key == "joystick button") {
-            if (value.is_number_unsigned()) {
-                event.joystickButton.button = value;
-            }
-            else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the '" + key + "' field must be an unsigned integer", tmx::Logger::Type::Warning);
-            }
-        }
-        else {
-            json[key] = value;
-        }
+    // Second: information on the input
+    switch (event.type) {
+    case sf::Event::EventType::KeyPressed:
+    case sf::Event::EventType::KeyReleased:
+        parseInputDescriptionObjectKeyboard(inputDescription, event);
+        break;
+    case sf::Event::EventType::MouseButtonPressed:
+    case sf::Event::EventType::MouseButtonReleased:
+        parseInputDescriptionObjectMouseButton(inputDescription, event);
+        break;
+    case sf::Event::EventType::JoystickButtonPressed:
+    case sf::Event::EventType::JoystickButtonReleased:
+        parseInputDescriptionObjectJoystickButton(inputDescription, event);
+        break;
+    case sf::Event::EventType::JoystickMoved:
+        parseInputDescriptionObjectJoystickMove(inputDescription, event);
+        break;
+    default:
+        break;
     }
+
+    parseInputDescriptionObjectModifiers(inputDescription, lalt, lshift, lcontrol, ralt, rshift, rcontrol);
+
     if (event.type == sf::Event::EventType::Count) {
-        tmx::Logger::log("Input handler: error while parsing an input description: the 'type' field is absent from the input description. Description received: " + inputDescription.get<std::string>(), tmx::Logger::Type::Warning);
+        tmx::Logger::log("Input handler: error while parsing an input description: the 'type' field is absent from the input description. Description received: " + inputDescription.dump(4), tmx::Logger::Type::Warning);
+        return;
+    }
+
+    // Third: JSON payload
+    for (auto &[key, value] : inputDescription.items()) {
+        payload[key] = value;
     }
 }
 
@@ -244,7 +395,7 @@ namespace engine::input {
 
     }
 
-    InputHandler::InputConnection InputHandler::connectInput(const std::string &eventType, const nlohmann::json &inputDescription) {
+    InputHandler::InputConnection InputHandler::connectInput(const std::string &eventType, nlohmann::json inputDescription) {
         EventInformation information = createEventInformation(eventType, inputDescription);
         bool error = information.m_input.size() == 0;
         if (!error) {
@@ -299,6 +450,7 @@ namespace engine::input {
         for (auto &[id, eventInformation] : m_actionIdToEventInformation) {
             utilities::json_fusion(json, eventInformation.toJSON());
         }
+        return json;
     }
 
     void InputHandler::processAction(const thor::ActionContext<InputHandler::ActionId> &actionContext) {
@@ -319,50 +471,63 @@ namespace engine::input {
                 continue;
             }
 
-            if (input.type == actionContext.event->type) {
+            const sf::Event &event = *actionContext.event;
+
+            // We retrieve useful information from the SFML event
+            if (input.type == event.type) {
                 switch(input.type) {
                 // sf::Event.size
                 case sf::Event::EventType::Resized:
-                    json["width"] = input.size.width;
-                    json["height"] = input.size.height;
+                    json["width"] = event.size.width;
+                    json["height"] = event.size.height;
                     break;
                 // sf::Event.mouseWheelScrolled
                 case sf::Event::EventType::MouseWheelScrolled:
-                    json["vertical"] = input.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel;
-                    json["delta"] = input.mouseWheelScroll.delta;
-                    json["x"] = input.mouseWheelScroll.x;
-                    json["y"] = input.mouseWheelScroll.y;
+                    json["vertical"] = event.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel;
+                    json["delta"] = event.mouseWheelScroll.delta;
+                    json["x"] = event.mouseWheelScroll.x;
+                    json["y"] = event.mouseWheelScroll.y;
                     break;
                 // sf::Event.mouseButton
                 case sf::Event::EventType::MouseButtonPressed:
                 case sf::Event::EventType::MouseButtonReleased:
-                    json["x"] = input.mouseButton.x;
-                    json["y"] = input.mouseButton.y;
+                    json["x"] = event.mouseButton.x;
+                    json["y"] = event.mouseButton.y;
+                    json["button"] = event.mouseButton.button;
                     break;
                 // sf::Event.mouseMove
                 case sf::Event::EventType::MouseMoved:
-                    json["x"] = input.mouseMove.x;
-                    json["y"] = input.mouseMove.y;
+                    json["x"] = event.mouseMove.x;
+                    json["y"] = event.mouseMove.y;
                     break;
+                // For joysticks, we always retrieve the ID
                 // sf::Event.joystickMove
                 case sf::Event::EventType::JoystickMoved:
-                    json["position"] = input.joystickMove.position;
+                    json["position"] = event.joystickMove.position;
+                    json["id"] = event.joystickMove.joystickId;
+                    break;
+                // sf::Event.joystickButton
+                case sf::Event::EventType::JoystickButtonPressed:
+                case sf::Event::EventType::JoystickButtonReleased:
+                    json["id"] = event.joystickButton.joystickId;
+                    json["button"] = event.joystickButton.button;
                     break;
                 // sf::Event.joystickConnect
                 case sf::Event::EventType::JoystickConnected:
                 case sf::Event::EventType::JoystickDisconnected:
-                    json["id"] = input.joystickConnect.joystickId;
+                    json["id"] = event.joystickConnect.joystickId;
+                    break;
+                // sf::Event.key
+                case sf::Event::EventType::KeyPressed:
+                case sf::Event::EventType::KeyReleased:
+                    json["key"] = event.key.code;
                     break;
                 // sf::Event without data (or without data to transfer)
                 case sf::Event::EventType::Closed:
                 case sf::Event::EventType::LostFocus:
                 case sf::Event::EventType::GainedFocus:
-                case sf::Event::EventType::KeyPressed:
-                case sf::Event::EventType::KeyReleased:
                 case sf::Event::EventType::MouseEntered:
                 case sf::Event::EventType::MouseLeft:
-                case sf::Event::EventType::JoystickButtonPressed:
-                case sf::Event::EventType::JoystickButtonReleased:
                     // Nothing to do
                     break;
                 default:
@@ -371,29 +536,29 @@ namespace engine::input {
                 }
                 break;
             }
-            jsonPayload++;
-        }
 
-        if (jsonPayload != information.m_payload.end()) {
-            json = utilities::json_fusion(*jsonPayload, json);
+            if (jsonPayload != information.m_payload.end()) {
+                json = utilities::json_fusion(*jsonPayload, json);
+            }
+            jsonPayload++;
         }
         m_context.eventHandler->sendEvent(information.m_eventType, json);
     }
 
-    InputHandler::EventInformation InputHandler::createEventInformation(const std::string &eventType, const nlohmann::json &inputDescription, bool allowTables) const {
+    InputHandler::EventInformation InputHandler::createEventInformation(const std::string &eventType, nlohmann::json &inputDescription, bool allowTables) const {
         sf::Event event;
         event.type = sf::Event::EventType::Count;
         nlohmann::json json;
-        bool hold = false, lalt = false, lshift = false, lcontrol = false, ralt = false, rshift = false, rcontrol = false, above = false;
-        float threshold = 0;
+        bool hold = false, lalt = false, lshift = false, lcontrol = false, ralt = false, rshift = false, rcontrol = false;
 
         if (inputDescription.is_string()) {
             event.type = stringToEventType(inputDescription.get<std::string>());
+            setDefaultKeyButton(event);
         }
         else if (inputDescription.is_object()) {
-            parseInputDescriptionObject(inputDescription, event, hold, lalt, lshift, lcontrol, ralt, rshift, rcontrol, threshold, above, json);
+            parseInputDescriptionObject(inputDescription, event, hold, lalt, lshift, lcontrol, ralt, rshift, rcontrol, json);
         }
-        else if (inputDescription.is_array()) {
+        else if (inputDescription.is_array()) { // An array is an OR operation
             if (!allowTables) {
                 tmx::Logger::log("Input handler: the input description is invalid: nested tables are not allowed", tmx::Logger::Type::Warning);
                 return EventInformation();
@@ -464,33 +629,70 @@ namespace engine::input {
             break;
         case sf::Event::EventType::KeyPressed:
             holdActivated = hold;
-            action = thor::Action(event.key.code, actionType);
+            if (event.key.code == AnyKey) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(event.key.code, actionType);
+            }
             action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::KeyReleased:
             holdActivated = false;
-            action = thor::Action(event.key.code, actionType);
+            if (event.key.code == AnyKey) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(event.key.code, actionType);
+            }
             action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::MouseButtonPressed:
             holdActivated = hold;
-            action = thor::Action(event.mouseButton.button, actionType);
+            if (event.mouseButton.button == AnyMouseButton) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(event.mouseButton.button, actionType);
+            }
             break;
         case sf::Event::EventType::MouseButtonReleased:
             holdActivated = false;
-            action = thor::Action(event.mouseButton.button, actionType);
+            if (event.mouseButton.button == AnyMouseButton) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(event.mouseButton.button, actionType);
+            }
             break;
         case sf::Event::EventType::JoystickMoved:
             holdActivated = false;
-            action = thor::Action(thor::JoystickAxis(event.joystickMove.joystickId, event.joystickMove.axis, threshold, above));
+            // Since Thor handles JoystickMoved as realtime events (and that means we can't retrieve the position of the joystick), we need to explicitly handle this kind of event
+            action = thor::eventAction([event = event](const sf::Event &e) {
+                // We need that :
+                //  - the event is JoystickMoved
+                //  - the ID of the controller is the one we want OR it's any controller
+                //  - the axis is the one we want
+                return e.type == sf::Event::EventType::JoystickMoved && (event.joystickMove.joystickId == AnyJoystickID || e.joystickMove.joystickId == event.joystickMove.joystickId) && e.joystickMove.axis == event.joystickMove.axis;
+            });
             break;
         case sf::Event::EventType::JoystickButtonPressed:
             holdActivated = hold;
-            action = thor::Action(thor::JoystickButton(event.joystickButton.joystickId, event.joystickButton.button), actionType);
+            if (event.joystickButton.button == sf::Joystick::ButtonCount) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(thor::JoystickButton(event.joystickButton.joystickId, event.joystickButton.button), actionType);
+            }
             break;
         case sf::Event::EventType::JoystickButtonReleased:
             holdActivated = false;
-            action = thor::Action(thor::JoystickButton(event.joystickButton.joystickId, event.joystickButton.button), actionType);
+            if (event.joystickButton.button == sf::Joystick::ButtonCount) {
+                action = thor::Action(event.type);
+            }
+            else {
+                action = thor::Action(thor::JoystickButton(event.joystickButton.joystickId, event.joystickButton.button), actionType);
+            }
             break;
         default:
             return EventInformation();

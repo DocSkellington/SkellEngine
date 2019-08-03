@@ -52,7 +52,6 @@ namespace engine::states {
                 // We move the state to the front
                 std::shared_ptr<State> state = itr->second;
                 m_states.erase(itr);
-                const auto &s = *state;
                 m_states.emplace_front(name, state);
                 // And we activate it
                 m_states.front().second->activate();

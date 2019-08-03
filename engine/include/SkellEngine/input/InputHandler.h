@@ -21,8 +21,12 @@ namespace engine::input {
     /**
      * \brief Handles the input with the user such as window resized, key pressed, etc.
      * 
-     *  - <b>Input</b> is used for player-generated inputs. That is, when the player presses a button, moves the mouse, etc.
-     *  - <b>Event</b> is used for the events (engine::events::Event) sent by the input handler through the event handler when a received input matches a registered input
+     *  - <b>Input</b> is used for player-generated inputs. That is, when the player presses a button, moves the mouse, etc. Typically, it's a sf::Event object.
+     *  - <b>Event</b> is used for the events (engine::events::Event) sent by the input handler through the event handler when a received input matches a registered input.
+     * 
+     * Typically, the connections are loaded from a JSON file describing the input
+     * \see engine::files::GameDescription::MediaDescription, @ref json_game_description and TODO: the Markdown documentation for the file description
+     * \see engine::events::EventHandler for how to subsribe for an event
      * \todo TODO: add graphical sprites for PS4, Xbox, Gamecube and Switch Pro controllers
      * \todo TODO: save/load configuration
      */
@@ -33,6 +37,8 @@ namespace engine::input {
     public:
         /**
          * \brief Allows to remove a callback from the input handler
+         * 
+         * If the connection object dies (the variable reaches the end of its scope), the actual connection is <b>not</b> removed (the callback will still be called when an appropriate input is triggered).
          */
         class InputConnection {
             friend class InputHandler;
@@ -71,7 +77,7 @@ namespace engine::input {
          * \param eventType The event type
          * \param inputDescription The description of the input
          */
-        InputConnection connectInput(const std::string &eventType, const nlohmann::json& inputDescription);
+        InputConnection connectInput(const std::string &eventType, nlohmann::json inputDescription);
 
         /**
          * \brief Adds an input (an sf::Event) for the current frame
@@ -95,10 +101,17 @@ namespace engine::input {
          */
         void loadConfiguration(const nlohmann::json &configuration);
 
+        /**
+         * \brief Gives the current configuration of the input handler in a JSON object
+         * \return The JSON describing the current configuration
+         */
         nlohmann::json saveConfiguration() const;
 
     private:
 
+        /**
+         * \brief Stores some information about the input->event mapping, such as the JSON payload, the event type and the different possible inputs
+         */
         struct EventInformation {
             EventInformation();
             EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload);
@@ -124,7 +137,7 @@ namespace engine::input {
          * \param inputDescription The description of the input
          * \param allowTables True iff tables are allowed in the description. Tables are only allowed at the first level
          */
-        EventInformation createEventInformation(const std::string &eventType, const nlohmann::json &inputDescription, bool allowTables = true) const;
+        EventInformation createEventInformation(const std::string &eventType, nlohmann::json &inputDescription, bool allowTables = true) const;
     
     private:
         Context& m_context;

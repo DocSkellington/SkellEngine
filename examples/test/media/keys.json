@@ -41,14 +41,10 @@
         "mouse button": "Right",
         "control": true
     },
-    "LeftHold": {
-        "type": "MouseButtonHold",
-        "mouse button": "Left"
-    },
     "JoystickUp": {
         "type": "JoystickMoved",
         "joystick id": 0,
-        "axis": "X"
+        "axis": "Y"
     },
     "ShootPressedJoy": {
         "type": "JoystickButtonPressed",
@@ -73,5 +69,25 @@
             "type": "KeyPressed",
             "key": "E"
         }
-    ]
+    ],
+    "AnyKey": {
+        "type": "KeyPressed"
+    },
+    "OtherAnyKey": {
+        "type": "KeyPressed",
+        "key": "Any"
+    },
+    "AnyPressedMouse": {
+        "type" : "MouseButtonReleased"
+    },
+    "AnyReleasedJoystick": {
+        "type": "JoystickButtonReleased"
+    },
+    "JoystickConnected": {
+        "type": "JoystickConnected"
+    },
+    "WrongJoystick": {
+        "type": "JoystickMoved",
+        "axis": "J"
+    }
 }

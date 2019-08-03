@@ -4,12 +4,6 @@
 #include "SkellEngine/files/GameDescription.h"
 
 /**
- * \defgroup Engine Engine
- * 
- * The C++ functions
- */
-
-/**
 * \brief This numespace contains everything the engine needs
 */
 namespace engine {
