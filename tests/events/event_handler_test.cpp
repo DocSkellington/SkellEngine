@@ -29,7 +29,7 @@ bool called1 = false;
 bool called2 = false;
 
 void testCallback1(const events::Event &event) {
-    called1 = !called2;
+    called1 = !called1;
     REQUIRE(event.getInt("integer").second);
     REQUIRE(event.getInt("integer").first == 10);
 }
@@ -53,38 +53,84 @@ SCENARIO("Event handler", "[events]") {
     called1 = called2 = false;
 
     GIVEN("A known event type") {
-        int ID1 = handler.registerCallback("test", &testCallback1);
-        int ID2 = handler.registerCallback("test", &testCallback2);
-        REQUIRE(ID1 != -1);
-        REQUIRE(ID2 != -1);
-        REQUIRE(ID1 != ID2);
+        auto connect1 = handler.registerCallback("test", &testCallback1);
+        auto connect2 = handler.registerCallback("test", &testCallback2);
+        REQUIRE(connect1.isConnected());
+        REQUIRE(connect2.isConnected());
 
-        REQUIRE_FALSE(called1);
-        REQUIRE_FALSE(called2);
+        THEN ("The callbacks are called") {
+            REQUIRE_FALSE(called1);
+            REQUIRE_FALSE(called2);
 
-        REQUIRE(handler.sendEvent(*event));
-
-        REQUIRE(called1);
-        REQUIRE(called2);
-
-        WHEN("We remove the event giving the correct type") {
-            REQUIRE(handler.removeCallback("test", ID1));
-            REQUIRE(handler.removeCallback("test", ID2));
-
-            REQUIRE_FALSE(handler.sendEvent(*event));
+            REQUIRE(handler.sendEvent(*event));
 
             REQUIRE(called1);
             REQUIRE(called2);
         }
 
-        WHEN("We remove the event giving the wrong type") {
-            REQUIRE_FALSE(handler.removeCallback("unknown", ID1));
-            REQUIRE_FALSE(handler.removeCallback("unknown", ID2));
+        WHEN ("We copy a connection") {
+            auto connect1bis = connect1;
 
-            REQUIRE(handler.sendEvent(*event)); // There are still two callbacks
+            REQUIRE(connect1.isConnected());
+            REQUIRE(connect1bis.isConnected());
 
-            REQUIRE_FALSE(called1);
-            REQUIRE_FALSE(called2);
+            AND_WHEN("We disconnect the original") {
+                connect1.disconnect();
+
+                THEN ("The original and the copy are disconnected") {
+                    REQUIRE(!connect1.isConnected());
+                    REQUIRE(!connect1bis.isConnected());
+                }
+            }
+
+            AND_WHEN("We disconnect the copy") {
+                connect1bis.disconnect();
+
+                THEN ("The original and the copy are disconnected") {
+                    REQUIRE(!connect1.isConnected());
+                    REQUIRE(!connect1bis.isConnected());
+                }
+            }
+        }
+
+        WHEN ("We remove the first callback") {
+            connect1.disconnect();
+            REQUIRE(!connect1.isConnected());
+            REQUIRE(connect2.isConnected());
+
+            THEN ("The second callback is still active") {
+                REQUIRE(handler.sendEvent(*event));
+
+                REQUIRE_FALSE(called1);
+                REQUIRE(called2);
+            }
+        }
+
+        WHEN ("We remove the second callback") {
+            connect2.disconnect();
+            REQUIRE(connect1.isConnected());
+            REQUIRE(!connect2.isConnected());
+
+            THEN ("The first callback is still active") {
+                REQUIRE(handler.sendEvent(*event));
+
+                REQUIRE(called1);
+                REQUIRE_FALSE(called2);
+            }
+        }
+
+        WHEN("We remove every callback") {
+            connect1.disconnect();
+            connect2.disconnect();
+            REQUIRE(!connect1.isConnected());
+            REQUIRE(!connect2.isConnected());
+
+            THEN("The callbacks are not called") {
+                REQUIRE_FALSE(handler.sendEvent(*event));
+
+                REQUIRE_FALSE(called1);
+                REQUIRE_FALSE(called2);
+            }
         }
 
         WHEN("We clear the handler") {
@@ -92,13 +138,14 @@ SCENARIO("Event handler", "[events]") {
 
             REQUIRE_FALSE(handler.sendEvent(*event));
 
-            REQUIRE(called1);
-            REQUIRE(called2);
+            REQUIRE_FALSE(called1);
+            REQUIRE_FALSE(called2);
         }
     }
 
     GIVEN("An unknown event type") {
-        REQUIRE(handler.registerCallback("unknown", &unknownCallback) != -1);
+        auto connect3 = handler.registerCallback("unknown", &unknownCallback);
+        REQUIRE(connect3.isConnected());
 
         REQUIRE_FALSE(called1);
         REQUIRE_FALSE(called2);

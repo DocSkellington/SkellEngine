@@ -19,8 +19,12 @@ function init()
         print(c:get("x"))
     end
 
-    game.eventHandler:registerCallback("test", callbackTest)
+    connection = game.eventHandler:registerCallback("test", callbackTest)
     game.eventHandler:sendEvent("test", {integer=10, floating=50.05})
+    print(connection:isConnected())
+    connection:disconnect()
+    game.eventHandler:sendEvent("test", {integer=01, floating=05.50})
+    print(connection:isConnected())
 end
 
 function update(deltatime, view)

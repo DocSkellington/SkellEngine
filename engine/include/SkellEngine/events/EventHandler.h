@@ -7,6 +7,8 @@
 #include <functional>
 #include <bitset>
 
+#include <Thor/Input/Connection.hpp>
+
 #include "SkellEngine/events/Event.h"
 
 namespace engine {
@@ -29,6 +31,31 @@ namespace engine::events {
          */
         using callbackSignature = std::function<void(const Event&)>;
 
+        /**
+         * \brief Allows to remove a callback from the event handler
+         * 
+         * If the connection object dies (the variable reaches the end of its scope), the actual connection is <b>not</b> removed (the callback will still be called when an appropriate input is triggered).
+         */
+        class EventConnection {
+        public:
+            /**
+             * \brief The constructor
+             * 
+             * It should not be called by the user (but it was impossible to hide it)
+             * \param connection The connection
+             */
+            EventConnection(const thor::Connection &connection);
+
+            /**
+             * \brief TODO:
+             */
+            bool isConnected() const;
+            void disconnect();
+
+        private:
+            thor::Connection m_connection;
+        };
+
     public:
         EventHandler(Context &context);
         EventHandler(const EventHandler&) = delete;
@@ -41,15 +68,7 @@ namespace engine::events {
          * \param callback The callback to add
          * \return -1 if the callback could not be added or the ID of the callback
          */
-        int registerCallback(const std::string &eventType, const callbackSignature &callback);
-
-        /**
-         * \brief Remove a callback from the list associated with an event type
-         * \param eventType The type of the event
-         * \param callback The ID of the callback to remove
-         * \return True iff the callback was removed
-         */
-        bool removeCallback(const std::string &eventType, int ID);
+        EventConnection registerCallback(const std::string &eventType, const callbackSignature &callback);
 
         /**
          * \brief Remove every callback
@@ -87,18 +106,44 @@ namespace engine::events {
         void luaFunctions(sol::state &lua) const;
 
     private:
+
         class CallbackStorage {
         public:
-            int addCallback(const callbackSignature &callback);
+            class Callback;
+            using Container = std::list<Callback>;
+            using Iterator = Container::iterator;
 
-            bool removeCallback(int ID);
+            /**
+             * \brief A callback
+             * 
+             * This class is inspired from thor::detail::Listener
+             */
+            class Callback {
+            public:
+                Callback(const callbackSignature &callback);
+
+                void call(const Event &event) const;
+
+                void setEnvironment(CallbackStorage &container, CallbackStorage::Iterator iterator);
+
+                EventConnection shareConnection() const;
+
+                void swap(Callback &other);
+
+            private:
+                callbackSignature m_callback;
+                std::shared_ptr<thor::detail::AbstractConnectionImpl> m_strongRef;
+            };
+
+        public:
+            EventConnection addCallback(const callbackSignature &callback);
 
             bool sendEvent(const Event& event) const;
 
-        private:
-            std::bitset<sizeof(int) / 2> m_usedIDs;
+            void remove(Iterator iterator);
 
-            std::map<int, callbackSignature> m_callbacks;
+        private:
+            Container m_callbacks;
         };
 
     private:

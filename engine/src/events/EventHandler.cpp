@@ -5,13 +5,26 @@
 #include "SkellEngine/utilities/json_lua.h"
 
 namespace engine::events {
+    EventHandler::EventConnection::EventConnection(const thor::Connection &connection) :
+        m_connection(connection) {
+
+    }
+
+    bool EventHandler::EventConnection::isConnected() const {
+        return m_connection.isConnected();
+    }
+
+    void EventHandler::EventConnection::disconnect() {
+        m_connection.disconnect();
+    }
+
     EventHandler::EventHandler(Context &context) :
         m_context(context)
         {
 
     }
 
-    int EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
+    EventHandler::EventConnection EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
@@ -20,16 +33,6 @@ namespace engine::events {
         }
 
         return itr->second.addCallback(callback);
-    }
-
-    bool EventHandler::removeCallback(const std::string &eventType, int ID) {
-        auto callbacks = m_callbacksPerEventType.find(eventType);
-        if (callbacks == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: remove a callback: unknown event type: " + eventType, tmx::Logger::Type::Warning);
-            return false;
-        }
-
-        return callbacks->second.removeCallback(ID);
     }
 
     void EventHandler::clear() {
@@ -41,11 +44,15 @@ namespace engine::events {
         auto itr = m_callbacksPerEventType.find(type);
 
         if (itr == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: impossible to send an event of type " + type + " because no listener are registered for this type");
+            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener were ever registered for this type");
             return false;
         }
 
-        return itr->second.sendEvent(event);
+        bool sent = itr->second.sendEvent(event);
+        if (!sent) {
+            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type");
+        }
+        return sent;
     }
 
     bool EventHandler::sendEvent(const std::string &type) {
@@ -60,12 +67,16 @@ namespace engine::events {
     void EventHandler::luaFunctions(sol::state &lua) const {
         lua.new_usertype<EventHandler>("EventHandler",
             "registerCallback", &EventHandler::registerCallback,
-            "removeCallback", &EventHandler::removeCallback,
             "clear", &EventHandler::clear,
             "sendEvent", sol::overload(
                 sol::resolve<bool(const Event&)const>(&EventHandler::sendEvent),
                 sol::resolve<const std::string&, const sol::table&>(&EventHandler::sendEvent)
             )
+        );
+
+        lua.new_usertype<EventHandler::EventConnection>("EventConnection",
+            "isConnected", &EventHandler::EventConnection::isConnected,
+            "disconnect", &EventHandler::EventConnection::disconnect
         );
 
         lua["game"]["eventHandler"] = this;
@@ -83,54 +94,48 @@ namespace engine::events {
         return sendEvent(type, utilities::lua_to_json(luaTable));
     }
 
-    int EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {
-        int ID = -1;
+    EventHandler::CallbackStorage::Callback::Callback(const EventHandler::callbackSignature &callback) :
+        m_callback(callback) {
 
-        // We seek the first available ID
-        for (std::size_t i = 0 ; i < m_usedIDs.size() ; i++) {
-            if (!m_usedIDs.test(i)) {
-                ID = i;
-                break;
-            }
-        }
-
-        if (ID == -1) {
-            return -1;
-        }
-
-        m_callbacks[ID] = callback;
-        m_usedIDs.set(ID);
-        return ID;
     }
 
-    bool EventHandler::CallbackStorage::removeCallback(int ID) {
-        tmx::Logger::log("removing callback");
-        if (ID < 0 || ID > m_callbacks.size()) {
-            tmx::Logger::log("Event handler: invalid callback ID: " + std::to_string(ID), tmx::Logger::Type::Warning);
-            return false;
-        }
+    void EventHandler::CallbackStorage::Callback::call(const Event &event) const {
+        m_callback(event);
+    }
 
-        if (!m_usedIDs.test(ID)) {
-            tmx::Logger::log("Event handler: impossible to remove an unused callback ID: " + std::to_string(ID), tmx::Logger::Type::Warning);
-            return false;
-        }
+    void EventHandler::CallbackStorage::Callback::setEnvironment(CallbackStorage &container, CallbackStorage::Iterator iterator) {
+        m_strongRef = thor::detail::makeIteratorConnectionImpl(container, iterator);
+    }
 
-        int n = m_callbacks.erase(ID);
-        // The callback was removed
-        if (n == 1) {
-            m_usedIDs.reset(ID);
-            return true;
-        }
-        return false;
+    EventHandler::EventConnection EventHandler::CallbackStorage::Callback::shareConnection() const {
+        return EventHandler::EventConnection(thor::Connection(m_strongRef));
+    }
+
+    void EventHandler::CallbackStorage::Callback::swap(EventHandler::CallbackStorage::Callback &other) {
+        std::swap(m_callback, other.m_callback);
+        std::swap(m_strongRef, other.m_strongRef);
+    }
+
+    EventHandler::EventConnection EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {
+        m_callbacks.push_front(callback);
+
+        Iterator added = m_callbacks.begin();
+        added->setEnvironment(*this, added);
+
+        return added->shareConnection();
     }
 
     bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
         bool atLeastOne = false;
         for (const auto& itr : m_callbacks) {
             atLeastOne = true;
-            const auto& callback = itr.second;
-            callback(event);
+            itr.call(event);
         }
         return atLeastOne;
+    }
+
+    void EventHandler::CallbackStorage::remove(EventHandler::CallbackStorage::Iterator iterator) {
+        iterator->swap(m_callbacks.front());
+        m_callbacks.pop_front();
     }
 }
