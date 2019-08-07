@@ -19,7 +19,6 @@ namespace engine::states {
         using Ptr = std::shared_ptr<State>;
 
     public:
-        explicit State(StateManager &manager);
         State(const State&) = delete;
         virtual ~State();
 
@@ -76,6 +75,8 @@ namespace engine::states {
         using RegisterState = RegisteredStates::Register<T>;
 
     protected:
+        explicit State(StateManager &manager);
+
         StateManager& getStateManager() const;
         sf::View getView() const;
         void setView(const sf::View &view);

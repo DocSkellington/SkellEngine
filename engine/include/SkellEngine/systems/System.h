@@ -26,7 +26,6 @@ namespace engine::systems {
         typedef std::shared_ptr<System> Ptr;
 
     public:
-        explicit System(SystemManager& manager);
         System(const System&) = delete;
         virtual ~System();
 
@@ -74,6 +73,8 @@ namespace engine::systems {
         using RegisterSystem = RegisteredSystems::Register<T>;
 
     protected:
+        explicit System(SystemManager& manager);
+
         /**
          * \brief Returns the system manager
          * \return The SystemManager

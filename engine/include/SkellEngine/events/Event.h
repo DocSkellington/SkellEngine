@@ -26,11 +26,6 @@ namespace engine::events {
         typedef std::shared_ptr<Event> Ptr;
 
     public:
-        /**
-         * \brief Constructs an event
-         * \param type The type of the event
-         */
-        explicit Event(Context &context, const std::string &type);
         Event(const Event&) = delete;
         virtual ~Event();
 
@@ -82,6 +77,13 @@ namespace engine::events {
         using RegisterEvent = RegisteredEvents::Register<T>;
 
     protected:
+        /**
+         * \brief Constructs an event
+         * \param context The context of the engine
+         * \param type The type of the event
+         */
+        explicit Event(Context &context, const std::string &type);
+
         virtual std::string getLogErrorPrefix() const override;
 
     private:

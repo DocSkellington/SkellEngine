@@ -23,7 +23,7 @@ namespace engine::entities::components {
     *
     * It defines one static function to create an instance of a component.
     *
-    * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent in .h file. In the .cpp file, simply initialise the member by passing the name of your component to the constructor of the member.
+    * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent and initialise it.
     * \see REGISTER_COMPONENT for an helper macro to register a component
     */
     class Component : public utilities::MemberStorage {
@@ -34,7 +34,6 @@ namespace engine::entities::components {
         typedef std::shared_ptr<Component> Ptr;
 
     public:
-        Component(Context &context);
         Component(const Component&) = delete;
         virtual ~Component();
 
@@ -60,12 +59,25 @@ namespace engine::entities::components {
         static void luaFunctions(sol::state &lua);
 
     protected:
+        /**
+         * \brief The specialisation of utilities::RegisterClass for the components
+         */
         using RegisteredComponents = utilities::RegisterClass<Component, Context&>;
 
+        /**
+         * \brief A shortcut to register a component
+         * \tparam T The type of the component to register
+         */
         template <typename T>
         using RegisterComponent = RegisteredComponents::Register<T>;
 
     protected:
+        /**
+         * \brief The constructor
+         * \param context A reference to the context of the engine
+         */
+        Component(Context &context);
+
         virtual std::string getLogErrorPrefix() const override;
     };
 }
