@@ -116,19 +116,19 @@ namespace engine::input {
         struct EventInformation {
             struct Input {
                 Input();
-                Input(const sf::Event &input, bool isHold);
+                Input(const sf::Event &input, const nlohmann::json &payload, bool isHold, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol);
                 sf::Event input;
-                bool isHold;
+                nlohmann::json payload;
+                bool isHold, ralt, rshift, rcontrol, lalt, lshift, lcontrol;
             };
             EventInformation();
-            EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload, const std::string &state);
+            EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload, const std::string &state, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol);
 
             nlohmann::json toJSON() const;
 
             std::list<Input> m_input;
             thor::Action m_action;
             std::string m_eventType;
-            std::list<nlohmann::json> m_payload;
             std::string m_state;
         };
 

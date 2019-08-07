@@ -218,11 +218,10 @@ namespace engine::input::detail {
         // First, we need to know the type of the sf::Event to create
         // Then, we parse the specific information needed for this type (and we remove the fields from the JSON object)
         // Finally, every unused field as considered as the JSON payload
-        auto type = inputDescription.find("type");
         bool isJoystickMove = false;
 
         // First: the type of the input
-        if (type != inputDescription.end() && type->is_string()) {
+        if (auto type = inputDescription.find("type") ; type != inputDescription.end() && type->is_string()) {
             try {
                 event.type = stringToEventType(*type);
                 setDefaultKeyButton(event);
@@ -252,6 +251,7 @@ namespace engine::input::detail {
                 }
                 setDefaultKeyButton(event);
             }
+            inputDescription.erase(type);
         }
         else {
             tmx::Logger::log("Input handler: error while parsing an input description: the type of the input must be present and must be a string", tmx::Logger::Type::Warning);
@@ -293,6 +293,8 @@ namespace engine::input::detail {
                 tmx::Logger::log("Input handler: error while parsing an input description: the 'state' valid must be a string. It default to 'all'.", tmx::Logger::Type::Warning);
                 state = "all";
             }
+
+            inputDescription.erase(s);
         }
         else {
             state = "all";

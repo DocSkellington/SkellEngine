@@ -6,6 +6,8 @@ set(TESTS_SOURCES
 
     events/event_handler_test.cpp
 
+    input/input_handler_test.cpp
+
     entities/entity_test.cpp
     entities/entity_manager_test.cpp
     entities/components/component_setter_getter_test.cpp

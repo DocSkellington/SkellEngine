@@ -61,8 +61,8 @@ namespace engine::input {
         EventInformation information = createEventInformation(eventType, inputDescription);
         bool error = information.m_input.size() == 0;
         if (!error) {
-            for (const auto& [input, hold] : information.m_input) {
-                if (input.type == sf::Event::EventType::Count) {
+            for (const auto& input : information.m_input) {
+                if (input.input.type == sf::Event::EventType::Count) {
                     error = true;
                     break;
                 }
@@ -127,66 +127,63 @@ namespace engine::input {
         if (information.m_state != "all" && !m_context.stateManager->isCurrentState(information.m_state)) {
             return;
         }
-        nlohmann::json json;
+        nlohmann::json payload;
 
-        auto jsonPayload = information.m_payload.begin();
-
-        for (const auto& [input, hold] : information.m_input) {
-            if (hold) { // Thor doesn't give the sf::Event when the event must be repeated (is marked as hold)
-                jsonPayload++;
+        for (const auto& input : information.m_input) {
+            if (input.isHold) { // Thor doesn't give the sf::Event when the event must be repeated (is marked as hold)
                 continue;
             }
 
             const sf::Event &event = *actionContext.event;
 
             // We retrieve useful information from the SFML event
-            if (input.type == event.type) {
-                switch(input.type) {
+            if (input.input.type == event.type) {
+                switch(input.input.type) {
                 // sf::Event.size
                 case sf::Event::EventType::Resized:
-                    json["width"] = event.size.width;
-                    json["height"] = event.size.height;
+                    payload["width"] = event.size.width;
+                    payload["height"] = event.size.height;
                     break;
                 // sf::Event.mouseWheelScrolled
                 case sf::Event::EventType::MouseWheelScrolled:
-                    json["vertical"] = event.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel;
-                    json["delta"] = event.mouseWheelScroll.delta;
-                    json["x"] = event.mouseWheelScroll.x;
-                    json["y"] = event.mouseWheelScroll.y;
+                    payload["vertical"] = event.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel;
+                    payload["delta"] = event.mouseWheelScroll.delta;
+                    payload["x"] = event.mouseWheelScroll.x;
+                    payload["y"] = event.mouseWheelScroll.y;
                     break;
                 // sf::Event.mouseButton
                 case sf::Event::EventType::MouseButtonPressed:
                 case sf::Event::EventType::MouseButtonReleased:
-                    json["x"] = event.mouseButton.x;
-                    json["y"] = event.mouseButton.y;
-                    json["button"] = event.mouseButton.button;
+                    payload["x"] = event.mouseButton.x;
+                    payload["y"] = event.mouseButton.y;
+                    payload["button"] = event.mouseButton.button;
                     break;
                 // sf::Event.mouseMove
                 case sf::Event::EventType::MouseMoved:
-                    json["x"] = event.mouseMove.x;
-                    json["y"] = event.mouseMove.y;
+                    payload["x"] = event.mouseMove.x;
+                    payload["y"] = event.mouseMove.y;
                     break;
                 // For joysticks, we always retrieve the ID
                 // sf::Event.joystickMove
                 case sf::Event::EventType::JoystickMoved:
-                    json["position"] = event.joystickMove.position;
-                    json["id"] = event.joystickMove.joystickId;
+                    payload["position"] = event.joystickMove.position;
+                    payload["id"] = event.joystickMove.joystickId;
                     break;
                 // sf::Event.joystickButton
                 case sf::Event::EventType::JoystickButtonPressed:
                 case sf::Event::EventType::JoystickButtonReleased:
-                    json["id"] = event.joystickButton.joystickId;
-                    json["button"] = event.joystickButton.button;
+                    payload["id"] = event.joystickButton.joystickId;
+                    payload["button"] = event.joystickButton.button;
                     break;
                 // sf::Event.joystickConnect
                 case sf::Event::EventType::JoystickConnected:
                 case sf::Event::EventType::JoystickDisconnected:
-                    json["id"] = event.joystickConnect.joystickId;
+                    payload["id"] = event.joystickConnect.joystickId;
                     break;
                 // sf::Event.key
                 case sf::Event::EventType::KeyPressed:
                 case sf::Event::EventType::KeyReleased:
-                    json["key"] = event.key.code;
+                    payload["key"] = event.key.code;
                     break;
                 // sf::Event without data (or without data to transfer)
                 case sf::Event::EventType::Closed:
@@ -203,12 +200,9 @@ namespace engine::input {
                 break;
             }
 
-            if (jsonPayload != information.m_payload.end()) {
-                json = utilities::json_fusion(*jsonPayload, json);
-            }
-            jsonPayload++;
+            payload = utilities::json_fusion(payload, input.payload);
         }
-        m_context.eventHandler->sendEvent(information.m_eventType, json);
+        m_context.eventHandler->sendEvent(information.m_eventType, payload);
     }
 
     InputHandler::EventInformation InputHandler::createEventInformation(const std::string &eventType, nlohmann::json &inputDescription, bool allowTables) const {
@@ -245,12 +239,10 @@ namespace engine::input {
                 // We concatenate the information from the current description in the table to the already processed descriptions
                 if (description == inputDescription.begin()) {
                     information.m_input = std::move(tempInformation.m_input);
-                    information.m_payload = std::move(tempInformation.m_payload);
                     information.m_action = std::move(tempInformation.m_action);
                 }
                 else {
                     information.m_input.push_back(std::move(tempInformation.m_input.front()));
-                    information.m_payload.push_back(std::move(tempInformation.m_payload.front()));
                     information.m_action = information.m_action || tempInformation.m_action;
                 }
 
@@ -375,37 +367,44 @@ namespace engine::input {
             break;
         }
 
-        return EventInformation(event, holdActivated, action, eventType, json, state);
+        return EventInformation(event, holdActivated, action, eventType, json, state, ralt, rshift, rcontrol, lalt, lshift, lcontrol);
     }
 
     InputHandler::EventInformation::Input::Input() {
     }
 
-    InputHandler::EventInformation::Input::Input(const sf::Event &input, bool isHold) :
+    InputHandler::EventInformation::Input::Input(const sf::Event &input, const nlohmann::json &payload, bool isHold, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol) :
         input(input),
-        isHold(isHold) {
+        payload(payload),
+        isHold(isHold),
+        ralt(ralt),
+        rshift(rshift),
+        rcontrol(rcontrol),
+        lalt(lalt),
+        lshift(lshift),
+        lcontrol(lcontrol) {
     }
 
     InputHandler::EventInformation::EventInformation() {
     }
 
-    InputHandler::EventInformation::EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string &eventType, const nlohmann::json &payload, const std::string &state) :
+    InputHandler::EventInformation::EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string &eventType, const nlohmann::json &payload, const std::string &state, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol) :
         m_action(action),
         m_eventType(eventType),
         m_state(state) {
-        m_input.emplace_back(input, isHold);
-        m_payload.emplace_back(payload);
+        m_input.emplace_back(input, payload, isHold, ralt, rshift, rcontrol, lalt, lshift, lcontrol);
     }
 
     nlohmann::json InputHandler::EventInformation::toJSON() const {
         nlohmann::json json;
 
         if (m_input.size() == 1) {
-            json = writeInputDescriptionObject(m_input.front().input, m_input.front().isHold, m_payload, m_state);
+            auto &input = m_input.front();
+            json = writeInputDescriptionObject(input.input, input.isHold, input.payload, m_state, input.lalt, input.lshift, input.lcontrol, input.ralt, input.rshift, input.rcontrol);
         }
         else {
-            for (auto [inputItr, payloadItr] = std::tuple{m_input.begin(), m_payload.begin()} ; inputItr != m_input.end() && payloadItr != m_payload.end() ; ++inputItr, ++payloadItr) {
-                json.push_back(writeInputDescriptionObject(inputItr->input, inputItr->isHold, *payloadItr, m_state));
+            for (const auto &input : m_input) {
+                json.push_back(writeInputDescriptionObject(input.input, input.isHold, input.payload, m_state, input.lalt, input.lshift, input.lcontrol, input.ralt, input.rshift, input.rcontrol));
             }
         }
 
