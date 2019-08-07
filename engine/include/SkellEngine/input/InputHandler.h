@@ -114,12 +114,18 @@ namespace engine::input {
          * \brief Stores some information about the input->event mapping, such as the JSON payload, the event type and the different possible inputs
          */
         struct EventInformation {
+            struct Input {
+                Input();
+                Input(const sf::Event &input, bool isHold);
+                sf::Event input;
+                bool isHold;
+            };
             EventInformation();
             EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload, const std::string &state);
 
             nlohmann::json toJSON() const;
 
-            std::list<std::pair<sf::Event, bool>> m_input;
+            std::list<Input> m_input;
             thor::Action m_action;
             std::string m_eventType;
             std::list<nlohmann::json> m_payload;

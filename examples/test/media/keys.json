@@ -27,7 +27,8 @@
         "shift": true
     },
     "Scroll": {
-        "type": "MouseWheelScrolled"
+        "type": "MouseWheelScrolled",
+        "control": true
     },
     "ShootPressed": {
         "type": "MouseButtonPressed",

@@ -6,6 +6,7 @@ if (DOXYGEN_FOUND)
     set(DOXYGEN_EXCLUDE_PATTERNS "*/tmxlite/*")
     set(DOXYGEN_SOURCE_BROWSER FALSE)
     set(DOXYGEN_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/images)
+    set(DOXYGEN_DISTRIBUTE_GROUP_DOC TRUE)
 
     doxygen_add_docs(documentation
         .

@@ -53,6 +53,10 @@ set(SOURCES
     src/events/ExternEvent.cpp
 
     src/input/InputHandler.cpp
+    src/input/detail/to_from_sfml_events.cpp
+    src/input/detail/parse_json.cpp
+    src/input/detail/write_json.cpp
+    src/input/detail/default.cpp
 
     src/files/FileManager.cpp
     src/files/GameDescription.cpp
