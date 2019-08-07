@@ -4,7 +4,8 @@
 
 namespace engine::utilities {
     /**
-     * \brief Fuses a and b. Be warn that b overrides data in a!
+     * \brief Fuses a and b.
+     * \warning b overrides data in a
      * \param a The base json
      * \param b The overwriting json
      * \return The fusion of a and b (where common keys have b values)
