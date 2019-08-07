@@ -77,7 +77,7 @@ namespace engine::events {
          * \param callback The callback to add
          * \return A connection to the registered callback. If the callback could not be registered, the connection is invalid
          */
-        EventConnection registerCallback(const std::string &eventType, const callbackSignature &callback);
+        EventConnection registerCallback(const std::string &eventType, const callbackSignature &callback, const std::string &state = "all");
 
         /**
          * \brief Remove every callback
@@ -112,7 +112,7 @@ namespace engine::events {
          * \brief Register the Lua functions
          * \param lua The Lua state
          */
-        void luaFunctions(sol::state &lua) const;
+        void luaFunctions(sol::state &lua);
 
     private:
 
@@ -121,7 +121,13 @@ namespace engine::events {
          */
         class CallbackStorage {
         public:
-            using Container = std::list<thor::detail::Listener<const Event&>>;
+            struct Callback {
+                Callback(const thor::detail::Listener<const Event&> &callback, const std::string &state);
+                void swap(Callback &other);
+                thor::detail::Listener<const Event&> callback;
+                std::string state;
+            };
+            using Container = std::list<Callback>;
             using Iterator = Container::iterator;
 
             /**
@@ -137,12 +143,14 @@ namespace engine::events {
             };
 
         public:
+            CallbackStorage(EventHandler &handler);
+
             /**
              * \brief Adds a new callback to this storage
              * \param callback The callback
              * \return A connection to the registered callback
              */
-            EventConnection addCallback(const callbackSignature &callback);
+            EventConnection addCallback(const callbackSignature &callback, const std::string &state);
 
             /**
              * \brief Calls every callback with the given event
@@ -160,6 +168,7 @@ namespace engine::events {
 
         private:
             Container m_callbacks;
+            EventHandler &m_handler;
         };
 
     private:
@@ -167,6 +176,15 @@ namespace engine::events {
         const Context& getContext() const;
 
         bool sendEvent(const std::string &type, const sol::table &luaTable);
+        /**
+         * \brief Used for easily overloading registerCallback
+         * 
+         * It sets the state of the callback to "all"
+         * \param eventType The event type
+         * \param callback The callback
+         * \todo TODO: add in documentation that in the init function, the state is not yet changed
+         */
+        EventConnection registerCallbackDefaultState(const std::string &eventType, const callbackSignature &callback);
 
     private:
         std::map<std::string, CallbackStorage> m_callbacksPerEventType;

@@ -24,15 +24,15 @@ namespace engine::events {
 
     }
 
-    EventHandler::EventConnection EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
+    EventHandler::EventConnection EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback, const std::string &state) {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
             tmx::Logger::log("Event handler: register callback: adding a new type of event: " + eventType, tmx::Logger::Type::Info);
-            itr = m_callbacksPerEventType.emplace(eventType, CallbackStorage()).first;
+            itr = m_callbacksPerEventType.emplace(eventType, CallbackStorage(*this)).first;
         }
 
-        return itr->second.addCallback(callback);
+        return itr->second.addCallback(callback, state);
     }
 
     void EventHandler::clear() {
@@ -50,7 +50,7 @@ namespace engine::events {
 
         bool sent = itr->second.sendEvent(event);
         if (!sent) {
-            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type");
+            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type (please check that the state given to registerCallback is correct)");
         }
         return sent;
     }
@@ -64,9 +64,12 @@ namespace engine::events {
         return sendEvent(*event);
     }
 
-    void EventHandler::luaFunctions(sol::state &lua) const {
+    void EventHandler::luaFunctions(sol::state &lua) {
         lua.new_usertype<EventHandler>("EventHandler",
-            "registerCallback", &EventHandler::registerCallback,
+            "registerCallback", sol::overload(
+                &EventHandler::registerCallback,
+                &EventHandler::registerCallbackDefaultState
+            ),
             "clear", &EventHandler::clear,
             "sendEvent", sol::overload(
                 sol::resolve<bool(const Event&)const>(&EventHandler::sendEvent),
@@ -94,24 +97,44 @@ namespace engine::events {
         return sendEvent(type, utilities::lua_to_json(luaTable));
     }
 
+    EventHandler::EventConnection EventHandler::registerCallbackDefaultState(const std::string &eventType, const EventHandler::callbackSignature &callback) {
+        return registerCallback(eventType, callback, "all");
+    }
+
+    EventHandler::CallbackStorage::Callback::Callback(const thor::detail::Listener<const Event&> &callback, const std::string &state) :
+        callback(callback),
+        state(state) {
+    }
+
+    void EventHandler::CallbackStorage::Callback::swap(EventHandler::CallbackStorage::Callback &other) {
+        callback.swap(other.callback);
+        std::swap(state, other.state);
+    }
+
     EventHandler::CallbackStorage::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
         EventConnection(connection) {
     }
 
-    EventHandler::EventConnection EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {
-        m_callbacks.push_front(callback);
+    EventHandler::CallbackStorage::CallbackStorage(EventHandler &handler) :
+        m_handler(handler) {
+    }
+
+    EventHandler::EventConnection EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback, const std::string &state) {
+        m_callbacks.emplace_front(callback, state);
 
         Iterator added = m_callbacks.begin();
-        added->setEnvironment(*this, added);
+        added->callback.setEnvironment(*this, added);
 
-        return CallbackConnection(added->shareConnection());
+        return CallbackConnection(added->callback.shareConnection());
     }
 
     bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
         bool atLeastOne = false;
         for (const auto& itr : m_callbacks) {
-            atLeastOne = true;
-            itr.call(event);
+            if (itr.state == "all" || m_handler.getContext().stateManager->isCurrentState(itr.state)) {
+                atLeastOne = true;
+                itr.callback.call(event);
+            }
         }
         return atLeastOne;
     }
