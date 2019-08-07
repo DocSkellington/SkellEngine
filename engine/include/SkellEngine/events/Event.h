@@ -7,13 +7,22 @@
 #include <sol/sol.hpp>
 
 #include "SkellEngine/utilities/MemberStorage.h"
+#include "SkellEngine/utilities/RegisterClass.h"
 
 namespace engine::events {
     /**
      * \brief The base class for events
+     * 
+     * It defines one static function to create an instance of an event
+     * 
+     * If you create your own Event (in C++), you must register it before being able to use it. To do so, create a static member of type Event::
+     * \see REGISTER_EVENT for an helper macro to register a component
      */
     class Event : public utilities::MemberStorage {
     public:
+        /**
+         * \brief Every event should be manipulated through this pointer type
+         */
         typedef std::shared_ptr<Event> Ptr;
 
     public:
@@ -61,28 +70,39 @@ namespace engine::events {
 
     protected:
         /**
-         * \brief The structure to use to register a new event class
+         * \brief The specialisation of utilities::RegisterClass for the events
          */
-        template<typename T>
-        struct RegisterEvent {
-            RegisterEvent(const std::string &name) {
-                if (getMapToEvents()->find(name) != getMapToEvents()->end()) {
-                    tmx::Logger::log("Event: register event: " + name + " is already defined. The value will be overwritten", tmx::Logger::Type::Warning);
-                }
-                getMapToEvents()->emplace(name, std::make_shared<T, Context&>);
-            }
-        };
+        using RegisteredEvents = utilities::RegisterClass<Event, Context&>;
+
+        /**
+         * \brief A shortcut to register an event
+         * \tparam T The type of the event to register
+         */
+        template <typename T>
+        using RegisterEvent = RegisteredEvents::Register<T>;
 
     protected:
         virtual std::string getLogErrorPrefix() const override;
 
     private:
-        using mapType = std::map<std::string, std::function<Ptr(Context &)>>;
-
-    private:
-        static std::shared_ptr<mapType> getMapToEvents();
-    
-    private:
         const std::string m_type;
     };
 }
+
+/**
+ * \brief Registers the event TYPE under the name NAME
+ * 
+ * \warning It must be placed <b>inside</b> of the class definition. For example, do something like:
+ * \code
+ * class ExampleEvent : public Event {
+ *  public:
+ *      ExampleEvent(Context& context) : Event(context) { ... }
+ *      ...
+ *      REGISTER_EVENT(ExampleEvent, "example")
+ * };
+ * \endcode
+ * 
+ * \note This macro adds a private member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same event under different names
+ * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
+ */
+#define REGISTER_EVENT(TYPE, NAME) REGISTER_CLASS(RegisterEvent, TYPE, NAME)

@@ -19,11 +19,6 @@ namespace engine::events {
         return m_type;
     }
 
-    std::shared_ptr<Event::mapType> Event::getMapToEvents() {
-        static std::shared_ptr<mapType> map = std::make_shared<mapType>();
-        return map;
-    }
-
     std::string Event::getLogErrorPrefix() const {
         return "Event";
     }
@@ -36,14 +31,11 @@ namespace engine::events {
     }
 
     Event::Ptr Event::createEvent(const std::string &type, Context &context) {
-        auto constructor = getMapToEvents()->find(type);
-        Event::Ptr ptr;
+        Event::Ptr ptr = RegisteredEvents::construct(type, context);
 
-        if (constructor == getMapToEvents()->end()) {
+        if (!ptr) {
+            tmx::Logger::log("Event: createEvent: creating an ExternEvent since " + type + " is not registered");
             ptr = std::make_shared<ExternEvent>(type, context);
-        }
-        else {
-            ptr = constructor->second(context);
         }
 
         return ptr;
