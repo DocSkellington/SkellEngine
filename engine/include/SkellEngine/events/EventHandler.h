@@ -8,6 +8,7 @@
 #include <bitset>
 
 #include <Thor/Input/Connection.hpp>
+#include <Thor/Input/Detail/EventListener.hpp>
 
 #include "SkellEngine/events/Event.h"
 
@@ -39,24 +40,32 @@ namespace engine::events {
         class EventConnection {
         public:
             /**
-             * \brief The constructor
-             * 
-             * It should not be called by the user (but it was impossible to hide it)
-             * \param connection The connection
-             */
-            EventConnection(const thor::Connection &connection);
-
-            /**
-             * \brief TODO:
+             * \brief Is the connection still active?
+             * \return True iff the callback associated to this connection is still registered in the event handler
              */
             bool isConnected() const;
+
+            /**
+             * \brief Disconnects the associated callback from the event handler
+             */
             void disconnect();
+
+        protected:
+            /**
+             * \brief The (hidden) constructor
+             * \param connection The thor::Connection to the registered callback
+             */
+            EventConnection(const thor::Connection &connection);
 
         private:
             thor::Connection m_connection;
         };
 
     public:
+        /**
+         * \brief The constructor
+         * \param context A reference to the context of the engine
+         */
         EventHandler(Context &context);
         EventHandler(const EventHandler&) = delete;
 
@@ -66,7 +75,7 @@ namespace engine::events {
          * If the event type is unkown, the listener is still registered. So, make sure to write the type correctly.
          * \param eventType The type of the event to listen to
          * \param callback The callback to add
-         * \return -1 if the callback could not be added or the ID of the callback
+         * \return A connection to the registered callback. If the callback could not be registered, the connection is invalid
          */
         EventConnection registerCallback(const std::string &eventType, const callbackSignature &callback);
 
@@ -107,39 +116,46 @@ namespace engine::events {
 
     private:
 
+        /**
+         * \brief How the callbacks are stored
+         */
         class CallbackStorage {
         public:
-            class Callback;
-            using Container = std::list<Callback>;
+            using Container = std::list<thor::detail::Listener<const Event&>>;
             using Iterator = Container::iterator;
 
             /**
-             * \brief A callback
-             * 
-             * This class is inspired from thor::detail::Listener
+             * \brief A constructible implementation of EventConnection
              */
-            class Callback {
+            class CallbackConnection : public EventConnection {
             public:
-                Callback(const callbackSignature &callback);
-
-                void call(const Event &event) const;
-
-                void setEnvironment(CallbackStorage &container, CallbackStorage::Iterator iterator);
-
-                EventConnection shareConnection() const;
-
-                void swap(Callback &other);
-
-            private:
-                callbackSignature m_callback;
-                std::shared_ptr<thor::detail::AbstractConnectionImpl> m_strongRef;
+                /**
+                 * \brief The constructor
+                 * \param connection The thor::Connection to the registered callback
+                 */
+                CallbackConnection(const thor::Connection &connection);
             };
 
         public:
+            /**
+             * \brief Adds a new callback to this storage
+             * \param callback The callback
+             * \return A connection to the registered callback
+             */
             EventConnection addCallback(const callbackSignature &callback);
 
+            /**
+             * \brief Calls every callback with the given event
+             * \param event The event to send
+             * \return True iff at least one callback was called
+             */
             bool sendEvent(const Event& event) const;
 
+            /**
+             * \brief Removes a callback
+             * \param iterator The iterator to the callback to remove
+             * \see EventConnection
+             */
             void remove(Iterator iterator);
 
         private:

@@ -94,26 +94,8 @@ namespace engine::events {
         return sendEvent(type, utilities::lua_to_json(luaTable));
     }
 
-    EventHandler::CallbackStorage::Callback::Callback(const EventHandler::callbackSignature &callback) :
-        m_callback(callback) {
-
-    }
-
-    void EventHandler::CallbackStorage::Callback::call(const Event &event) const {
-        m_callback(event);
-    }
-
-    void EventHandler::CallbackStorage::Callback::setEnvironment(CallbackStorage &container, CallbackStorage::Iterator iterator) {
-        m_strongRef = thor::detail::makeIteratorConnectionImpl(container, iterator);
-    }
-
-    EventHandler::EventConnection EventHandler::CallbackStorage::Callback::shareConnection() const {
-        return EventHandler::EventConnection(thor::Connection(m_strongRef));
-    }
-
-    void EventHandler::CallbackStorage::Callback::swap(EventHandler::CallbackStorage::Callback &other) {
-        std::swap(m_callback, other.m_callback);
-        std::swap(m_strongRef, other.m_strongRef);
+    EventHandler::CallbackStorage::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
+        EventConnection(connection) {
     }
 
     EventHandler::EventConnection EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback) {
@@ -122,7 +104,7 @@ namespace engine::events {
         Iterator added = m_callbacks.begin();
         added->setEnvironment(*this, added);
 
-        return added->shareConnection();
+        return CallbackConnection(added->shareConnection());
     }
 
     bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
