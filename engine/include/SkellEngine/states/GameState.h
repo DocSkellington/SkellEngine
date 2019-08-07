@@ -8,6 +8,10 @@ namespace engine::states {
     */
     class GameState : public State {
     public:
+        /**
+         * \brief The constructor
+         * \param manager The state manager
+         */
         GameState(StateManager& manager);
         GameState(const GameState&) = delete;
         virtual ~GameState();

@@ -23,6 +23,10 @@ namespace engine::utilities {
      */
     class MemberStorage {
     public:
+        /**
+         * \brief The constructor
+         * \param context A reference to the context of the engine
+         */
         MemberStorage(Context &context);
         virtual ~MemberStorage();
 

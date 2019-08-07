@@ -12,9 +12,16 @@ namespace engine::systems {
      */
     class GraphicalSystem : public System {
     public:
+        /**
+         * \brief A specific System::Ptr for graphical systems
+         */
         typedef std::shared_ptr<GraphicalSystem> Ptr;
     
     public:
+        /**
+         * \brief The constructor
+         * \param manager The system manager
+         */
         explicit GraphicalSystem(SystemManager& manager);
         GraphicalSystem(const GraphicalSystem&) = delete;
         virtual ~GraphicalSystem();

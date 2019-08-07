@@ -47,7 +47,7 @@ namespace engine::events {
         m_jsonTable[name] = value;
     }
 
-    void ExternEvent::set(const std::string &name, sol::nil_t value) {
+    void ExternEvent::set(const std::string &name, sol::nil_t) {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             m_jsonTable.erase(itr);

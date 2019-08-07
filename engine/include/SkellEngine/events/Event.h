@@ -1,3 +1,7 @@
+/**
+ * \file Event.h
+ */
+
 #pragma once
 
 #include <string>
@@ -37,7 +41,6 @@ namespace engine::events {
 
         /**
          * \brief Get the type of the event
-         * \param The type of the event
          */
         const std::string &getType() const noexcept;
 
@@ -49,13 +52,18 @@ namespace engine::events {
 
         /**
          * \brief Create an event of given type
+         * 
+         * The event must be registered to be created using this function
          * \param type The type
+         * \param context The context
          * \return A shared pointer to the created event
          */
         static Ptr createEvent(const std::string &type, Context &context);
 
         /**
          * \brief Create an event of given type and immediately sets variables defined in the JSON table
+         * 
+         * The event must be registered to be created using this function
          * \param type The type
          * \param context The context
          * \param jsonTable The JSON table containing the variables to set in the event

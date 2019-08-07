@@ -27,12 +27,12 @@ public:
 
     }
 
-    bool update(sf::Int64 deltaTime, sf::View &view) {
+    bool update(sf::Int64 deltaTime, sf::View &view) override {
         updateTime = deltaTime;
         return true;
     }
 
-    bool addEntity(Entity::Ptr entity) {
+    bool addEntity(Entity::Ptr entity) override {
         bool a = System::addEntity(entity);
         if (a) {
             nEntities++;
@@ -40,7 +40,7 @@ public:
         return a;
     }
 
-    bool removeEntity(Entity::Ptr entity) {
+    bool removeEntity(Entity::Ptr entity) override {
         bool a = System::removeEntity(entity);
         if (a) {
             nEntities--;

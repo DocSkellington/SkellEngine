@@ -12,6 +12,10 @@ namespace engine::entities::components {
      */
     class GraphicalSpriteSheetComponent : public Component {
     public:
+        /**
+         * \brief The constructor
+         * \param context The context of the engine
+         */
         explicit GraphicalSpriteSheetComponent(Context &context);
         GraphicalSpriteSheetComponent(const GraphicalSpriteSheetComponent&) = delete;
         virtual ~GraphicalSpriteSheetComponent();

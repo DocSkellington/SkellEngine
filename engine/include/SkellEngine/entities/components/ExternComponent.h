@@ -12,6 +12,10 @@ namespace engine::entities::components {
      */
     class ExternComponent : public Component {
     public:
+        /**
+         * \brief The constructor
+         * \param context The context of the engine
+         */
         ExternComponent(Context &context);
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
@@ -36,6 +40,10 @@ namespace engine::entities::components {
         std::pair<std::string, bool> getString(const std::string &name) const override;
         std::pair<sol::object, bool> getObject(const std::string &name) const override;
 
+        /**
+         * \brief Register Lua functions for the ExternComponent class
+         * \param lua The Lua state
+         */
         static void luaFunctions(sol::state &lua);
 
     private:

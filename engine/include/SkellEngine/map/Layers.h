@@ -19,6 +19,12 @@ namespace engine::map {
      */
     class Layer : public sf::Drawable, public sf::Transformable {
     public:
+        /**
+         * \brief The constructor
+         * \param map The map that uses this layer
+         * \param mapName The name of the map
+         * \param visible Whether to draw this layer
+         */
         Layer(Map &map, const std::string& mapName, bool visible);
         Layer(const Layer&) = delete;
         virtual ~Layer();
@@ -35,7 +41,15 @@ namespace engine::map {
         bool isVisible() const;
 
     protected:
+        /**
+         * \brief Gives the map
+         * \return A reference to the map
+         */
         Map &getMap();
+        /**
+         * \brief Gives the name of the map
+         * \return The name of the map
+         */
         const std::string& getMapName() const;
 
     private:
@@ -49,13 +63,28 @@ namespace engine::map {
      */
     class TileLayer : public Layer {
     public:
+        /**
+         * \brief The constructor
+         * \param map The map that uses this layer
+         * \param mapName The name of the map
+         * \param layer The description of this layer
+         */
         TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer);
         TileLayer(const TileLayer&) = delete;
         virtual ~TileLayer();
 
-        void update(sf::Int64 deltaTime) override;
+        /**
+         * \brief Updates the tile layer
+         * \param deltaTime The time elapsed since the last frame
+         */
+        virtual void update(sf::Int64 deltaTime) override;
 
     protected:
+        /**
+         * \brief Draws the tile layer
+         * \param target The render target
+         * \param states The render states
+         */
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
@@ -67,11 +96,28 @@ namespace engine::map {
          */
         class Tile : public sf::Drawable, public sf::Transformable {
         public:
+            /**
+             * \brief The constructor
+             * \param map A refernce to the map
+             * \param mapName The name of the map
+             * \param x The x position of the tile
+             * \param y The y position of the tile
+             * \param tile The tmx tile
+             * \param flipFlag The flip flags (horizontal and vertical)
+             * \param alpha The opacity
+             * \param offset The offset from the top left corner of the layer
+             */
             Tile(Map &map, const std::string& mapName, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
 
+            /**
+             * \brief Updates the tile
+             * \param deltaTime The elapsed time since the last frame
+             */
             void update(sf::Int64 deltaTime);
 
-        public:
+            /**
+             * \brief Whether the tile is animated or not
+             */
             bool isAnimated() const;
 
         private:
@@ -101,13 +147,28 @@ namespace engine::map {
      */
     class ImageLayer : public Layer {
     public:
+        /**
+         * \brief The constructor
+         * \param map The map that uses this layer
+         * \param mapName The name of the map
+         * \param layer The description of this layer
+         */
         ImageLayer(Map &map, const std::string& mapName, const tmx::ImageLayer &layer);
         ImageLayer(const ImageLayer&) = delete;
         virtual ~ImageLayer();
 
-        void update(sf::Int64 deltaTime) override;
+        /**
+         * \brief Updates the image layer
+         * \param deltaTime The time elapsed since the last frame
+         */
+        virtual void update(sf::Int64 deltaTime) override;
 
     protected:
+        /**
+         * \brief draws the image layer
+         * \param target the render target
+         * \param states the render states
+         */
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
@@ -119,13 +180,28 @@ namespace engine::map {
      */
     class ObjectLayer : public Layer {
     public:
+        /**
+         * \brief The constructor
+         * \param map The map that uses this layer
+         * \param mapName The name of the map
+         * \param layer The description of this layer
+         */
         ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer);
         ObjectLayer(const ObjectLayer&) = delete;
         virtual ~ObjectLayer();
 
-        void update(sf::Int64 deltaTime) override;
+        /**
+         * \brief Updates the object layer
+         * \param deltaTime The time elapsed since the last frame
+         */
+        virtual void update(sf::Int64 deltaTime) override;
 
     protected:
+        /**
+         * \brief draws the object layer
+         * \param target the render target
+         * \param states the render states
+         */
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:

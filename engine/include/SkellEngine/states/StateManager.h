@@ -28,7 +28,11 @@ namespace engine::states {
     */
     class StateManager final {
     public:
-        explicit StateManager(engine::Context &context);
+        /**
+         * \brief The constructor
+         * \param context A reference to the context of the engine
+         */
+        explicit StateManager(Context &context);
         StateManager(const StateManager&) = delete;
         ~StateManager();
 
@@ -74,6 +78,10 @@ namespace engine::states {
         */
         void processRemove();
 
+        /**
+         * \brief Gives the context
+         * \return The context
+         */
         Context &getContext();
 
         /**

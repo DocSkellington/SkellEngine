@@ -9,6 +9,10 @@ namespace engine::states {
     */
     class MainMenuState : public State {
     public:
+        /**
+         * \brief The constructor
+         * \param manager The state manager
+         */
         MainMenuState(StateManager& manager);
         MainMenuState(const MainMenuState&) = delete;
         virtual ~MainMenuState();

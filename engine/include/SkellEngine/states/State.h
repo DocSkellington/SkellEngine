@@ -16,6 +16,9 @@ namespace engine::states {
     */
     class State {
     public:
+        /**
+         * \brief Every state should be manipulated through this pointer type
+         */
         using Ptr = std::shared_ptr<State>;
 
     public:
@@ -67,18 +70,51 @@ namespace engine::states {
          */
         bool isTransparent() const;
 
+        /**
+         * \brief Creates a state of the given name
+         * 
+         * The state must be registered
+         * \param name The name of the state
+         * \param manager The state manager
+         * \return The state
+         */
         static Ptr createInstance(const std::string &name, StateManager &manager);
 
     protected:
+        /**
+         * \brief The specialisation of utilities::RegisterClass for the states
+         */
         using RegisteredStates = utilities::RegisterClass<State, StateManager&>;
+
+        /**
+         * \brief A shortcut to register a state
+         * \tparam T The type of the state to register
+         */
         template <typename T>
         using RegisterState = RegisteredStates::Register<T>;
 
     protected:
-        explicit State(StateManager &manager);
+        /**
+         * \brief The constructor
+         * \param manager The state manager
+         */
+        State(StateManager &manager);
 
+        /**
+         * \brief Gives the state manager
+         * \return The state manager
+         */
         StateManager& getStateManager() const;
+        
+        /**
+         * \brief Gives the view
+         * \return The view
+         */
         sf::View getView() const;
+        /**
+         * \brief Sets the view
+         * \param view The view
+         */
         void setView(const sf::View &view);
 
     private:

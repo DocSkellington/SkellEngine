@@ -75,6 +75,7 @@ namespace engine::events {
          * If the event type is unkown, the listener is still registered. So, make sure to write the type correctly.
          * \param eventType The type of the event to listen to
          * \param callback The callback to add
+         * \param state The state of the game in which the callback is active. If "all", the callback is active in every state
          * \return A connection to the registered callback. If the callback could not be registered, the connection is invalid
          */
         EventConnection registerCallback(const std::string &eventType, const callbackSignature &callback, const std::string &state = "all");
@@ -121,13 +122,43 @@ namespace engine::events {
          */
         class CallbackStorage {
         public:
+            /**
+             * \brief Stores the callback and the state in which the callback is active
+             */
             struct Callback {
+                /**
+                 * \brief Constructor
+                 * \param callback The callback
+                 * \param state The state in which the state is active
+                 */
                 Callback(const thor::detail::Listener<const Event&> &callback, const std::string &state);
+                
+                /**
+                 * \brief Swaps this callback with an other callback
+                 * \param other The other callback
+                 */
                 void swap(Callback &other);
+
+                /**
+                 * \brief The callback
+                 */
                 thor::detail::Listener<const Event&> callback;
+
+                /**
+                 * \brief The state in which the callback is active
+                 */
                 std::string state;
             };
+
+            /**
+             * \brief How the callbacks are effectively stored
+             */
             using Container = std::list<Callback>;
+            /**
+             * \brief Defines the iterator on the container
+             * 
+             * Necessary for thor::detail::Listener
+             */
             using Iterator = Container::iterator;
 
             /**
@@ -143,6 +174,10 @@ namespace engine::events {
             };
 
         public:
+            /**
+             * \brief Constructor
+             * \param handler A reference to the event handler
+             */
             CallbackStorage(EventHandler &handler);
 
             /**

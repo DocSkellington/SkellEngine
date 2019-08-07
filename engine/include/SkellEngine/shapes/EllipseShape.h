@@ -30,7 +30,16 @@ namespace engine::shapes {
          */
         sf::Vector2f getRadius() const;
 
+        /**
+         * \brief Gets the number of points in the shape
+         * \return The number of points
+         */
         std::size_t getPointCount() const override;
+        /**
+         * \brief Gets the point of given index
+         * \param index The index of the point
+         * \return The point
+         */
         sf::Vector2f getPoint(std::size_t index) const override;
 
     private:

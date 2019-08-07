@@ -10,9 +10,16 @@ namespace engine::systems {
      */
     class ExternSystem : public System {
     public:
+        /**
+         * \brief Specific System::Ptr for the ExternSystem
+         */
         typedef std::shared_ptr<ExternSystem> Ptr;
 
     public:
+        /**
+         * \brief The constructor
+         * \param manager The system manager
+         */
         explicit ExternSystem(SystemManager &manager);
         ExternSystem(const ExternSystem&) = delete;
         virtual ~ExternSystem();

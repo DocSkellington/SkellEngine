@@ -8,6 +8,10 @@ namespace engine::states {
      */ 
     class PauseState : public State {
     public:
+        /**
+         * \brief The constructor
+         * \param manager The state manager
+         */
         PauseState(StateManager& manager);
         PauseState(const PauseState&) = delete;
         virtual ~PauseState();

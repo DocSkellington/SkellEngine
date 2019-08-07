@@ -11,7 +11,15 @@ namespace engine::errors {
      */
     class ConstructorNotValid : public std::runtime_error {
     public:
+        /**
+         * \brief Constructor
+         * \param message The message to send with the error
+         */
         explicit ConstructorNotValid(const std::string &message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        /**
+         * \brief Constructor
+         * \param message The message to send with the error
+         */
         explicit ConstructorNotValid(const char *message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
     };
 }

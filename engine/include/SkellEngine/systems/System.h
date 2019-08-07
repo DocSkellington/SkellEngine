@@ -67,13 +67,24 @@ namespace engine::systems {
         static Ptr createInstance(const std::string &systemName, SystemManager& manager);
 
     protected:
+        /**
+         * \brief The specialisation of utilities::RegisterClass for the systems
+         */
         using RegisteredSystems = utilities::RegisterClass<System, SystemManager&>;
 
+        /**
+         * \brief A shortcut to register a system
+         * \tparam T The type of the system to register
+         */
         template <typename T>
         using RegisterSystem = RegisteredSystems::Register<T>;
 
     protected:
-        explicit System(SystemManager& manager);
+        /**
+         * \brief The constructor
+         * \param manager The system manager
+         */
+        System(SystemManager& manager);
 
         /**
          * \brief Returns the system manager

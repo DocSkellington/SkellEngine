@@ -8,6 +8,10 @@ namespace engine::systems {
      */ 
     class GraphicalOrthogonalSystem : public GraphicalSystem {
     public:
+        /**
+         * \brief The constructor
+         * \param manager The system manager
+         */
         GraphicalOrthogonalSystem(SystemManager& manager);
         GraphicalOrthogonalSystem(const GraphicalOrthogonalSystem&) = delete;
         virtual ~GraphicalOrthogonalSystem();

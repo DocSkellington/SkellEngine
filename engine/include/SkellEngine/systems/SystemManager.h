@@ -18,6 +18,10 @@ namespace engine::systems {
      */
     class SystemManager final {
     public:
+        /**
+         * \brief The constructor
+         * \param context A reference to the context of the engine
+         */
         explicit SystemManager(Context& context);
         SystemManager(const SystemManager&) = delete;
 

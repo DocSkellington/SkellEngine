@@ -82,7 +82,7 @@ namespace engine::input {
 
         /**
          * \brief Adds an input (an sf::Event) for the current frame
-         * \param The event
+         * \param event The event
          */
         void proccess(const sf::Event &event);
 
