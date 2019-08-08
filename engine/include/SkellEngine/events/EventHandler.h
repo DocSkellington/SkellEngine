@@ -86,6 +86,12 @@ namespace engine::events {
         void clear();
 
         /**
+         * \brief Remove every callback tied to the given state
+         * \param state The state of the callbacks to remove
+         */
+        void clear(const std::string &state);
+
+        /**
          * \brief Send an event
          * 
          * The event type is deduced from the given event
@@ -200,6 +206,12 @@ namespace engine::events {
              * \see EventConnection
              */
             void remove(Iterator iterator);
+
+            /**
+             * \brief Removes every callback tied to the given state
+             * \param state The state of the callbacks to remove
+             */
+            void clear(const std::string &state);
 
         private:
             Container m_callbacks;

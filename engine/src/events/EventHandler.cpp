@@ -39,6 +39,12 @@ namespace engine::events {
         m_callbacksPerEventType.clear();
     }
 
+    void EventHandler::clear(const std::string &state) {
+        for (auto &[_, callbackstorage] : m_callbacksPerEventType) {
+            callbackstorage.clear(state);
+        }
+    }
+
     bool EventHandler::sendEvent(const Event& event) const {
         const std::string& type = event.getType();
         auto itr = m_callbacksPerEventType.find(type);
@@ -70,7 +76,10 @@ namespace engine::events {
                 &EventHandler::registerCallback,
                 &EventHandler::registerCallbackDefaultState
             ),
-            "clear", &EventHandler::clear,
+            "clear", sol::overload(
+                sol::resolve<void()>(&EventHandler::clear),
+                sol::resolve<void(const std::string&)>(&EventHandler::clear)
+            ),
             "sendEvent", sol::overload(
                 sol::resolve<bool(const Event&)const>(&EventHandler::sendEvent),
                 sol::resolve<const std::string&, const sol::table&>(&EventHandler::sendEvent)
@@ -142,5 +151,9 @@ namespace engine::events {
     void EventHandler::CallbackStorage::remove(EventHandler::CallbackStorage::Iterator iterator) {
         iterator->swap(m_callbacks.front());
         m_callbacks.pop_front();
+    }
+
+    void EventHandler::CallbackStorage::clear(const std::string &state) {
+        std::remove_if(m_callbacks.begin(), m_callbacks.end(), [state](const Callback &callback) { return state == callback.state; });
     }
 }
