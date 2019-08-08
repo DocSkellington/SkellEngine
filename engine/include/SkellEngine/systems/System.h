@@ -19,7 +19,7 @@ namespace engine::systems {
      * If you define your system, you must register it before being able to use it.
     * \see REGISTER_SYSTEM for an helper macro to register a system
      */
-    class System : public events::StoreEventConnections {
+    class System {
     public:
         /**
          * \brief The type to use for a pointer to a System.
@@ -108,9 +108,14 @@ namespace engine::systems {
          */
         std::vector<engine::entities::Entity::Ptr>& getEntities();
 
+        events::StoreEventConnections& getStoreEventConnections();
+
+        // events::Event registerCallback(const std::string &eventType, const events::Callback::callbackSignature &callback);
+
     private:
         SystemManager &m_manager;
         std::vector<engine::entities::Entity::Ptr> m_entities;
+        events::StoreEventConnections m_storeEventConnections;
     };
 }
 

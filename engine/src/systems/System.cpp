@@ -9,12 +9,13 @@
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
-        StoreEventConnections(*manager.getContext().eventHandler),
-        m_manager(manager) {
+        m_manager(manager),
+        m_storeEventConnections(*manager.getContext().eventHandler) {
         
     }
 
     System::~System() {
+        getStoreEventConnections().clearEventConnections();
     }
 
     bool System::addEntity(entities::Entity::Ptr entity) {
@@ -54,5 +55,9 @@ namespace engine::systems {
 
     std::vector<entities::Entity::Ptr>& System::getEntities() {
         return m_entities;
+    }
+
+    events::StoreEventConnections& System::getStoreEventConnections() {
+        return m_storeEventConnections;
     }
 }

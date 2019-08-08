@@ -12,9 +12,7 @@ namespace engine::events {
         clearEventConnections();
     }
 
-    EventHandler::EventConnection StoreEventConnections::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
-        std::cout << callback.target_type().name() << "\n";
-        // auto connection = m_handler.registerCallback(eventType, [callback](const Event &event) { callback(event); });
+    EventConnection StoreEventConnections::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
         auto connection = m_handler.registerCallback(eventType, callback);
         m_connections.push_back(connection);
         return connection;
@@ -29,5 +27,11 @@ namespace engine::events {
         }
         std::cout << "Connections cleared\n";
         m_connections.clear();
+    }
+
+    void StoreEventConnections::luaFunctions(sol::state &lua) {
+        lua.set_function("registerCallback", [this](const std::string &eventType, const EventHandler::callbackSignature &callback) {
+            this->registerCallback(eventType, callback);
+        });
     }
 }

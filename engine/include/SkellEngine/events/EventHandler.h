@@ -11,6 +11,7 @@
 #include <Thor/Input/Detail/EventListener.hpp>
 
 #include "SkellEngine/events/Event.h"
+#include "SkellEngine/events/EventConnection.h"
 
 namespace engine {
     struct Context;
@@ -31,36 +32,6 @@ namespace engine::events {
          * You can cast the event into the specific class or use the generic getters and setters
          */
         using callbackSignature = std::function<void(const Event&)>;
-
-        /**
-         * \brief Allows to remove a callback from the event handler
-         * 
-         * If the connection object dies (the variable reaches the end of its scope), the actual connection is <b>not</b> removed (the callback will still be called when an appropriate input is triggered).
-         */
-        class EventConnection {
-        public:
-            /**
-             * \brief Is the connection still active?
-             * \return True iff the callback associated to this connection is still registered in the event handler
-             */
-            bool isConnected() const;
-
-            /**
-             * \brief Disconnects the associated callback from the event handler
-             */
-            void disconnect();
-
-        protected:
-            /**
-             * \brief The (hidden) constructor
-             * \param connection The thor::Connection to the registered callback
-             */
-            EventConnection(const thor::Connection &connection);
-
-        private:
-            thor::Connection m_connection;
-        };
-
     public:
         /**
          * \brief The constructor
@@ -122,50 +93,20 @@ namespace engine::events {
         void luaFunctions(sol::state &lua);
 
     private:
-
-        /**
-         * \brief How the callbacks are stored
-         */
-        class CallbackStorage {
+        class Callback {
         public:
-            /**
-             * \brief Stores the callback and the state in which the callback is active
-             */
-            struct Callback {
-                /**
-                 * \brief Constructor
-                 * \param callback The callback
-                 * \param state The state in which the state is active
-                 */
-                Callback(const thor::detail::Listener<const Event&> &callback, const std::string &state);
-                
-                /**
-                 * \brief Swaps this callback with an other callback
-                 * \param other The other callback
-                 */
-                void swap(Callback &other);
+            Callback(const callbackSignature &callback);
 
-                /**
-                 * \brief The callback
-                 */
-                thor::detail::Listener<const Event&> callback;
+            void call(const Event &event) const;
 
-                /**
-                 * \brief The state in which the callback is active
-                 */
-                std::string state;
-            };
+            template <class T>
+            void setEnvironment(T &container, typename T::Iterator iterator) {
+                m_strongRef = thor::detail::makeIteratorConnectionImpl(container, iterator);
+            }
 
-            /**
-             * \brief How the callbacks are effectively stored
-             */
-            using Container = std::list<Callback>;
-            /**
-             * \brief Defines the iterator on the container
-             * 
-             * Necessary for thor::detail::Listener
-             */
-            using Iterator = Container::iterator;
+            EventConnection shareConnection();
+            
+            void swap(Callback &other);
 
             /**
              * \brief A constructible implementation of EventConnection
@@ -179,6 +120,55 @@ namespace engine::events {
                 CallbackConnection(const thor::Connection &connection);
             };
 
+        private:
+            std::shared_ptr<callbackSignature> m_callback;
+            std::shared_ptr<thor::detail::AbstractConnectionImpl> m_strongRef;
+        };
+
+        /**
+         * \brief How the callbacks are stored
+         */
+        class CallbackStorage {
+        public:
+            /**
+             * \brief Stores the callback and the state in which the callback is active
+             */
+            struct StoredCallback {
+                /**
+                 * \brief Constructor
+                 * \param callback The callback
+                 * \param state The state in which the state is active
+                 */
+                StoredCallback(const Callback &callback, const std::string &state);
+                
+                /**
+                 * \brief Swaps this callback with an other callback
+                 * \param other The other callback
+                 */
+                void swap(StoredCallback &other);
+
+                /**
+                 * \brief The callback
+                 */
+                Callback callback;
+
+                /**
+                 * \brief The state in which the callback is active
+                 */
+                std::string state;
+            };
+
+            /**
+             * \brief How the callbacks are effectively stored
+             */
+            using Container = std::list<StoredCallback>;
+            /**
+             * \brief Defines the iterator on the container
+             * 
+             * Necessary for thor::detail::Listener
+             */
+            using Iterator = Container::iterator;
+
         public:
             /**
              * \brief Constructor
@@ -191,7 +181,7 @@ namespace engine::events {
              * \param callback The callback
              * \return A connection to the registered callback
              */
-            EventConnection addCallback(const callbackSignature &callback, const std::string &state);
+            EventConnection addCallback(const Callback &callback, const std::string &state);
 
             /**
              * \brief Calls every callback with the given event

@@ -127,8 +127,8 @@ namespace engine::systems {
         manager.getContext().entityManager->luaFunctions(m_lua);
         manager.getContext().systemManager->luaFunctions(m_lua);
         manager.getContext().eventHandler->luaFunctions(m_lua);
-
-        m_lua.set_function("registerCallback", [this](const std::string &eventType, const events::EventHandler::callbackSignature &callback) { return this->registerCallback(eventType, callback); });
+        
+        getStoreEventConnections().luaFunctions(m_lua);
     }
 
     ExternSystem::~ExternSystem() {
@@ -140,6 +140,7 @@ namespace engine::systems {
                 tmx::Logger::logError("ExternSystem: error during destroy. For more details: ", e);
             }
         }
+        getStoreEventConnections().clearEventConnections();
     }
 
     void ExternSystem::loadLua(const std::string &systemName) {

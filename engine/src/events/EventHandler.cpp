@@ -5,27 +5,13 @@
 #include "SkellEngine/utilities/json_lua.h"
 
 namespace engine::events {
-    EventHandler::EventConnection::EventConnection(const thor::Connection &connection) :
-        m_connection(connection) {
-
-    }
-
-    bool EventHandler::EventConnection::isConnected() const {
-        return m_connection.isConnected();
-    }
-
-    void EventHandler::EventConnection::disconnect() {
-        m_connection.disconnect();
-    }
-
     EventHandler::EventHandler(Context &context) :
         m_context(context)
         {
 
     }
 
-    EventHandler::EventConnection EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback, const std::string &state) {
-        std::cout << callback.target_type().name() << "\n";
+    EventConnection EventHandler::registerCallback(const std::string &eventType, const callbackSignature &callback, const std::string &state) {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
@@ -87,10 +73,7 @@ namespace engine::events {
             )
         );
 
-        lua.new_usertype<EventHandler::EventConnection>("EventConnection",
-            "isConnected", &EventHandler::EventConnection::isConnected,
-            "disconnect", &EventHandler::EventConnection::disconnect
-        );
+        EventConnection::luaFunctions(lua);
 
         lua["game"]["eventHandler"] = this;
     }
@@ -107,35 +90,31 @@ namespace engine::events {
         return sendEvent(type, utilities::lua_to_json(luaTable));
     }
 
-    EventHandler::EventConnection EventHandler::registerCallbackDefaultState(const std::string &eventType, const EventHandler::callbackSignature &callback) {
+    EventConnection EventHandler::registerCallbackDefaultState(const std::string &eventType, const callbackSignature &callback) {
         return registerCallback(eventType, callback, "all");
     }
 
-    EventHandler::CallbackStorage::Callback::Callback(const thor::detail::Listener<const Event&> &callback, const std::string &state) :
-        callback(callback),
+    EventHandler::CallbackStorage::StoredCallback::StoredCallback(const Callback &call, const std::string &state) :
+        callback(call),
         state(state) {
     }
 
-    void EventHandler::CallbackStorage::Callback::swap(EventHandler::CallbackStorage::Callback &other) {
+    void EventHandler::CallbackStorage::StoredCallback::swap(EventHandler::CallbackStorage::StoredCallback &other) {
         callback.swap(other.callback);
         std::swap(state, other.state);
-    }
-
-    EventHandler::CallbackStorage::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
-        EventConnection(connection) {
     }
 
     EventHandler::CallbackStorage::CallbackStorage(EventHandler &handler) :
         m_handler(handler) {
     }
 
-    EventHandler::EventConnection EventHandler::CallbackStorage::addCallback(const EventHandler::callbackSignature &callback, const std::string &state) {
+    EventConnection EventHandler::CallbackStorage::addCallback(const Callback &callback, const std::string &state) {
         m_callbacks.emplace_front(callback, state);
 
         Iterator added = m_callbacks.begin();
         added->callback.setEnvironment(*this, added);
 
-        return CallbackConnection(added->callback.shareConnection());
+        return added->callback.shareConnection();
     }
 
     bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
@@ -160,6 +139,29 @@ namespace engine::events {
     }
 
     void EventHandler::CallbackStorage::clear(const std::string &state) {
-        std::remove_if(m_callbacks.begin(), m_callbacks.end(), [state](const Callback &callback) { return state == callback.state; });
+        std::remove_if(m_callbacks.begin(), m_callbacks.end(), [state](const StoredCallback &callback) { return state == callback.state; });
+    }
+
+    EventHandler::Callback::Callback(const callbackSignature &callback) {
+        m_callback = std::make_shared<callbackSignature>(callback);
+    }
+
+    void EventHandler::Callback::call(const Event &event) const {
+        if (m_callback) {
+            m_callback->operator()(event);
+        }
+    }
+
+    EventConnection EventHandler::Callback::shareConnection() {
+        return CallbackConnection(thor::Connection(m_strongRef));
+    }
+    
+    void EventHandler::Callback::swap(Callback &other) {
+        std::swap(m_callback, other.m_callback);
+        std::swap(m_strongRef, other.m_strongRef);
+    }
+
+    EventHandler::Callback::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
+        EventConnection(connection) {
     }
 }

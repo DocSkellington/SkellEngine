@@ -8,7 +8,7 @@ class TestSystem : public System {
 public:
     TestSystem(SystemManager &manager) :
         System(manager) {
-        registerCallback("test", std::bind(&TestSystem::callbackTest, this, std::placeholders::_1));
+        getStoreEventConnections().registerCallback("test", std::bind(&TestSystem::callbackTest, this, std::placeholders::_1));
         manager.getContext().eventHandler->sendEvent("test", {{"integer", 10}});
     }
 

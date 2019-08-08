@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SkellEngine/events/EventConnection.h"
 #include "SkellEngine/events/EventHandler.h"
 
 namespace engine::events {
@@ -8,12 +9,14 @@ namespace engine::events {
         StoreEventConnections(EventHandler &handler);
         virtual ~StoreEventConnections();
 
-        virtual EventHandler::EventConnection registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback);
+        virtual EventConnection registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback);
 
         virtual void clearEventConnections();
 
+        virtual void luaFunctions(sol::state &lua);
+
     private:
-        using Container = std::list<EventHandler::EventConnection>;
+        using Container = std::list<EventConnection>;
 
     private:
         Container m_connections;
