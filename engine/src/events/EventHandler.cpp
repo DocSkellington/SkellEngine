@@ -25,6 +25,7 @@ namespace engine::events {
     }
 
     EventHandler::EventConnection EventHandler::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback, const std::string &state) {
+        std::cout << callback.target_type().name() << "\n";
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
@@ -149,8 +150,13 @@ namespace engine::events {
     }
 
     void EventHandler::CallbackStorage::remove(EventHandler::CallbackStorage::Iterator iterator) {
-        iterator->swap(m_callbacks.front());
-        m_callbacks.pop_front();
+        if (m_callbacks.size() == 0) {
+            tmx::Logger::log("Event handler: empty storage", tmx::Logger::Type::Warning);
+        }
+        else {
+            iterator->swap(m_callbacks.back());
+            m_callbacks.pop_back();
+        }
     }
 
     void EventHandler::CallbackStorage::clear(const std::string &state) {

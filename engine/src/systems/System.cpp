@@ -5,15 +5,16 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/systems/ExternSystem.h"
 #include "SkellEngine/errors/ConstructorNotValid.h"
+#include "SkellEngine/Context.h"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
+        StoreEventConnections(*manager.getContext().eventHandler),
         m_manager(manager) {
         
     }
 
     System::~System() {
-
     }
 
     bool System::addEntity(entities::Entity::Ptr entity) {

@@ -127,6 +127,8 @@ namespace engine::systems {
         manager.getContext().entityManager->luaFunctions(m_lua);
         manager.getContext().systemManager->luaFunctions(m_lua);
         manager.getContext().eventHandler->luaFunctions(m_lua);
+
+        m_lua.set_function("registerCallback", [this](const std::string &eventType, const events::EventHandler::callbackSignature &callback) { return this->registerCallback(eventType, callback); });
     }
 
     ExternSystem::~ExternSystem() {
@@ -143,7 +145,7 @@ namespace engine::systems {
     void ExternSystem::loadLua(const std::string &systemName) {
         m_systemName = systemName;
 
-        sol::protected_function_result load = m_lua.do_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+        sol::protected_function_result load = m_lua.safe_script_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
 
         if (!load.valid()) {
             sol::error e = load;

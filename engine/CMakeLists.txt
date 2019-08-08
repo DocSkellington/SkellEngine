@@ -51,6 +51,7 @@ set(SOURCES
     src/events/EventHandler.cpp
     src/events/Event.cpp
     src/events/ExternEvent.cpp
+    src/events/StoreEventConnections.cpp
 
     src/input/InputHandler.cpp
     src/input/detail/to_from_sfml_events.cpp

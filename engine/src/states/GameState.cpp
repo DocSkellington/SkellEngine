@@ -25,8 +25,8 @@ namespace engine::states {
     }
 
     void GameState::onDestroy() {
+        getStateManager().getContext().systemManager->clear();
         getStateManager().getContext().gui->removeAllWidgets();
-        getStateManager().getContext().eventHandler->clear();
     }
 
     void GameState::activate() {

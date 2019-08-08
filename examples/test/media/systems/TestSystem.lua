@@ -19,12 +19,14 @@ function init()
         print(c:get("x"))
     end
 
-    connection = game.eventHandler:registerCallback("test", callbackTest)
+    registerCallback("test", callbackTest)
+    registerCallback("test", callbackTest2)
+    -- connection = registerCallback("test", callbackTest)
     game.eventHandler:sendEvent("test", {integer=10, floating=50.05})
-    print(connection:isConnected())
-    connection:disconnect()
-    game.eventHandler:sendEvent("test", {integer=01, floating=05.50})
-    print(connection:isConnected())
+    -- print(connection:isConnected())
+    -- connection:disconnect()
+    -- game.eventHandler:sendEvent("test", {integer=01, floating=05.50})
+    -- print(connection:isConnected())
 end
 
 function update(deltatime, view)
@@ -36,4 +38,8 @@ end
 
 function callbackTest(event)
     print(event:getType() .. " " .. event:get("integer") .. " " .. event:get("floating"))
+end
+
+function callbackTest2(event)
+    callbackTest(event)
 end

@@ -8,6 +8,7 @@
 
 #include "SkellEngine/entities/Entity.h"
 #include "SkellEngine/utilities/RegisterClass.h"
+#include "SkellEngine/events/StoreEventConnections.h"
 
 namespace engine::systems {
     class SystemManager;
@@ -18,7 +19,7 @@ namespace engine::systems {
      * If you define your system, you must register it before being able to use it.
     * \see REGISTER_SYSTEM for an helper macro to register a system
      */
-    class System {
+    class System : public events::StoreEventConnections {
     public:
         /**
          * \brief The type to use for a pointer to a System.
