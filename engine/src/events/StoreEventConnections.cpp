@@ -19,13 +19,9 @@ namespace engine::events {
     }
 
     void StoreEventConnections::clearEventConnections() {
-        std::cout << "Clearing connections\n";
-        int i = 0;
         for (auto &connection : m_connections) {
-            std::cout << i++ << "\n";
             connection.disconnect();
         }
-        std::cout << "Connections cleared\n";
         m_connections.clear();
     }
 

@@ -1,6 +1,7 @@
 {
     "systems" : [
         "GraphicalOrthogonal",
-        "Test"
+        "Test",
+        "testcpp"
     ]
 }

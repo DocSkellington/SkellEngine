@@ -93,36 +93,18 @@ namespace engine::events {
         void luaFunctions(sol::state &lua);
 
     private:
-        class Callback {
+        using Callback = thor::detail::Listener<const Event&>;
+
+        /**
+         * \brief A constructible implementation of EventConnection
+         */
+        class CallbackConnection : public EventConnection {
         public:
-            Callback(const callbackSignature &callback);
-
-            void call(const Event &event) const;
-
-            template <class T>
-            void setEnvironment(T &container, typename T::Iterator iterator) {
-                m_strongRef = thor::detail::makeIteratorConnectionImpl(container, iterator);
-            }
-
-            EventConnection shareConnection();
-            
-            void swap(Callback &other);
-
             /**
-             * \brief A constructible implementation of EventConnection
+             * \brief The constructor
+             * \param connection The thor::Connection to the registered callback
              */
-            class CallbackConnection : public EventConnection {
-            public:
-                /**
-                 * \brief The constructor
-                 * \param connection The thor::Connection to the registered callback
-                 */
-                CallbackConnection(const thor::Connection &connection);
-            };
-
-        private:
-            std::shared_ptr<callbackSignature> m_callback;
-            std::shared_ptr<thor::detail::AbstractConnectionImpl> m_strongRef;
+            CallbackConnection(const thor::Connection &connection);
         };
 
         /**
