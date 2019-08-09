@@ -6,7 +6,7 @@
 using namespace engine;
 using namespace input;
 
-SCENARIO("Input handler", "[input]") {
+SCENARIO("Input handler save and load configuration", "[input]") {
     Context context;
 
     InputHandler handler(context);
@@ -109,6 +109,74 @@ SCENARIO("Input handler", "[input]") {
             REQUIRE(configuration["testEvent"]["type"] == saved["testEvent"]["type"]);
             REQUIRE(configuration["testEvent"]["id"] == saved["testEvent"]["id"]);
             REQUIRE(configuration["testEvent"]["axis"] == saved["testEvent"]["axis"]);
+        }
+    }
+
+    WHEN ("We load a configuration using an array (an OR operation) with one input") {
+        auto configuration =
+        "{"\
+            "\"testEvent\": ["\
+                 "{"\
+                    "\"type\": \"joystickmoved\","\
+                    "\"joystick id\": 1,"\
+                    "\"axis\": \"Y\","\
+                    "\"state\": \"all\","\
+                    "\"lalt\": false,"\
+                    "\"lshift\": false,"\
+                    "\"lcontrol\": true,"\
+                    "\"ralt\": true,"\
+                    "\"rshift\": false,"\
+                    "\"rcontrol\": false"\
+                "}"\
+            "]"
+        "}"_json;
+
+        REQUIRE_NOTHROW(handler.loadConfiguration(configuration));
+
+        THEN ("The saved configuration does not use an array") {
+            auto saved = handler.saveConfiguration();
+
+            REQUIRE(saved["testEvent"].is_object());
+            REQUIRE(saved["testEvent"] == configuration["testEvent"][0]);
+        }
+    }
+
+    WHEN ("We load a configuration with an array (an OR operation) with multiple events") {
+        auto configuration =
+        "{"\
+            "\"testEvent\": ["\
+                 "{"\
+                    "\"type\": \"joystickmoved\","\
+                    "\"joystick id\": 1,"\
+                    "\"axis\": \"Y\","\
+                    "\"state\": \"all\","\
+                    "\"lalt\": false,"\
+                    "\"lshift\": false,"\
+                    "\"lcontrol\": true,"\
+                    "\"ralt\": true,"\
+                    "\"rshift\": false,"\
+                    "\"rcontrol\": false"\
+                "},"\
+                "{"\
+                    "\"type\": \"closed\","\
+                    "\"state\": \"all\","\
+                    "\"lalt\": false,"\
+                    "\"lshift\": true,"\
+                    "\"lcontrol\": false,"\
+                    "\"ralt\": false,"\
+                    "\"rshift\": true,"\
+                    "\"rcontrol\": true"\
+                "}"\
+            "]"
+        "}"_json;
+
+        REQUIRE_NOTHROW(handler.loadConfiguration(configuration));
+
+        THEN ("The saved configuration is similar") {
+            auto saved = handler.saveConfiguration();
+
+            REQUIRE(saved["testEvent"].is_array());
+            REQUIRE(saved == configuration);
         }
     }
 }
