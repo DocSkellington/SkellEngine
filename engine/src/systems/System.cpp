@@ -60,4 +60,8 @@ namespace engine::systems {
     events::StoreEventConnections& System::getStoreEventConnections() {
         return m_storeEventConnections;
     }
+
+    events::EventConnection System::registerCallback(const std::string &eventType, const events::EventHandler::callbackSignature &callback, const std::string &state) {
+        getStoreEventConnections().registerCallback(eventType, callback, state);
+    }
 }

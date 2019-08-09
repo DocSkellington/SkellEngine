@@ -23,6 +23,10 @@ namespace engine::events {
          */
         void disconnect();
 
+        /**
+         * \brief Register Lua functions for EventConnection
+         * \param lua The Lua state
+         */
         static void luaFunctions(sol::state &lua);
 
     protected:

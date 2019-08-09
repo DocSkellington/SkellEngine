@@ -1,3 +1,7 @@
+/**
+ * \file State.h
+ */
+
 #pragma once
 
 #include <memory>
@@ -142,5 +146,4 @@ namespace engine::states {
  * \note This macro adds a private member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same component under different names
  * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
  */
-#define REGISTER_STATE(TYPE, NAME)              \
-    REGISTER_CLASS(RegisterState, TYPE, NAME)
+#define REGISTER_STATE(TYPE, NAME) REGISTER_CLASS(RegisterState, TYPE, NAME)

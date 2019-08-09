@@ -47,7 +47,7 @@ namespace engine::utilities {
          * \endcode
          * 
          * \tparam T The type of the class to register
-         * \see REGISTER_CLASS for a generic helper macro and REGISTER_COMPONENT, REGISTER_SYSTEM and REGISTER_STATE for specific helper macros
+         * \see REGISTER_CLASS for a generic helper macro and REGISTER_COMPONENT, REGISTER_SYSTEM, REGISTER_EVENT and REGISTER_STATE for specific helper macros
          */
         template <typename T>
         struct Register {

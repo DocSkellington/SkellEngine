@@ -370,9 +370,6 @@ namespace engine::input {
         return EventInformation(event, holdActivated, action, eventType, json, state, ralt, rshift, rcontrol, lalt, lshift, lcontrol);
     }
 
-    InputHandler::EventInformation::Input::Input() {
-    }
-
     InputHandler::EventInformation::Input::Input(const sf::Event &input, const nlohmann::json &payload, bool isHold, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol) :
         input(input),
         payload(payload),

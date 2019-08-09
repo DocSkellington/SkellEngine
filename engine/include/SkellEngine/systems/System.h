@@ -108,9 +108,22 @@ namespace engine::systems {
          */
         std::vector<engine::entities::Entity::Ptr>& getEntities();
 
+        /**
+         * \brief Gets the EventConnections' storage
+         * \return The StoreEventConnections for this system
+         */
         events::StoreEventConnections& getStoreEventConnections();
 
-        // events::Event registerCallback(const std::string &eventType, const events::Callback::callbackSignature &callback);
+        /**
+         * \brief Registers a new callback in the storage for this system
+         * 
+         * The connection is automatically removed when the system dies
+         * \param eventType The type of the event to listen to
+         * \param callback The callback to add
+         * \param state The state of the game in which the callback must be active
+         * \return The connection to the registered callback
+         */
+        events::EventConnection registerCallback(const std::string &eventType, const events::EventHandler::callbackSignature &callback, const std::string &state = "all");
 
     private:
         SystemManager &m_manager;

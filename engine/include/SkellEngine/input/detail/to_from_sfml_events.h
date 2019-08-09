@@ -19,5 +19,11 @@ namespace engine::input::detail {
      */
     sf::Event::EventType stringToEventType(std::string type);
 
-    std::string eventTypeToString(sf::Event::EventType type, bool isHold = false);
+    /**
+     * \brief Converts a SFML event type to a string
+     * \param type The event type
+     * \param isHold Whether the input must be hold
+     * \return The string
+     */
+    std::string eventTypeToString(sf::Event::EventType type, bool isHold);
 }

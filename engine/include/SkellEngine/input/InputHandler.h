@@ -114,12 +114,33 @@ namespace engine::input {
          * \brief Stores some information about the input->event mapping, such as the JSON payload, the event type and the different possible inputs
          */
         struct EventInformation {
+            /**
+             * \brief Stores an input
+             * 
+             * Stores the SFML event, the JSON payload and the state of the modifiers
+             */
             struct Input {
-                Input();
+                /**
+                 * \brief The constructor
+                 * \param input The SFML event
+                 * \param payload The JSON payload
+                 * \param isHold Whether the event is sent each frame as long as the input is active
+                 * \param ralt Whether the right alt key must be pressed
+                 * \param rshift Whether the right shift key must be pressed
+                 * \param rcontrol Whether the right control key must be pressed
+                 * \param lalt Whether the left alt key must be pressed
+                 * \param lshift Whether the left shift key must be pressed
+                 * \param lcontrol Whether the left control key must be pressed
+                 */
                 Input(const sf::Event &input, const nlohmann::json &payload, bool isHold, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol);
+                /** @{ */
+                /**
+                 * \brief The different parts of the input
+                 */
                 sf::Event input;
                 nlohmann::json payload;
                 bool isHold, ralt, rshift, rcontrol, lalt, lshift, lcontrol;
+                /** @} */
             };
             EventInformation();
             EventInformation(const sf::Event &input, bool isHold, const thor::Action &action, const std::string& eventType, const nlohmann::json &payload, const std::string &state, bool ralt, bool rshift, bool rcontrol, bool lalt, bool lshift, bool lcontrol);

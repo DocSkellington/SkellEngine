@@ -12,10 +12,14 @@ namespace engine::events {
         clearEventConnections();
     }
 
-    EventConnection StoreEventConnections::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback) {
-        auto connection = m_handler.registerCallback(eventType, callback);
+    EventConnection StoreEventConnections::registerCallback(const std::string &eventType, const EventHandler::callbackSignature &callback, const std::string &state) {
+        auto connection = m_handler.registerCallback(eventType, callback, state);
         m_connections.push_back(connection);
         return connection;
+    }
+
+    void StoreEventConnections::addEventConnection(const EventConnection &connection) {
+        m_connections.push_back(connection);
     }
 
     void StoreEventConnections::clearEventConnections() {

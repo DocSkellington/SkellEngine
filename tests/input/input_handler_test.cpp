@@ -72,11 +72,11 @@ SCENARIO("Input handler", "[input]") {
         }
     }
 
-    WHEN ("We load a configuration with one JoystickButtonReleased input binding") {
+    WHEN ("We load a configuration with one JoystickButtonHold input binding") {
         auto configuration =
         "{"\
             "\"testEvent\": {"\
-                "\"type\": \"joystickbuttonreleased\","\
+                "\"type\": \"joystickbuttonhold\","\
                 "\"joystick id\": 0,"\
                 "\"joystick button\": 0"\
             "}"\

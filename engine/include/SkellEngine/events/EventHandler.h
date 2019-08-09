@@ -17,12 +17,21 @@ namespace engine {
     struct Context;
 }
 
+/**
+ * \brief This namespace defines how to use the events in the engine
+ * 
+ * The events are used to transfer information between different parts of the engine (such as different systems).
+ * \see input::InputHandler for how to handle the user inputs (keyboard, mouse, joystick and window related interactions)
+ */
 namespace engine::events {
     /**
      * \brief Handles events in the engine
      * 
      * Each event has a type and the handler maps a type with a list of callbacks.
+     * 
      * When an event is sent, the callbacks associated with this event type are called.
+     * 
+     * \see StoreEventConnections for an easy way to remove EventConnections
      */
     class EventHandler final {
     public:
@@ -93,6 +102,9 @@ namespace engine::events {
         void luaFunctions(sol::state &lua);
 
     private:
+        /**
+         * \brief How the callback function is stored
+         */
         using Callback = thor::detail::Listener<const Event&>;
 
         /**
@@ -108,7 +120,7 @@ namespace engine::events {
         };
 
         /**
-         * \brief How the callbacks are stored
+         * \brief How the callbacks are stored for an event type
          */
         class CallbackStorage {
         public:
