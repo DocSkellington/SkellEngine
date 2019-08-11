@@ -115,7 +115,7 @@ namespace engine::events {
         Iterator added = m_callbacks.begin();
         added->callback.setEnvironment(*this, added);
 
-        return CallbackConnection(added->callback.shareConnection());
+        return added->callback.shareConnection();
     }
 
     bool EventHandler::CallbackStorage::sendEvent(const Event &event) const {
@@ -149,6 +149,29 @@ namespace engine::events {
     }
 
     EventHandler::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
+        EventConnection(connection) {
+    }
+
+    EventHandler::Callback::Callback(const callbackSignature &callback) {
+        m_callback = std::make_shared<callbackSignature>(callback);
+    }
+
+    void EventHandler::Callback::call(const Event &event) const {
+        if (m_callback) {
+            m_callback->operator()(event);
+        }
+    }
+
+    EventConnection EventHandler::Callback::shareConnection() {
+        return CallbackConnection(thor::Connection(m_strongRef));
+    }
+
+    void EventHandler::Callback::swap(Callback &other) {
+        std::swap(m_callback, other.m_callback);
+        std::swap(m_strongRef, other.m_strongRef);
+    }
+
+    EventHandler::Callback::CallbackConnection::CallbackConnection(const thor::Connection &connection) :
         EventConnection(connection) {
     }
 }
