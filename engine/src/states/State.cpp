@@ -2,10 +2,12 @@
 
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/states/ExternState.h"
 
 namespace engine::states {
     State::State(StateManager &manager) :
-        m_stateContext(manager.getContext()) {
+        m_stateContext(manager.getContext()),
+        m_storeEventConnections(*manager.getContext().eventHandler) {
     }
 
     State::~State() {
@@ -40,9 +42,27 @@ namespace engine::states {
         Ptr ptr = RegisteredStates::construct(name, manager);
 
         if (!ptr) {
-            // TODO: ExternalState
+            try {
+                ptr = std::make_shared<ExternState>(manager, name);
+            }
+            catch (const std::exception &e) {
+                tmx::Logger::logError("ExternState: impossible to load the Lua script for state " + name + ". The state won't be added to the state manager", e);
+                return nullptr;
+            }
         }
 
         return ptr;
+    }
+
+    events::StoreEventConnections& State::getStoreEventConnections() {
+        return m_storeEventConnections;
+    }
+
+    const events::StoreEventConnections& State::getStoreEventConnections() const {
+        return m_storeEventConnections;
+    }
+
+    events::EventConnection State::registerCallback(const std::string &eventType, const events::EventHandler::callbackSignature &callback, const std::string &state) {
+        return getStoreEventConnections().registerCallback(eventType, callback, state);
     }
 }

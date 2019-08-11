@@ -50,10 +50,17 @@ namespace engine::files {
         /**
          * \brief Register the systems written in Lua.
          * 
-         * Every external system must be in the folder defined in game.json (media.systems field)
+         * Every external system must be in the folder defined in game.json (media.systemsFolder field)
          * \see @ref json_game_description
          */
         void registerExternSystems();
+
+        /**
+         * \brief Register the states written in Lua
+         * 
+         * Every external state must be in the folder defined in game.json (media.statesFolder field)
+         */
+        void registerExternStates();
 
         /**
          * \brief Gets the path to the given system
@@ -64,11 +71,21 @@ namespace engine::files {
          */
         std::filesystem::path getSystemPath(const std::string &systemName);
 
+        /**
+         * \brief Gets the path to the given state
+         * 
+         * The state must be an external state
+         * \param stateName The name of the state
+         * \return The path
+         */
+        std::filesystem::path getStatePath(const std::string &stateName);
+
     private:
         const Context &m_context;
         GameDescription m_gameDescription;
         std::map<std::string, StateDescription> m_stateDescriptions;
-        std::map<std::string, std::string> m_systemsPath;
+        std::map<std::string, std::filesystem::path> m_systemsPath;
+        std::map<std::string, std::filesystem::path> m_statesPath;
 
     private:
 

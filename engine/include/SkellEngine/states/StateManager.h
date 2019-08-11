@@ -49,13 +49,6 @@ namespace engine::states {
         void draw(sf::RenderWindow &window);
 
         /**
-         * \brief Handles the event
-         * \todo TODO: to keep?
-         * \param event The event to process
-         */
-        void handleEvent(sf::Event &event);
-
-        /**
          * \brief Changes the front state to the one of the given name
          * 
          * If the state does not exist yet, it is created
@@ -95,6 +88,8 @@ namespace engine::states {
          * \return True iff state is the name of the current front state
          */
         bool isCurrentState(const std::string &state) const;
+
+        void luaFunctions(sol::state &lua);
 
     private:
         using StateInList = std::pair<std::string, State::Ptr>;

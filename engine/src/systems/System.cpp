@@ -40,8 +40,7 @@ namespace engine::systems {
         Ptr ptr = RegisteredSystems::construct(systemName, manager);
 
         if (!ptr) { // We create an external system
-            ExternSystem::Ptr e = std::make_shared<ExternSystem>(manager);
-            e->loadLua(systemName);
+            ExternSystem::Ptr e = std::make_shared<ExternSystem>(manager, systemName);
             return e;
         }
 
@@ -57,6 +56,10 @@ namespace engine::systems {
     }
 
     events::StoreEventConnections& System::getStoreEventConnections() {
+        return m_storeEventConnections;
+    }
+
+    const events::StoreEventConnections& System::getStoreEventConnections() const {
         return m_storeEventConnections;
     }
 

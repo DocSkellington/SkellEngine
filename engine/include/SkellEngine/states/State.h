@@ -10,6 +10,7 @@
 
 #include "SkellEngine/utilities/RegisterClass.h"
 #include "SkellEngine/states/StateContext.h"
+#include "SkellEngine/events/StoreEventConnections.h"
 
 namespace engine::states {
     class StateManager;
@@ -54,18 +55,13 @@ namespace engine::states {
         */
         virtual void update(sf::Int64 deltatime) = 0;
         /**
-        * \brief Handles an event
-        * \param event The event to process
-        */
-        virtual void handleEvent(sf::Event &event) = 0;
-        /**
         * \brief Draws the state
         * \param window The window in which the rendering must be done
         */
         virtual void draw(sf::RenderWindow &window) = 0;
 
         /**
-         * \brief If the state is transcendant, the events can be processed by the following state (in the stack)
+         * \brief If the state is transcendant, the following state (in the stack) can be updated
          * \return True iff the state is transcendant
          */
         bool isTranscendant() const;
@@ -125,11 +121,33 @@ namespace engine::states {
          */
         void setView(const sf::View &view);
 
+        /** @{ */
+        /**
+         * \brief Gives the storage of event connections
+         * \return The storage
+         */
+        events::StoreEventConnections& getStoreEventConnections();
+        const events::StoreEventConnections& getStoreEventConnections() const;
+        /** @} */
+
+        /**
+         * \brief Registers a new callback in the storage for this system
+         * 
+         * The connection is automatically removed when the system dies
+         * \param eventType The type of the event to listen to
+         * \param callback The callback to add
+         * \param state The state of the game in which the callback must be active
+         * \return The connection to the registered callback
+         */
+        events::EventConnection registerCallback(const std::string &eventType, const events::EventHandler::callbackSignature &callback, const std::string &state = "all");
+
     private:
         bool m_transcendant;
         bool m_transparent;
 
         StateContext m_stateContext;
+
+        events::StoreEventConnections m_storeEventConnections;
 
         sf::View m_view;
     };

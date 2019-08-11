@@ -47,13 +47,6 @@ namespace engine::states {
         getStateContext().level->update(deltatime);
     }
 
-    void GameState::handleEvent(sf::Event &event) {
-        if (event.type == sf::Event::KeyPressed) {
-            getStateContext().context.stateManager->switchTo("mainmenu");
-            getStateContext().context.stateManager->remove("game");
-        }
-    }
-
     void GameState::draw(sf::RenderWindow& window) {
         getStateContext().level->draw(window);
     }

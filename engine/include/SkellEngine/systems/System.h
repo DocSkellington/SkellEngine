@@ -108,11 +108,14 @@ namespace engine::systems {
          */
         std::vector<engine::entities::Entity::Ptr>& getEntities();
 
+        /** @{ */
         /**
          * \brief Gets the EventConnections' storage
          * \return The StoreEventConnections for this system
          */
         events::StoreEventConnections& getStoreEventConnections();
+        const events::StoreEventConnections& getStoreEventConnections() const;
+        /** @} */
 
         /**
          * \brief Registers a new callback in the storage for this system

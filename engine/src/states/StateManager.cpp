@@ -32,15 +32,6 @@ namespace engine::states {
         }
     }
 
-    void StateManager::handleEvent(sf::Event &event) {
-        for (auto &state : m_states) {
-            state.second->handleEvent(event);
-
-            if(!state.second->isTranscendant())
-                break;
-        }
-    }
-
     void StateManager::switchTo(const std::string &name) {
         if (name == "all") {
             tmx::Logger::log("State manager: 'all' is an invalid state name (it's a reserved keyword)", tmx::Logger::Type::Warning);
@@ -72,9 +63,11 @@ namespace engine::states {
 
         // Creation
         std::shared_ptr<State> state = State::createInstance(name, *this);
-        state->onCreate();
-        state->activate();
-        m_states.emplace_front(name, std::move(state));
+        if (state) {
+            state->onCreate();
+            state->activate();
+            m_states.emplace_front(name, std::move(state));
+        }
     }
 
     void StateManager::remove(const std::string &name) {
@@ -108,5 +101,14 @@ namespace engine::states {
 
     bool StateManager::isCurrentState(const std::string &name) const {
         return getCurrentState() == name;
+    }
+
+    void StateManager::luaFunctions(sol::state &lua) {
+        lua.new_usertype<StateManager>("StateManager",
+            "switchTo", &StateManager::switchTo,
+            "remove", &StateManager::remove
+        );
+
+        lua["game"]["stateManager"] = this;
     }
 }

@@ -4,6 +4,11 @@
         "control": true,
         "state": "mainmenu"
     },
+    "ChangeState": {
+        "type": "KeyPressed",
+        "key": "Any",
+        "state": "mainmenu"
+    },
     "PlayerUpPressed": {
         "type": "KeyPressed",
         "key": "Up",

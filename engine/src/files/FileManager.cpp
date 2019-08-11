@@ -8,6 +8,7 @@
 
 #include "SkellEngine/errors/FileNotFound.h"
 #include "SkellEngine/errors/SystemNotFound.h"
+#include "SkellEngine/errors/StateNotFound.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
 #include "SkellEngine/tmxlite/Log.hpp"
 
@@ -39,6 +40,7 @@ namespace engine::files {
         loadStateDescriptions();
 
         registerExternSystems();
+        registerExternStates();
     }
 
     const GameDescription& FileManager::getGameDescription() const {
@@ -54,7 +56,7 @@ namespace engine::files {
     }
 
     void FileManager::registerExternSystems() {
-        if (std::filesystem::exists(m_gameDescription.media.systemsFolder)) {
+        if (std::filesystem::exists(m_gameDescription.media.systemsFolder) && std::filesystem::is_directory(m_gameDescription.media.systemsFolder)) {
             for (auto &file : std::filesystem::directory_iterator(m_gameDescription.media.systemsFolder)) {
                 if (file.is_regular_file()) {
                     std::smatch match;
@@ -83,9 +85,9 @@ namespace engine::files {
 
                             std::transform(systemName.begin(), systemName.end(), systemName.begin(), ::tolower);
 
-                            m_systemsPath[systemName] = filename;
+                            m_systemsPath[systemName] = file.path();
 
-                            tmx::Logger::log("Registering " + systemName);
+                            tmx::Logger::log("Registering system " + systemName);
                         }
                     }
                 }
@@ -96,13 +98,58 @@ namespace engine::files {
         }
     }
 
+    void FileManager::registerExternStates() {
+        tmx::Logger::log(m_gameDescription.media.statesFolder);
+        if (std::filesystem::exists(m_gameDescription.media.statesFolder) && std::filesystem::is_directory(m_gameDescription.media.statesFolder)) {
+            for (auto &file : std::filesystem::directory_iterator(m_gameDescription.media.statesFolder)) {
+                if (file.is_regular_file()) {
+                    std::string filename = file.path().filename();
+
+                    std::smatch matchLua;
+                    std::regex lua(".lua");
+                    if (std::regex_search(filename, matchLua, lua)) {
+                        // The file ends with ".lua"
+                        std::string stateName = matchLua.prefix();
+
+                        std::smatch matchStateName;
+                        std::regex state("[Ss]tate$");
+
+                        if (std::regex_search(stateName, matchStateName, state)) {
+                            // The name of the file is "Blablastate.lua"; we keep only "Blabla"
+                            stateName = matchStateName.prefix();
+                        }
+
+                        std::transform(stateName.begin(), stateName.end(), stateName.begin(), ::tolower);
+                        tmx::Logger::log(stateName);
+                        m_statesPath[stateName] = file.path();
+
+                        tmx::Logger::log("Registering state " + stateName);
+                    }
+                }
+            }
+        }
+        else {
+            tmx::Logger::log("No external states found", tmx::Logger::Type::Info);
+        }
+    }
+
     std::filesystem::path FileManager::getSystemPath(const std::string &systemName) {
         auto itr = m_systemsPath.find(systemName);
         if (itr != m_systemsPath.end()) {
-            return m_gameDescription.media.systemsFolder / itr->second;
+            return itr->second;
         }
         else {
             throw errors::SystemNotFound("The system " + systemName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
+        }
+    }
+
+    std::filesystem::path FileManager::getStatePath(const std::string &stateName) {
+        auto itr = m_statesPath.find(stateName);
+        if (itr != m_statesPath.end()) {
+            return itr->second;
+        }
+        else {
+            throw errors::StateNotFound("The state " + stateName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
         }
     }
 

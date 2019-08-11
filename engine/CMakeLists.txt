@@ -73,11 +73,10 @@ set(SOURCES
     src/shapes/EllipseShape.cpp
 
     src/states/GameState.cpp
-    src/states/MainMenuState.cpp
-    src/states/PauseState.cpp
     src/states/State.cpp
     src/states/StateManager.cpp
     src/states/StateContext.cpp
+    src/states/ExternState.cpp
 
     src/systems/GraphicalOrthogonalSystem.cpp
     src/systems/GraphicalSystem.cpp
@@ -87,6 +86,7 @@ set(SOURCES
 
     src/utilities/json_lua.cpp
     src/utilities/json_fusion.cpp
+    src/utilities/lua_sfml.cpp
     src/utilities/MemberStorage.cpp
 
     src/tmxlite/FreeFuncs.cpp
