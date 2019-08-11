@@ -8,8 +8,11 @@ class TestSystem : public System {
 public:
     TestSystem(SystemManager &manager) :
         System(manager) {
-        getStoreEventConnections().registerCallback("test", std::bind(&TestSystem::callbackTest, this, std::placeholders::_1));
-        manager.getContext().eventHandler->sendEvent("test", {{"integer", 10}});
+        registerCallback("test", std::bind(&TestSystem::callbackTest, this, std::placeholders::_1));
+        manager.getContext().context.eventHandler->sendEvent("test", { {"integer", 10}, {"floating", 1.5} });
+    }
+    ~TestSystem() {
+        getStoreEventConnections().clearEventConnections();
     }
 
     virtual bool update(sf::Int64 deltatime, sf::View &view) override {

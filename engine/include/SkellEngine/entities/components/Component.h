@@ -10,6 +10,7 @@
 #include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/utilities/MemberStorage.h"
 #include "SkellEngine/utilities/RegisterClass.h"
+#include "SkellEngine/states/StateContext.h"
 
 /**
 * \brief Contains the definitions of the components directly provided by the engine
@@ -50,7 +51,7 @@ namespace engine::entities::components {
          * \param context The context
          * \param componentType The type of the component to create
          */
-        static Ptr createInstance(Context &context, const std::string &componentType);
+        static Ptr createInstance(states::StateContext &context, const std::string &componentType);
 
         /**
          * \brief Register Lua functions
@@ -62,7 +63,7 @@ namespace engine::entities::components {
         /**
          * \brief The specialisation of utilities::RegisterClass for the components
          */
-        using RegisteredComponents = utilities::RegisterClass<Component, Context&>;
+        using RegisteredComponents = utilities::RegisterClass<Component, states::StateContext&>;
 
         /**
          * \brief A shortcut to register a component
@@ -76,7 +77,7 @@ namespace engine::entities::components {
          * \brief The constructor
          * \param context A reference to the context of the engine
          */
-        Component(Context &context);
+        Component(states::StateContext &context);
 
         virtual std::string getLogErrorPrefix() const override;
     };

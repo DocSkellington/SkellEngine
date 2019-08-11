@@ -13,7 +13,7 @@ namespace engine::entities::components {
          * \brief The constructor
          * \param context The context of the engine
          */
-        explicit PositionComponent(Context &context);
+        explicit PositionComponent(states::StateContext &context);
         PositionComponent(const Component&) = delete;
         virtual ~PositionComponent();
 

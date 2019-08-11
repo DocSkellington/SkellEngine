@@ -7,7 +7,7 @@ using namespace engine;
 using namespace input;
 
 SCENARIO("Input handler save and load configuration", "[input]") {
-    Context context;
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
 
     InputHandler handler(context);
 

@@ -3,14 +3,16 @@
 
 #include "SkellEngine/entities/Entity.h"
 #include "SkellEngine/Context.h"
+#include "SkellEngine/files/FileManager.h"
 
 using namespace engine;
 using namespace entities;
 
 SCENARIO("Entity test", "[entities]") {
-    Context context;
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
+    states::StateContext stateContext(context);
     
-    Entity entity(context, "dummy");
+    Entity entity(*stateContext.entityManager, "dummy");
 
     WHEN("The entity is empty") {
         THEN("The component does not have any component") {

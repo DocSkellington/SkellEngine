@@ -9,7 +9,7 @@ using namespace components;
 
 class TestComponent : public Component {
 public:
-    TestComponent(Context &context) :
+    TestComponent(states::StateContext &context) :
         Component(context),
         m_int(0),
         m_long(0),
@@ -41,8 +41,9 @@ public:
 };
 
 SCENARIO("Test of setters", "[entities][components]") {
-    Context context;
-    TestComponent compo(context);
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
+    states::StateContext stateContext(context);
+    TestComponent compo(stateContext);
 
     GIVEN("An integer variable") {
         REQUIRE(compo.m_int == 0);
@@ -278,8 +279,9 @@ SCENARIO("Test of setters", "[entities][components]") {
 SCENARIO("Test of getters", "[entities][components]") {
     nlohmann::json json = {1,2,3};
 
-    Context context;
-    TestComponent compo(context);
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
+    states::StateContext stateContext(context);
+    TestComponent compo(stateContext);
     compo.m_int = 4;
     compo.m_float = 3.14f;
     compo.m_bool = true;

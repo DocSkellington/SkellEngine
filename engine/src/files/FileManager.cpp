@@ -6,12 +6,10 @@
 #include <sol/sol.hpp>
 #include <filesystem>
 
-#include "SkellEngine/Context.h"
 #include "SkellEngine/errors/FileNotFound.h"
 #include "SkellEngine/errors/SystemNotFound.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
-#include <SkellEngine/tmxlite/Log.hpp>
-#include "SkellEngine/utilities/json_fusion.h"
+#include "SkellEngine/tmxlite/Log.hpp"
 
 namespace engine::files {
     FileManager::FileManager(const Context &context, const std::string &baseMediapath) :
@@ -43,51 +41,12 @@ namespace engine::files {
         registerExternSystems();
     }
 
-    void FileManager::changeLevel(const std::string& levelName) {
-        tmx::Logger::log("Changing level to: " + levelName, tmx::Logger::Type::Info);
-        // Clearing 
-        m_levelDescription.clear();
-        m_entitiesGlobal.clear();
-
-        m_levelDescription.name = levelName;
-
-        // Loading
-        loadLevelDescription();
-        applyLevelDescription();
-    }
-
     const GameDescription& FileManager::getGameDescription() const {
         return m_gameDescription;
     }
 
     const StateDescription& FileManager::getStateDescription(const std::string &state) {
         return m_stateDescriptions[state];
-    }
-
-    nlohmann::json FileManager::getEntityJSON(const std::string &entityType) {
-        if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
-            // If the entity is not yet known, we try to load the global settings (the global for the game and for the level), if they exist
-            std::filesystem::path defaultFilePath = m_gameDescription.media.entitiesFolder;
-            defaultFilePath += "data/" + entityType + ".json";
-            std::ifstream defaultFile(defaultFilePath);
-            std::ifstream levelGlobal;
-
-            if (!m_levelDescription.name.empty()) {
-                std::filesystem::path levelFilePath = m_gameDescription.media.levelsFolder;
-                levelFilePath /= m_levelDescription.name + "/entities/data" + entityType + ".json";
-                levelGlobal.open(levelFilePath);
-            }
-
-            nlohmann::json def, lev;
-            if (defaultFile.is_open()) {
-                defaultFile >> def;
-            }
-            if (levelGlobal.is_open()) {
-                levelGlobal >> lev;
-            }
-            m_entitiesGlobal[entityType] = utilities::json_fusion(def, lev);
-        }
-        return m_entitiesGlobal[entityType];
     }
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
@@ -144,42 +103,6 @@ namespace engine::files {
         }
         else {
             throw errors::SystemNotFound("The system " + systemName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
-        }
-    }
-
-    void FileManager::loadLevelDescription() {
-        if (!m_levelDescription.name.empty()) {
-            std::ifstream file;
-            std::filesystem::path levelPath = m_gameDescription.media.levelsFolder / m_levelDescription.name /m_levelDescription.name;
-            levelPath += ".json";
-            file.open(levelPath);
-
-            if (file.is_open()) {
-                nlohmann::json levelJSON;
-                file >> levelJSON;
-                m_levelDescription = levelJSON.get<LevelDescription>();
-            }
-            else {
-                throw errors::FileNotFound("Level" + m_levelDescription.name + " not found");
-            }
-        }
-    }
-
-    void FileManager::applyLevelDescription() {
-        m_context.map->load(m_levelDescription.map);
-
-        auto &entities = m_levelDescription.entities;
-
-        for (auto itr = entities.begin() ; itr != entities.end() ; ++itr) {
-            // Getting the type of the entity
-            std::string type = (*itr)["type"].get<std::string>();
-            // Getting its components' data
-            auto data = (*itr)["data"];
-            // We add these data into the global definition known
-            auto entityGlobal = getEntityJSON(type);
-            auto entity = utilities::json_fusion(entityGlobal, data);
-            // Finally, we create the new entity
-            m_context.entityManager->addEntity(type, entity);
         }
     }
 

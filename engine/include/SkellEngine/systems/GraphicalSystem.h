@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SkellEngine/systems/System.h"
-
 #include <SFML/Graphics.hpp>
+
+#include "SkellEngine/systems/System.h"
 
 namespace engine::systems {
     /**
@@ -34,6 +34,6 @@ namespace engine::systems {
          * \param layer The number of the layer to render
          * \param view The view of the game
          */
-        virtual void draw(sf::RenderWindow *window, unsigned int layer, sf::View view) = 0;
+        virtual void draw(sf::RenderWindow &window, unsigned int layer, sf::View view) = 0;
     };
 }

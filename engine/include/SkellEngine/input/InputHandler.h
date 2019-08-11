@@ -11,7 +11,7 @@
 #include "SkellEngine/events/Event.h"
 
 namespace engine {
-    struct Context;
+    class Context;
 }
 
 /**

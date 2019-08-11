@@ -9,11 +9,7 @@
 
 #include "SkellEngine/files/GameDescription.h"
 #include "SkellEngine/files/StateDescription.h"
-#include "SkellEngine/files/LevelDescription.h"
-
-namespace engine {
-    struct Context;
-}
+#include "SkellEngine/Context.h"
 
 /**
  * \brief Contains the ways to use the external files
@@ -31,12 +27,6 @@ namespace engine::files {
          */
         explicit FileManager(const Context &context, const std::string& baseMediapath);
         FileManager(const FileManager&) = delete;
-
-        /**
-         * \brief Clears the data related to the current level and loads a new level
-         * \param levelName The name of the level
-         */
-        void changeLevel(const std::string &levelName);
 
         /**
          * \brief Returns the description defined in the media/game.json file
@@ -76,32 +66,11 @@ namespace engine::files {
 
     private:
         const Context &m_context;
-        LevelDescription m_levelDescription;
-        std::map<std::string, nlohmann::json> m_entitiesGlobal;
         GameDescription m_gameDescription;
         std::map<std::string, StateDescription> m_stateDescriptions;
         std::map<std::string, std::string> m_systemsPath;
 
     private:
-        /**
-         * \brief Loads the JSON table of an entity.
-         *
-         * When loading an entity, it opens both the default file (if it exists) and the overriding one in the level folder (if it exists).
-         * \param entityType The entity of the entity
-         * \return The JSON table
-         */
-        nlohmann::json getEntityJSON(const std::string &entityType);
-
-        /**
-         * \brief Opens the media/levels/levelName/levelName.json file and copies its content into the level description
-         */
-        void loadLevelDescription();
-        /**
-         * \brief Reads the level description and applies the content to the engine, if needed.
-         * 
-         * Creates entities defined in the JSON table
-         */
-        void applyLevelDescription();
 
         /**
          * \brief Loads the state descriptions in media/states

@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "SkellEngine/states/GameState.h"
-#include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/tmxlite/Log.hpp"
+#include "SkellEngine/states/StateManager.h"
 
 namespace engine::states {
     MainMenuState::MainMenuState(StateManager& manager) :
@@ -37,11 +38,11 @@ namespace engine::states {
 
     void MainMenuState::handleEvent(sf::Event &event) {
         if (event.type == sf::Event::KeyPressed) {
-            getStateManager().switchTo("game");
-            getStateManager().remove("mainmenu");
+            getStateContext().context.stateManager->switchTo("game");
+            getStateContext().context.stateManager->remove("mainmenu");
         }
     }
 
-    void MainMenuState::draw(std::shared_ptr<sf::RenderWindow>& window) {
+    void MainMenuState::draw(sf::RenderWindow& window) {
     }
 }

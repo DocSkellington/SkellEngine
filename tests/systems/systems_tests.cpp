@@ -60,9 +60,9 @@ private:
 System::RegisterSystem<TestSystem> TestSystem::rsts("test");
 
 SCENARIO("System manager functions", "[systems]") {
-    Context context;
-    context.systemManager = std::make_shared<SystemManager>(context);
-    SystemManager &sysMan = *context.systemManager;
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
+    states::StateContext stateContext(context);
+    SystemManager &sysMan = *stateContext.systemManager;
 
     GIVEN("A test system") {
         REQUIRE(sysMan.addSystem("Test"));
@@ -90,7 +90,7 @@ SCENARIO("System manager functions", "[systems]") {
         }
 
         WHEN ("We add an entity to the manager") {
-            Entity::Ptr ent = std::make_shared<Entity>(context, "testType");
+            Entity::Ptr ent = std::make_shared<Entity>(*stateContext.entityManager, "testType");
 
             REQUIRE(sys->nEntities == 0);
 

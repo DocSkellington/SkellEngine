@@ -2,11 +2,11 @@
 
 #include <Thor/Resources.hpp>
 
-#include <SkellEngine/tmxlite/Log.hpp>
-
+#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/map/Map.h"
 #include "SkellEngine/Context.h"
 #include "SkellEngine/shapes/EllipseShape.h"
+#include "SkellEngine/files/FileManager.h"
 
 namespace engine::map {
     Layer::Layer(Map &map, const std::string& mapName, bool visible) :
@@ -65,10 +65,10 @@ namespace engine::map {
             if (m_tile->animation.frames.size() > 1) {
                 auto ID = m_tile->animation.frames[m_currentFrame].tileID;
                 tile = m_map.m_tilesetTiles[ID];
-                m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+                m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
             }
             else {
-                m_sprite.setTexture(m_map.m_context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+                m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
             }
         }
         catch (thor::ResourceLoadingException& e) {
@@ -200,7 +200,7 @@ namespace engine::map {
         }
 
         try {
-            m_sprite.setTexture(getMap().m_context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
+            m_sprite.setTexture(getMap().m_context.context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
         }
         catch (thor::ResourceLoadingException& e) {
             tmx::Logger::logError("Error while loading an image in the map " + getMapName(), e);
@@ -376,7 +376,7 @@ namespace engine::map {
         if (text.fontFamily != "") {
             // If the font is not found, we use default one
             try {
-                getMap().m_context.fileManager->loadFont(text.fontFamily);
+                getMap().m_context.context.fileManager->loadFont(text.fontFamily);
             }
             catch (thor::ResourceLoadingException& e) {
                 tmx::Logger::log("Could not load font: " + text.fontFamily + ". Default TGUI's font will be used.", tmx::Logger::Type::Warning);
@@ -387,6 +387,6 @@ namespace engine::map {
             label->setVisible(false);
         }
 
-        getMap().m_context.gui->add(label);
+        getMap().m_context.context.gui->add(label);
     }
 }

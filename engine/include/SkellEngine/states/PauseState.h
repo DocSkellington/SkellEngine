@@ -24,7 +24,7 @@ namespace engine::states {
 
         virtual void update(sf::Int64 deltatime) override;
         virtual void handleEvent(sf::Event &event) override;
-        virtual void draw(std::shared_ptr<sf::RenderWindow> &window) override;
+        virtual void draw(sf::RenderWindow &window) override;
 
         REGISTER_STATE(PauseState, "pause")
     };

@@ -4,7 +4,7 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::systems {
-    SystemManager::SystemManager(Context& context) :
+    SystemManager::SystemManager(states::StateContext& context) :
         m_context(context) {
     }
 
@@ -14,8 +14,8 @@ namespace engine::systems {
         }
     }
     
-    void SystemManager::draw(sf::RenderWindow *window, unsigned int layer) {
-        getContext().window->setView(m_view);
+    void SystemManager::draw(sf::RenderWindow &window, unsigned int layer) {
+        getContext().context.window->setView(m_view);
         for (auto &system : m_graphicalSystems)
             system.second->draw(window, layer, m_view);
     }
@@ -85,7 +85,7 @@ namespace engine::systems {
         return atLeastOne;
     }
 
-    Context &SystemManager::getContext() const {
+    states::StateContext &SystemManager::getContext() const {
         return m_context;
     }
 

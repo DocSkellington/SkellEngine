@@ -11,7 +11,7 @@
 #include "SkellEngine/tmxlite/Log.hpp"
 
 namespace engine{
-    struct Context;
+    class Context;
 }
 
 namespace engine::utilities {

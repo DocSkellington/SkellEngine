@@ -5,7 +5,7 @@
 
 #include <nlohmann/json.hpp>
 
-namespace engine::files {
+namespace engine::levels {
     /**
      * \brief Describes a level.
      * 

@@ -1,7 +1,9 @@
 #include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
 
+#include "SkellEngine/files/FileManager.h"
+
 namespace engine::entities::components {
-    GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(Context &context) :
+    GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(states::StateContext &context) :
         Component(context) {
 
     }

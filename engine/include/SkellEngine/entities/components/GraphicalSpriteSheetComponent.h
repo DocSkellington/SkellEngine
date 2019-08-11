@@ -16,7 +16,7 @@ namespace engine::entities::components {
          * \brief The constructor
          * \param context The context of the engine
          */
-        explicit GraphicalSpriteSheetComponent(Context &context);
+        explicit GraphicalSpriteSheetComponent(states::StateContext &context);
         GraphicalSpriteSheetComponent(const GraphicalSpriteSheetComponent&) = delete;
         virtual ~GraphicalSpriteSheetComponent();
 

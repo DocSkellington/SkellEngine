@@ -6,6 +6,8 @@
 #include "SkellEngine/input/detail/parse_json.h"
 #include "SkellEngine/input/detail/write_json.h"
 #include "SkellEngine/input/detail/default.h"
+#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/events/EventHandler.h"
 
 thor::Action applyModifiers(thor::Action action, thor::Action::ActionType actionType, bool lshift, bool lalt, bool lcontrol, bool rshift, bool ralt, bool rcontrol) {
     if (lshift) {

@@ -16,7 +16,7 @@ namespace engine::entities::components {
          * \brief The constructor
          * \param context The context of the engine
          */
-        ExternComponent(Context &context);
+        ExternComponent(states::StateContext &context);
         ExternComponent(const ExternComponent&) = delete;
         virtual ~ExternComponent();
 

@@ -9,6 +9,8 @@
  * \brief Contains everything related to the entities of a game
  */
 namespace engine::entities {
+    class EntityManager;
+
     /**
      * \brief An entity is made of zero, one or multiple components.
      * 
@@ -63,7 +65,7 @@ namespace engine::entities {
          * \param context The context
          * \param type The type of the entity
          */
-        explicit Entity(Context &context, const std::string &type);
+        explicit Entity(EntityManager &manager, const std::string &type);
         Entity(const Entity&) = delete;
         ~Entity();
 
@@ -147,7 +149,7 @@ namespace engine::entities {
         static void luaFunctions(sol::state &lua);
 
     private:
-        Context &m_context;
+        EntityManager &m_entityManager;
         std::string m_type;
         mapType m_components;
 

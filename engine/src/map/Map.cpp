@@ -1,11 +1,13 @@
 #include "SkellEngine/map/Map.h"
+
 #include "SkellEngine/Context.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
+#include "SkellEngine/files/FileManager.h"
 
 namespace engine::map {
-    Map::Map(Context &context, const std::filesystem::path &folder) :
+    Map::Map(states::StateContext &context) :
         m_context(context),
-        m_folder(folder) {
+        m_folder(context.context.fileManager->getGameDescription().media.mapFolder) {
     }
 
     Map::~Map() {
@@ -46,11 +48,11 @@ namespace engine::map {
         m_tilesetTiles.clear();
     }
 
-    void Map::drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view) {
+    void Map::drawLayer(sf::RenderWindow &window, std::size_t layer, sf::View view) {
         if (layer >= m_layers.size() || !m_layers[layer]->isVisible())
             return;
 
-        window->draw(*(m_layers[layer]));
+        window.draw(*(m_layers[layer]));
     }
 
     void Map::updateLayers(sf::Int64 deltaTime) {

@@ -3,6 +3,7 @@
 #include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/Context.h"
 #include "SkellEngine/utilities/json_lua.h"
+#include "SkellEngine/states/StateManager.h"
 
 namespace engine::events {
     EventHandler::EventHandler(Context &context) :

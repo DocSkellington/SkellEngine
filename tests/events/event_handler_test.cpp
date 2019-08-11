@@ -42,8 +42,8 @@ void unknownCallback(const events::Event &event) {
 
 }
 
-SCENARIO("Event handler", "[events]") {
-    Context context;
+SCENARIO("Event handler accepts new connections, disconnections and can send events", "[events]") {
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
 
     events::EventHandler handler(context);
 

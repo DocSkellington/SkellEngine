@@ -2,9 +2,10 @@
 
 #include "SkellEngine/Context.h"
 #include "SkellEngine/utilities/json_lua.h"
+#include "SkellEngine/systems/SystemManager.h"
 
 namespace engine::entities {
-    EntityManager::EntityManager(Context &context) :
+    EntityManager::EntityManager(states::StateContext &context) :
         m_context(context)  {
 
     }
@@ -22,7 +23,7 @@ namespace engine::entities {
     }
 
     Entity::Ptr EntityManager::addEntity(const std::string &entityType) {
-        Entity::Ptr entity = std::make_shared<Entity>(m_context, entityType);
+        Entity::Ptr entity = std::make_shared<Entity>(*this, entityType);
         m_entities.push_back(entity);
         return entity;
     }
@@ -59,6 +60,14 @@ namespace engine::entities {
 
     std::size_t EntityManager::getNumberOfEntities() const {
         return m_entities.size();
+    }
+
+    states::StateContext &EntityManager::getContext() {
+        return m_context;
+    }
+
+    const states::StateContext &EntityManager::getContext() const {
+        return m_context;
     }
 
     void EntityManager::luaFunctions(sol::state &lua) {

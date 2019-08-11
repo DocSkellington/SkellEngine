@@ -4,8 +4,9 @@
 #include "SkellEngine/Context.h"
 #include "SkellEngine/entities/components/ExternComponent.h"
 #include "SkellEngine/events/ExternEvent.h"
+#include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/files/FileManager.h"
 
-// V: type of the vector (sf::Vector2f, sf::Vector2u and so on)
 // T: type of the data in the vector (float, unsigned int and so on)
 template <typename T>
 void registerVector2(sol::state &lua, const std::string &name) {
@@ -126,7 +127,7 @@ namespace engine::systems {
         events::ExternEvent::luaFunctions(m_lua);
         manager.getContext().entityManager->luaFunctions(m_lua);
         manager.getContext().systemManager->luaFunctions(m_lua);
-        manager.getContext().eventHandler->luaFunctions(m_lua);
+        manager.getContext().context.eventHandler->luaFunctions(m_lua);
         
         getStoreEventConnections().luaFunctions(m_lua);
     }
@@ -146,7 +147,7 @@ namespace engine::systems {
     void ExternSystem::loadLua(const std::string &systemName) {
         m_systemName = systemName;
 
-        sol::protected_function_result load = m_lua.safe_script_file(getSystemManager().getContext().fileManager->getSystemPath(systemName));
+        sol::protected_function_result load = m_lua.safe_script_file(getSystemManager().getContext().context.fileManager->getSystemPath(systemName));
 
         if (!load.valid()) {
             sol::error e = load;

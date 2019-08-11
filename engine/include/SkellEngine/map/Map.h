@@ -7,12 +7,8 @@
 
 #include <SkellEngine/tmxlite/Map.hpp>
 #include <SkellEngine/tmxlite/TileLayer.hpp>
-
-#include "Layers.h"
-
-namespace engine{
-    struct Context;
-}
+#include "SkellEngine/map/Layers.h"
+#include "SkellEngine/states/StateContext.h"
 
 /**
  * \brief Contains the map and utilities to interact with it
@@ -33,7 +29,7 @@ namespace engine::map {
          * \param context The context
          * \param folder The path from "media" to the folder in which maps can be found
          */
-        explicit Map(Context& context, const std::filesystem::path &folder);
+        explicit Map(states::StateContext& context);
         Map(const Map&) = delete;
         ~Map();
 
@@ -67,7 +63,7 @@ namespace engine::map {
          * \param view The view
          * \todo Optimise according to the view
          */
-        void drawLayer(sf::RenderWindow* window, std::size_t layer, sf::View view);
+        void drawLayer(sf::RenderWindow &window, std::size_t layer, sf::View view);
 
         /**
          * \brief Gets the number of layers
@@ -82,7 +78,7 @@ namespace engine::map {
         void loadImageLayer(const tmx::Layer *layer, const std::string& mapName);
 
     private:
-        Context &m_context;
+        states::StateContext &m_context;
         const std::filesystem::path m_folder;
 
         tmx::Map m_map;

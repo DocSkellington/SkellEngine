@@ -1,10 +1,11 @@
 #include "SkellEngine/states/State.h"
 
 #include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/systems/SystemManager.h"
 
 namespace engine::states {
     State::State(StateManager &manager) :
-        m_stateManager(manager) {
+        m_stateContext(manager.getContext()) {
     }
 
     State::~State() {
@@ -19,8 +20,12 @@ namespace engine::states {
         return m_transparent;
     }
 
-    StateManager& State::getStateManager() const {
-        return m_stateManager;
+    StateContext& State::getStateContext() {
+        return m_stateContext;
+    }
+
+    const StateContext& State::getStateContext() const {
+        return m_stateContext;
     }
 
     sf::View State::getView() const {

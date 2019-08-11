@@ -8,16 +8,16 @@ using namespace engine;
 using namespace entities;
 
 SCENARIO("Entity Manager", "[entities]") {
-    Context context;
-    context.systemManager = std::make_shared<systems::SystemManager>(context);
-    auto entMan = context.entityManager = std::make_shared<EntityManager>(context);
+    Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
+    states::StateContext stateContext(context);
+    auto entMan = stateContext.entityManager;
 
     GIVEN("An empty manager") {
         REQUIRE(entMan->getNumberOfEntities() == 0);
         REQUIRE_FALSE(entMan->getEntity("entity"));
 
         THEN("We cannot remove anything") {
-            Entity::Ptr entity = std::make_shared<Entity>(context, "entity");
+            Entity::Ptr entity = std::make_shared<Entity>(*stateContext.entityManager, "entity");
             REQUIRE_FALSE(entMan->removeEntity(entity));
         }
 

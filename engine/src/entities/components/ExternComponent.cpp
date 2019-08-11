@@ -5,7 +5,7 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
-    ExternComponent::ExternComponent(Context &context) :
+    ExternComponent::ExternComponent(states::StateContext &context) :
         Component(context) {
 
     }

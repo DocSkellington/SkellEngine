@@ -4,10 +4,7 @@
 
 #include "SkellEngine/systems/System.h"
 #include "SkellEngine/systems/GraphicalSystem.h"
-
-namespace engine {
-    struct Context;
-}
+#include "SkellEngine/states/StateContext.h"
 
 /**
  * \brief Defines the basic systems
@@ -22,7 +19,7 @@ namespace engine::systems {
          * \brief The constructor
          * \param context A reference to the context of the engine
          */
-        explicit SystemManager(Context& context);
+        explicit SystemManager(states::StateContext& context);
         SystemManager(const SystemManager&) = delete;
 
         /**
@@ -35,7 +32,7 @@ namespace engine::systems {
          * \param window The window in which to draw
          * \param layer The layer to draw
          */
-        void draw(sf::RenderWindow* window, unsigned int layer);
+        void draw(sf::RenderWindow &window, unsigned int layer);
 
         /**
          * \brief Returns the system of the given type, if it exists in the manager.
@@ -97,7 +94,7 @@ namespace engine::systems {
          * \brief Returns the context
          * \return The context
          */
-        Context& getContext() const;
+        states::StateContext& getContext() const;
 
         /**
          * \brief Registers the Lua functions
@@ -105,7 +102,7 @@ namespace engine::systems {
         void luaFunctions(sol::state &lua) const;
 
     private:
-        Context &m_context;
+        states::StateContext &m_context;
         sf::View m_view;
         std::map<std::string, System::Ptr> m_systems;
         std::map<std::string, GraphicalSystem::Ptr> m_graphicalSystems;

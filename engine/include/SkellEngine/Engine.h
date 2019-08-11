@@ -29,8 +29,5 @@ namespace engine {
 
     private:
         Context m_context;
-
-    private:
-        void createWindow(const files::GameDescription::WindowDescription &window, const std::string &version);
     };
 }

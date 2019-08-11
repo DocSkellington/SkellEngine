@@ -23,7 +23,7 @@ namespace engine::states {
         }
     }
 
-    void StateManager::draw(std::shared_ptr<sf::RenderWindow> &window) {
+    void StateManager::draw(sf::RenderWindow &window) {
         for (auto &state : m_states) {
             state.second->draw(window);
 

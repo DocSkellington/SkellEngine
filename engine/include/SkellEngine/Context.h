@@ -5,24 +5,33 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <Thor/Resources.hpp>
 #include <sol/sol.hpp>
-#include <SkellEngine/tmxlite/Map.hpp>
 #include <TGUI/TGUI.hpp>
 
-#include "SkellEngine/states/StateManager.h"
-#include "SkellEngine/entities/EntityManager.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/map/Map.h"
-#include "SkellEngine/events/EventHandler.h"
-#include "SkellEngine/input/InputHandler.h"
+#include "files/GameDescription.h"
 
 namespace engine {
+    namespace files {
+        class FileManager;
+    }
+
+    namespace states {
+        class StateManager;
+    }
+
+    namespace input {
+        class InputHandler;
+    }
+
+    namespace events {
+        class EventHandler;
+    }
+
     /**
     * \brief Defines the context of the engine.
     */
-    struct Context {
+    class Context {
     public:
-        Context();
+        Context(const std::string &baseMediaPath, bool graphical = true);
         Context(const Context&) = delete;
 
         /**
@@ -56,11 +65,6 @@ namespace engine {
         std::shared_ptr<tgui::Gui> gui;
 
         /**
-         * \brief The current map
-         */
-        std::shared_ptr<map::Map> map;
-
-        /**
          * \brief The texture holder
          * 
          * Every texture used by the engine should be registered in this holder
@@ -80,16 +84,6 @@ namespace engine {
         std::shared_ptr<states::StateManager> stateManager;
 
         /**
-         * \brief The entity manager
-         */
-        std::shared_ptr<entities::EntityManager> entityManager;
-
-        /**
-         * \brief The system manager
-         */
-        std::shared_ptr<systems::SystemManager> systemManager;
-
-        /**
          * \brief The event handler
          */
         std::shared_ptr<events::EventHandler> eventHandler;
@@ -98,5 +92,8 @@ namespace engine {
          * \brief The input handler
          */
         std::shared_ptr<input::InputHandler> inputHandler;
+
+    private:
+        void createWindow(const files::GameDescription::WindowDescription &windowDescription, const std::string &version);
     };
 }

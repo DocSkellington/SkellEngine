@@ -1,9 +1,9 @@
-#include "SkellEngine/files/LevelDescription.h"
+#include "SkellEngine/levels/LevelDescription.h"
 
 #include "SkellEngine/errors/BadLevelDescription.h"
 #include <SkellEngine/tmxlite/Log.hpp>
 
-namespace engine::files {
+namespace engine::levels {
     void LevelDescription::clear() {
         name = "";
         map = "";

@@ -11,7 +11,9 @@ namespace engine::events {
     }
 
     void EventConnection::disconnect() {
-        m_connection.disconnect();
+        if (m_connection.isConnected()) {
+            m_connection.disconnect();
+        }
     }
 
     void EventConnection::luaFunctions(sol::state &lua) {

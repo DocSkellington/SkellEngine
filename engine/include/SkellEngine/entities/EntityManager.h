@@ -2,11 +2,8 @@
 
 #include <vector>
 
-#include "Entity.h"
-
-namespace engine {
-    struct Context;
-}
+#include "SkellEngine/entities/Entity.h"
+#include "SkellEngine/states/StateContext.h"
 
 namespace engine::entities {
     /**
@@ -18,7 +15,7 @@ namespace engine::entities {
          * \brief The constructor
          * \param context The context
          */
-        explicit EntityManager(Context &context);
+        explicit EntityManager(states::StateContext &context);
         EntityManager(const EntityManager&) = delete;
 
         /**
@@ -70,6 +67,9 @@ namespace engine::entities {
          */
         std::size_t getNumberOfEntities() const;
 
+        states::StateContext& getContext();
+        const states::StateContext &getContext() const;
+
         /**
          * \brief Registers the Lua functions associated with this class
          * \param lua The Lua state
@@ -78,7 +78,7 @@ namespace engine::entities {
 
     private:
         std::vector<Entity::Ptr> m_entities;
-        Context &m_context;
+        states::StateContext &m_context;
 
     private:
         Entity::Ptr addEntity(const std::string &name, const sol::table &luaTable);

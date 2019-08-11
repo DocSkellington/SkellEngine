@@ -5,13 +5,12 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/systems/ExternSystem.h"
 #include "SkellEngine/errors/ConstructorNotValid.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/systems/SystemManager.h"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :
         m_manager(manager),
-        m_storeEventConnections(*manager.getContext().eventHandler) {
-        
+        m_storeEventConnections(*manager.getContext().context.eventHandler) {
     }
 
     System::~System() {
@@ -62,6 +61,6 @@ namespace engine::systems {
     }
 
     events::EventConnection System::registerCallback(const std::string &eventType, const events::EventHandler::callbackSignature &callback, const std::string &state) {
-        getStoreEventConnections().registerCallback(eventType, callback, state);
+        return getStoreEventConnections().registerCallback(eventType, callback, state);
     }
 }

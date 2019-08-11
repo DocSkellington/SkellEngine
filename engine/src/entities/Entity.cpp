@@ -3,11 +3,12 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/utilities/json_lua.h"
 #include "SkellEngine/entities/components/ExternComponent.h"
+#include "SkellEngine/entities/EntityManager.h"
 
 namespace engine::entities {
 
-    Entity::Entity(Context &context, const std::string &type) :
-        m_context(context), m_type(type) {
+    Entity::Entity(EntityManager &manager, const std::string &type) :
+        m_entityManager(manager), m_type(type) {
 
     }
 
@@ -21,7 +22,7 @@ namespace engine::entities {
             return nullptr;
         }
 
-        auto compo = components::Component::createInstance(m_context, componentType);
+        auto compo = components::Component::createInstance(m_entityManager.getContext(), componentType);
         if (!compo) {
             tmx::Logger::log("Entity: Impossible to create a " + componentType, tmx::Logger::Type::Error);
             return nullptr;

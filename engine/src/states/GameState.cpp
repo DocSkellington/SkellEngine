@@ -2,8 +2,12 @@
 
 #include <iostream>
 
-#include "SkellEngine/states/MainMenuState.h"
 #include "SkellEngine/Context.h"
+#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/map/Map.h"
+#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/levels/Level.h"
 
 namespace engine::states {
     GameState::GameState(StateManager& manager) :
@@ -16,23 +20,22 @@ namespace engine::states {
     }
 
     void GameState::onCreate() {
-        getStateManager().getContext().systemManager->clear();
+        getStateContext().systemManager->clear();
 
-        auto game = getStateManager().getContext().fileManager->getStateDescription("game");
+        auto game = getStateContext().context.fileManager->getStateDescription("game");
 
-        getStateManager().getContext().systemManager->loadSystems(game.systems);
-        //getStateManager().getContext().window->setView(sf::View(sf::Vector2f(310, 310), sf::Vector2f(640, 640)));
+        getStateContext().systemManager->loadSystems(game.systems);
+        //getStateContext().window->setView(sf::View(sf::Vector2f(310, 310), sf::Vector2f(640, 640)));
     }
 
     void GameState::onDestroy() {
-        getStateManager().getContext().systemManager->clear();
-        getStateManager().getContext().gui->removeAllWidgets();
+        getStateContext().systemManager->clear();
+        getStateContext().context.gui->removeAllWidgets();
     }
 
     void GameState::activate() {
-        // Tests:
         std::string levelName = "tutorial";
-        getStateManager().getContext().fileManager->changeLevel(levelName);
+        getStateContext().level->changeLevel(levelName);
     }
 
     void GameState::deactivate() {
@@ -40,20 +43,18 @@ namespace engine::states {
     }
 
     void GameState::update(sf::Int64 deltatime) {
-        getStateManager().getContext().systemManager->update(deltatime);
-        getStateManager().getContext().map->updateLayers(deltatime);
+        getStateContext().systemManager->update(deltatime);
+        getStateContext().level->update(deltatime);
     }
 
     void GameState::handleEvent(sf::Event &event) {
         if (event.type == sf::Event::KeyPressed) {
-            getStateManager().switchTo("mainmenu");
-            getStateManager().remove("game");
+            getStateContext().context.stateManager->switchTo("mainmenu");
+            getStateContext().context.stateManager->remove("game");
         }
     }
 
-    void GameState::draw(std::shared_ptr<sf::RenderWindow>& window) {
-        for (std::size_t i = 0 ; i < getStateManager().getContext().map->getLayerCount() ; i++) {
-            getStateManager().getContext().systemManager->draw(window.get(), i);
-        }
+    void GameState::draw(sf::RenderWindow& window) {
+        getStateContext().level->draw(window);
     }
 }

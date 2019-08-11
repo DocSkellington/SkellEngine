@@ -1,7 +1,7 @@
 #include "SkellEngine/entities/components/PositionComponent.h"
 
 namespace engine::entities::components {
-    PositionComponent::PositionComponent(Context &context) :
+    PositionComponent::PositionComponent(states::StateContext &context) :
         Component(context),
         m_x(0),
         m_y(0) {

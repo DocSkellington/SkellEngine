@@ -4,8 +4,8 @@
 #include "SkellEngine/Context.h"
 
 namespace engine::entities::components {
-    Component::Component(Context &context) :
-        MemberStorage(context)
+    Component::Component(states::StateContext &context) :
+        MemberStorage(context.context)
         {
 
     }
@@ -14,7 +14,7 @@ namespace engine::entities::components {
 
     }
 
-    Component::Ptr Component::createInstance(Context &context, const std::string &componentType) {
+    Component::Ptr Component::createInstance(states::StateContext &context, const std::string &componentType) {
         Ptr ptr = RegisteredComponents::construct(componentType, context);
 
         if (!ptr) {

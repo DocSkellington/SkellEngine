@@ -33,7 +33,6 @@ namespace engine::states {
     void PauseState::handleEvent(sf::Event &event) {
     }
 
-    void PauseState::draw(std::shared_ptr<sf::RenderWindow>& window) {
-        window->display();
+    void PauseState::draw(sf::RenderWindow& window) {
     }
 }

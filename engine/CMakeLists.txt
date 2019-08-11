@@ -62,8 +62,10 @@ set(SOURCES
 
     src/files/FileManager.cpp
     src/files/GameDescription.cpp
-    src/files/LevelDescription.cpp
     src/files/StateDescription.cpp
+
+    src/levels/Level.cpp
+    src/levels/LevelDescription.cpp
 
     src/map/Layers.cpp
     src/map/Map.cpp
@@ -75,6 +77,7 @@ set(SOURCES
     src/states/PauseState.cpp
     src/states/State.cpp
     src/states/StateManager.cpp
+    src/states/StateContext.cpp
 
     src/systems/GraphicalOrthogonalSystem.cpp
     src/systems/GraphicalSystem.cpp

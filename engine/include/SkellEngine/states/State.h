@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "SkellEngine/utilities/RegisterClass.h"
+#include "SkellEngine/states/StateContext.h"
 
 namespace engine::states {
     class StateManager;
@@ -61,7 +62,7 @@ namespace engine::states {
         * \brief Draws the state
         * \param window The window in which the rendering must be done
         */
-        virtual void draw(std::shared_ptr<sf::RenderWindow> &window) = 0;
+        virtual void draw(sf::RenderWindow &window) = 0;
 
         /**
          * \brief If the state is transcendant, the events can be processed by the following state (in the stack)
@@ -100,15 +101,18 @@ namespace engine::states {
     protected:
         /**
          * \brief The constructor
-         * \param manager The state manager
+         * \param manager The manager
          */
         State(StateManager &manager);
 
+        /** @{ */
         /**
-         * \brief Gives the state manager
-         * \return The state manager
+         * \brief Gives the state context
+         * \return The state context
          */
-        StateManager& getStateManager() const;
+        StateContext& getStateContext();
+        const StateContext& getStateContext() const;
+        /** @} */
         
         /**
          * \brief Gives the view
@@ -124,7 +128,8 @@ namespace engine::states {
     private:
         bool m_transcendant;
         bool m_transparent;
-        StateManager &m_stateManager;
+
+        StateContext m_stateContext;
 
         sf::View m_view;
     };

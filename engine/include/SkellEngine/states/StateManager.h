@@ -7,10 +7,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "State.h"
+#include "SkellEngine/states/State.h"
 
 namespace engine {
-    struct Context;
+    class Context;
 }
 
 /**
@@ -46,7 +46,7 @@ namespace engine::states {
         * \brief Draws the states starting from the front and until it reaches a non-transparent state.
         * \param window The RenderWindow in which the manager must draw
         */
-        void draw(std::shared_ptr<sf::RenderWindow> &window);
+        void draw(sf::RenderWindow &window);
 
         /**
          * \brief Handles the event
