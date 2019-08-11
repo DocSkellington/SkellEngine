@@ -10,19 +10,39 @@
  * \brief Namespace with classes to handle a level
  */
 namespace engine::levels {
+    /**
+     * \brief A level is defined by a map and entities
+     * 
+     * The map and entities to use are given in a file named "name_of_level.json" and are loaded using Level::changeLevel
+     */
     class Level {
     public:
+        /**
+         * \brief Constructor
+         * \param context The context of the state
+         */
         Level(states::StateContext &context);
 
+        /**
+         * \brief Updates the level's map
+         * \param deltaTime The time since the last frame
+         */
         void update(sf::Int64 deltaTime);
 
         /**
          * \brief Draws the whole level
+         * 
+         * It draws the map and the entities. Actually, it calls systems::SystemManager::draw which in turn calls Level::drawLayer if a graphical system is in use
+         * \param window The window to draw in
          */
         void draw(sf::RenderWindow &window);
 
         /**
          * \brief Draws a specific layer of the level
+         * \param window The window to draw in
+         * \param layer The layer to draw
+         * \param view The view
+         * \note This function should be called by a graphical system to draw layer by layer. The states should use Level::draw
          */
         void drawLayer(sf::RenderWindow &window, unsigned int layer, sf::View view);
 

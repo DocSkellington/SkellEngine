@@ -62,7 +62,7 @@ namespace engine::entities {
     public:
         /**
          * \brief Constructs a new entity of given type
-         * \param context The context
+         * \param manager The entity manager
          * \param type The type of the entity
          */
         explicit Entity(EntityManager &manager, const std::string &type);

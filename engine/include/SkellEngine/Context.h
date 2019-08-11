@@ -31,6 +31,11 @@ namespace engine {
     */
     class Context {
     public:
+        /**
+         * \brief Constructor
+         * \param baseMediaPath The path to the "media" folder
+         * \param graphical Whether to create the window
+         */
         Context(const std::string &baseMediaPath, bool graphical = true);
         Context(const Context&) = delete;
 

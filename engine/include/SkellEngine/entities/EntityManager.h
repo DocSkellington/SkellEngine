@@ -67,8 +67,14 @@ namespace engine::entities {
          */
         std::size_t getNumberOfEntities() const;
 
+        /** @{ */
+        /**
+         * \brief Gives the context of the state using this manager
+         * \return The context of the state using this manager
+         */
         states::StateContext& getContext();
         const states::StateContext &getContext() const;
+        /** @} */
 
         /**
          * \brief Registers the Lua functions associated with this class

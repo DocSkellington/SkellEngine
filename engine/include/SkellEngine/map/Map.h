@@ -26,8 +26,7 @@ namespace engine::map {
     public:
         /**
          * \brief The constructor
-         * \param context The context
-         * \param folder The path from "media" to the folder in which maps can be found
+         * \param context The context of the state
          */
         explicit Map(states::StateContext& context);
         Map(const Map&) = delete;
