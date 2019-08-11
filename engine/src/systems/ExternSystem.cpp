@@ -111,7 +111,7 @@ void registerSFMLLuaFunctions(sol::state &lua) {
 }
 
 namespace engine::systems {
-    ExternSystem::ExternSystem(SystemManager &manager) :
+    ExternSystem::ExternSystem(SystemManager &manager, const std::string &systemName) :
         System(manager) {
         m_lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table, sol::lib::math);
 
@@ -130,6 +130,8 @@ namespace engine::systems {
         manager.getContext().context.eventHandler->luaFunctions(m_lua);
         
         getStoreEventConnections().luaFunctions(m_lua);
+
+        loadLua(systemName);
     }
 
     ExternSystem::~ExternSystem() {

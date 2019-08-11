@@ -17,23 +17,26 @@ namespace engine::systems {
 
     public:
         /**
-         * \brief The constructor
+         * \brief Constructor
+         * 
+         * It loads the system from a Lua script
          * \param manager The system manager
+         * \param systemName The name of the system to load
          */
-        explicit ExternSystem(SystemManager &manager);
+        explicit ExternSystem(SystemManager &manager, const std::string &systemName);
         ExternSystem(const ExternSystem&) = delete;
         virtual ~ExternSystem();
+
+        virtual bool update(sf::Int64 deltatime, sf::View &view) override;
+
+    protected:
+        virtual bool checkComponents(engine::entities::Entity::Ptr entity) const override;
 
         /**
          * \brief Loads the system from a Lua script
          * \param systemName The name of the system to load
          */
         virtual void loadLua(const std::string &systemName);
-
-        virtual bool update(sf::Int64 deltatime, sf::View &view) override;
-
-    protected:
-        virtual bool checkComponents(engine::entities::Entity::Ptr entity) const override;
 
     private:
         sol::state m_lua;
