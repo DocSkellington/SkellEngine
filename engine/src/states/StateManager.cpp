@@ -68,6 +68,7 @@ namespace engine::states {
                     // And we activate it
                     m_states.front().second->activate();
 
+                    m_switchTo = "";
                     return;
                 }
             }

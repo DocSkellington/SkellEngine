@@ -49,9 +49,11 @@ namespace engine::states {
         void draw(sf::RenderWindow &window);
 
         /**
-         * \brief Changes the front state to the one of the given name
+         * \brief Asks to change the front state to the one of the given name
          * 
-         * If the state does not exist yet, it is created
+         * The request is processed when processSwitchToAndRemove is called (at the end of the game loop). If a new request comes in before the old one is processed, only the new request is effectively processed
+         * 
+         * If the state does not exist yet, it will be created
          * 
          * The state must have been registered
          * \param name The name of the state to switch to
@@ -60,6 +62,8 @@ namespace engine::states {
 
         /**
         * \brief Asks to remove the given state.
+        * 
+        * The requests are processed when processSwitchToAndRemove is called (at the end of the game loop)
         * \param name The name of the state to remove
         */
         void remove(const std::string &name);

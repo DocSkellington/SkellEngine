@@ -4,12 +4,6 @@ function onCreate()
 end
 
 function onChangeState(event)
-    print("mainmenu:onChangeState")
     game.stateManager:switchTo("game")
     game.stateManager:remove("mainmenu")
-    print("done")
-end
-
-function activate()
-    print("MAINMENU")
 end

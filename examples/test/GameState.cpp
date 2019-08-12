@@ -24,15 +24,14 @@ public:
     virtual void onCreate() override {
         getStateContext().systemManager->loadSystems({"graphicalorthogonal", "test", "testcpp"});
         registerCallback("ChangeState", std::bind(&GameState::onChangeState, this, std::placeholders::_1), "game");
+        getStateContext().level->changeLevel("tutorial");
     }
 
     virtual void onDestroy() override {
-        // getStateContext().systemManager->clear();
         // getStateContext().context.gui->removeAllWidgets();
     }
 
     virtual void activate() override {
-        getStateContext().level->changeLevel("tutorial");
     }
 
     virtual void deactivate() override {
