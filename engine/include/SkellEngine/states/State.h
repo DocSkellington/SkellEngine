@@ -101,9 +101,28 @@ namespace engine::states {
          */
         State(StateManager &manager);
 
+        /**
+         * \brief Constructor
+         * \param manager The state manager
+         * \param isTranscendant Whether the state is transcendant
+         * \param isTransparent Whether the state is transparent
+         */
         State(StateManager &manager, bool isTranscendant, bool isTransparent);
 
+        /**
+         * \brief Sets if the state if transcendant
+         * 
+         * If the state is transcendant, it means that the next state in the stack can also be updated
+         * \param isTranscendant Whether the state is transcendant
+         */
         void setIsTranscendant(bool isTranscendant);
+
+        /**
+         * \brief Sets if the state if transparent
+         * 
+         * If the state is transparent, it means that the next state in the stack can also be drawn
+         * \param isTransparent Whether the state is transparent
+         */
         void setIsTransparent(bool isTransparent);
 
         /** @{ */

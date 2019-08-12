@@ -6,7 +6,12 @@
 #include <SFML/Graphics.hpp>
 
 namespace engine::utilities {
-    // T: type of the data in the vector (float, unsigned int and so on)
+    /**
+     * \brief Registers Lua functions for Vector2 types
+     * \param lua The Lua state
+     * \param name The name under which the Vector2<T> must be registered
+     * \tparam T The type of the value in the Vector2
+     */
     template <typename T>
     void registerVector2(sol::state &lua, const std::string &name) {
         lua.new_usertype<sf::Vector2<T>>(name,
@@ -35,6 +40,12 @@ namespace engine::utilities {
         );
     }
 
+    /**
+     * \brief Registers Lua functions for Rect types
+     * \param lua The Lua state
+     * \param name The name under which the Rect<T> must be registered
+     * \tparam T The type of the value in the Rect
+     */
     template <typename T>
     void registerRect(sol::state &lua, const std::string &name) {
         lua.new_usertype<sf::Rect<T>>(name,
@@ -66,5 +77,9 @@ namespace engine::utilities {
         );
     }
 
+    /**
+     * \brief Registers Lua functions for SFML types
+     * \param lua The Lua state
+     */
     void registerSFMLLuaFunctions(sol::state &lua);
 }

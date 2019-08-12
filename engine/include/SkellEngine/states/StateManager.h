@@ -89,6 +89,10 @@ namespace engine::states {
          */
         bool isCurrentState(const std::string &state) const;
 
+        /**
+         * \brief Registers Lua functions
+         * \param lua The Lua state
+         */
         void luaFunctions(sol::state &lua);
 
     private:

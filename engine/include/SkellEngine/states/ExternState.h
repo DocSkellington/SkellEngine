@@ -3,8 +3,16 @@
 #include "SkellEngine/states/State.h"
 
 namespace engine::states {
+    /**
+     * \brief A state defined in a Lua script
+     */
     class ExternState : public State {
     public:
+        /**
+         * \brief Constructor
+         * \param manager The state manager
+         * \param stateName The name of the state
+         */
         ExternState(StateManager &manager, const std::string &stateName);
         ~ExternState();
 
