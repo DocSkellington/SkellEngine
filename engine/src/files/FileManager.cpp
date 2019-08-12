@@ -139,7 +139,7 @@ namespace engine::files {
             return itr->second;
         }
         else {
-            throw errors::SystemNotFound("The system " + systemName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
+            throw errors::SystemNotFound("The system " + systemName + " is unknown. Please check that the Lua script is in the correct directory and that the system name is correct.");
         }
     }
 
@@ -149,7 +149,7 @@ namespace engine::files {
             return itr->second;
         }
         else {
-            throw errors::StateNotFound("The state " + stateName + " is unknown. Please check that the Lua script is in the correct directory and that the filename is correct.");
+            throw errors::StateNotFound("The state " + stateName + " is unknown. Please check that the Lua script is in the correct directory and that the state name is correct.");
         }
     }
 
