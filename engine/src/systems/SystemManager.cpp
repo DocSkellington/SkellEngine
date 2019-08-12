@@ -91,6 +91,12 @@ namespace engine::systems {
 
     void SystemManager::luaFunctions(sol::state &lua) const {
         lua.new_usertype<SystemManager>("SystemManager",
+            "update", &SystemManager::update,
+            "draw", &SystemManager::draw,
+            "addSystem", &SystemManager::addSystem,
+            "loadSystems", &SystemManager::loadSystems,
+            "removeSystem", &SystemManager::removeSystem,
+            "clear", &SystemManager::clear,
             "addEntity", &SystemManager::addEntity,
             "removeEntity", &SystemManager::removeEntity
         );
