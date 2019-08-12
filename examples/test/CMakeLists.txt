@@ -4,6 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_BINARY_DIR}/main.cpp
 
     TestSystem.cpp
+    GameState.cpp
 )
 
 add_executable(testEngine ${SOURCES})

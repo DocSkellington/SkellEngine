@@ -6,8 +6,7 @@
     },
     "ChangeState": {
         "type": "KeyPressed",
-        "key": "Any",
-        "state": "mainmenu"
+        "key": "Any"
     },
     "PlayerUpPressed": {
         "type": "KeyPressed",

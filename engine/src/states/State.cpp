@@ -6,12 +6,21 @@
 
 namespace engine::states {
     State::State(StateManager &manager) :
+        m_transcendant(false),
+        m_transparent(false),
+        m_stateContext(manager.getContext()),
+        m_storeEventConnections(*manager.getContext().eventHandler) {
+    }
+    
+    State::State(StateManager &manager, bool isTranscendant, bool isTransparent) :
+        m_transcendant(isTranscendant),
+        m_transparent(isTransparent),
         m_stateContext(manager.getContext()),
         m_storeEventConnections(*manager.getContext().eventHandler) {
     }
 
     State::~State() {
-
+        getStoreEventConnections().clearEventConnections();
     }
 
     bool State::isTranscendant() const {
@@ -20,6 +29,14 @@ namespace engine::states {
 
     bool State::isTransparent() const {
         return m_transparent;
+    }
+
+    void State::setIsTranscendant(bool isTranscendant) {
+        m_transcendant = isTranscendant;
+    }
+
+    void State::setIsTransparent(bool isTransparent) {
+        m_transparent = isTransparent;
     }
 
     StateContext& State::getStateContext() {

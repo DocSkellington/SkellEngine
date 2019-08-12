@@ -72,11 +72,10 @@ set(SOURCES
 
     src/shapes/EllipseShape.cpp
 
-    src/states/GameState.cpp
     src/states/State.cpp
+    src/states/ExternState.cpp
     src/states/StateManager.cpp
     src/states/StateContext.cpp
-    src/states/ExternState.cpp
 
     src/systems/GraphicalOrthogonalSystem.cpp
     src/systems/GraphicalSystem.cpp

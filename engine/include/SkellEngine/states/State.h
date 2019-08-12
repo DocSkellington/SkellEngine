@@ -101,6 +101,11 @@ namespace engine::states {
          */
         State(StateManager &manager);
 
+        State(StateManager &manager, bool isTranscendant, bool isTransparent);
+
+        void setIsTranscendant(bool isTranscendant);
+        void setIsTransparent(bool isTransparent);
+
         /** @{ */
         /**
          * \brief Gives the state context
