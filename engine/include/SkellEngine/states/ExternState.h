@@ -6,6 +6,7 @@ namespace engine::states {
     class ExternState : public State {
     public:
         ExternState(StateManager &manager, const std::string &stateName);
+        ~ExternState();
 
         virtual void onCreate() override;
         virtual void onDestroy() override;

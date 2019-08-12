@@ -39,6 +39,10 @@ namespace engine::states {
             throw e;
         }
     }
+     
+    ExternState::~ExternState() {
+        getStoreEventConnections().clearEventConnections();
+    }
 
     void ExternState::onCreate() {
         sol::protected_function func = m_lua["onCreate"];
