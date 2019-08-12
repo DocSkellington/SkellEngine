@@ -8,7 +8,6 @@
 #include <SFML/Graphics/Font.hpp>
 
 #include "SkellEngine/files/GameDescription.h"
-#include "SkellEngine/files/StateDescription.h"
 #include "SkellEngine/Context.h"
 
 /**
@@ -33,12 +32,6 @@ namespace engine::files {
          * \return The Game Description
          */
         const GameDescription& getGameDescription() const;
-
-        /**
-         * \brief Returns the description of the state found in the media/states folder
-         * \return The StateDescription of the given state
-         */
-        const StateDescription& getStateDescription(const std::string &state);
 
         /**
          * \brief Loads a font and stores it in the appropriate ressource holder.
@@ -83,17 +76,10 @@ namespace engine::files {
     private:
         const Context &m_context;
         GameDescription m_gameDescription;
-        std::map<std::string, StateDescription> m_stateDescriptions;
         std::map<std::string, std::filesystem::path> m_systemsPath;
         std::map<std::string, std::filesystem::path> m_statesPath;
 
     private:
-
-        /**
-         * \brief Loads the state descriptions in media/states
-         */
-        void loadStateDescriptions();
-
         const std::filesystem::path fontPath(const std::string &fontName) const;
     };
 }

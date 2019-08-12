@@ -37,18 +37,12 @@ namespace engine::files {
         m_gameDescription.media.statesFolder = basePath / m_gameDescription.media.statesFolder;
         m_gameDescription.media.inputDescription = basePath / m_gameDescription.media.inputDescription;
 
-        loadStateDescriptions();
-
         registerExternSystems();
         registerExternStates();
     }
 
     const GameDescription& FileManager::getGameDescription() const {
         return m_gameDescription;
-    }
-
-    const StateDescription& FileManager::getStateDescription(const std::string &state) {
-        return m_stateDescriptions[state];
     }
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
@@ -150,20 +144,6 @@ namespace engine::files {
         }
         else {
             throw errors::StateNotFound("The state " + stateName + " is unknown. Please check that the Lua script is in the correct directory and that the state name is correct.");
-        }
-    }
-
-    void FileManager::loadStateDescriptions() {
-        /**\todo The other states */
-        nlohmann::json mainmenu, game, pause;
-        std::filesystem::path gamePath = m_gameDescription.media.statesFolder / "game.json";
-        std::ifstream file(gamePath);
-        if (file.is_open()) {
-            file >> game;
-            m_stateDescriptions["game"] = game;
-        }
-        else {
-            tmx::Logger::log("No game state", tmx::Logger::Type::Warning);
         }
     }
 

@@ -62,7 +62,6 @@ set(SOURCES
 
     src/files/FileManager.cpp
     src/files/GameDescription.cpp
-    src/files/StateDescription.cpp
 
     src/levels/Level.cpp
     src/levels/LevelDescription.cpp
