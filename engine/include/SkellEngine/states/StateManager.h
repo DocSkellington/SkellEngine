@@ -65,11 +65,9 @@ namespace engine::states {
         void remove(const std::string &name);
 
         /**
-        * \brief Process the remove requests received from remove().
-        *
-        * A state is removed iff it is in the stack of states.
+        * \brief Process the switchTo and remove requests received
         */
-        void processRemove();
+        void processSwitchToAndRemove();
 
         /**
          * \brief Gives the context
@@ -101,6 +99,7 @@ namespace engine::states {
     private:
         std::list<StateInList> m_states;
         std::list<std::string> m_toRemove;
+        std::string m_switchTo;
         Context &m_context;
     };
 }

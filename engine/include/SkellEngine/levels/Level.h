@@ -51,6 +51,12 @@ namespace engine::levels {
          * \param levelName The name of the level
          */
         void changeLevel(const std::string &levelName);
+        
+        /**
+         * \brief Registers Lua functions
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua);
     
     private:
         /**

@@ -70,6 +70,10 @@ namespace engine {
         window->close();
     }
 
+    void Context::luaFunctions(sol::state &lua) {
+        lua["game"]["closeEngine"] = [this]() { this->closeEngine(); };
+    }
+
     void Context::createWindow(const files::GameDescription::WindowDescription &windowDescription, const std::string &version) {
         std::string title = windowDescription.title;
         if (windowDescription.version)

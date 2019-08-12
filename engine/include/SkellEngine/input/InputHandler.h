@@ -108,6 +108,12 @@ namespace engine::input {
          */
         nlohmann::json saveConfiguration() const;
 
+        /**
+         * \brief Registers Lua functions
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua);
+
     private:
 
         /**

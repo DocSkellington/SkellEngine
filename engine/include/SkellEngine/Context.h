@@ -46,6 +46,12 @@ namespace engine {
          */
         void closeEngine();
 
+        /**
+         * \brief Registers Lua functions
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua);
+
     public:
         /**
          * \brief The file manager

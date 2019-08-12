@@ -62,12 +62,12 @@ namespace engine {
 
             m_context.window->display();
 
-            m_context.stateManager->processRemove();
+            m_context.stateManager->processSwitchToAndRemove();
 
             float now = FPSClock.getElapsedTime().asSeconds();
             // We use a moving average to smooth the FPS display
             FPS = 0.6 * FPS + 0.4 * 1. / (now - lastTime);
-            tmx::Logger::log(std::to_string(FPS));
+            // tmx::Logger::log(std::to_string(FPS));
             lastTime = now;
 
             // To avoid overflow

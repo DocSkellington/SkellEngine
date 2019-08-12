@@ -8,6 +8,8 @@
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/utilities/lua_sfml.h"
 #include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/levels/Level.h"
+#include "SkellEngine/input/InputHandler.h"
 
 namespace engine::systems {
     ExternSystem::ExternSystem(SystemManager &manager, const std::string &systemName) :
@@ -28,6 +30,9 @@ namespace engine::systems {
         manager.getContext().systemManager->luaFunctions(m_lua);
         manager.getContext().context.eventHandler->luaFunctions(m_lua);
         manager.getContext().context.stateManager->luaFunctions(m_lua);
+        manager.getContext().level->luaFunctions(m_lua);
+        manager.getContext().context.inputHandler->luaFunctions(m_lua);
+        manager.getContext().context.luaFunctions(m_lua);
         
         getStoreEventConnections().luaFunctions(m_lua);
 

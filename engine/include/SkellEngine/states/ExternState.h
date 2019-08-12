@@ -24,6 +24,9 @@ namespace engine::states {
         virtual void draw(sf::RenderWindow &window) override;
 
     private:
+        void luaFunctions();
+
+    private:
         sol::state m_lua;
         std::string m_stateName;
     };

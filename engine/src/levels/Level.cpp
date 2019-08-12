@@ -40,6 +40,16 @@ namespace engine::levels {
         applyLevelDescription();
     }
 
+    void Level::luaFunctions(sol::state &lua) {
+        lua.new_usertype<Level>("Level",
+            "update", &Level::update,
+            "draw", &Level::draw,
+            "changeLevel", &Level::changeLevel
+        );
+
+        lua["game"]["level"] = this;
+    }
+
     void Level::loadLevelDescription() {
         if (!m_levelDescription.name.empty()) {
             std::ifstream file;

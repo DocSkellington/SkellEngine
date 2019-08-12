@@ -117,6 +117,21 @@ namespace engine::input {
         return json;
     }
 
+    void InputHandler::luaFunctions(sol::state &lua) {
+        lua.new_usertype<InputConnection>("InputConnection",
+            "isConnected", &InputConnection::isConnected,
+            "disconnect", &InputConnection::disconnect
+        );
+
+        lua.new_usertype<InputHandler>("InputHandler",
+            "connectInput", &InputHandler::connectInput,
+            "loadConfiguration", &InputHandler::loadConfiguration,
+            "saveConfiguration", &InputHandler::saveConfiguration
+        );
+
+        lua["game"]["inputHandler"] = this;
+    }
+
     void InputHandler::processAction(const thor::ActionContext<InputHandler::ActionId> &actionContext) {
         auto itr = m_actionIdToEventInformation.find(actionContext.actionId);
         if (itr == m_actionIdToEventInformation.end()) {

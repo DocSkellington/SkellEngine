@@ -8,29 +8,14 @@
 #include "SkellEngine/events/ExternEvent.h"
 #include "SkellEngine/entities/EntityManager.h"
 #include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/levels/Level.h"
+#include "SkellEngine/input/InputHandler.h"
 
 namespace engine::states {
     ExternState::ExternState(StateManager &manager, const std::string &stateName) :
         State(manager),
         m_stateName(stateName) {
-        m_lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table, sol::lib::math);
-
-        m_lua.create_named_table("game");
-
-        utilities::MemberStorage::luaFunctions(m_lua);
-        entities::components::Component::luaFunctions(m_lua);
-        entities::components::ExternComponent::luaFunctions(m_lua);
-        entities::Entity::luaFunctions(m_lua);
-        events::Event::luaFunctions(m_lua);
-        events::ExternEvent::luaFunctions(m_lua);
-        getStateContext().entityManager->luaFunctions(m_lua);
-        getStateContext().systemManager->luaFunctions(m_lua);
-        getStateContext().context.eventHandler->luaFunctions(m_lua);
-        getStateContext().context.stateManager->luaFunctions(m_lua);
-        
-        getStoreEventConnections().luaFunctions(m_lua);
-
-        utilities::registerSFMLLuaFunctions(m_lua);
+        luaFunctions();
 
         sol::safe_function_result load = m_lua.safe_script_file(getStateContext().context.fileManager->getStatePath(stateName));
 
@@ -110,4 +95,30 @@ namespace engine::states {
         }
     }
 
+    void ExternState::luaFunctions() {
+        m_lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table, sol::lib::math);
+
+        m_lua.create_named_table("game");
+
+        utilities::MemberStorage::luaFunctions(m_lua);
+        entities::components::Component::luaFunctions(m_lua);
+        entities::components::ExternComponent::luaFunctions(m_lua);
+        entities::Entity::luaFunctions(m_lua);
+        events::Event::luaFunctions(m_lua);
+        events::ExternEvent::luaFunctions(m_lua);
+        getStateContext().entityManager->luaFunctions(m_lua);
+        getStateContext().systemManager->luaFunctions(m_lua);
+        getStateContext().context.eventHandler->luaFunctions(m_lua);
+        getStateContext().context.stateManager->luaFunctions(m_lua);
+        getStateContext().level->luaFunctions(m_lua);
+        getStateContext().context.inputHandler->luaFunctions(m_lua);
+        getStateContext().context.luaFunctions(m_lua);
+        
+        getStoreEventConnections().luaFunctions(m_lua);
+
+        utilities::registerSFMLLuaFunctions(m_lua);
+
+        m_lua.set_function("setIsTransparent", [this] (bool is) { this->setIsTransparent(is); });
+        m_lua.set_function("setIsTranscendant", [this] (bool is) { this->setIsTranscendant(is); });
+    }
 }
