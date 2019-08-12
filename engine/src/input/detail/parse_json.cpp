@@ -218,17 +218,12 @@ namespace engine::input::detail {
         // First, we need to know the type of the sf::Event to create
         // Then, we parse the specific information needed for this type (and we remove the fields from the JSON object)
         // Finally, every unused field as considered as the JSON payload
-        bool isJoystickMove = false;
 
         // First: the type of the input
         if (auto type = inputDescription.find("type") ; type != inputDescription.end() && type->is_string()) {
             try {
                 event.type = stringToEventType(*type);
                 setDefaultKeyButton(event);
-
-                if (event.type == sf::Event::EventType::JoystickMoved) {
-                    isJoystickMove = true;
-                }
             }
             catch(const std::invalid_argument &error) { // The type of the event is not an SFML event
                 std::string v = type->get<std::string>();

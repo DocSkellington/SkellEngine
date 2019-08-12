@@ -27,7 +27,7 @@ namespace engine {
         // Setting default value to the output
         tmx::Logger::setOutput(tmx::Logger::Output::Console);
 
-        m_context.eventHandler->registerCallback("WindowClosed", [&](const engine::events::Event &event) { tmx::Logger::log("Closing the window"); m_context.window->close(); });
+        m_context.eventHandler->registerCallback("WindowClosed", [&](const engine::events::Event &) { tmx::Logger::log("Closing the window"); m_context.window->close(); });
 
         tmx::Logger::log("Launching the first state");
         // Launching the first state of the game

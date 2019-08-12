@@ -14,6 +14,8 @@ namespace engine::input::detail {
         case sf::Event::EventType::JoystickButtonPressed:
         case sf::Event::EventType::JoystickButtonReleased:
             event.joystickButton.button = AnyJoystickButton;
+            event.joystickButton.joystickId = AnyJoystickID;
+            break;
         case sf::Event::EventType::JoystickMoved:
             event.joystickMove.joystickId = AnyJoystickID;
             break;
