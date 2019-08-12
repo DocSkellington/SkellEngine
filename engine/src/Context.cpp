@@ -12,7 +12,13 @@
 #include "SkellEngine/states/StateManager.h"
 
 namespace engine {
-    Context::Context(const std::string &baseMediaPath, bool graphical) {
+    Context::Context(const std::filesystem::path &baseMediaPath, bool graphical) {
+        // Erasing the old log
+        std::filesystem::path logPath = baseMediaPath / "log.txt";
+        std::filesystem::remove(logPath);
+        // Setting default value to the output
+        tmx::Logger::setOutput(tmx::Logger::Output::Console);
+
         lua = std::make_shared<sol::state>();
         lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
 
@@ -88,5 +94,12 @@ namespace engine {
             window = std::make_shared<sf::RenderWindow>(sf::VideoMode(windowDescription.width, windowDescription.height, 32), title, style, settings);
 
         window->setKeyRepeatEnabled(false);
+
+        if (windowDescription.verticalSynchronisation) {
+            window->setVerticalSyncEnabled(true);
+        }
+        else if (windowDescription.FPS > 0) {
+            window->setFramerateLimit(windowDescription.FPS);
+        }
     }
 }

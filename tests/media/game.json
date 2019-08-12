@@ -13,7 +13,9 @@
         "showClose" : false,
         "title" : "Testy",
         "showVersion" : false,
-        "showEngine" : false
+        "showEngine" : false,
+        "FPS": -1,
+        "verticalSynchronisation": true
     },
     "media" : {
         "baseSprites" : "path/to/sprite",

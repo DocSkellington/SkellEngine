@@ -21,12 +21,6 @@
 namespace engine {
     Engine::Engine(const std::filesystem::path &baseMediapath) :
         m_context(baseMediapath) {
-        // Erasing the old log
-        std::filesystem::path logPath = baseMediapath / "log.txt";
-        std::filesystem::remove(logPath);
-        // Setting default value to the output
-        tmx::Logger::setOutput(tmx::Logger::Output::Console);
-
         m_context.eventHandler->registerCallback("WindowClosed", [&](const engine::events::Event &) { tmx::Logger::log("Closing the window"); m_context.window->close(); });
 
         tmx::Logger::log("Launching the first state");
@@ -41,6 +35,10 @@ namespace engine {
 
     void Engine::run() {
         sf::Clock clock;
+        sf::Clock FPSClock;
+        float lastTime = 0;
+        float FPS = 0;
+
         while (m_context.window->isOpen()) {
             m_context.inputHandler->clearInputs();
 
@@ -65,6 +63,17 @@ namespace engine {
             m_context.window->display();
 
             m_context.stateManager->processRemove();
+
+            float now = FPSClock.getElapsedTime().asSeconds();
+            // We use a moving average to smooth the FPS display
+            FPS = 0.6 * FPS + 0.4 * 1. / (now - lastTime);
+            tmx::Logger::log(std::to_string(FPS));
+            lastTime = now;
+
+            // To avoid overflow
+            if (FPSClock.getElapsedTime().asSeconds() >= 100.f) {
+                FPSClock.restart();
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SkellEngine/Context.h"
-#include "SkellEngine/files/GameDescription.h"
 
 /**
 * \brief This numespace contains everything the engine needs

@@ -51,6 +51,12 @@ TEST_CASE("Game description loading", "[json_description][files]") {
             SECTION("'antialiasinglevel' is correct") {
                 REQUIRE(win.antialiasingLevel == 8);
             }
+            SECTION("'FPS' is correct") {
+                REQUIRE(win.FPS == -1);
+            }
+            SECTION("'verticalSynchronisation' is correct") {
+                REQUIRE(win.verticalSynchronisation);
+            }
         }
 
         SECTION("Media description is verified") {
@@ -103,6 +109,8 @@ TEST_CASE("Game description loading", "[json_description][files]") {
             REQUIRE(win.title == "");
             REQUIRE(win.width == 800);
             REQUIRE(win.height == 600);
+            REQUIRE(win.FPS == 60);
+            REQUIRE(!win.verticalSynchronisation);
         }
         SECTION("Media description is initialised by default") {
             GameDescription::MediaDescription media = game.media;

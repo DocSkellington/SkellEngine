@@ -14,7 +14,8 @@
         "showClose" : true,
         "title" : "Game title",
         "showVersion" : true,
-        "showEngine" : true
+        "showEngine" : true,
+        "FPS": 60
     },
     "media" : {
         "baseSprites" : "sprites",

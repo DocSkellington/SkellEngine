@@ -49,7 +49,7 @@ namespace engine::files {
         }
     }
 
-    GameDescription::WindowDescription defaultWindow {false, true, true, true, true, true, "", 800, 600, 0};
+    GameDescription::WindowDescription defaultWindow {false, true, true, true, true, true, "", 800, 600, 0, 60, false};
 
     void from_json(const nlohmann::json &j, GameDescription::WindowDescription &w) {
         auto fullscreen = j.find("fullscreen");
@@ -133,6 +133,22 @@ namespace engine::files {
         else {
             w.antialiasingLevel = defaultWindow.antialiasingLevel;
             tmx::Logger::log("game.json: window description does not contain the 'antialiasingLevel' field or its type is not valid (it should be an integer). 0 will be used as default.");
+        }
+
+        if (auto FPS = j.find("FPS") ; FPS != j.end() && FPS->is_number()) {
+            w.FPS = *FPS;
+        }
+        else {
+            w.FPS = defaultWindow.FPS;
+            tmx::Logger::log("game.json: window description does not contain the 'FPS' field or its type is not valid (it should be an integer). 60 will be used as default.");
+        }
+
+        if (auto verticalSync = j.find("verticalSynchronisation") ; verticalSync != j.end() && verticalSync->is_boolean()) {
+            w.verticalSynchronisation = *verticalSync;
+        }
+        else {
+            w.verticalSynchronisation = defaultWindow.verticalSynchronisation;
+            tmx::Logger::log("game.json: window description does not contain the 'verticalSynchronisation' field or its type is not valid (it should be a boolean). 'false' will be used as default.");
         }
     }
 

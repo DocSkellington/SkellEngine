@@ -23,6 +23,8 @@ If a _name of the field_ starts with a tabulation, it means the field belongs to
 | &emsp;`showVersion`       | Boolean             | Whether to show the game's version in the titlebar or not. See the `version` field.                                 | `true`         |
 | &emsp;`title`             | String              | The string to show in the titlebar.                                                                                 | Empty string   |
 | &emsp;`antialiasingLevel` | Integer             | The level of the antialiasing.                                                                                      | Empty string   |
+| &emsp;`FPS`               | Integer             | The frame per second limit. If 0 or a negative number, there is no limit.                                           | 60             |
+| &emsp;`verticalSynchronisation` | Boolean       | Whether to enable the vertical synchronisation or not. If true, the FPS limit is ignored.                          | `false`        |
 | `media`                   | Object              | Describes the folders to use. The pathes are relative to the `media` root.                                          | See the fields |
 | &emsp;`baseSprites`       | String              | The base folder for sprites. Every sprite must be in this folder.                                                   | `sprites`      |
 | &emsp;`maps`              | String              | The base folder for maps. Every map file must be in this folder.                                                    | `maps`         |

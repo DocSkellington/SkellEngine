@@ -79,6 +79,20 @@ namespace engine::files {
              * \brief The level of anti-aliasing
              */
             int antialiasingLevel;
+            /**
+             * \brief The FPS limit
+             * 
+             * It's ignored if the vertical synchronisation is active
+             * 
+             * Set to 0 or a negative number if you want an unlimited FPS
+             */
+            int FPS;
+            /**
+             * \brief Whether to use the vertical synchronisation
+             * 
+             * If true, the FPS limit is ignored
+             */
+            bool verticalSynchronisation;
         };
 
         /**
