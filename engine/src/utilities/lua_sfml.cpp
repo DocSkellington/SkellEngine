@@ -3,17 +3,29 @@
 namespace engine::utilities {
     void registerSFMLLuaFunctions(sol::state &lua) {
         registerVector2<int>(lua, "Vector2i");
+        registerVector2<unsigned int>(lua, "Vector2u");
         registerVector2<long>(lua, "Vector2l");
+        registerVector2<unsigned long>(lua, "Vector2ul");
         registerVector2<float>(lua, "Vector2f");
         registerVector2<double>(lua, "Vector2d");
         registerVector2<bool>(lua, "Vector2b");
 
+        registerVector3<int>(lua, "Vector3i");
+        registerVector3<unsigned int>(lua, "Vector3u");
+        registerVector3<long>(lua, "Vector3l");
+        registerVector3<unsigned long>(lua, "Vector3ul");
+        registerVector3<float>(lua, "Vector3f");
+        registerVector3<double>(lua, "Vector3d");
+        registerVector3<bool>(lua, "Vector3b");
+
         registerRect<int>(lua, "IntRect");
+        registerRect<unsigned int>(lua, "UnsignedIntRect");
         registerRect<long>(lua, "LongRect");
+        registerRect<unsigned long>(lua, "UnsignedLongRect");
         registerRect<float>(lua, "FloatRect");
         registerRect<double>(lua, "DoubleRect");
 
-        lua.new_usertype<sf::View>("view",
+        lua.new_usertype<sf::View>("View",
             sol::constructors<
                 sf::View(),
                 sf::View(const sf::FloatRect&),
@@ -50,6 +62,7 @@ namespace engine::utilities {
                 sf::Color(sf::Uint8, sf::Uint8, sf::Uint8, sf::Uint8),
                 sf::Color(sf::Uint32)
             >(),
+            "toInteger", &sf::Color::toInteger,
             "r", &sf::Color::r,
             "g", &sf::Color::g,
             "b", &sf::Color::b,
@@ -72,7 +85,46 @@ namespace engine::utilities {
         lua.new_usertype<sf::RenderTarget>("RenderTarget",
             sol::no_constructor,
             "clear", &sf::RenderTarget::clear,
-            "setView", &sf::RenderTarget::setView
+            "setView", &sf::RenderTarget::setView,
+            "getView", &sf::RenderTarget::getView,
+            "getDefaultView", &sf::RenderTarget::getDefaultView,
+            "getViewport", &sf::RenderTarget::getViewport,
+            "mapPixelToCoords", sol::overload(
+                sol::resolve<sf::Vector2f(const sf::Vector2i&)const>(&sf::RenderTarget::mapPixelToCoords),
+                sol::resolve<sf::Vector2f(const sf::Vector2i&, const sf::View&)const>(&sf::RenderTarget::mapPixelToCoords)
+            ),
+            "mapCoordsToPixel", sol::overload(
+                sol::resolve<sf::Vector2i(const sf::Vector2f&)const>(&sf::RenderTarget::mapCoordsToPixel),
+                sol::resolve<sf::Vector2i(const sf::Vector2f&, const sf::View&)const>(&sf::RenderTarget::mapCoordsToPixel)
+            ),
+            "getSize", &sf::RenderTarget::getSize
+        );
+
+        /** \todo TODO: more support when Unicode is correctly handled in the engine */
+        lua.new_usertype<sf::String>("String",
+            sol::constructors<
+                sf::String(),
+                sf::String(char),
+                sf::String(wchar_t),
+                sf::String(sf::Uint32),
+                sf::String(const char*),
+                sf::String(const std::string&),
+                sf::String(const wchar_t*),
+                sf::String(const std::wstring&),
+                sf::String(const sf::Uint32*),
+                sf::String(const std::basic_string<sf::Uint32>&),
+                sf::String(const sf::String&)
+            >(),
+            sol::meta_function::to_string, &sf::String::operator std::__cxx11::string,
+            "clear", &sf::String::clear,
+            "getSize", &sf::String::getSize,
+            "isEmpty", &sf::String::isEmpty
+        );
+
+        lua.new_usertype<sf::Clipboard>("Clipboard",
+            sol::no_constructor,
+            "getString", &sf::Clipboard::getString,
+            "setString", &sf::Clipboard::setString
         );
     }
 }

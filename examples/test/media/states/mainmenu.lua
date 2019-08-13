@@ -9,5 +9,5 @@ function onChangeState(event)
 end
 
 function draw(target)
-    target:clear()
+    target:clear(Color.new(21, 57, 104))
 end
