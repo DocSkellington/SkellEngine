@@ -43,8 +43,11 @@ public:
         getStateContext().systemManager->update(deltatime);
     }
 
-    virtual void draw(sf::RenderWindow &window) override {
-        getStateContext().level->draw(window);
+    virtual void draw(sf::RenderTarget &target) override {
+        // getStateContext().level->draw(target);
+        sf::Color r = sf::Color::Red;
+        r.b = 255;
+        target.clear(sf::Color::Red * sf::Color::Blue);
     }
 
     REGISTER_STATE(GameState, "game")

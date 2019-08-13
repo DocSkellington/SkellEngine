@@ -7,3 +7,7 @@ function onChangeState(event)
     game.stateManager:switchTo("game")
     game.stateManager:remove("mainmenu")
 end
+
+function draw(target)
+    target:clear()
+end

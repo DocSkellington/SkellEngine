@@ -29,10 +29,10 @@ namespace engine::systems {
         void update(sf::Int64 deltatime);
         /**
          * \brief Draws the system manager
-         * \param window The window in which to draw
+         * \param window The target in which to draw
          * \param layer The layer to draw
          */
-        void draw(sf::RenderWindow &window, unsigned int layer);
+        void draw(sf::RenderTarget &target, unsigned int layer);
 
         /**
          * \brief Returns the system of the given type, if it exists in the manager.

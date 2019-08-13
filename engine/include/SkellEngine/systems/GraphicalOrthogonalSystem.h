@@ -18,7 +18,7 @@ namespace engine::systems {
         virtual ~GraphicalOrthogonalSystem();
 
         virtual bool update(sf::Int64 deltatime, sf::View &view) override;
-        virtual void draw(sf::RenderWindow &window, unsigned int layer, sf::View view) override;
+        virtual void draw(sf::RenderTarget &target, unsigned int layer, sf::View view) override;
 
     protected:
         virtual bool checkComponents(entities::Entity::Ptr entity) const override;

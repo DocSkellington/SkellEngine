@@ -17,14 +17,14 @@ namespace engine::levels {
         m_map.updateLayers(deltaTime);
     }
 
-    void Level::draw(sf::RenderWindow &window) {
+    void Level::draw(sf::RenderTarget &window) {
         for (std::size_t i = 0 ; i < m_map.getLayerCount() ; i++) {
             m_context.systemManager->draw(window, i);
         }
     }
 
-    void Level::drawLayer(sf::RenderWindow &window, unsigned int layer, sf::View view) {
-        m_map.drawLayer(window, layer, view);
+    void Level::drawLayer(sf::RenderTarget &target, unsigned int layer, sf::View view) {
+        m_map.drawLayer(target, layer, view);
     }
 
     void Level::changeLevel(const std::string& levelName) {

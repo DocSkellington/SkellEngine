@@ -84,10 +84,10 @@ namespace engine::states {
         }
     }
 
-    void ExternState::draw(sf::RenderWindow &window) {
+    void ExternState::draw(sf::RenderTarget &target) {
         sol::protected_function func = m_lua["draw"];
         if (func) {
-            sol::protected_function_result res = func(window);
+            sol::protected_function_result res = func(target);
             if (!res.valid()) {
                 sol::error e = res;
                 tmx::Logger::logError("ExternState: " + m_stateName + ": error during the draw function", e);

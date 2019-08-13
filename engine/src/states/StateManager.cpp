@@ -24,7 +24,7 @@ namespace engine::states {
         }
     }
 
-    void StateManager::draw(sf::RenderWindow &window) {
+    void StateManager::draw(sf::RenderTarget &target) {
         // We need to draw the states starting by the deepest one in the stack
         // So, we create a linked list with the states in the correct order
         std::list<State::Ptr> statesToDraw;
@@ -35,7 +35,7 @@ namespace engine::states {
         }
 
         for (auto state : statesToDraw) {
-            state->draw(window);
+            state->draw(target);
         }
     }
 

@@ -48,11 +48,11 @@ namespace engine::map {
         m_tilesetTiles.clear();
     }
 
-    void Map::drawLayer(sf::RenderWindow &window, std::size_t layer, sf::View view) {
+    void Map::drawLayer(sf::RenderTarget &target, std::size_t layer, sf::View view) {
         if (layer >= m_layers.size() || !m_layers[layer]->isVisible())
             return;
 
-        window.draw(*(m_layers[layer]));
+        target.draw(*(m_layers[layer]));
     }
 
     void Map::updateLayers(sf::Int64 deltaTime) {

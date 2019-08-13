@@ -33,18 +33,18 @@ namespace engine::levels {
          * \brief Draws the whole level
          * 
          * It draws the map and the entities. Actually, it calls systems::SystemManager::draw which in turn calls Level::drawLayer if a graphical system is in use
-         * \param window The window to draw in
+         * \param target The target to draw in
          */
-        void draw(sf::RenderWindow &window);
+        void draw(sf::RenderTarget &target);
 
         /**
          * \brief Draws a specific layer of the level
-         * \param window The window to draw in
+         * \param target The target to draw in
          * \param layer The layer to draw
          * \param view The view
          * \note This function should be called by a graphical system to draw layer by layer. The states should use Level::draw
          */
-        void drawLayer(sf::RenderWindow &window, unsigned int layer, sf::View view);
+        void drawLayer(sf::RenderTarget &target, unsigned int layer, sf::View view);
 
         /**
          * \brief Clears the data related to the current level and loads a new level

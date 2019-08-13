@@ -44,9 +44,9 @@ namespace engine::states {
 
         /**
         * \brief Draws the states starting from the front and until it reaches a non-transparent state.
-        * \param window The RenderWindow in which the manager must draw
+        * \param target The target in which the manager must draw
         */
-        void draw(sf::RenderWindow &window);
+        void draw(sf::RenderTarget &target);
 
         /**
          * \brief Asks to change the front state to the one of the given name

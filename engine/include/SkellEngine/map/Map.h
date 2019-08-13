@@ -57,12 +57,12 @@ namespace engine::map {
 
         /**
          * \brief Draws a layer
-         * \param window The RenderWindow
+         * \param target The target to draw the layer in
          * \param layer The index of the layer to draw
          * \param view The view
          * \todo Optimise according to the view
          */
-        void drawLayer(sf::RenderWindow &window, std::size_t layer, sf::View view);
+        void drawLayer(sf::RenderTarget &target, std::size_t layer, sf::View view);
 
         /**
          * \brief Gets the number of layers

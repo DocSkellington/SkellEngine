@@ -20,12 +20,12 @@ namespace engine::systems {
         return true;
     }
 
-    void GraphicalOrthogonalSystem::draw(sf::RenderWindow &window, unsigned int layer, sf::View view) {
-        getSystemManager().getContext().level->drawLayer(window, layer, view);
+    void GraphicalOrthogonalSystem::draw(sf::RenderTarget &target, unsigned int layer, sf::View view) {
+        getSystemManager().getContext().level->drawLayer(target, layer, view);
         for (auto &entity : getEntities()) {
             auto spriteSheet = entity->getComponent("spritesheet");
             if (spriteSheet) {
-                window.draw(std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(spriteSheet)->getSprite());
+                target.draw(std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(spriteSheet)->getSprite());
             }
         }
     }

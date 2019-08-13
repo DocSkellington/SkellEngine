@@ -47,14 +47,6 @@ namespace engine::states {
         return m_stateContext;
     }
 
-    sf::View State::getView() const {
-        return m_view;
-    }
-
-    void State::setView(const sf::View &view) {
-        m_view = view;
-    }
-
     State::Ptr State::createInstance(const std::string &name, StateManager &manager) {
         Ptr ptr = RegisteredStates::construct(name, manager);
 

@@ -56,9 +56,9 @@ namespace engine::states {
         virtual void update(sf::Int64 deltatime) = 0;
         /**
         * \brief Draws the state
-        * \param window The window in which the rendering must be done
+        * \param target The target in which the rendering must be done
         */
-        virtual void draw(sf::RenderWindow &window) = 0;
+        virtual void draw(sf::RenderTarget &target) = 0;
 
         /**
          * \brief If the state is transcendant, the following state (in the stack) can be updated
@@ -133,17 +133,6 @@ namespace engine::states {
         StateContext& getStateContext();
         const StateContext& getStateContext() const;
         /** @} */
-        
-        /**
-         * \brief Gives the view
-         * \return The view
-         */
-        sf::View getView() const;
-        /**
-         * \brief Sets the view
-         * \param view The view
-         */
-        void setView(const sf::View &view);
 
         /** @{ */
         /**
@@ -172,8 +161,6 @@ namespace engine::states {
         StateContext m_stateContext;
 
         events::StoreEventConnections m_storeEventConnections;
-
-        sf::View m_view;
     };
 }
 

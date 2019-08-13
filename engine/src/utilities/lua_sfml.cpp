@@ -42,5 +42,37 @@ namespace engine::utilities {
             "rotate", &sf::View::rotate,
             "zoom", &sf::View::zoom
         );
+
+        lua.new_usertype<sf::Color>("Color",
+            sol::constructors<
+                sf::Color(),
+                sf::Color(sf::Uint8, sf::Uint8, sf::Uint8),
+                sf::Color(sf::Uint8, sf::Uint8, sf::Uint8, sf::Uint8),
+                sf::Color(sf::Uint32)
+            >(),
+            "r", &sf::Color::r,
+            "g", &sf::Color::g,
+            "b", &sf::Color::b,
+            "a", &sf::Color::a,
+            sol::meta_function::addition, sol::resolve<sf::Color(const sf::Color&, const sf::Color&)>(sf::operator+),
+            sol::meta_function::subtraction, sol::resolve<sf::Color(const sf::Color&, const sf::Color&)>(sf::operator-),
+            sol::meta_function::multiplication, sol::resolve<sf::Color(const sf::Color&, const sf::Color&)>(sf::operator*),
+            // Some witchcraft to make sure the user can not modify the static const variables
+            "Black", sol::readonly_property([]() { return sf::Color::Black; }),
+            "White", sol::readonly_property([]() { return sf::Color::White; }),
+            "Red", sol::readonly_property([]() { return sf::Color::Red; }),
+            "Green", sol::readonly_property([]() { return sf::Color::Green; }),
+            "Blue", sol::readonly_property([]() { return sf::Color::Blue; }),
+            "Yellow", sol::readonly_property([]() { return sf::Color::Yellow; }),
+            "Magenta", sol::readonly_property([]() { return sf::Color::Magenta; }),
+            "Cyan", sol::readonly_property([]() { return sf::Color::Cyan; }),
+            "Transparent", sol::readonly_property([]() { return sf::Color::Transparent; })
+        );
+
+        lua.new_usertype<sf::RenderTarget>("RenderTarget",
+            sol::no_constructor,
+            "clear", &sf::RenderTarget::clear,
+            "setView", &sf::RenderTarget::setView
+        );
     }
 }

@@ -14,10 +14,10 @@ namespace engine::systems {
         }
     }
     
-    void SystemManager::draw(sf::RenderWindow &window, unsigned int layer) {
+    void SystemManager::draw(sf::RenderTarget &target, unsigned int layer) {
         getContext().context.window->setView(m_view);
         for (auto &system : m_graphicalSystems)
-            system.second->draw(window, layer, m_view);
+            system.second->draw(target, layer, m_view);
     }
 
     System::Ptr SystemManager::getSystem(std::string name) {
