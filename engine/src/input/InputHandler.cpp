@@ -9,24 +9,24 @@
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/events/EventHandler.h"
 
-thor::Action applyModifiers(thor::Action action, thor::Action::ActionType actionType, bool lshift, bool lalt, bool lcontrol, bool rshift, bool ralt, bool rcontrol) {
+thor::Action applyModifiers(thor::Action action, bool lshift, bool lalt, bool lcontrol, bool rshift, bool ralt, bool rcontrol) {
     if (lshift) {
-        action = action && thor::Action(sf::Keyboard::Key::LShift, actionType);
+        action = thor::Action(sf::Keyboard::Key::LShift, thor::Action::ActionType::Hold) && action;
     }
     if (lalt) {
-        action = action && thor::Action(sf::Keyboard::Key::LAlt, actionType);
+        action = thor::Action(sf::Keyboard::Key::LAlt, thor::Action::ActionType::Hold) && action;
     }
     if (lcontrol) {
         action = thor::Action(sf::Keyboard::Key::LControl, thor::Action::ActionType::Hold) && action;
     }
     if (rshift) {
-        action = action && thor::Action(sf::Keyboard::Key::RShift, actionType);
+        action = thor::Action(sf::Keyboard::Key::RShift, thor::Action::ActionType::Hold) && action;
     }
     if (ralt) {
-        action = action && thor::Action(sf::Keyboard::Key::RAlt, actionType);
+        action = thor::Action(sf::Keyboard::Key::RAlt, thor::Action::ActionType::Hold) && action;
     }
     if (rcontrol) {
-        action = action && thor::Action(sf::Keyboard::Key::RControl, actionType);
+        action = thor::Action(sf::Keyboard::Key::RControl, thor::Action::ActionType::Hold) && action;
     }
     return action;
 }
@@ -293,10 +293,6 @@ namespace engine::input {
         // We construct the appropriate action for each event type
         switch(event.type) {
         case sf::Event::EventType::MouseWheelScrolled:
-            holdActivated = false;
-            action = thor::Action(event.type);
-            action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol); // TODO: crash
-            break;
         case sf::Event::EventType::Closed:
         case sf::Event::EventType::Resized:
         case sf::Event::EventType::LostFocus:
@@ -318,7 +314,6 @@ namespace engine::input {
             else {
                 action = thor::Action(event.key.code, actionType);
             }
-            action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::KeyReleased:
             holdActivated = false;
@@ -328,7 +323,6 @@ namespace engine::input {
             else {
                 action = thor::Action(event.key.code, actionType);
             }
-            action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::MouseButtonPressed:
             holdActivated = hold;
@@ -338,7 +332,6 @@ namespace engine::input {
             else {
                 action = thor::Action(event.mouseButton.button, actionType);
             }
-            action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::MouseButtonReleased:
             holdActivated = false;
@@ -348,7 +341,6 @@ namespace engine::input {
             else {
                 action = thor::Action(event.mouseButton.button, actionType);
             }
-            action = applyModifiers(action, actionType, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
             break;
         case sf::Event::EventType::JoystickMoved:
             holdActivated = false;
@@ -383,6 +375,8 @@ namespace engine::input {
             return EventInformation();
             break;
         }
+
+        action = applyModifiers(action, lshift, lalt, lcontrol, rshift, ralt, rcontrol);
 
         return EventInformation(event, holdActivated, action, eventType, json, state, ralt, rshift, rcontrol, lalt, lshift, lcontrol);
     }

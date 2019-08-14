@@ -122,7 +122,7 @@ namespace engine::input::detail {
     inline void parseInputDescriptionObjectModifiers(nlohmann::json &inputDescription, bool &lalt, bool &lshift, bool &lcontrol, bool &ralt, bool &rshift, bool &rcontrol) {
         if (auto modifier = inputDescription.find("shift") ; modifier != inputDescription.end()) {
             if (modifier->is_boolean()) {
-                lshift = rshift = *modifier;
+                lshift = *modifier;
             }
             else {
                 tmx::Logger::log("Input handler: error while parsing an input description: the 'shift' field must be a boolean", tmx::Logger::Type::Warning);
@@ -153,7 +153,7 @@ namespace engine::input::detail {
 
         if (auto modifier = inputDescription.find("alt") ; modifier != inputDescription.end()) {
             if (modifier->is_boolean()) {
-                lalt = ralt = *modifier;
+                lalt = *modifier;
             }
             else {
                 tmx::Logger::log("Input handler: error while parsing an input description: the 'alt' field must be a boolean", tmx::Logger::Type::Warning);
@@ -184,7 +184,7 @@ namespace engine::input::detail {
 
         if (auto modifier = inputDescription.find("control") ; modifier != inputDescription.end()) {
             if (modifier->is_boolean()) {
-                lcontrol = rcontrol = *modifier;
+                lcontrol = *modifier;
             }
             else {
                 tmx::Logger::log("Input handler: error while parsing an input description: the 'control' field must be a boolean", tmx::Logger::Type::Warning);
