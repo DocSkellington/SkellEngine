@@ -1,5 +1,7 @@
 #include "SkellEngine/utilities/lua_sfml.h"
 
+#include <string>
+
 namespace engine::utilities {
     void registerSFMLLuaFunctions(sol::state &lua) {
         registerVector2<int>(lua, "Vector2i");
@@ -115,7 +117,7 @@ namespace engine::utilities {
                 sf::String(const std::basic_string<sf::Uint32>&),
                 sf::String(const sf::String&)
             >(),
-            sol::meta_function::to_string, &sf::String::operator std::__cxx11::string,
+            sol::meta_function::to_string, &sf::String::operator std::string,
             "clear", &sf::String::clear,
             "getSize", &sf::String::getSize,
             "isEmpty", &sf::String::isEmpty
