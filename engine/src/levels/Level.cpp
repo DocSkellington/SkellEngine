@@ -92,7 +92,7 @@ namespace engine::levels {
         if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
             // If the entity is not yet known, we try to load the global settings (the global for the game and for the level), if they exist
             std::filesystem::path defaultFilePath = gameDescription.media.entitiesFolder;
-            defaultFilePath += "data/" + entityType + ".json";
+            defaultFilePath /= "data/" + entityType + ".json";
             std::ifstream defaultFile(defaultFilePath);
             std::ifstream levelGlobal;
 
