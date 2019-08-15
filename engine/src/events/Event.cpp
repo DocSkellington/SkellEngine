@@ -41,8 +41,20 @@ namespace engine::events {
         return ptr;
     }
 
+    Event::Ptr Event::createEvent(const std::string &type, Context &context, std::initializer_list<entities::Entity::Ptr> entities) {
+        Event::Ptr ptr = createEvent(type, context);
+        ptr->m_entities.insert(ptr->m_entities.end(), entities.begin(), entities.end());
+        return ptr;
+    }
+
     Event::Ptr Event::createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable) {
         Event::Ptr event = createEvent(type, context);
+        event->create(jsonTable);
+        return event;
+    }
+
+    Event::Ptr Event::createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, std::initializer_list<entities::Entity::Ptr> entities) {
+        Event::Ptr event = createEvent(type, context, entities);
         event->create(jsonTable);
         return event;
     }

@@ -53,8 +53,17 @@ namespace engine::events {
         return sendEvent(type, nlohmann::json());
     }
 
+    bool EventHandler::sendEvent(const std::string &type, std::initializer_list<entities::Entity::Ptr> entities) {
+        return sendEvent(type, {}, entities);
+    }
+
     bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values) {
         auto event = Event::createEvent(type, getContext(), values);
+        return sendEvent(*event);
+    }
+
+    bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values, std::initializer_list<entities::Entity::Ptr> entities) {
+        auto event = Event::createEvent(type, getContext(), values, entities);
         return sendEvent(*event);
     }
 

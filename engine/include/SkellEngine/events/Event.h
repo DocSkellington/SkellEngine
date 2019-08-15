@@ -12,6 +12,7 @@
 
 #include "SkellEngine/utilities/MemberStorage.h"
 #include "SkellEngine/utilities/RegisterClass.h"
+#include "SkellEngine/entities/Entity.h"
 
 namespace engine::events {
     /**
@@ -60,6 +61,9 @@ namespace engine::events {
          */
         static Ptr createEvent(const std::string &type, Context &context);
 
+        // TODO: Lua?
+        static Ptr createEvent(const std::string &type, Context &context, std::initializer_list<entities::Entity::Ptr> entities);
+
         /**
          * \brief Create an event of given type and immediately sets variables defined in the JSON table
          * 
@@ -70,6 +74,10 @@ namespace engine::events {
          * \return A shared pointer to the created event
          */
         static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable);
+
+        static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, std::initializer_list<entities::Entity::Ptr> entities);
+
+        entities::Entity::Ptr getEntity(std::size_t index) const;
 
     protected:
         /**
@@ -96,6 +104,7 @@ namespace engine::events {
 
     private:
         const std::string m_type;
+        std::vector<entities::Entity::Ptr> m_entities;
     };
 }
 

@@ -12,6 +12,7 @@
 
 #include "SkellEngine/events/Event.h"
 #include "SkellEngine/events/EventConnection.h"
+#include "SkellEngine/entities/Entity.h"
 
 namespace engine {
     class Context;
@@ -87,6 +88,8 @@ namespace engine::events {
          */
         bool sendEvent(const std::string &type); // is not const because of the ExternalEvent implementation
 
+        bool sendEvent(const std::string &type, std::initializer_list<entities::Entity::Ptr> entities); // is not const because of the ExternalEvent implementation
+
         /**
          * \brief Construct and send an event
          * \param type The type of the event to send
@@ -94,6 +97,8 @@ namespace engine::events {
          * \return True iff the event was sent to at least one receiver
          */
         bool sendEvent(const std::string &type, const nlohmann::json &values); // is not const because of the ExternalEvent implementation
+
+        bool sendEvent(const std::string &type, const nlohmann::json &values, std::initializer_list<entities::Entity::Ptr> entities); // is not const because of the ExternalEvent implementation
 
         /**
          * \brief Register the Lua functions
