@@ -10,6 +10,7 @@ namespace engine::systems {
         registerCallback("PlayAnimation", [this](const events::Event &event) { this->play(event); }, manager.getContext().stateName);
         registerCallback("StopAnimation", [this](const events::Event &event) { this->stop(event); }, manager.getContext().stateName);
         registerCallback("PauseAnimation", [this](const events::Event &event) { this->pause(event); }, manager.getContext().stateName);
+        registerCallback("ResumeAnimation", [this](const events::Event &event) { this->resume(event); }, manager.getContext().stateName);
     }
     
     bool AnimationSystem::update(sf::Int64 deltaTime, sf::View&) {
@@ -35,17 +36,32 @@ namespace engine::systems {
         // TODO: handle case there is no entity
         auto entity = event.getEntity(0);
         if (auto anim = entity->getComponent("animation") ; anim) {
-            tmx::Logger::log("animation");
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
             animation->getAnimator().play(event.getString("animation").first);
         }
     }
 
     void AnimationSystem::stop(const events::Event &event) {
-
+        auto entity = event.getEntity(0);
+        if (auto anim = entity->getComponent("animation") ; anim) {
+            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
+            animation->getAnimator().stop();
+        }
     }
 
     void AnimationSystem::pause(const events::Event &event) {
+        auto entity = event.getEntity(0);
+        if (auto anim = entity->getComponent("animation") ; anim) {
+            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
+            animation->getAnimator().pause();
+        }
+    }
 
+    void AnimationSystem::resume(const events::Event &event) {
+        auto entity = event.getEntity(0);
+        if (auto anim = entity->getComponent("animation") ; anim) {
+            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
+            animation->getAnimator().resume();
+        }
     }
 }

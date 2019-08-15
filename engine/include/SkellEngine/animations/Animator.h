@@ -22,33 +22,55 @@ namespace engine::animations {
         }
 
         void update(sf::Uint64 deltaTime) {
-            // TODO: handle when the animation is deleted from the map
-            // We add the deltaTime to the elapsed time of the animator
-            m_elapsedTime += sf::microseconds(deltaTime);
+            if (!m_pause) {
+                // TODO: handle when the animation is deleted from the map
+                // How much time we have left to execute
+                sf::Time durationLeft = sf::Time::Zero;
 
-            // How much time we have left to execute
-            sf::Time duration = sf::Time::Zero;
-
-            // First, we clear the list of playing animations
-            if (!m_playingAnimations.empty()) {
-                // Since it's a queue, we know that the last animation in the queue is the last played animation
-                sf::Time lastAnimationDuration = m_animationsMap.getAnimation(m_playingAnimations.back()).getDuration();
-                if (lastAnimationDuration < m_elapsedTime) {
-                    // We stille have to update the last animation. Therefore, we remove everything except the last one
-                    m_playingAnimations.erase(m_playingAnimations.begin(), std::prev(m_playingAnimations.end()));
-                    duration = lastAnimationDuration;
+                // First, we clear the list of playing animations
+                if (!m_playingAnimations.empty()) {
+                    // Since it's a queue, we know that the last animation in the queue is the last played animation
+                    sf::Time lastAnimationDuration = m_animationsMap.getAnimation(m_playingAnimations.back()).getDuration();
+                    if (m_elapsedTime < lastAnimationDuration) {
+                        // We stille have to update the last animation. Therefore, we remove everything except the last one
+                        m_playingAnimations.erase(m_playingAnimations.begin(), std::prev(m_playingAnimations.end()));
+                        durationLeft = lastAnimationDuration;
+                    }
+                    else {
+                        // The last animation was fully executed. We can remove everything
+                        m_playingAnimations.clear();
+                    }
                 }
-                else {
-                    // The last animation was fully executed. We can remove everything
-                    m_playingAnimations.clear();
-                }
-            }
 
-            // The last played animation lefts enough time to start a new animation
-            while (m_elapsedTime >= duration) {
-                // TODO: once the queue is implemented
-                m_elapsedTime = duration;
-                break;
+                // We add the deltaTime to the elapsed time of the animator
+                m_elapsedTime += sf::microseconds(deltaTime);
+
+                // The last played animation lefts enough time to start a new animation
+                while (m_elapsedTime >= durationLeft) {
+                    // If the last animation must loop, we add it at the first position in the queued animations
+                    if (!m_playingAnimations.empty() && m_animationsMap.getAnimation(m_playingAnimations.back()).isLoop()) {
+                        m_queuedAnimations.push_front(m_playingAnimations.back());
+                    }
+
+                    if (m_queuedAnimations.empty()) {
+                        // We can't directly set to Time::Zero because of the animate function that uses m_elapsedTime
+                        // So, we set the variable to the left duration
+                        // If there is no animation at all for a frame, m_elapsedTime goes back to Time::Zero
+                        m_elapsedTime = durationLeft;
+                        break;
+                    }
+                    else {
+                        // We retrieve the next animation and start to play it
+                        std::string nextId = m_queuedAnimations.front();
+                        m_queuedAnimations.pop_front();
+                        m_playingAnimations.push_back(nextId);
+
+                        auto nextAnimation = m_animationsMap.getAnimation(nextId);
+                        // We update duration and the elapsed time to match the new animation
+                        m_elapsedTime -= durationLeft; // We remove the time it took until here
+                        durationLeft = nextAnimation.getDuration();
+                    }
+                }
             }
         }
 
@@ -61,22 +83,25 @@ namespace engine::animations {
                 }
 
                 // For the last animation, we need to compute the exact progress
-                auto animation = m_animationsMap.getAnimation(*m_playingAnimations.end());
+                auto animation = m_animationsMap.getAnimation(m_playingAnimations.back());
                 animation(animated, m_elapsedTime / animation.getDuration());
             }
         }
 
-        void play() {
-            m_pause = false;
-        }
-
         void play(const std::string &animation) {
+            m_pause = false;
             stop();
+
             m_playingAnimations.push_back(animation);
+            for (unsigned int i = 1 ; i < m_animationsMap.getAnimation(animation).getRepeats() ; i++) {
+                m_queuedAnimations.push_back(animation);
+            }
         }
 
         void queue(const std::string &animation) {
-
+            for (unsigned int i = 0 ; i < m_animationsMap.getAnimation(animation).getRepeats() ; i++) {
+                m_queuedAnimations.push_back(animation);
+            }
         }
 
         void stop() {
@@ -88,6 +113,10 @@ namespace engine::animations {
             m_pause = true;
         }
 
+        void resume() {
+            m_pause = false;
+        }
+
         void togglePause() {
             m_pause = !m_pause;
         }
@@ -97,6 +126,6 @@ namespace engine::animations {
         bool m_pause;
         sf::Time m_elapsedTime;
         std::list<std::string> m_playingAnimations;
-        // TODO: queue waiting animations
+        std::list<std::string> m_queuedAnimations;
     };
 }

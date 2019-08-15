@@ -8,10 +8,10 @@
         "coloring": {
             "type": "color",
             "colors": {
-                "first": "red",
-                "last": "green"
+                "first": "blue",
+                "last": "white"
             },
-            "duration": 10,
+            "duration": 0.5,
             "loop": true
         }
     }

@@ -25,8 +25,8 @@ namespace engine::animations {
 
         }
 
-        void addAnimation(Id id, AnimationSignature animation, sf::Time duration) {
-            m_animations.emplace(id, TimedAnimation(animation, duration));
+        void addAnimation(Id id, AnimationSignature animation, sf::Time duration, bool loop = false, unsigned int repeats = 1) {
+            m_animations.emplace(id, TimedAnimation(animation, duration, loop, repeats));
         }
 
         void removeAnimation(Id id) {

@@ -20,6 +20,7 @@ namespace engine::systems {
         virtual void play(const events::Event &event);
         virtual void stop(const events::Event &event);
         virtual void pause(const events::Event &event);
+        virtual void resume(const events::Event &event);
 
     private:
         REGISTER_SYSTEM(AnimationSystem, "animation")

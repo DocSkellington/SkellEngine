@@ -23,7 +23,7 @@ namespace engine::animations {
 
             if (auto last = description.find("last") ; last != description.end()) {
                 if (last->is_string()) {
-                    m_gradient[0] = detail::stringToColor(*last);
+                    m_gradient[1] = detail::stringToColor(*last);
                 }
             }
             else {
