@@ -42,7 +42,7 @@ public:
 
 SCENARIO("Test of setters", "[entities][components]") {
     Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
-    states::StateContext stateContext(context);
+    states::StateContext stateContext(context, "falseState");
     TestComponent compo(stateContext);
 
     GIVEN("An integer variable") {
@@ -280,7 +280,7 @@ SCENARIO("Test of getters", "[entities][components]") {
     nlohmann::json json = {1,2,3};
 
     Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
-    states::StateContext stateContext(context);
+    states::StateContext stateContext(context, "falseState");
     TestComponent compo(stateContext);
     compo.m_int = 4;
     compo.m_float = 3.14f;

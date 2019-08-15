@@ -28,6 +28,5 @@ namespace engine::states {
 
     private:
         sol::state m_lua;
-        std::string m_stateName;
     };
 }

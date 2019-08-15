@@ -61,7 +61,7 @@ System::RegisterSystem<TestSystem> TestSystem::rsts("test");
 
 SCENARIO("System manager functions", "[systems]") {
     Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
-    states::StateContext stateContext(context);
+    states::StateContext stateContext(context, "falseState");
     SystemManager &sysMan = *stateContext.systemManager;
 
     GIVEN("A test system") {

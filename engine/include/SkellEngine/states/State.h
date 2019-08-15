@@ -17,7 +17,6 @@ namespace engine::states {
 
     /**
     * \brief Defines the base of every state
-    * \todo all
     * \see REGISTER_STATE for a macro to register a new state
     */
     class State {
@@ -101,7 +100,7 @@ namespace engine::states {
         /**
          * \brief The specialisation of utilities::RegisterClass for the states
          */
-        using RegisteredStates = utilities::RegisterClass<State, StateManager&>;
+        using RegisteredStates = utilities::RegisterClass<State, StateManager&, const std::string&>;
 
         /**
          * \brief A shortcut to register a state
@@ -114,16 +113,18 @@ namespace engine::states {
         /**
          * \brief The constructor
          * \param manager The manager
+         * \param stateName The name of the state
          */
-        State(StateManager &manager);
+        State(StateManager &manager, const std::string &stateName);
 
         /**
          * \brief Constructor
          * \param manager The state manager
+         * \param stateName The name of the state
          * \param isTranscendant Whether the state is transcendant
          * \param isTransparent Whether the state is transparent
          */
-        State(StateManager &manager, bool isTranscendant, bool isTransparent);
+        State(StateManager &manager, const std::string &stateName, bool isTranscendant, bool isTransparent);
 
         /** @{ */
         /**

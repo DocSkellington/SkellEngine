@@ -5,17 +5,17 @@
 #include "SkellEngine/states/ExternState.h"
 
 namespace engine::states {
-    State::State(StateManager &manager) :
+    State::State(StateManager &manager, const std::string &stateName) :
         m_transcendant(false),
         m_transparent(false),
-        m_stateContext(manager.getContext()),
+        m_stateContext(manager.getContext(), stateName),
         m_storeEventConnections(*manager.getContext().eventHandler) {
     }
     
-    State::State(StateManager &manager, bool isTranscendant, bool isTransparent) :
+    State::State(StateManager &manager, const std::string &stateName, bool isTranscendant, bool isTransparent) :
         m_transcendant(isTranscendant),
         m_transparent(isTransparent),
-        m_stateContext(manager.getContext()),
+        m_stateContext(manager.getContext(), stateName),
         m_storeEventConnections(*manager.getContext().eventHandler) {
     }
 
@@ -48,7 +48,7 @@ namespace engine::states {
     }
 
     State::Ptr State::createInstance(const std::string &name, StateManager &manager) {
-        Ptr ptr = RegisteredStates::construct(name, manager);
+        Ptr ptr = RegisteredStates::construct(name, manager, name);
 
         if (!ptr) {
             try {

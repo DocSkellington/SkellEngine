@@ -5,8 +5,9 @@
 #include "SkellEngine/entities/EntityManager.h"
 
 namespace engine::states {
-    StateContext::StateContext(Context &context) :
-        context(context) {
+    StateContext::StateContext(Context &context, const std::string &stateName) :
+        context(context),
+        stateName(stateName) {
         entityManager = std::make_shared<entities::EntityManager>(*this);
         tmx::Logger::log("Entity manager ready");
         systemManager = std::make_shared<systems::SystemManager>(*this);

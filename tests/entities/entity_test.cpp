@@ -10,7 +10,7 @@ using namespace entities;
 
 SCENARIO("Entity test", "[entities]") {
     Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
-    states::StateContext stateContext(context);
+    states::StateContext stateContext(context, "falseState");
     
     Entity entity(*stateContext.entityManager, "dummy");
 

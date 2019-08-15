@@ -9,7 +9,7 @@ using namespace entities;
 
 SCENARIO("Entity Manager", "[entities]") {
     Context context("@CMAKE_CURRENT_SOURCE_DIR@/media", false);
-    states::StateContext stateContext(context);
+    states::StateContext stateContext(context, "falseState");
     auto entMan = stateContext.entityManager;
 
     GIVEN("An empty manager") {

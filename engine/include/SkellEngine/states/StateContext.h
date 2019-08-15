@@ -23,8 +23,9 @@ namespace engine {
             /**
              * \brief Constructor
              * \param context The global context
+             * \param stateName The name of the state using this context
              */
-            StateContext(engine::Context &context);
+            StateContext(engine::Context &context, const std::string &stateName);
 
             /**
              * \brief The global context
@@ -42,6 +43,11 @@ namespace engine {
              * \brief The level
              */
             std::shared_ptr<levels::Level> level;
+
+            /**
+             * \brief The name of the state using this StateContext
+             */
+            std::string stateName;
         };
     }
 }

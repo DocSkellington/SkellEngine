@@ -9,8 +9,8 @@ public:
      * \brief The constructor
      * \param manager The state manager
      */
-    GameState(engine::states::StateManager& manager) :
-        State(manager, false, false) {
+    GameState(engine::states::StateManager& manager, const std::string &stateName) :
+        State(manager, stateName, false, false) {
 
     }
     virtual ~GameState() {
@@ -44,10 +44,7 @@ public:
     }
 
     virtual void draw(sf::RenderTarget &target) override {
-        // getStateContext().level->draw(target);
-        sf::Color r = sf::Color::Red;
-        r.b = 255;
-        target.clear(sf::Color::Red * sf::Color::Blue);
+        getStateContext().level->draw(target);
     }
 
     REGISTER_STATE(GameState, "game")
