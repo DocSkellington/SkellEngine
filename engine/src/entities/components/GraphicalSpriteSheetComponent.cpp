@@ -5,7 +5,6 @@
 namespace engine::entities::components {
     GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(states::StateContext &context) :
         Component(context) {
-
     }
 
     GraphicalSpriteSheetComponent::~GraphicalSpriteSheetComponent() {
@@ -20,6 +19,10 @@ namespace engine::entities::components {
     }
 
     const sf::Sprite& GraphicalSpriteSheetComponent::getSprite() const {
+        return m_sprite;
+    }
+
+    sf::Sprite& GraphicalSpriteSheetComponent::getSprite() {
         return m_sprite;
     }
 }

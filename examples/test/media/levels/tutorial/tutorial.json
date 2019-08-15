@@ -1,12 +1,8 @@
 {
     "map" : "test",
     "entities" : {
-        "bowser" : {
-            "type" : "unknown",
-            "data" : {
-                "shout" : "GRRRR",
-                "enemy" : "Mario"
-            }
+        "test" : {
+            "type": "test"
         }
     }
 }

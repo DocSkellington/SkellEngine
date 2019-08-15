@@ -36,7 +36,7 @@ namespace engine::systems {
          * It must be define in each system
          * \param deltatime The time since the last update
          * \param view The view of the game; beware that every system can modify the view
-         * \return Whether the update could correctly be updated or not
+         * \return Whether the system could correctly be updated or not
          */
         virtual bool update(sf::Int64 deltatime, sf::View &view) = 0;
 

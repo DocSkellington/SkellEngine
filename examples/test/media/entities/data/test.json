@@ -1,4 +1,18 @@
 {
     "test" : 5,
-    "hero" : "hercules"
+    "hero" : "hercules",
+    "spritesheet" : {
+        "filePath" : "test.png"
+    },
+    "animation": {
+        "coloring": {
+            "type": "color",
+            "colors": {
+                "first": "red",
+                "last": "green"
+            },
+            "duration": 10,
+            "loop": true
+        }
+    }
 }

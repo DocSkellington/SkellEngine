@@ -47,6 +47,7 @@ set(SOURCES
     src/entities/components/ExternComponent.cpp
     src/entities/components/GraphicalSpriteSheetComponent.cpp
     src/entities/components/PositionComponent.cpp
+    src/entities/components/AnimationComponent.cpp
 
     src/events/EventHandler.cpp
     src/events/Event.cpp
@@ -81,6 +82,10 @@ set(SOURCES
     src/systems/System.cpp
     src/systems/SystemManager.cpp
     src/systems/ExternSystem.cpp
+    src/systems/AnimationSystem.cpp
+
+    src/animations/ColorAnimation.cpp
+    src/animations/detail/to_from_sfml_color.cpp
 
     src/utilities/json_lua.cpp
     src/utilities/json_fusion.cpp

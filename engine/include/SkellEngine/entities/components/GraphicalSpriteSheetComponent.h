@@ -8,7 +8,6 @@
 namespace engine::entities::components {
     /**
      * \brief Describes the sprite sheet of a component
-     * \todo TODO: Animations
      */
     class GraphicalSpriteSheetComponent : public Component {
     public:
@@ -22,10 +21,13 @@ namespace engine::entities::components {
 
         virtual void create(const nlohmann::json &jsonTable) override;
 
+        /** @{ */
         /**
          * \brief Returns a const reference to the sprite
          */
         const sf::Sprite &getSprite() const;
+        sf::Sprite& getSprite();
+        /** @} */
 
     private:
         sf::Sprite m_sprite;

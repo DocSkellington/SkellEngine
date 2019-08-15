@@ -2,6 +2,7 @@
 #include "SkellEngine/systems/SystemManager.h"
 #include "SkellEngine/levels/Level.h"
 #include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/entities/EntityManager.h"
 
 class GameState : public engine::states::State {
 public:
@@ -22,7 +23,7 @@ public:
     }
 
     virtual void onCreate() override {
-        getStateContext().systemManager->loadSystems({"graphicalorthogonal", "test", "testcpp"});
+        getStateContext().systemManager->loadSystems({"graphicalorthogonal", "animation", "testcpp"});
         registerCallback("ChangeState", std::bind(&GameState::onChangeState, this, std::placeholders::_1), "game");
         getStateContext().level->changeLevel("tutorial");
     }
@@ -32,6 +33,7 @@ public:
     }
 
     virtual void activate() override {
+        getStateContext().context.eventHandler->sendEvent("PlayAnimation", {{"animation", "coloring"}}, {getStateContext().entityManager->getEntity("test")});
     }
 
     virtual void deactivate() override {
