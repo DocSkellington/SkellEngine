@@ -82,8 +82,8 @@ namespace engine::states {
             std::shared_ptr<State> state = State::createInstance(m_switchTo, *this);
             if (state) {
                 state->onCreate();
-                state->activate();
                 m_states.emplace_front(m_switchTo, std::move(state));
+                m_states.front().second->activate();
             }
 
             m_switchTo = "";
