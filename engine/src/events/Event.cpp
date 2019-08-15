@@ -30,6 +30,10 @@ namespace engine::events {
         );
     }
 
+    entities::Entity::Ptr Event::getEntity(std::size_t index) const {
+        return m_entities.at(index);
+    }
+
     Event::Ptr Event::createEvent(const std::string &type, Context &context) {
         Event::Ptr ptr = RegisteredEvents::construct(type, context);
 
