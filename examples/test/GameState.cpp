@@ -23,7 +23,7 @@ public:
     }
 
     virtual void onCreate() override {
-        getStateContext().systemManager->loadSystems({"graphicalorthogonal", "animation", "testcpp"});
+        getStateContext().systemManager->loadSystems({"graphicalorthogonal", "animation", "testcpp", "test"});
         registerCallback("ChangeState", std::bind(&GameState::onChangeState, this, std::placeholders::_1), "game");
         getStateContext().level->changeLevel("tutorial");
     }

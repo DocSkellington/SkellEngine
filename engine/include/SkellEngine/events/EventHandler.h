@@ -88,7 +88,13 @@ namespace engine::events {
          */
         bool sendEvent(const std::string &type); // is not const because of the ExternalEvent implementation
 
-        bool sendEvent(const std::string &type, std::initializer_list<entities::Entity::Ptr> entities); // is not const because of the ExternalEvent implementation
+        /**
+         * \brief Constructs and sends an event with just some joined entities
+         * \param type The type of the event to create
+         * \param entities The entities to join
+         * \return True iff the event was sent to at least one receiver
+         */
+        bool sendEvent(const std::string &type, const std::vector<entities::Entity::Ptr> &entities); // is not const because of the ExternalEvent implementation
 
         /**
          * \brief Construct and send an event
@@ -98,7 +104,14 @@ namespace engine::events {
          */
         bool sendEvent(const std::string &type, const nlohmann::json &values); // is not const because of the ExternalEvent implementation
 
-        bool sendEvent(const std::string &type, const nlohmann::json &values, std::initializer_list<entities::Entity::Ptr> entities); // is not const because of the ExternalEvent implementation
+        /**
+         * \brief Construct and send an event with entities
+         * \param type The type of the event to send
+         * \param values The values to set in the event
+         * \param entities The entities to join
+         * \return True iff the event was sent to at least one receiver
+         */
+        bool sendEvent(const std::string &type, const nlohmann::json &values, const std::vector<entities::Entity::Ptr> &entities); // is not const because of the ExternalEvent implementation
 
         /**
          * \brief Register the Lua functions
@@ -241,7 +254,11 @@ namespace engine::events {
         Context& getContext();
         const Context& getContext() const;
 
+        // For Lua scripts
         bool sendEvent(const std::string &type, const sol::table &luaTable);
+        // va is transformed to a vector<Entity::Ptr>
+        bool sendEvent(const std::string &type, const sol::table &luaTable, sol::variadic_args va);
+
         /**
          * \brief Used for easily overloading registerCallback
          * 

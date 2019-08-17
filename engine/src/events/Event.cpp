@@ -26,12 +26,23 @@ namespace engine::events {
     void Event::luaFunctions(sol::state &lua) {
         lua.new_usertype<Event>("event",
             "getType", &Event::getType,
+            "getEntity", &Event::getEntityLua,
+            "getNumberOfEntities", &Event::getNumberOfEntities,
+            sol::meta_function::length, &Event::getNumberOfEntities,
             sol::base_classes, sol::bases<utilities::MemberStorage>()
         );
     }
 
+    std::size_t Event::getNumberOfEntities() const {
+        return m_entities.size();
+    }
+
     entities::Entity::Ptr Event::getEntity(std::size_t index) const {
         return m_entities.at(index);
+    }
+    
+    entities::Entity::Ptr Event::getEntityLua(std::size_t index) const {
+        return m_entities.at(index - 1);
     }
 
     Event::Ptr Event::createEvent(const std::string &type, Context &context) {
@@ -45,7 +56,7 @@ namespace engine::events {
         return ptr;
     }
 
-    Event::Ptr Event::createEvent(const std::string &type, Context &context, std::initializer_list<entities::Entity::Ptr> entities) {
+    Event::Ptr Event::createEvent(const std::string &type, Context &context, const std::vector<entities::Entity::Ptr> &entities) {
         Event::Ptr ptr = createEvent(type, context);
         ptr->m_entities.insert(ptr->m_entities.end(), entities.begin(), entities.end());
         return ptr;
@@ -57,7 +68,7 @@ namespace engine::events {
         return event;
     }
 
-    Event::Ptr Event::createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, std::initializer_list<entities::Entity::Ptr> entities) {
+    Event::Ptr Event::createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, const std::vector<entities::Entity::Ptr> &entities) {
         Event::Ptr event = createEvent(type, context, entities);
         event->create(jsonTable);
         return event;

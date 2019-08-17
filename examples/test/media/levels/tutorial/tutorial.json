@@ -1,7 +1,7 @@
 {
     "map" : "test",
     "entities" : {
-        "test" : {
+        "player" : {
             "type": "test"
         }
     }

@@ -61,8 +61,16 @@ namespace engine::events {
          */
         static Ptr createEvent(const std::string &type, Context &context);
 
-        // TODO: Lua?
-        static Ptr createEvent(const std::string &type, Context &context, std::initializer_list<entities::Entity::Ptr> entities);
+        /**
+         * \brief Create an event of given type
+         * 
+         * The event must be registered to be created using this function
+         * \param type The type
+         * \param context The context
+         * \param entities Entities to send along the event
+         * \return A shared pointer to the created event
+         */
+        static Ptr createEvent(const std::string &type, Context &context, const std::vector<entities::Entity::Ptr> &entities);
 
         /**
          * \brief Create an event of given type and immediately sets variables defined in the JSON table
@@ -75,8 +83,28 @@ namespace engine::events {
          */
         static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable);
 
-        static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, std::initializer_list<entities::Entity::Ptr> entities);
+        /**
+         * \brief Create an event of given type and immediately sets variables defined in the JSON table
+         * 
+         * The event must be registered to be created using this function
+         * \param type The type
+         * \param context The context
+         * \param jsonTable The JSON table containing the variables to set in the event
+         * \param entities Entities to send along the event
+         * \return A shared pointer to the created event
+         */
+        static Ptr createEvent(const std::string &type, Context &context, const nlohmann::json &jsonTable, const std::vector<entities::Entity::Ptr> &entities);
 
+        /**
+         * \brief Gives the number of entities in this event
+         * \return The number of entities sent with this event
+         */
+        std::size_t getNumberOfEntities() const;
+
+        /**
+         * \brief Gives the entity stored at the given index
+         * \return The entity at the given index
+         */
         entities::Entity::Ptr getEntity(std::size_t index) const;
 
     protected:
@@ -101,6 +129,15 @@ namespace engine::events {
         explicit Event(Context &context, const std::string &type);
 
         virtual std::string getLogErrorPrefix() const override;
+
+    private:
+        /**
+         * \brief Gives the entity stored at the given index - 1
+         * 
+         * We substract 1 from the index to match the Lua index system
+         * \return The entity at the given index
+         */
+        entities::Entity::Ptr getEntityLua(std::size_t index) const;
 
     private:
         const std::string m_type;

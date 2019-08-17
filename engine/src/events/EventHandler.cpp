@@ -53,8 +53,8 @@ namespace engine::events {
         return sendEvent(type, nlohmann::json());
     }
 
-    bool EventHandler::sendEvent(const std::string &type, std::initializer_list<entities::Entity::Ptr> entities) {
-        return sendEvent(type, {}, entities);
+    bool EventHandler::sendEvent(const std::string &type, const std::vector<entities::Entity::Ptr> &entities) {
+        return sendEvent(type, nlohmann::json(), entities);
     }
 
     bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values) {
@@ -62,7 +62,7 @@ namespace engine::events {
         return sendEvent(*event);
     }
 
-    bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values, std::initializer_list<entities::Entity::Ptr> entities) {
+    bool EventHandler::sendEvent(const std::string &type, const nlohmann::json &values, const std::vector<entities::Entity::Ptr> &entities) {
         auto event = Event::createEvent(type, getContext(), values, entities);
         return sendEvent(*event);
     }
@@ -79,7 +79,9 @@ namespace engine::events {
             ),
             "sendEvent", sol::overload(
                 sol::resolve<bool(const Event&)const>(&EventHandler::sendEvent),
-                sol::resolve<const std::string&, const sol::table&>(&EventHandler::sendEvent)
+                sol::resolve<bool(const std::string&)>(&EventHandler::sendEvent),
+                sol::resolve<bool(const std::string&, const sol::table&)>(&EventHandler::sendEvent),
+                sol::resolve<bool(const std::string&, const sol::table&, sol::variadic_args)>(&EventHandler::sendEvent)
             )
         );
 
@@ -96,8 +98,23 @@ namespace engine::events {
         return m_context;
     }
 
-    bool EventHandler::sendEvent(const std::string &type, const sol::table &luaTable) {
-        return sendEvent(type, utilities::lua_to_json(luaTable));
+    bool EventHandler::sendEvent(const std::string &eventType, const sol::table &table) {
+        return sendEvent(eventType, utilities::lua_to_json(table));
+    }
+
+    bool EventHandler::sendEvent(const std::string &eventType, const sol::table &table, sol::variadic_args va) {
+        std::vector<entities::Entity::Ptr> entities;
+        entities.reserve(va.size());
+        for (auto v : va) {
+            if (v.is<entities::Entity::Ptr>()) {
+                entities.push_back(v.get<entities::Entity::Ptr>());
+            }
+            else {
+                tmx::Logger::log("EventHandler: impossible to send an event because the list of entities contains a value that is not an entity", tmx::Logger::Type::Error);
+                return false;
+            }
+        }
+        return this->sendEvent(eventType, utilities::lua_to_json(table), entities);
     }
 
     EventConnection EventHandler::registerCallbackDefaultState(const std::string &eventType, const callbackSignature &callback) {

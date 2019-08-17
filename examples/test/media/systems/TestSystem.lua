@@ -19,13 +19,8 @@ function init()
         print(c:get("x"))
     end
 
-    registerCallback("test", callbackTest)
-    -- connection = registerCallback("test", callbackTest)
-    game.eventHandler:sendEvent("test", {integer=10, floating=50.05})
-    -- print(connection:isConnected())
-    -- connection:disconnect()
-    -- game.eventHandler:sendEvent("test", {integer=01, floating=05.50})
-    -- print(connection:isConnected())
+    registerCallback("testEvent", callbackTest)
+    game.eventHandler:sendEvent("testEvent", {integer=10, floating=50.05}, entity)
 end
 
 function update(deltatime, view)
@@ -36,5 +31,9 @@ function checkComponents(entity)
 end
 
 function callbackTest(event)
-    print(event:getType() .. " " .. event:get("integer") .. " " .. event:get("floating"))
+    print(event:getType() .. " " .. event:get("integer") .. " " .. event:get("floating") .. " " .. #event)
+    if (#event == 1) then
+        entity = event:getEntity(1)
+        print(entity:getType())
+    end
 end
