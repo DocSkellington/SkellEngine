@@ -39,45 +39,7 @@ namespace engine::entities::components {
      *      ]
      *  }
      * 
-     *  "colorAnimation" : {
-     *      "type": "color",
-     *      "duration": time,
-     * 
-     *      "loop": boolean,
-     *      OR
-     *      "repeat": number
-     * 
-     *      // The positions depend on the total number of colors
-     *      // At least two
-     *      "colors": [
-     *          color0,
-     *          color0.25,
-     *          color0.5,
-     *          color0.75,
-     *          color1
-     *      ]
-     *      OR
-     *      "colors": {
-     *          "first": color,
-     *          "last": color
-     *      }
-     *      OR
-     *      "colors": [
-     *          {
-     *              "position": [0,1],
-     *              "color": color
-     *          }
-     *      ]
-     *  }
-     * 
-     *  "fadeAnimation": {
-     *      "type": "fade",
-     *      "in": float,
-     *      "out": float,
-     *      "duration": time
-     *  }
-     * 
-     *  + subscribe for an event AnimateSprite + allow overwriting
+     *  + allow overwriting
      */
     class AnimationComponent : public Component {
     public:

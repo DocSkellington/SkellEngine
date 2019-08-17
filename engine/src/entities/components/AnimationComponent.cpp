@@ -42,8 +42,7 @@ namespace engine::entities::components {
                         // createFrameAnimation(description);
                     }
                     else if (*type == "color") {
-                        if (auto colors = desc.find("colors") ; colors != desc.end() && colors->is_object()) {
-                            // We add the animation the number of times it must be repeated
+                        if (auto colors = desc.find("colors") ; colors != desc.end()) {
                             m_animations.addAnimation(name, animations::ColorAnimation(*colors), duration, loop, repeats);
                         }
                         else {
