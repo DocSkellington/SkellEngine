@@ -15,8 +15,8 @@ namespace engine::systems {
 
     }
 
-    bool GraphicalOrthogonalSystem::update(sf::Int64 deltatime, sf::View &view) {
-        // TODO:
+    bool GraphicalOrthogonalSystem::update(sf::Int64, sf::View &) {
+        // Nothing to update since animations are handled by a different system
         return true;
     }
 
