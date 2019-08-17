@@ -38,6 +38,10 @@ namespace engine::systems {
         }
         auto entity = event.getEntity(0);
 
+        if (!entity) {
+            throw std::invalid_argument("AnimationSystem: play: the given entity is a null pointer");
+        }
+
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
             const auto &map = animation->getAnimationMap();
