@@ -43,8 +43,8 @@ namespace engine::entities::components {
      */
     class AnimationComponent : public Component {
     public:
-        using Animator = animations::Animator<sf::Sprite, std::string>;
-        using AnimationMap = Animator::AnimationMap;
+        using Animator = animations::Animator<sf::Sprite>;
+        using AnimationMap = animations::AnimationMap<sf::Sprite, std::string>;
 
     public:
         AnimationComponent(states::StateContext &stateContext);

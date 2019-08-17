@@ -155,6 +155,9 @@ namespace engine::events {
                 catch(const sol::error &e) {
                     tmx::Logger::logError("Event handler: error during the execution of a Lua callback for the event type " + event.getType() + ":", e);
                 }
+                catch(const std::exception &e) {
+                    tmx::Logger::logError("Event handler: error during the execution of a C++ callback for the event type " + event.getType() + ": ", e);
+                }
             }
         }
         return atLeastOne;

@@ -11,7 +11,6 @@ namespace engine::animations {
     }
 
     ColorAnimation::ColorAnimation(const nlohmann::json &description) {
-        std::cout << description << "\n";
         if (description.is_object()) {
             std::cout << "is object\n";
             if (auto first = description.find("first") ; first != description.end()) {

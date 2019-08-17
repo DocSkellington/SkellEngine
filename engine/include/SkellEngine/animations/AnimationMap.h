@@ -37,6 +37,10 @@ namespace engine::animations {
             return m_animations.at(id);
         }
 
+        const TimedAnimation& getAnimation(Id id) const {
+            return m_animations.at(id);
+        }
+
     private:
         using Container = std::map<Id, TimedAnimation>;
 

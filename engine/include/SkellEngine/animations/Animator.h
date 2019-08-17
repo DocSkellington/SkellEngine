@@ -6,16 +6,14 @@
 #include "SkellEngine/animations/AnimationMap.h"
 
 namespace engine::animations {
-    template <typename Animated, typename Id>
+    template <typename Animated>
     class Animator {
     public:
-        using AnimationMap = AnimationMap<Animated, Id>;
-        using AnimationSignature = typename AnimationMap::AnimationSignature;
-        using TimedAnimation = typename AnimationMap::TimedAnimation;
+        using TimedAnimation = TimedAnimation<Animated>;
+        using AnimationSignature = typename TimedAnimation::AnimationFunction;
 
     public:
-        Animator(AnimationMap &map) :
-            m_animationsMap(map),
+        Animator() :
             m_pause(false),
             m_elapsedTime(sf::Time::Zero) {
 
@@ -23,14 +21,13 @@ namespace engine::animations {
 
         void update(sf::Uint64 deltaTime) {
             if (!m_pause) {
-                // TODO: handle when the animation is deleted from the map
                 // How much time we have left to execute
                 sf::Time durationLeft = sf::Time::Zero;
 
                 // First, we clear the list of playing animations
                 if (!m_playingAnimations.empty()) {
                     // Since it's a queue, we know that the last animation in the queue is the last played animation
-                    sf::Time lastAnimationDuration = m_animationsMap.getAnimation(m_playingAnimations.back()).getDuration();
+                    sf::Time lastAnimationDuration = m_playingAnimations.back().getDuration();
                     if (m_elapsedTime < lastAnimationDuration) {
                         // We stille have to update the last animation. Therefore, we remove everything except the last one
                         m_playingAnimations.erase(m_playingAnimations.begin(), std::prev(m_playingAnimations.end()));
@@ -48,7 +45,7 @@ namespace engine::animations {
                 // The last played animation lefts enough time to start a new animation
                 while (m_elapsedTime >= durationLeft) {
                     // If the last animation must loop, we add it at the first position in the queued animations
-                    if (!m_playingAnimations.empty() && m_animationsMap.getAnimation(m_playingAnimations.back()).isLoop()) {
+                    if (!m_playingAnimations.empty() && m_playingAnimations.back().isLoop()) {
                         m_queuedAnimations.push_front(m_playingAnimations.back());
                     }
 
@@ -61,11 +58,10 @@ namespace engine::animations {
                     }
                     else {
                         // We retrieve the next animation and start to play it
-                        std::string nextId = m_queuedAnimations.front();
+                        auto nextAnimation = m_queuedAnimations.front();
                         m_queuedAnimations.pop_front();
-                        m_playingAnimations.push_back(nextId);
+                        m_playingAnimations.push_back(nextAnimation);
 
-                        auto nextAnimation = m_animationsMap.getAnimation(nextId);
                         // We update duration and the elapsed time to match the new animation
                         m_elapsedTime -= durationLeft; // We remove the time it took until here
                         durationLeft = nextAnimation.getDuration();
@@ -79,27 +75,28 @@ namespace engine::animations {
                 // For every playing animation except the last one, we know that the animation is fully executed
                 // So, we just call the animation function with a progress of 1
                 for (auto itr = m_playingAnimations.begin() ; itr != std::prev(m_playingAnimations.end()) ; ++itr) {
-                    m_animationsMap.getAnimation(*itr)(animated, 1.);
+                    (*itr)(animated, 1.);
                 }
 
                 // For the last animation, we need to compute the exact progress
-                auto animation = m_animationsMap.getAnimation(m_playingAnimations.back());
+                auto animation = m_playingAnimations.back();
                 animation(animated, m_elapsedTime / animation.getDuration());
             }
         }
 
-        void play(const std::string &animation) {
+        void play(const TimedAnimation &animation) {
             m_pause = false;
             stop();
 
             m_playingAnimations.push_back(animation);
-            for (unsigned int i = 1 ; i < m_animationsMap.getAnimation(animation).getRepeats() ; i++) {
+            for (unsigned int i = 1 ; i < animation.getRepeats() ; i++) {
                 m_queuedAnimations.push_back(animation);
             }
+            std::cout << m_playingAnimations.size() << "\n";
         }
 
-        void queue(const std::string &animation) {
-            for (unsigned int i = 0 ; i < m_animationsMap.getAnimation(animation).getRepeats() ; i++) {
+        void queue(const TimedAnimation &animation) {
+            for (unsigned int i = 0 ; i < animation.getRepeats() ; i++) {
                 m_queuedAnimations.push_back(animation);
             }
         }
@@ -122,10 +119,9 @@ namespace engine::animations {
         }
 
     private:
-        AnimationMap& m_animationsMap;
         bool m_pause;
         sf::Time m_elapsedTime;
-        std::list<std::string> m_playingAnimations;
-        std::list<std::string> m_queuedAnimations;
+        std::list<TimedAnimation> m_playingAnimations;
+        std::list<TimedAnimation> m_queuedAnimations;
     };
 }

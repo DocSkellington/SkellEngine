@@ -33,11 +33,24 @@ namespace engine::systems {
     }
 
     void AnimationSystem::play(const events::Event &event) {
-        // TODO: handle case there is no entity
+        if (event.getNumberOfEntities() != 1) {
+            throw std::invalid_argument("AnimationSystem: invalid number of entities joined in the event of type " + event.getType() + ": there should be exactly 1 entity");
+        }
         auto entity = event.getEntity(0);
+
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-            animation->getAnimator().play(event.getString("animation").first);
+            const auto &map = animation->getAnimationMap();
+
+            if (auto animationDescription = event.getString("animation") ; animationDescription.second) {
+                animation->getAnimator().play(map.getAnimation(animationDescription.first));
+            }
+            else {
+                throw std::invalid_argument("AnimationSystem: play: invalid event: the event must have a field 'animation'");
+            }
+        }
+        else {
+            throw std::invalid_argument("AnimationSystem: play: invalid event: the joined event must have an animation component");
         }
     }
 

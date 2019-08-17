@@ -6,7 +6,7 @@
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :
         Component(stateContext),
-        m_animator(m_animations) {
+        m_animator() {
     }
 
     void AnimationComponent::create(const nlohmann::json &description) {
