@@ -63,9 +63,9 @@ namespace engine::entities {
         /**
          * \brief Constructs a new entity of given type
          * \param manager The entity manager
-         * \param type The type of the entity
+         * \param name The name of the entity
          */
-        explicit Entity(EntityManager &manager, const std::string &type);
+        explicit Entity(EntityManager &manager, const std::string &name);
         Entity(const Entity&) = delete;
         ~Entity();
 
@@ -113,10 +113,10 @@ namespace engine::entities {
         std::vector<std::string> getComponentsNames() const;
 
         /**
-         * \brief Returns the type of the entity
-         * \return The type of the entity
+         * \brief Returns the name of the entity
+         * \return The name of the entity
          */
-        const std::string& getType() const;
+        const std::string& getName() const;
 
         /**
          * \brief The begin iterator
@@ -150,7 +150,7 @@ namespace engine::entities {
 
     private:
         EntityManager &m_entityManager;
-        std::string m_type;
+        std::string m_name;
         mapType m_components;
 
     private:

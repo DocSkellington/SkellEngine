@@ -2,7 +2,8 @@
     "map" : "test",
     "entities" : {
         "player" : {
-            "type": "test"
+            "type": "test",
+            "position": [30, 40]
         }
     }
 }

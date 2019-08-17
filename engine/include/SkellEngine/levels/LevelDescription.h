@@ -13,6 +13,19 @@ namespace engine::levels {
      */
     struct LevelDescription {
         /**
+         * \brief Describes an entity used in the level description
+         */
+        struct EntityDescription {
+            /**
+             * \brief Constructor
+             * \param name The name of the entity to spawn
+             * \param description The JSON description of the entity
+             */
+            EntityDescription(const std::string &name, const nlohmann::json &description);
+            std::string name;
+            nlohmann::json description;
+        };
+        /**
          * \brief The name of the level
          */
         std::string name;
@@ -24,8 +37,9 @@ namespace engine::levels {
          * \brief The list with every entity in the level
          * 
          * More entities can be added later
+         * \see entities::EntityManager::addEntity to add a new entity later
          */
-        std::vector<nlohmann::json> entities;
+        std::vector<EntityDescription> entities;
 
         /**
          * \brief Clears the level description by resetting every field

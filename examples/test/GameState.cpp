@@ -33,7 +33,7 @@ public:
     }
 
     virtual void activate() override {
-        getStateContext().context.eventHandler->sendEvent("PlayAnimation", {{"animation", "coloring"}}, {getStateContext().entityManager->getEntity("test")});
+        getStateContext().context.eventHandler->sendEvent("PlayAnimation", {{"animation", "coloring"}}, {getStateContext().entityManager->getEntity("player")});
     }
 
     virtual void deactivate() override {

@@ -34,6 +34,6 @@ function callbackTest(event)
     print(event:getType() .. " " .. event:get("integer") .. " " .. event:get("floating") .. " " .. #event)
     if (#event == 1) then
         entity = event:getEntity(1)
-        print(entity:getType())
+        print(entity:getName())
     end
 end

@@ -7,8 +7,9 @@
 
 namespace engine::entities {
 
-    Entity::Entity(EntityManager &manager, const std::string &type) :
-        m_entityManager(manager), m_type(type) {
+    Entity::Entity(EntityManager &manager, const std::string &name) :
+        m_entityManager(manager),
+        m_name(name) {
 
     }
 
@@ -69,8 +70,8 @@ namespace engine::entities {
         return vec;
     }
 
-    const std::string &Entity::getType() const {
-        return m_type;
+    const std::string &Entity::getName() const {
+        return m_name;
     }
 
     Entity::iterator Entity::begin() {
@@ -98,7 +99,7 @@ namespace engine::entities {
             "hasComponent", &Entity::hasComponent,
             "getComponent", &Entity::getComponent,
             "getComponentsNames", &Entity::getComponentsNames,
-            "getType", &Entity::getType
+            "getName", &Entity::getName
         );
     }
 }

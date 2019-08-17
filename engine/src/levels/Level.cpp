@@ -73,16 +73,19 @@ namespace engine::levels {
 
         auto &entities = m_levelDescription.entities;
 
-        for (auto itr = entities.begin() ; itr != entities.end() ; ++itr) {
-            // Getting the type of the entity
-            std::string type = (*itr)["type"].get<std::string>();
-            // Getting its components' data
-            auto data = (*itr)["data"];
-            // We add these data into the global definition known
+        for (const auto &entity : entities) {
+            nlohmann::json description = entity.description;
+            // We get the type of the entity to create
+            std::string type;
+            if (auto t = description.find("type") ; t != description.end()) {
+                type = t->get<std::string>();
+                description.erase(t);
+            }
+            // We merge the specific data for this instance and the generic data for the type
             auto entityGlobal = getEntityJSON(type);
-            auto entity = utilities::json_fusion(entityGlobal, data);
+            auto entityDescription = utilities::json_fusion(entityGlobal, description);
             // Finally, we create the new entity
-            m_context.entityManager->addEntity(type, entity);
+            m_context.entityManager->addEntity(entity.name, entityDescription);
         }
     }
 

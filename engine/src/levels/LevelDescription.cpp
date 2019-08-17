@@ -4,6 +4,12 @@
 #include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::levels {
+    LevelDescription::EntityDescription::EntityDescription(const std::string &name, const nlohmann::json &description) :
+        name(name),
+        description(description) {
+
+    }
+
     void LevelDescription::clear() {
         name = "";
         map = "";
@@ -21,8 +27,8 @@ namespace engine::levels {
         }
 
         if (entities != j.end() && entities->is_object()) {
-            for (auto &entity : *entities) {
-                l.entities.push_back(entity);
+            for (const auto &[key, value] : entities->items()) {
+                l.entities.emplace_back(key, value);
             }
         }
         else {

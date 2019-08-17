@@ -22,14 +22,14 @@ namespace engine::entities {
         return false;
     }
 
-    Entity::Ptr EntityManager::addEntity(const std::string &entityType) {
-        Entity::Ptr entity = std::make_shared<Entity>(*this, entityType);
+    Entity::Ptr EntityManager::addEntity(const std::string &entityName) {
+        Entity::Ptr entity = std::make_shared<Entity>(*this, entityName);
         m_entities.push_back(entity);
         return entity;
     }
 
-    Entity::Ptr EntityManager::addEntity(const std::string &entityType, const nlohmann::json &jsonTable) {
-        Entity::Ptr entity = addEntity(entityType);
+    Entity::Ptr EntityManager::addEntity(const std::string &entityName, const nlohmann::json &jsonTable) {
+        Entity::Ptr entity = addEntity(entityName);
         
         for (auto itr = jsonTable.begin() ; itr != jsonTable.end() ; ++itr) {
             entity->addComponent(itr.key(), itr.value());
@@ -39,19 +39,19 @@ namespace engine::entities {
         return entity;
     }
 
-    Entity::Ptr EntityManager::getEntity(const std::string &type) {
+    Entity::Ptr EntityManager::getEntity(const std::string &name) {
         for (auto &entity : m_entities) {
-            if (entity->getType() == type) {
+            if (entity->getName() == name) {
                 return entity;
             }
         }
         return nullptr;
     }
 
-    Entity::Ptr EntityManager::getEntity(const std::string &type, std::vector<std::string> components) {
+    Entity::Ptr EntityManager::getEntity(const std::string &name, std::vector<std::string> components) {
         std::sort(components.begin(), components.end());
         for (auto &entity : m_entities) {
-            if (entity->getType() == type && std::includes(entity->getComponentsNames().begin(), entity->getComponentsNames().end(), components.begin(), components.end())) {
+            if (entity->getName() == name && std::includes(entity->getComponentsNames().begin(), entity->getComponentsNames().end(), components.begin(), components.end())) {
                 return entity;
             }
         }
