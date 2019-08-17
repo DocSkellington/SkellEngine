@@ -6,12 +6,10 @@
     },
     "animation": {
         "coloring": {
-            "type": "color",
-            "colors": {
-                "first": "blue",
-                "last": "white"
-            },
-            "duration": 0.5,
+            "type": "fade",
+            "in": 0.6,
+            "out": 0.5,
+            "duration": 10,
             "loop": true
         }
     }

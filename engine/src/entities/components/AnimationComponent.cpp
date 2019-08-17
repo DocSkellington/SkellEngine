@@ -1,6 +1,7 @@
 #include "SkellEngine/entities/components/AnimationComponent.h"
 
 #include "SkellEngine/animations/ColorAnimation.h"
+#include "SkellEngine/animations/FadeAnimation.h"
 
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :
@@ -9,10 +10,8 @@ namespace engine::entities::components {
     }
 
     void AnimationComponent::create(const nlohmann::json &description) {
-        tmx::Logger::log("Animation component");
         if (description.is_object()) {
             for (const auto &[name, desc] : description.items()) { 
-                std::cout << desc.dump(4) << "\n";
                 if (auto type = desc.find("type") ; type != desc.end() && type->is_string()) {
                     sf::Time duration = sf::seconds(1);
                     bool loop = false;
@@ -52,7 +51,12 @@ namespace engine::entities::components {
                         }
                     }
                     else if (*type == "fade") {
-                        // createFadeAnimation(description);
+                        try {
+                            m_animations.addAnimation(name, animations::FadeAnimation(desc), duration, loop, repeats);
+                        }
+                        catch (const std::invalid_argument &e) {
+                            tmx::Logger::logError("AnimationComponent: an error occured during the creation of a FadeAnimation: ", e);
+                        }
                     }
                     else {
                         tmx::Logger::log("AnimationComponent: invalid animation description: the type of the animation is unkown. It must be 'frame', 'color' or 'fade'", tmx::Logger::Type::Warning);

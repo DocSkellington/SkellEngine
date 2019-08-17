@@ -85,6 +85,7 @@ set(SOURCES
     src/systems/AnimationSystem.cpp
 
     src/animations/ColorAnimation.cpp
+    src/animations/FadeAnimation.cpp
     src/animations/detail/to_from_sfml_color.cpp
 
     src/utilities/json_lua.cpp
