@@ -16,4 +16,5 @@ end
 
 function draw(target)
     game.level:draw(target)
+    game.gui:draw()
 end

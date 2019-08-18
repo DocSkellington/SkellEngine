@@ -91,6 +91,7 @@ set(SOURCES
     src/utilities/json_lua.cpp
     src/utilities/json_fusion.cpp
     src/utilities/lua_sfml.cpp
+    src/utilities/lua_gui.cpp
     src/utilities/MemberStorage.cpp
 
     src/tmxlite/FreeFuncs.cpp

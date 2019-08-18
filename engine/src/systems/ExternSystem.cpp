@@ -10,6 +10,7 @@
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/levels/Level.h"
 #include "SkellEngine/input/InputHandler.h"
+#include "SkellEngine/utilities/lua_gui.h"
 
 namespace engine::systems {
     ExternSystem::ExternSystem(SystemManager &manager, const std::string &systemName) :
@@ -19,6 +20,7 @@ namespace engine::systems {
         m_lua.create_named_table("game");
 
         utilities::registerSFMLLuaFunctions(m_lua);
+        utilities::registerTGUILuaFunctions(m_lua, manager.getContext().gui);
 
         utilities::MemberStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);

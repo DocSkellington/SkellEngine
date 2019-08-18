@@ -10,6 +10,7 @@
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/levels/Level.h"
 #include "SkellEngine/input/InputHandler.h"
+#include "SkellEngine/utilities/lua_gui.h"
 
 namespace engine::states {
     ExternState::ExternState(StateManager &manager, const std::string &stateName) :
@@ -130,6 +131,7 @@ namespace engine::states {
         getStoreEventConnections().luaFunctions(m_lua);
 
         utilities::registerSFMLLuaFunctions(m_lua);
+        utilities::registerTGUILuaFunctions(m_lua, getStateContext().gui);
 
         m_lua.set_function("setIsTransparent", [this] (bool is) { this->setIsTransparent(is); });
         m_lua.set_function("setIsTranscendant", [this] (bool is) { this->setIsTranscendant(is); });
