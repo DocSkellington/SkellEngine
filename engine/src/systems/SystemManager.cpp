@@ -94,7 +94,7 @@ namespace engine::systems {
             "update", &SystemManager::update,
             "draw", &SystemManager::draw,
             "addSystem", &SystemManager::addSystem,
-            "loadSystems", &SystemManager::loadSystems,
+            "loadSystems", sol::resolve<void(const sol::variadic_args &va)>(&SystemManager::loadSystems),
             "removeSystem", &SystemManager::removeSystem,
             "clear", &SystemManager::clear,
             "addEntity", &SystemManager::addEntity,
@@ -102,5 +102,20 @@ namespace engine::systems {
         );
 
         lua["game"]["systemManager"] = this;
+    }
+
+    void SystemManager::loadSystems(const sol::variadic_args &va) {
+        std::vector<std::string> systems;
+        systems.reserve(va.size());
+        for (auto v : va) {
+            if (v.is<std::string>()) {
+                std::cout << v.as<std::string>() << "\n";
+                systems.push_back(v.as<std::string>());
+            }
+            else {
+                throw std::invalid_argument("SystemManager: load systems: only strings are allowed");
+            }
+        }
+        loadSystems(systems);
     }
 }

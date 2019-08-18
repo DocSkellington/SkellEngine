@@ -102,6 +102,9 @@ namespace engine::systems {
         void luaFunctions(sol::state &lua) const;
 
     private:
+        void loadSystems(const sol::variadic_args &va);
+
+    private:
         states::StateContext &m_context;
         sf::View m_view;
         std::map<std::string, System::Ptr> m_systems;
