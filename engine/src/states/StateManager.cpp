@@ -24,6 +24,16 @@ namespace engine::states {
         }
     }
 
+    void StateManager::handleEvent(const sf::Event &event) {
+        for (auto &state : m_states) {
+            state.second->handleEvent(event);
+
+            if (!state.second->isTranscendant()) {
+                break;
+            }
+        }
+    }
+
     void StateManager::draw(sf::RenderTarget &target) {
         // We need to draw the states starting by the deepest one in the stack
         // So, we create a linked list with the states in the correct order

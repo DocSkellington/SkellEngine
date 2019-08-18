@@ -53,6 +53,14 @@ namespace engine::states {
         * \param deltatime The time since the last update
         */
         virtual void update(sf::Int64 deltatime) = 0;
+
+        /**
+         * \brief Handles an sf::Event
+         * 
+         * The default implementation passes the event to the GUI
+         * \param event The event
+         */
+        virtual void handleEvent(const sf::Event &event);
         /**
         * \brief Draws the state
         * \param target The target in which the rendering must be done

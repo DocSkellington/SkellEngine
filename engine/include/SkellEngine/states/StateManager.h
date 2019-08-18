@@ -43,6 +43,12 @@ namespace engine::states {
         void update(sf::Int64 deltatime);
 
         /**
+         * \brief Gives the sf::Event to the states starting from the front and until it reaches a non-transcendant state
+         * \param event The event
+         */
+        void handleEvent(const sf::Event &event);
+
+        /**
         * \brief Draws the states starting from the front and until it reaches a non-transparent state.
         * \param target The target in which the manager must draw
         */

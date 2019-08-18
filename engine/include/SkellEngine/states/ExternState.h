@@ -21,6 +21,7 @@ namespace engine::states {
         virtual void activate() override;
         virtual void deactivate() override;
         virtual void update(sf::Int64 deltatime) override;
+        virtual void handleEvent(const sf::Event &event) override;
         virtual void draw(sf::RenderTarget &target) override;
 
     private:

@@ -83,6 +83,20 @@ namespace engine::states {
         }
     }
 
+    void ExternState::handleEvent(const sf::Event &event) {
+        sol::protected_function func = m_lua["handleEvent"];
+        if (func) {
+            sol::protected_function_result res = func(event);
+            if (!res.valid()) {
+                sol::error e = res;
+                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the handleEvent function", e);
+            }
+        }
+        else {
+            State::handleEvent(event);
+        }
+    }
+
     void ExternState::draw(sf::RenderTarget &target) {
         sol::protected_function func = m_lua["draw"];
         if (func) {

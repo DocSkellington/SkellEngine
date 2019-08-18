@@ -23,6 +23,10 @@ namespace engine::states {
         getStoreEventConnections().clearEventConnections();
     }
 
+    void State::handleEvent(const sf::Event &event) {
+        m_stateContext.gui->handleEvent(event);
+    }
+
     bool State::isTranscendant() const {
         return m_transcendant;
     }
