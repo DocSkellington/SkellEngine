@@ -59,9 +59,6 @@ namespace engine {
             // Creating the window
             createWindow(description.window, description.version);
             tmx::Logger::log("Window created");
-            
-            gui = std::make_shared<tgui::Gui>(*window);
-            tmx::Logger::log("Graphical user interface system ready");
         }
     }
 

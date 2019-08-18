@@ -47,6 +47,7 @@ public:
 
     virtual void draw(sf::RenderTarget &target) override {
         getStateContext().level->draw(target);
+        getStateContext().gui->draw();
     }
 
     REGISTER_STATE(GameState, "game")

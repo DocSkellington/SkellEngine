@@ -1,6 +1,7 @@
 function onCreate()
-    setIsTransparent(true)
     registerCallback("ChangeState", onChangeState, "mainmenu")
+    game.systemManager:loadSystems("graphicalorthogonal")
+    game.level:changeLevel("tutorial")
 end
 
 function onChangeState(event)
@@ -8,6 +9,11 @@ function onChangeState(event)
     game.stateManager:remove("mainmenu")
 end
 
+function update(deltaTime)
+    game.level:update(deltaTime)
+    game.systemManager:update(deltaTime)
+end
+
 function draw(target)
-    target:clear(Color.new(21, 57, 104))
+    game.level:draw(target)
 end

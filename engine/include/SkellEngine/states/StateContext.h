@@ -45,6 +45,11 @@ namespace engine {
             std::shared_ptr<levels::Level> level;
 
             /**
+             * \brief The Graphical User Interface tool
+             */
+            std::shared_ptr<tgui::Gui> gui;
+
+            /**
              * \brief The name of the state using this StateContext
              */
             std::string stateName;

@@ -44,8 +44,7 @@ namespace engine {
 
             sf::Event event;
             while (m_context.window->pollEvent(event)) {
-                m_context.gui->handleEvent(event);
-
+                m_context.stateManager->handleEvent(event);
                 m_context.inputHandler->proccess(event);
             }
 
@@ -58,7 +57,6 @@ namespace engine {
             m_context.window->clear();
 
             m_context.stateManager->draw(*m_context.window);
-            m_context.gui->draw();
 
             m_context.window->display();
 

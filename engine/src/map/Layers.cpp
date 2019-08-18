@@ -387,6 +387,6 @@ namespace engine::map {
             label->setVisible(false);
         }
 
-        getMap().m_context.context.gui->add(label);
+        getMap().m_context.gui->add(label);
     }
 }

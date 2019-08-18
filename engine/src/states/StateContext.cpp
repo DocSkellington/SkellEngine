@@ -14,5 +14,10 @@ namespace engine::states {
         tmx::Logger::log("System manager ready");
         level = std::make_shared<levels::Level>(*this);
         tmx::Logger::log("Level system ready");
+            
+        if (context.window) {
+            gui = std::make_shared<tgui::Gui>(*context.window);
+            tmx::Logger::log("Graphical user interface system ready");
+        }
     }
 }

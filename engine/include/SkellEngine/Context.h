@@ -71,11 +71,6 @@ namespace engine {
         std::shared_ptr<sf::RenderWindow> window;
 
         /**
-         * \brief The Graphical User Interface tool
-         */
-        std::shared_ptr<tgui::Gui> gui;
-
-        /**
          * \brief The texture holder
          * 
          * Every texture used by the engine should be registered in this holder
