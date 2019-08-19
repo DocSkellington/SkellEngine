@@ -6,6 +6,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
+#include <sol/sol.hpp>
 
 #include <SkellEngine/tmxlite/Log.hpp>
 
@@ -133,6 +134,10 @@ namespace engine::files {
              * \brief The path to the JSON file describing the input bindings
              */
             std::filesystem::path inputDescription;
+            /**
+             * \brief The path to the "media" folder
+             */
+            std::filesystem::path baseMediaPath;
         };
 
         /**
@@ -144,6 +149,14 @@ namespace engine::files {
              */
             std::string firstState;
         };
+
+    public:
+        /**
+         * \brief Registers Lua functions for the game description
+         * \param lua The Lua state
+         */
+         void luaFunctions(sol::state &lua);
+
 
     public:
         /**

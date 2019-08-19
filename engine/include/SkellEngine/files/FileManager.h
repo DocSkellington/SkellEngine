@@ -41,21 +41,6 @@ namespace engine::files {
         sf::Font& loadFont(const std::string &fontName);
 
         /**
-         * \brief Register the systems written in Lua.
-         * 
-         * Every external system must be in the folder defined in game.json (media.systemsFolder field)
-         * \see @ref json_game_description
-         */
-        void registerExternSystems();
-
-        /**
-         * \brief Register the states written in Lua
-         * 
-         * Every external state must be in the folder defined in game.json (media.statesFolder field)
-         */
-        void registerExternStates();
-
-        /**
          * \brief Gets the path to the given system
          * 
          * The system must be an external system
@@ -73,6 +58,12 @@ namespace engine::files {
          */
         std::filesystem::path getStatePath(const std::string &stateName);
 
+        /**
+         * \brief Registers Lua functions for the file manager
+         * \param lua The Lua state
+         */
+        void luaFunctions(sol::state &lua);
+
     private:
         const Context &m_context;
         GameDescription m_gameDescription;
@@ -81,5 +72,20 @@ namespace engine::files {
 
     private:
         const std::filesystem::path fontPath(const std::string &fontName) const;
+
+        /**
+         * \brief Register the systems written in Lua.
+         * 
+         * Every external system must be in the folder defined in game.json (media.systemsFolder field)
+         * \see @ref json_game_description
+         */
+        void registerExternSystems();
+
+        /**
+         * \brief Register the states written in Lua
+         * 
+         * Every external state must be in the folder defined in game.json (media.statesFolder field)
+         */
+        void registerExternStates();
     };
 }

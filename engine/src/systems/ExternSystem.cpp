@@ -35,6 +35,7 @@ namespace engine::systems {
         manager.getContext().level->luaFunctions(m_lua);
         manager.getContext().context.inputHandler->luaFunctions(m_lua);
         manager.getContext().context.luaFunctions(m_lua);
+        manager.getContext().context.fileManager->luaFunctions(m_lua);
         
         getStoreEventConnections().luaFunctions(m_lua);
 

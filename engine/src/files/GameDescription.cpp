@@ -3,7 +3,47 @@
 #include <cctype>
 #include <SkellEngine/tmxlite/Log.hpp>
 
+namespace sol {
+    template<>
+    struct is_container<std::filesystem::path> : std::false_type {};
+}
+
 namespace engine::files {
+    void GameDescription::luaFunctions(sol::state &lua) {
+        using path = std::filesystem::path;
+        lua.new_usertype<path>("Path",
+            sol::constructors<path(const std::string&), path(const path&)>(),
+            sol::meta_function::to_string, &path::native,
+            sol::meta_function::division, sol::overload(
+                &std::filesystem::operator/,
+                [](const path& left, const std::string& right) {
+                    return left / right;
+                }
+            ),
+            "append", static_cast<path& (path::*)(const std::string&)>(&path::append)
+        );
+
+        lua.new_usertype<GameDescription::MediaDescription>("MediaDescription",
+            sol::no_constructor,
+            "baseSprites",      sol::readonly_property(&MediaDescription::baseSprites),
+            "mapFolder",        sol::readonly_property(&MediaDescription::mapFolder),
+            "systemsFolder",    sol::readonly_property(&MediaDescription::systemsFolder),
+            "fontsFolder",      sol::readonly_property(&MediaDescription::fontsFolder),
+            "entitiesFolder",   sol::readonly_property(&MediaDescription::entitiesFolder),
+            "levelsFolder",     sol::readonly_property(&MediaDescription::levelsFolder),
+            "statesFolder",     sol::readonly_property(&MediaDescription::statesFolder),
+            "inputDescription", sol::readonly_property(&MediaDescription::inputDescription),
+            "baseMediaPath",    sol::readonly_property(&MediaDescription::baseMediaPath)
+        );
+
+        lua.new_usertype<GameDescription>("GameDescription",
+            sol::no_constructor,
+            "media", &GameDescription::media,
+            "version", &GameDescription::version,
+            "name", &GameDescription::name
+        );
+    }
+
     GameDescription::LogDescription defaultLog {tmx::Logger::Output::None, "log.txt"};
 
     void from_json(const nlohmann::json &j, GameDescription::LogDescription &l) {
@@ -160,7 +200,8 @@ namespace engine::files {
         "entities/",
         "levels/",
         "states/",
-        "keys.json"
+        "keys.json",
+        ""
     };
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m) {

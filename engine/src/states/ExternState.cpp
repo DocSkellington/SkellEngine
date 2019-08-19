@@ -127,6 +127,7 @@ namespace engine::states {
         getStateContext().level->luaFunctions(m_lua);
         getStateContext().context.inputHandler->luaFunctions(m_lua);
         getStateContext().context.luaFunctions(m_lua);
+        getStateContext().context.fileManager->luaFunctions(m_lua);
         
         getStoreEventConnections().luaFunctions(m_lua);
 

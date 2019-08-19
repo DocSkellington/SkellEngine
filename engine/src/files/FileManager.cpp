@@ -28,6 +28,7 @@ namespace engine::files {
         m_gameDescription = gameJSON.get<GameDescription>();
 
         // We concatenate the base media path and the different paths
+        m_gameDescription.media.baseMediaPath = basePath;
         m_gameDescription.media.baseSprites = basePath / m_gameDescription.media.baseSprites;
         m_gameDescription.media.mapFolder = basePath / m_gameDescription.media.mapFolder;
         m_gameDescription.media.systemsFolder = basePath / m_gameDescription.media.systemsFolder;
@@ -145,6 +146,18 @@ namespace engine::files {
         else {
             throw errors::StateNotFound("The state " + stateName + " is unknown. Please check that the Lua script is in the correct directory and that the state name is correct.");
         }
+    }
+
+    void FileManager::luaFunctions(sol::state &lua) {
+        lua.new_usertype<FileManager>("FileManager",
+            sol::no_constructor,
+            "getGameDescription", &FileManager::getGameDescription
+        );
+
+        m_gameDescription.luaFunctions(lua);
+
+        lua["game"]["fileManager"] = this;
+        lua["game"]["gameDescription"] = m_gameDescription;
     }
 
     const std::filesystem::path FileManager::fontPath(const std::string &fontName) const {
