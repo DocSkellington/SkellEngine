@@ -3,6 +3,7 @@
 #include "SkellEngine/levels/Level.h"
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/files/FileManager.h"
 
 class GameState : public engine::states::State {
 public:
@@ -26,10 +27,16 @@ public:
         getStateContext().systemManager->loadSystems({"graphicalorthogonal", "animation", "testcpp", "test"});
         registerCallback("ChangeState", std::bind(&GameState::onChangeState, this, std::placeholders::_1), "game");
         getStateContext().level->changeLevel("tutorial");
+
+        tgui::Theme blackTheme{getStateContext().context.fileManager->getGameDescription().media.baseMediaPath / "Black.txt"};
+        tgui::Theme::setDefault(&blackTheme);
+
+        auto button = tgui::Button::create("BUTTON");
+        button->setPosition(100, 200);
+        getStateContext().gui->add(button);
     }
 
     virtual void onDestroy() override {
-        // getStateContext().context.gui->removeAllWidgets();
     }
 
     virtual void activate() override {

@@ -2,6 +2,15 @@ function onCreate()
     registerCallback("ChangeState", onChangeState, "mainmenu")
     game.systemManager:loadSystems("graphicalorthogonal")
     game.level:changeLevel("tutorial")
+    
+    path = game.gameDescription.media.baseMediaPath / "Black.txt"
+    theme = Theme.new(tostring(path))
+    Theme.setDefault(theme)
+
+    button = Button.create(String.new("BUTTON"))
+    button:setPosition(200, 100)
+
+    game.gui:add(button)
 end
 
 function onChangeState(event)
