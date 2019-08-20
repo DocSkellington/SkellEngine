@@ -1,0 +1,14 @@
+build/
+bin/
+*.aux
+*.log
+*.gz
+
+.vscode/tags
+.vscode/.cmaketools.json
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
+
+# LDOC
+config.ld
