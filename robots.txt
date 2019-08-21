@@ -1,0 +1,4 @@
+Sitemap: https://github.com/DocSkellington/SkellEngine/sitemap.xml
+
+User-agent: *
+Disallow: /cdn-cgi/

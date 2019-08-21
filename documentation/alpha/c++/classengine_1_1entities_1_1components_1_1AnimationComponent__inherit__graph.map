@@ -1,0 +1,4 @@
+<map id="engine::entities::components::AnimationComponent" name="engine::entities::components::AnimationComponent">
+<area shape="rect" id="node2" href="$classengine_1_1entities_1_1components_1_1Component.html" title="The base of every component. " alt="" coords="5,95,195,136"/>
+<area shape="rect" id="node3" href="$classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="41,5,159,47"/>
+</map>

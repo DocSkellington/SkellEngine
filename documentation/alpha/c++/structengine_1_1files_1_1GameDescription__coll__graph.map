@@ -1,0 +1,6 @@
+<map id="engine::files::GameDescription" name="engine::files::GameDescription">
+<area shape="rect" id="node2" href="$structengine_1_1files_1_1GameDescription_1_1LogDescription.html" title="Describes the logging system. " alt="" coords="5,5,207,47"/>
+<area shape="rect" id="node3" href="$structengine_1_1files_1_1GameDescription_1_1WindowDescription.html" title="Describes the window. " alt="" coords="5,71,207,112"/>
+<area shape="rect" id="node4" href="$structengine_1_1files_1_1GameDescription_1_1MediaDescription.html" title="Describes the media folder. " alt="" coords="5,136,207,177"/>
+<area shape="rect" id="node5" href="$structengine_1_1files_1_1GameDescription_1_1StatesDescription.html" title="Describes how the states work in the engine. " alt="" coords="5,201,207,243"/>
+</map>

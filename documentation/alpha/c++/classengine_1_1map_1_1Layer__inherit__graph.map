@@ -1,0 +1,5 @@
+<map id="engine::map::Layer" name="engine::map::Layer">
+<area shape="rect" id="node4" href="$classengine_1_1map_1_1ImageLayer.html" title="A layer made of a single image. " alt="" coords="5,155,175,181"/>
+<area shape="rect" id="node5" href="$classengine_1_1map_1_1ObjectLayer.html" title="A layer made of multiple shapes and texts. " alt="" coords="199,155,370,181"/>
+<area shape="rect" id="node6" href="$classengine_1_1map_1_1TileLayer.html" title="A Layer made of tiles. " alt="" coords="394,155,549,181"/>
+</map>

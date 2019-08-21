@@ -1,0 +1,4 @@
+<map id="engine::entities::components::GraphicalSpriteSheetComponent" name="engine::entities::components::GraphicalSpriteSheetComponent">
+<area shape="rect" id="node2" href="$classengine_1_1entities_1_1components_1_1Component.html" title="The base of every component. " alt="" coords="21,95,210,136"/>
+<area shape="rect" id="node3" href="$classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="57,5,174,47"/>
+</map>

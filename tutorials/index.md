@@ -1,6 +1,12 @@
 ---
 layout: page
-title: Tutorials
+title: "Tutorials"
 ---
 
-[How to build](building/building.md)
+<ul>
+    <li>
+        <a href="building.html">
+            How to build and dependencies
+        </a>
+    </li>
+</ul>

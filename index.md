@@ -1,8 +1,6 @@
 ---
-layout: page
-title: SkellEngine
+layout: default
+title: "SkellEngine"
 ---
 
-SkellEngine is a cross-platform C++ library for game development.
-
-See [tutorials](tutorials/index.md)
+SkellEngine is a cross-platform game engine written in C++. 

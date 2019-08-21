@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>SkellEngine Lua API</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>SkellEngine</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/entity.html">entity</a></li>
+  <li><strong>entityManager</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>entityManager</code></h1>
+<p>Entity Manager.</p>
+<p>
+ The entity manager handles the entity of the engine. One can add, remove and get entities.
+ It can be accessed as game.entityManager</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#entityManager:addEntity">entityManager:addEntity (type)</a></td>
+	<td class="summary">Creates a new entity.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entityManager:addEntity">entityManager:addEntity (type, components)</a></td>
+	<td class="summary">Creates a new entity with the given components.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entityManager:getEntity">entityManager:getEntity (type)</a></td>
+	<td class="summary">Gets an entity.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entityManager:getEntity">entityManager:getEntity (type, components)</a></td>
+	<td class="summary">Gets an entity that has at least the given components.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entityManager:removeEntity">entityManager:removeEntity (entity)</a></td>
+	<td class="summary">Removes an entity from the game.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "entityManager:addEntity"></a>
+    <strong>entityManager:addEntity (type)</strong>
+    </dt>
+    <dd>
+    Creates a new entity.
+<p> The new entity does not have any components and is not added to the systemManager. The user must manually do it (after the components have been defined) for the entity to be used.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+         The type of the entity to construct and add
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The new entity
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entityManager:addEntity"></a>
+    <strong>entityManager:addEntity (type, components)</strong>
+    </dt>
+    <dd>
+    Creates a new entity with the given components.
+<p> The new entity is added to the systemManager. So, don't forget any components in the list.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+         The type of the entity to construct and add
+        </li>
+        <li><span class="parameter">components</span>
+         The table describing the components and their fields
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The new entity
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entityManager:getEntity"></a>
+    <strong>entityManager:getEntity (type)</strong>
+    </dt>
+    <dd>
+    Gets an entity.
+<p> The first matching entity is returned
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+         The type of the entity to get
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The first matching entity
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entityManager:getEntity"></a>
+    <strong>entityManager:getEntity (type, components)</strong>
+    </dt>
+    <dd>
+    Gets an entity that has at least the given components.
+<p> The first matching entity is returned.
+ The entity can have more components than the listed ones
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+         The type of the entity to get
+        </li>
+        <li><span class="parameter">components</span>
+         The list of the names of the comonents the entity must have
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The first matching entity
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entityManager:removeEntity"></a>
+    <strong>entityManager:removeEntity (entity)</strong>
+    </dt>
+    <dd>
+    Removes an entity from the game.
+<p> It also removes the entity from the systems. Therefore, the entity is completely removed from the engine.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">entity</span>
+         The entity to remove
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Whether the entity could be removed or not
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-08-20 20:49:06 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

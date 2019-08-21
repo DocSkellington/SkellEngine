@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>SkellEngine Lua API</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>SkellEngine</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>entity</strong></li>
+  <li><a href="../classes/entityManager.html">entityManager</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>entity</code></h1>
+<p>An entity.</p>
+<p>
+ An entity contains (and is described by) components. An entity also has a type (it does not have to be unique).
+<p> The class supports the # operator to get the size.
+ It's also possible to iterate over the components of the entity with pairs(entityVariable). Beware that pairs actually returns a 3-tuple (index, name of the component, the component).</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#entity:addComponent">entity:addComponent (componentType)</a></td>
+	<td class="summary">Constructs and adds a new component.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entity:addComponent">entity:addComponent (componentType, componentTable)</a></td>
+	<td class="summary">Constructs and adds a new component.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entity:hasComponent">entity:hasComponent (componentType)</a></td>
+	<td class="summary">Checks if the entity has the given component.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entity:getComponent">entity:getComponent (componentType)</a></td>
+	<td class="summary">Returns the component of the given type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entity:getComponentsNames">entity:getComponentsNames ()</a></td>
+	<td class="summary">Returns a list of the component types this entity has</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#entity:getType">entity:getType ()</a></td>
+	<td class="summary">Returns the type of the entity</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "entity:addComponent"></a>
+    <strong>entity:addComponent (componentType)</strong>
+    </dt>
+    <dd>
+    Constructs and adds a new component.
+<p> The type of the component must be known and the entity can not already have this component. Otherwise, nil value is returned and the entity is not modified.
+<p> The values of the component get their default values. See the appropriate component documentation for more information.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">componentType</span>
+         The type of the component.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The component if the type is known and not yet in the entity, nil otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entity:addComponent"></a>
+    <strong>entity:addComponent (componentType, componentTable)</strong>
+    </dt>
+    <dd>
+    Constructs and adds a new component.
+<p> The type of the component must be known and the entity can not already have this component. Otherwise, nil value is returned and the entity is not modified.
+<p> The default values of the component can be overriden thanks to componentTable. See the appropriate component documentation for more information.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">componentType</span>
+         The type of the component.
+        </li>
+        <li><span class="parameter">componentTable</span>
+         The table describing the values of the component.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The component if the type is known and not yet in the entity, nil otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entity:hasComponent"></a>
+    <strong>entity:hasComponent (componentType)</strong>
+    </dt>
+    <dd>
+    Checks if the entity has the given component.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">componentType</span>
+         The type of the component.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Whether the entity has a component of the appropriate type.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entity:getComponent"></a>
+    <strong>entity:getComponent (componentType)</strong>
+    </dt>
+    <dd>
+    Returns the component of the given type.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">componentType</span>
+         The type of the component.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The component if the entity has a component of the appropriate type, nil otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entity:getComponentsNames"></a>
+    <strong>entity:getComponentsNames ()</strong>
+    </dt>
+    <dd>
+    Returns a list of the component types this entity has
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A table with the names of the components currently in this entity
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "entity:getType"></a>
+    <strong>entity:getType ()</strong>
+    </dt>
+    <dd>
+    Returns the type of the entity
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The type of the entity
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-08-20 20:49:06 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

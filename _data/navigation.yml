@@ -1,0 +1,8 @@
+- name: Home
+  link: /
+- name: Documentation
+  link: /documentation/
+- name: Tutorials
+  link: /tutorials/
+- name: Source
+  link: https://github.com/DocSkellington/SkellEngine

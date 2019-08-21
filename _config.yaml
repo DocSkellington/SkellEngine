@@ -1,0 +1,6 @@
+theme: jekyll-theme-slate
+title: SkellEngine
+description: Easy-to-use 2D game engine with Lua and C++ API
+
+plugins:
+  - jekyll-sitemap
