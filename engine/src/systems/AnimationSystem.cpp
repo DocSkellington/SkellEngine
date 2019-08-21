@@ -45,9 +45,14 @@ namespace engine::systems {
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
             const auto &map = animation->getAnimationMap();
+            auto &animator = animation->getAnimator();
 
             if (auto animationDescription = event.getString("animation") ; animationDescription.second) {
-                animation->getAnimator().play(map.getAnimation(animationDescription.first));
+                animations::Animator<sf::Sprite>::QueueKey key = 0;
+                if (auto k = event.getInt("queue") ; k.second) {
+                    key = k.first;
+                }
+                animator.play(key, map.getAnimation(animationDescription.first));
             }
             else {
                 throw std::invalid_argument("AnimationSystem: play: invalid event: the event must have a field 'animation'");
@@ -62,7 +67,15 @@ namespace engine::systems {
         auto entity = event.getEntity(0);
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-            animation->getAnimator().stop();
+
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We stop the queue
+                animation->getAnimator().stop(k.first);
+            }
+            else {
+                // No queue defined. We stop the whole animator
+                animation->getAnimator().stop();
+            }
         }
     }
 
@@ -70,7 +83,15 @@ namespace engine::systems {
         auto entity = event.getEntity(0);
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-            animation->getAnimator().pause();
+
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We pause the queue
+                animation->getAnimator().pause(k.first);
+            }
+            else {
+                // No queue defined. We pause the whole animator
+                animation->getAnimator().pause();
+            }
         }
     }
 
@@ -78,7 +99,15 @@ namespace engine::systems {
         auto entity = event.getEntity(0);
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-            animation->getAnimator().resume();
+
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We resume the queue
+                animation->getAnimator().resume(k.first);
+            }
+            else {
+                // No queue defined. We resume the whole animator
+                animation->getAnimator().resume();
+            }
         }
     }
 }

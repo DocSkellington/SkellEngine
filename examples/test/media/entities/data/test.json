@@ -15,6 +15,13 @@
             ],
             "duration": 5,
             "loop": true
+        },
+        "fading": {
+            "type": "fade",
+            "in": 0.4,
+            "out": 0.3,
+            "duration": 10,
+            "loop": true
         }
     }
 }
