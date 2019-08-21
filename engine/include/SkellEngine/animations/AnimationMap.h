@@ -17,8 +17,8 @@ namespace engine::animations {
     template <typename Animated, typename Id>
     class AnimationMap {
     public:
-        using TimedAnimation = TimedAnimation<Animated>;
-        using AnimationSignature = typename TimedAnimation::AnimationFunction;
+        using TimedAnimationAnimated = TimedAnimation<Animated>;
+        using AnimationSignature = typename TimedAnimationAnimated::AnimationFunction;
 
     public:
         AnimationMap() {
@@ -33,16 +33,16 @@ namespace engine::animations {
             m_animations.erase(id);
         }
 
-        TimedAnimation& getAnimation(Id id) {
+        TimedAnimationAnimated& getAnimation(Id id) {
             return m_animations.at(id);
         }
 
-        const TimedAnimation& getAnimation(Id id) const {
+        const TimedAnimationAnimated& getAnimation(Id id) const {
             return m_animations.at(id);
         }
 
     private:
-        using Container = std::map<Id, TimedAnimation>;
+        using Container = std::map<Id, TimedAnimationAnimated>;
 
     private:
         Container m_animations;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <queue>
 #include <list>
+#include <map>
 
 #include "SkellEngine/animations/AnimationMap.h"
 
@@ -9,8 +9,8 @@ namespace engine::animations {
     template <typename Animated>
     class Animator {
     public:
-        using TimedAnimation = TimedAnimation<Animated>;
-        using AnimationSignature = typename TimedAnimation::AnimationFunction;
+        using TimedAnimationAnimated = TimedAnimation<Animated>;
+        using AnimationSignature = typename TimedAnimationAnimated::AnimationFunction;
 
     public:
         Animator() :
@@ -84,7 +84,7 @@ namespace engine::animations {
             }
         }
 
-        void play(const TimedAnimation &animation) {
+        void play(const TimedAnimationAnimated &animation) {
             m_pause = false;
             stop();
 
@@ -95,7 +95,7 @@ namespace engine::animations {
             std::cout << m_playingAnimations.size() << "\n";
         }
 
-        void queue(const TimedAnimation &animation) {
+        void queue(const TimedAnimationAnimated &animation) {
             for (unsigned int i = 0 ; i < animation.getRepeats() ; i++) {
                 m_queuedAnimations.push_back(animation);
             }
@@ -121,7 +121,7 @@ namespace engine::animations {
     private:
         bool m_pause;
         sf::Time m_elapsedTime;
-        std::list<TimedAnimation> m_playingAnimations;
-        std::list<TimedAnimation> m_queuedAnimations;
+        std::list<TimedAnimationAnimated> m_playingAnimations;
+        std::list<TimedAnimationAnimated> m_queuedAnimations;
     };
 }
