@@ -43,8 +43,8 @@ namespace engine::utilities {
             "create", sol::factories(&Button::create, [](const std::string &string) { return Button::create(string); }),
             // "setSize", &Button::setSize,
             "setEnabled", &Button::setEnabled,
-            "setText", &Button::setText,
-            sol::base_classes, sol::bases<tgui::Widget>()
+            "setText", &Button::setText
+            // sol::base_classes, sol::bases<tgui::Widget>()
         );
     }
 

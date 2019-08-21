@@ -1,6 +1,8 @@
 #include "SkellEngine/files/GameDescription.h"
 
 #include <cctype>
+#include <filesystem>
+
 #include <SkellEngine/tmxlite/Log.hpp>
 
 namespace sol {
@@ -15,7 +17,9 @@ namespace engine::files {
             sol::constructors<path(const std::string&), path(const path&)>(),
             sol::meta_function::to_string, &path::native,
             sol::meta_function::division, sol::overload(
-                &std::filesystem::operator/,
+                [](const path &left, const path &right) {
+                    return left / right;
+                },
                 [](const path& left, const std::string& right) {
                     return left / right;
                 }

@@ -7,8 +7,8 @@ function onCreate()
     theme = Theme.new(tostring(path))
     Theme.setDefault(theme)
 
-    button = Button.create(String.new("BUTTON"))
-    button:setPosition(200, 100)
+    button = Button.create("BUTTON")
+    -- button:setPosition(200, 100)
 
     game.gui:add(button)
 end
