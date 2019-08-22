@@ -13,9 +13,10 @@
 
   <body>
 
+    {% include navigation.html %}
+
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
-            {% include navigation.html %}
         <header class="inner">
 
           <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
