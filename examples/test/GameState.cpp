@@ -42,7 +42,7 @@ public:
     virtual void activate() override {
         auto eventHandler = getStateContext().context.eventHandler;
         auto player = getStateContext().entityManager->getEntity("player");
-        eventHandler->sendEvent("PlayAnimation", {{"animation", "coloring"}, {"queue", 0}}, {player});
+        eventHandler->sendEvent("PlayAnimation", {{"animation", "framing"}}, {player});
         eventHandler->sendEvent("PlayAnimation", {{"animation", "fading"}, {"queue", 1}}, {player});
     }
 

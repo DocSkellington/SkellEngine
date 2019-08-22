@@ -84,6 +84,7 @@ set(SOURCES
     src/systems/ExternSystem.cpp
     src/systems/AnimationSystem.cpp
 
+    src/animations/FrameAnimation.cpp
     src/animations/ColorAnimation.cpp
     src/animations/FadeAnimation.cpp
     src/animations/detail/to_from_sfml_color.cpp

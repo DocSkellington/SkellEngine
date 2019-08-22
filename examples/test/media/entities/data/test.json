@@ -22,6 +22,43 @@
             "out": 0.3,
             "duration": 10,
             "loop": true
+        },
+        "framing": {
+            "type": "frame",
+            "duration": 5,
+            "loop": true,
+            "frames": [
+                {
+                    "color": "red",
+                    "scale": {
+                        "scale": [0.7, 1.2],
+                        "relative": true
+                    },
+                    "duration": 0.5
+                },
+                {
+                    "color": "blue",
+                    "rotation": 50.0,
+                    "duration": 0.1
+                },
+                {
+                    "color": "black",
+                    "duration": 0.2
+                },
+                {
+                    "color": "blue",
+                    "origin": [50.0, 100.0],
+                    "rotation": {
+                        "rotation": -50.0,
+                        "relative": true
+                    },
+                    "duration": 0.1
+                },
+                {
+                    "color": "black",
+                    "duration": 0.1
+                }
+            ]
         }
     }
 }

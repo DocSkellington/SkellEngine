@@ -6,38 +6,9 @@
 
 namespace engine::entities::components {
     /*
+     * Only supports three animation types!
      * 
      *  "default": "idle" // If not present, animation stuck on the last frame
-     *  "walk": {
-     *      "type": "frame"
-     *      "duration": time,
-     * 
-     *      "loop": true
-     *      OR
-     *      "repeat": number
-     * 
-     *      "frames": [
-     *          // first frame
-     *          // If just rect, it's easy: use thor::FrameAnimation
-     *          // Otherwise, create a specific animation
-     *          {
-     *              "smooth": true
-     *              "repeated": true
-     * 
-     *              "origin": [x, y]
-     * 
-     *              "color": "Color" OR [255, 255, 255] OR [255, 255, 255, 255]
-     * 
-     *              "scale": [x, y]
-     *              
-     *              "rotation": absolute OR "+relative" OR "-relative"
-     * 
-     *              "duration": time
-     *          },
-     *          // next frame
-     *          ...
-     *      ]
-     *  }
      * 
      *  + allow overwriting
      */
