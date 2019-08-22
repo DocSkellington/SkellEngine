@@ -155,7 +155,7 @@ namespace engine::animations {
                     }
 
                     // For the last animation, we need to compute the exact progress
-                    auto animation = m_playingAnimations.back();
+                    auto& animation = m_playingAnimations.back();
                     animation(animated, m_elapsedTime / animation.getDuration());
                 }
             }
