@@ -109,7 +109,6 @@ namespace engine::systems {
         systems.reserve(va.size());
         for (auto v : va) {
             if (v.is<std::string>()) {
-                std::cout << v.as<std::string>() << "\n";
                 systems.push_back(v.as<std::string>());
             }
             else {
