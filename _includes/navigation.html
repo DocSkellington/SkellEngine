@@ -1,13 +1,13 @@
 <nav>
   <ul>
     <li>
-      <a href="{{site.url}}/" {% if page.url == "/" %}class="current"{% endif %}>Home</a>
+      <a href="{{ "/" | relative_url }}" {% if page.url == "/" %}class="current"{% endif %}>Home</a>
     </li>
     <li>
-      <a href="{{site.url}}/documentation/" {% if page.url == "/documentation/" %}class="current"{% endif %}>Documentation</a>
+      <a href="{{ "/documentation/" | relative_url }}" {% if page.url == "/documentation/" %}class="current"{% endif %}>Documentation</a>
     </li>
     <li>
-      <a href="{{site.url}}/tutorials/" {% if page.url == "/tutorials/" %}class="current"{% endif %}>Tutorials</a>
+      <a href="{{ "/tutorials/" | relative_url }}" {% if page.url == "/tutorials/" %}class="current"{% endif %}>Tutorials</a>
     </li>
     <li style="float: right;">
       <a href="https://github.com/DocSkellington/SkellEngine">Source</a>
