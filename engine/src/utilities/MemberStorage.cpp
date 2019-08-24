@@ -1,7 +1,6 @@
 #include "SkellEngine/utilities/MemberStorage.h"
 
 #include "SkellEngine/utilities/json_lua.h"
-
 #include "SkellEngine/Context.h"
 
 namespace engine::utilities {
@@ -14,18 +13,7 @@ namespace engine::utilities {
 
     }
 
-    /**
-     * \brief Writes the value of given type in a std::any variable
-     * \param variable The variable to modify
-     * \param value The value to write
-     */
-    template <typename T>
-    void convertAndSet(std::any variable, T value) noexcept {
-        T *va = std::any_cast<T*>(variable);
-        *va = value;
-    }
-
-    void MemberStorage::set(const std::string &name, int value) {
+    void MemberStorage::set(const std::string &name, int value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             // We can store a int in: int, long, float, double
@@ -42,7 +30,7 @@ namespace engine::utilities {
                 convertAndSet<double>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with int", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -50,7 +38,7 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, long value) {
+    void MemberStorage::set(const std::string &name, long value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             // We can store a long in: long, double
@@ -61,7 +49,7 @@ namespace engine::utilities {
                 convertAndSet<double>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with long", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -69,7 +57,7 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, float value) {
+    void MemberStorage::set(const std::string &name, float value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             // We can store a float in: float, double
@@ -80,7 +68,7 @@ namespace engine::utilities {
                 convertAndSet<float>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with float", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -88,7 +76,7 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, double value) {
+    void MemberStorage::set(const std::string &name, double value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             if (itr->second.type() == typeid(double*)) {
@@ -103,14 +91,14 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, bool value) {
+    void MemberStorage::set(const std::string &name, bool value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             if (itr->second.type() == typeid(bool*)) {
                 convertAndSet<bool>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with bool", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -118,11 +106,11 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, const char* value) {
+    void MemberStorage::set(const std::string &name, const char* value) noexcept {
         set(name, std::string(value));
     }
 
-    void MemberStorage::set(const std::string &name, const std::string& value) {
+    void MemberStorage::set(const std::string &name, const std::string& value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             if (itr->second.type() == typeid(std::string*)) {
@@ -137,7 +125,7 @@ namespace engine::utilities {
         }
     }
 
-    void MemberStorage::set(const std::string &name, sol::nil_t) {
+    void MemberStorage::set(const std::string &name, sol::nil_t) noexcept {
         // We set the variable at the default value
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
@@ -163,7 +151,7 @@ namespace engine::utilities {
                 convertAndSet<nlohmann::json>(itr->second, nlohmann::json());
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with sol::nil_t", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -172,18 +160,18 @@ namespace engine::utilities {
 
     }
 
-    void MemberStorage::set(const std::string &name, const sol::table& value) {
+    void MemberStorage::set(const std::string &name, const sol::table& value) noexcept {
         set(name, utilities::lua_to_json(value));
     }
 
-    void MemberStorage::set(const std::string &name, const nlohmann::json &value) {
+    void MemberStorage::set(const std::string &name, const nlohmann::json &value) noexcept {
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             if (itr->second.type() == typeid(nlohmann::json*)) {
                 convertAndSet<nlohmann::json>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with std::string", tmx::Logger::Type::Warning);
+                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with nlohmann::json", tmx::Logger::Type::Warning);
             }
         }
         else {
@@ -196,18 +184,6 @@ namespace engine::utilities {
             return itr->second.has_value();
         }
         return false;
-    }
-
-    /**
-     * \brief Gets the value of a std::any variable as the type T
-     * \param variable The variable to read
-     * \return The value cast to T
-     * \throw std::bad_any_cast When the value can not be converted to T
-     */
-    template <typename T>
-    T getValue(std::any variable) {
-        T *va = std::any_cast<T*>(variable);
-        return *va;
     }
 
     std::pair<long, bool> MemberStorage::getInt(const std::string &name) const {
@@ -371,5 +347,13 @@ namespace engine::utilities {
 
     const Context &MemberStorage::getContext() const {
         return m_context;
+    }
+
+    MemberStorage::Container& MemberStorage::getContainer() {
+        return mapMembers;
+    }
+
+    const MemberStorage::Container& MemberStorage::getContainer() const {
+        return mapMembers;
     }
 }

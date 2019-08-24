@@ -9,47 +9,47 @@ namespace engine::utilities {
 
     }
 
-    void ExternMemberStorage::set(const std::string &name, int value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, int value) noexcept {
+        setInternally<int>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, long value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, long value) noexcept {
+        setInternally<long>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, float value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, float value) noexcept {
+        setInternally<float>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, double value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, double value) noexcept {
+        setInternally<double>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, bool value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, bool value) noexcept {
+        setInternally<bool>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, const char* value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, const char* value) noexcept {
+        setInternally<const char*>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, const std::string &value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, const std::string &value) noexcept {
+        setInternally<const std::string&>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, const nlohmann::json &value) {
-        m_jsonTable[name] = value;
+    void ExternMemberStorage::set(const std::string &name, const nlohmann::json &value) noexcept {
+        setInternally<const nlohmann::json&>(name, value);
     }
 
-    void ExternMemberStorage::set(const std::string &name, sol::nil_t) {
+    void ExternMemberStorage::set(const std::string &name, sol::nil_t) noexcept {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
             m_jsonTable.erase(itr);
         }
     }
 
-    void ExternMemberStorage::set(const std::string &name, const sol::table &value) {
-        set(name, utilities::lua_to_json(value));
+    void ExternMemberStorage::set(const std::string &name, const sol::table &value) noexcept {
+        setInternally<const nlohmann::json&>(name, utilities::lua_to_json(value));
     }
 
     bool ExternMemberStorage::has(const std::string &name) const noexcept {
@@ -57,57 +57,23 @@ namespace engine::utilities {
     }
 
     std::pair<long, bool> ExternMemberStorage::getInt(const std::string &name) const {
-        auto itr = m_jsonTable.find(name);
-        if (itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<long>(), true);
-        }
-        else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.");
-            return std::make_pair(0, false);
-        }
+        return getValue(name, 0L);
     }
 
     std::pair<double, bool> ExternMemberStorage::getFloat(const std::string &name) const {
-        auto itr = m_jsonTable.find(name);
-        if (itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<double>(), true);
-        }
-        else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.");
-            return std::make_pair(0.f, false);
-        }
+        return getValue(name, 0.);
     }
 
     std::pair<bool, bool> ExternMemberStorage::getBool(const std::string &name) const {
-        auto itr = m_jsonTable.find(name);
-        if (itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<bool>(), true);
-        }
-        else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.");
-            return std::make_pair(false, false);
-        }
+        return getValue(name, false);
     }
 
     std::pair<std::string, bool> ExternMemberStorage::getString(const std::string &name) const {
-        auto itr = m_jsonTable.find(name);
-        if (itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<std::string>(), true);
-        }
-        else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.");
-            return std::make_pair("", false);
-        }
+        return getValue<std::string>(name, "");
     }
 
     std::pair<nlohmann::json, bool> ExternMemberStorage::getJSON(const std::string &name) const {
-        if (auto itr = m_jsonTable.find(name) ; itr != m_jsonTable.end()) {
-            return std::make_pair(itr->get<nlohmann::json>(), true);
-        }
-        else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.");
-            return std::make_pair("", false);
-        }
+        return getValue<nlohmann::json>(name, nlohmann::json());
     }
 
     std::pair<sol::object, bool> ExternMemberStorage::getObject(const std::string &name) const {

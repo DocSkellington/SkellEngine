@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 
 #include "SkellEngine/tmxlite/Log.hpp"
+#include "SkellEngine/errors/WrongType.h"
 
 namespace engine{
     class Context;
@@ -35,62 +36,62 @@ namespace engine::utilities {
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, int value);
+        virtual void set(const std::string &name, int value) noexcept;
         /**
          * \brief Sets a variable called "name" to a long value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, long value);
+        virtual void set(const std::string &name, long value) noexcept;
         /**
          * \brief Sets a variable called "name" to a flot value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, float value);
+        virtual void set(const std::string &name, float value) noexcept;
         /**
          * \brief Sets a variable called "name" to a double value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, double value);
+        virtual void set(const std::string &name, double value) noexcept;
         /**
          * \brief Sets a variable called "name" to a boolean value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, bool value);
+        virtual void set(const std::string &name, bool value) noexcept;
         /**
          * \brief Sets a variable called "name" to a const array of characters value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, const char* value);
+        virtual void set(const std::string &name, const char* value) noexcept;
         /**
          * \brief Sets a variable called "name" to a string value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, const std::string& value);
+        virtual void set(const std::string &name, const std::string& value) noexcept;
         /**
          * \brief Sets a variable called "name" to a JSON object
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, const nlohmann::json& value);
+        virtual void set(const std::string &name, const nlohmann::json& value) noexcept;
 
         /**
          * \brief Sets a variable called "name" to a Lua nil value
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, sol::nil_t value);
+        virtual void set(const std::string &name, sol::nil_t value) noexcept;
         /**
          * \brief Sets a variable called "name" to a Lua table
          * \param name The name of the variable. If the variable already exists, its value is overwritten
          * \param value The value
          */
-        virtual void set(const std::string &name, const sol::table& value);
+        virtual void set(const std::string &name, const sol::table& value) noexcept;
 
         /**
          * \brief Checks if a variable called "name" exists
@@ -105,7 +106,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false.
          * \param name The name of the variable
          * \return A pair (value, found) with value a long integer and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to integer
+         * \throw engine::errors::WrongType when the value can not be converted to integer
          */
         virtual std::pair<long, bool> getInt(const std::string &name) const;
         /**
@@ -114,7 +115,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false
          * \param name The name of the variable
          * \return A pair (value, found) with value a double and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to double
+         * \throw engine::errors::WrongType when the value can not be converted to double
          */
         virtual std::pair<double, bool> getFloat(const std::string &name) const;
         /**
@@ -123,7 +124,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false
          * \param name The name of the variable
          * \return A pair (value, found) with value a boolean and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to boolean
+         * \throw engine::errors::WrongType when the value can not be converted to boolean
          */
         virtual std::pair<bool, bool> getBool(const std::string &name) const;
         /**
@@ -132,7 +133,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false
          * \param name The name of the variable
          * \return A pair (value, found) with value a string and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to string
+         * \throw engine::errors::WrongType when the value can not be converted to string
          */
         virtual std::pair<std::string, bool> getString(const std::string &name) const;
         /**
@@ -141,7 +142,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false
          * \param name The name of the variable
          * \return A pair (value, found) with value a JSON object and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to a JSON object
+         * \throw engine::errors::WrongType when the value can not be converted to a JSON object
          */
         virtual std::pair<nlohmann::json, bool> getJSON(const std::string &name) const;
 
@@ -151,7 +152,7 @@ namespace engine::utilities {
          * If the variable does not exist, the second value of the pair is false
          * \param name The name of the variable
          * \return A pair (value, found) with value a generic Lua object and found a boolean (true iff the variable exists)
-         * \throw std::bad_any_cast When the value can not be converted to a Lua object
+         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
          */
         virtual std::pair<sol::object, bool> getObject(const std::string &name) const;
 
@@ -162,6 +163,42 @@ namespace engine::utilities {
         static void luaFunctions(sol::state &lua);
 
     protected:
+        /**
+         * \brief The internal container
+         */
+        using Container = std::map<std::string, std::any>;
+
+    protected:
+        /**
+         * \brief Writes the value of given type in a std::any variable
+         * \param variable The variable to modify
+         * \param value The value to write
+         * \tparam T The type of the variable
+         */
+        template <typename T>
+        void convertAndSet(std::any variable, T value) noexcept {
+            T *va = std::any_cast<T*>(variable);
+            *va = value;
+        }
+
+        /**
+         * \brief Gets the value of a std::any variable as the type T
+         * \param variable The variable to read
+         * \return The value cast to T
+         * \throw errors::WrongType when the value can not be converted to T
+         * \tparam T The type of the variable
+         */
+        template <typename T>
+        T getValue(std::any variable) const {
+            try {
+                T *va = std::any_cast<T*>(variable);
+                return *va;
+            }
+            catch (const std::bad_any_cast &e) {
+                throw errors::WrongType(e.what());
+            }
+        }
+
         /**
          * \brief Registers a member variable to be accessed through get and set functions
          * 
@@ -197,8 +234,17 @@ namespace engine::utilities {
          */
         virtual std::string getLogErrorPrefix() const = 0;
 
+        /** @{ */
+        /**
+         * \brief Gets the internal container
+         * \return The internal container
+         */
+        Container& getContainer();
+        const Container& getContainer() const;
+        /** @} */
+
     private:
-        std::map<std::string, std::any> mapMembers;
+        Container mapMembers;
 
         Context &m_context;
     };
