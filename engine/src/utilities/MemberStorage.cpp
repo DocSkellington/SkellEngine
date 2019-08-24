@@ -191,7 +191,7 @@ namespace engine::utilities {
         }
     }
 
-    bool MemberStorage::has(const std::string &name) noexcept {
+    bool MemberStorage::has(const std::string &name) const noexcept {
         if (auto itr = mapMembers.find(name) ; itr != mapMembers.end()) {
             return itr->second.has_value();
         }

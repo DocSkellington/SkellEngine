@@ -61,7 +61,7 @@ namespace engine::entities::components {
         set(name, utilities::lua_to_json(value));
     }
 
-    bool ExternComponent::has(const std::string &name) noexcept {
+    bool ExternComponent::has(const std::string &name) const noexcept {
         return m_jsonTable.find(name) != m_jsonTable.end();
     }
 

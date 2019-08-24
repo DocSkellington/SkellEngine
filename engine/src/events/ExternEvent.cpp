@@ -58,7 +58,7 @@ namespace engine::events {
         set(name, utilities::lua_to_json(value));
     }
 
-    bool ExternEvent::has(const std::string &name) noexcept {
+    bool ExternEvent::has(const std::string &name) const noexcept {
         return m_jsonTable.find(name) != m_jsonTable.end();
     }
 

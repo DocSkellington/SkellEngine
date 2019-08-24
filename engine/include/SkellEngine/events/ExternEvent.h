@@ -36,7 +36,7 @@ namespace engine::events {
         void set(const std::string &name, sol::nil_t value) override;
         void set(const std::string &name, const sol::table& value) override;
 
-        bool has(const std::string &name) noexcept override;
+        bool has(const std::string &name) const noexcept override;
 
         std::pair<long, bool> getInt(const std::string &name) const override;
         std::pair<double, bool> getFloat(const std::string &name) const override;

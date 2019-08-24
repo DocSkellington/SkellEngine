@@ -97,7 +97,7 @@ namespace engine::utilities {
          * \param name The name of the variable
          * \return True iff the variable exists
          */
-        virtual bool has(const std::string &name) noexcept;
+        virtual bool has(const std::string &name) const noexcept;
 
         /**
          * \brief Gets the value of the variable "name" as an integer
