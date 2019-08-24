@@ -94,7 +94,6 @@ namespace engine::files {
     }
 
     void FileManager::registerExternStates() {
-        tmx::Logger::log(m_gameDescription.media.statesFolder);
         if (std::filesystem::exists(m_gameDescription.media.statesFolder) && std::filesystem::is_directory(m_gameDescription.media.statesFolder)) {
             for (auto &file : std::filesystem::directory_iterator(m_gameDescription.media.statesFolder)) {
                 if (file.is_regular_file()) {

@@ -51,7 +51,6 @@ namespace engine::utilities {
     }
 
     void MemberStorage::set(const std::string &name, long value) {
-        tmx::Logger::log("LONG");
         auto itr = mapMembers.find(name);
         if (itr != mapMembers.end()) {
             // We can store a long in: long, double
@@ -190,6 +189,13 @@ namespace engine::utilities {
         else {
             tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
         }
+    }
+
+    bool MemberStorage::has(const std::string &name) noexcept {
+        if (auto itr = mapMembers.find(name) ; itr != mapMembers.end()) {
+            return itr->second.has_value();
+        }
+        return false;
     }
 
     /**
