@@ -61,6 +61,10 @@ namespace engine::entities::components {
         set(name, utilities::lua_to_json(value));
     }
 
+    bool ExternComponent::has(const std::string &name) noexcept {
+        return m_jsonTable.find(name) != m_jsonTable.end();
+    }
+
     std::pair<long, bool> ExternComponent::getInt(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
@@ -157,6 +161,7 @@ namespace engine::entities::components {
                 sol::resolve<void(const std::string&, sol::nil_t)>(&ExternComponent::set),
                 sol::resolve<void(const std::string&, const sol::table&)>(&ExternComponent::set)
             ),
+            "has", &ExternComponent::has,
             sol::base_classes, sol::bases<utilities::MemberStorage, components::Component>()
         );
     }

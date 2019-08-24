@@ -93,6 +93,13 @@ namespace engine::utilities {
         virtual void set(const std::string &name, const sol::table& value);
 
         /**
+         * \brief Checks if a variable called "name" exists
+         * \param name The name of the variable
+         * \return True iff the variable exists
+         */
+        virtual bool has(const std::string &name) noexcept;
+
+        /**
          * \brief Gets the value of the variable "name" as an integer
          * 
          * If the variable does not exist, the second value of the pair is false.

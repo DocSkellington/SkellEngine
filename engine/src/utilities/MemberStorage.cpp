@@ -359,7 +359,9 @@ namespace engine::utilities {
                 sol::resolve<void(const std::string&, const std::string&)>(&MemberStorage::set),
                 sol::resolve<void(const std::string&, sol::nil_t)>(&MemberStorage::set),
                 sol::resolve<void(const std::string&, const sol::table&)>(&MemberStorage::set)
-            )
+            ),
+
+            "has", &MemberStorage::has
         );
     }
 

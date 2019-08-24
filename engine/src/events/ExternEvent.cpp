@@ -58,6 +58,10 @@ namespace engine::events {
         set(name, utilities::lua_to_json(value));
     }
 
+    bool ExternEvent::has(const std::string &name) noexcept {
+        return m_jsonTable.find(name) != m_jsonTable.end();
+    }
+
     std::pair<long, bool> ExternEvent::getInt(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
@@ -155,6 +159,7 @@ namespace engine::events {
                 sol::resolve<void(const std::string&, sol::nil_t)>(&ExternEvent::set),
                 sol::resolve<void(const std::string&, const sol::table&)>(&ExternEvent::set)
             ),
+            "has", &ExternEvent::has,
             sol::base_classes, sol::bases<utilities::MemberStorage, events::Event>()
         );
     }
