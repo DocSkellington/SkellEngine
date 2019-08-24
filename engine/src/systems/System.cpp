@@ -4,7 +4,6 @@
 
 #include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/systems/ExternSystem.h"
-#include "SkellEngine/errors/ConstructorNotValid.h"
 #include "SkellEngine/systems/SystemManager.h"
 
 namespace engine::systems {
