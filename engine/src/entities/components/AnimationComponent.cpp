@@ -6,6 +6,7 @@
 
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :
+        MemberStorage(stateContext.context),
         Component(stateContext),
         m_animator() {
     }

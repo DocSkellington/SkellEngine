@@ -2,6 +2,7 @@
 
 namespace engine::entities::components {
     PositionComponent::PositionComponent(states::StateContext &context) :
+        MemberStorage(context.context),
         Component(context),
         m_x(0),
         m_y(0) {

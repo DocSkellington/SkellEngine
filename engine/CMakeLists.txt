@@ -94,6 +94,7 @@ set(SOURCES
     src/utilities/lua_sfml.cpp
     src/utilities/lua_gui.cpp
     src/utilities/MemberStorage.cpp
+    src/utilities/ExternMemberStorage.cpp
 
     src/tmxlite/FreeFuncs.cpp
     src/tmxlite/ImageLayer.cpp

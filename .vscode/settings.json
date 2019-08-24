@@ -71,7 +71,8 @@
         "map": "cpp",
         "set": "cpp",
         "regex": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "hash_map": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "cmake.configureOnOpen": true,

@@ -27,7 +27,7 @@ namespace engine::entities::components {
     * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent and initialise it.
     * \see REGISTER_COMPONENT for an helper macro to register a component
     */
-    class Component : public utilities::MemberStorage {
+    class Component : public virtual utilities::MemberStorage {
     public:
         /**
          * \brief Every component should be manipulated through this pointer type
@@ -90,7 +90,7 @@ namespace engine::entities::components {
  * \code
  * class ExampleComponent : public Component {
  *  public:
- *      ExampleComponent(Context& context) : Component(context) { ... }
+ *      ExampleComponent(StateContext& context) : MemberStorage(context.context), Component(context) { ... }
  *      ...
  *      REGISTER_COMPONENT(ExampleComponent, "example")
  * };

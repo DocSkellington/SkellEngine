@@ -23,6 +23,7 @@ namespace engine::systems {
         utilities::registerTGUILuaFunctions(m_lua, manager.getContext().gui);
 
         utilities::MemberStorage::luaFunctions(m_lua);
+        utilities::ExternMemberStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);
