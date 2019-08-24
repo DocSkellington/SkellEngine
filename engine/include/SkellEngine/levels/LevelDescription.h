@@ -22,7 +22,13 @@ namespace engine::levels {
              * \param description The JSON description of the entity
              */
             EntityDescription(const std::string &name, const nlohmann::json &description);
+            /**
+             * \brief The name of the entity
+             */
             std::string name;
+            /**
+             * \brief The description of the entity
+             */
             nlohmann::json description;
         };
         /**

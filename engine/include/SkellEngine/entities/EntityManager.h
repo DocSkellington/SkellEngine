@@ -41,7 +41,6 @@ namespace engine::entities {
          * \brief Adds an entity of the given name and constructs it with the given JSON table
          * 
          * It also adds the entity in the system manager (and the systems)
-         * \param type The type of the entity
          * \param name The name of the entity
          * \param entityDescription The JSON table describing the entity
          * \return A shared pointer to the entity
@@ -50,7 +49,7 @@ namespace engine::entities {
 
         /**
          * \brief Gets the first entity of the given name
-         * \param type The name of the entity
+         * \param name The name of the entity
          * \return A shared pointer to the first entity that has the given name
          */
         Entity::Ptr getEntity(const std::string &name);
