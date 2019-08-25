@@ -3,8 +3,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <SkellEngine/tmxlite/Log.hpp>
-
 /**
  * \brief The errors specific to this engine
  */

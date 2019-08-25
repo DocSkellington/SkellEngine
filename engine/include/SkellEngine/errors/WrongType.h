@@ -3,8 +3,6 @@
 #include <stdexcept>
 #include <string>
 
-#include "SkellEngine/tmxlite/Log.hpp"
-
 namespace engine::errors {
     /**
      * \brief The error to throw if a variable in a MemberStorage instance can not be converted to the requested type
