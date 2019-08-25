@@ -6,14 +6,43 @@
 #include "SkellEngine/animations/AnimationMap.h"
 
 namespace engine::animations {
+    /**
+     * \brief A structure that eases to use of animations
+     * 
+     * Each animation must receive a float between 0 and 1 indicating the progress of the animation.
+     * The animator computes the progress of each animation.
+     * 
+     * The animator can also handle multiple queues of animations.
+     * If animations are in different queues, they are played in parallel.
+     * The queues are processed in the increasing order of their key.
+     * The default queue is numbered 0.
+     * Therefore, if you want to execute an animation before the default queue, use a negative key.
+     * If you want to execute an animation after the default queue, use a positive key.
+     * Be careful that some animations (such as FrameAnimation) overrides most values.
+     * 
+     * \tparam Animated The type of the object to animate
+     * \see AnimationMap for an easy way to store animations
+     */
     template <typename Animated>
     class Animator {
     public:
+        /**
+         * \brief The type of the TimedAnimation used internally
+         */
         using TimedAnimationAnimated = TimedAnimation<Animated>;
+        /**
+         * \brief The signature of each animation
+         */
         using AnimationSignature = typename TimedAnimationAnimated::AnimationFunction;
+        /**
+         * \brief The type of the queues' key
+         */
         using QueueKey = long;
 
     public:
+        /**
+         * \brief Constructor
+         */
         Animator() :
             m_pause(false),
             m_useDefault(false),
@@ -21,6 +50,14 @@ namespace engine::animations {
 
         }
 
+        /**
+         * \brief Updates the animator
+         * 
+         * Each queue is updated independtly from the others
+         * 
+         * If a default animation is set and if the default queue is empty, the default animation is started
+         * \param deltaTime The time (in microseconds) since the last call
+         */
         void update(sf::Uint64 deltaTime) {
             if (m_useDefault && m_defaultAnimation != nullptr) {
                 if (m_queues.size() == 0 || m_queues.begin()->first != 0 || m_queues.begin()->second.empty()) {
@@ -35,6 +72,12 @@ namespace engine::animations {
             }
         }
 
+        /**
+         * \brief Animated an object
+         * 
+         * Applies the playing animations in each queue on the object to animate
+         * \param animated The object to animate
+         */
         void animate(Animated &animated) {
             if (!m_pause) {
                 for (auto &[key, queue] : m_queues) {
@@ -43,18 +86,36 @@ namespace engine::animations {
             }
         }
 
+        /**
+         * \brief Enables the use of a default animation
+         */
         void enableDefault() {
             m_useDefault = true;
         }
 
+        /**
+         * \brief Disables the use of a default animation
+         */
         void disableDefault() {
             m_useDefault = false;
         }
 
+        /**
+         * \brief Sets the default animation
+         * 
+         * The animation must exist as long as it's used.
+         * If the animation is destroyed and the default animation is used, the program will crash.
+         * \param animation The animation
+         */
         void setDefault(const TimedAnimationAnimated &animation) {
             m_defaultAnimation = &animation;
         }
 
+        /**
+         * \brief Clears the queue with the given key, resumes the animator and adds the animation in the queue
+         * \param key The key of the queue
+         * \param animation The animaiton to play
+         */
         void play(const QueueKey &key, const TimedAnimationAnimated &animation) {
             m_pause = false;
 
@@ -66,6 +127,11 @@ namespace engine::animations {
             itr->second.play(animation);
         }
 
+        /**
+         * \brief Adds the animation in the queue of the given key without clearing the queue and whithout resuming the animator
+         * \param key The key of the queue
+         * \param animation The animation
+         */
         void queue(const QueueKey &key, const TimedAnimationAnimated &animation) {
             auto itr = m_queues.find(key);
             if (itr == m_queues.end()) {
@@ -75,16 +141,26 @@ namespace engine::animations {
             itr->second.queue(animation);
         }
 
+        /**
+         * \brief Clears every queue
+         */
         void stop() {
             m_queues.clear();
         }
 
+        /**
+         * \brief Clears the queue of the given key
+         * \param key The key of the queue to clear
+         */
         void stop(const QueueKey &key) {
             if (auto itr = m_queues.find(key) ; itr != m_queues.end()) {
                 itr->second.stop();
             }
         }
 
+        /**
+         * \brief Pauses the animator and every queue
+         */
         void pause() {
             m_pause = true;
             for (auto &[key, queue] : m_queues) {
@@ -92,12 +168,19 @@ namespace engine::animations {
             }
         }
 
+        /**
+         * \brief Pauses the queue with the given key. It doesn't pause the animator itself
+         * \param key The key of the queue to pause
+         */
         void pause(const QueueKey &key) {
             if (auto itr = m_queues.find(key) ; itr != m_queues.end()) {
                 itr->second.pause();
             }
         }
 
+        /**
+         * \brief Resumes the animator and every queue
+         */
         void resume() {
             m_pause = false;
             for (auto [key, queue] : m_queues) {
@@ -105,6 +188,10 @@ namespace engine::animations {
             }
         }
 
+        /**
+         * \brief Resumes the animator and the queue with the given key
+         * \param key The key of the queue to resume
+         */
         void resume(const QueueKey &key) {
             m_pause = false;
             if (auto itr = m_queues.find(key) ; itr != m_queues.end()) {
@@ -113,6 +200,11 @@ namespace engine::animations {
         }
 
     private:
+        /**
+         * \brief A queue
+         * 
+         * It stores playing animations, queued animations, the elapsed time and whether the queue is paused
+         */
         class Queue {
         public:
             /**

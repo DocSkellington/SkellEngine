@@ -13,6 +13,14 @@ namespace engine::animations {
             throw std::invalid_argument("FrameAnimation: invalid frame animation description: the description must be a JSON array containing each frame");
         }
     }
+
+    FrameAnimation::FrameAnimation(const FrameAnimation &frameAnimation) {
+        for (auto frame : frameAnimation.m_frames) {
+            frame.scale.applied = false;
+            frame.rotation.applied = false;
+            m_frames.push_back(frame);
+        }
+    }
     
     void FrameAnimation::addFrame(const nlohmann::json &description) {
         if (description.is_object()) {

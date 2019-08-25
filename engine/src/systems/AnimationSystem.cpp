@@ -9,9 +9,11 @@ namespace engine::systems {
         System(manager) {
         registerCallback("PlayAnimation", std::bind(&AnimationSystem::play, this, std::placeholders::_1), manager.getContext().stateName);
         registerCallback("StopAnimation", std::bind(&AnimationSystem::stop, this, std::placeholders::_1), manager.getContext().stateName);
-        registerCallback("PauseAnimation", [this](const events::Event &event) { this->pause(event); }, manager.getContext().stateName);
-        registerCallback("ResumeAnimation", [this](const events::Event &event) { this->resume(event); }, manager.getContext().stateName);
+        registerCallback("PauseAnimation", std::bind(&AnimationSystem::pause, this, std::placeholders::_1), manager.getContext().stateName);
+        registerCallback("ResumeAnimation", std::bind(&AnimationSystem::resume, this, std::placeholders::_1), manager.getContext().stateName);
         registerCallback("EnableDefaultAnimation", std::bind(&AnimationSystem::enableDefault, this, std::placeholders::_1), manager.getContext().stateName);
+        registerCallback("DisableDefaultAnimation", std::bind(&AnimationSystem::disableDefault, this, std::placeholders::_1), manager.getContext().stateName);
+        registerCallback("SetDefaultAnimation", std::bind(&AnimationSystem::setDefault, this, std::placeholders::_1), manager.getContext().stateName);
     }
     
     bool AnimationSystem::update(sf::Int64 deltaTime, sf::View&) {
@@ -55,6 +57,34 @@ namespace engine::systems {
         try {
             auto animationDescription = event.getString("animation");
             animator.play(key, map.getAnimation(animationDescription.first));
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: play: the 'animation' field must be a string.");
+        }
+    }
+
+    void AnimationSystem::queue(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+        const auto &map = animation->getAnimationMap();
+        auto &animator = animation->getAnimator();
+
+        if (!event.has("animation")) {
+            throw errors::InvalidEvent("AnimationSystem: play: invalid event: the event must have a field 'animation'");
+        }
+        
+        animations::Animator<sf::Sprite>::QueueKey key = 0;
+        try {
+            if (auto k = event.getInt("queue") ; k.second) {
+                key = k.first;
+            }
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: play: the 'queue' animation must be an integer.");
+        }
+
+        try {
+            auto animationDescription = event.getString("animation");
+            animator.queue(key, map.getAnimation(animationDescription.first));
         }
         catch (const errors::WrongType &e) {
             throw errors::InvalidEvent("AnimationSystem: play: the 'animation' field must be a string.");
@@ -148,7 +178,7 @@ namespace engine::systems {
 
     std::shared_ptr<entities::components::AnimationComponent> AnimationSystem::getAnimationComponent(const events::Event &event) const {
         if (event.getNumberOfEntities() != 1) {
-            throw std::invalid_argument("AnimationSystem: invalid number of entities joined in the event of type " + event.getType() + ": there should be exactly 1 entity");
+            throw errors::InvalidEvent("AnimationSystem: invalid number of entities joined in the event of type " + event.getType() + ": there should be exactly 1 entity");
         }
         auto entity = event.getEntity(0);
 
