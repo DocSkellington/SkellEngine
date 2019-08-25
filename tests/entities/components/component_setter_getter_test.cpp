@@ -10,6 +10,7 @@ using namespace components;
 class TestComponent : public Component {
 public:
     TestComponent(states::StateContext &context) :
+        MemberStorage(context.context),
         Component(context),
         m_int(0),
         m_long(0),
