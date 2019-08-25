@@ -47,15 +47,26 @@ namespace engine::systems {
             const auto &map = animation->getAnimationMap();
             auto &animator = animation->getAnimator();
 
-            if (auto animationDescription = event.getString("animation") ; animationDescription.second) {
-                animations::Animator<sf::Sprite>::QueueKey key = 0;
+            if (!event.has("animation")) {
+                throw std::invalid_argument("AnimationSystem: play: invalid event: the event must have a field 'animation'");
+            }
+            
+            animations::Animator<sf::Sprite>::QueueKey key = 0;
+            try {
                 if (auto k = event.getInt("queue") ; k.second) {
                     key = k.first;
                 }
+            }
+            catch (const errors::WrongType &e) {
+                throw std::invalid_argument("AnimationSystem: play: the 'queue' animation must be an integer.");
+            }
+
+            try {
+                auto animationDescription = event.getString("animation");
                 animator.play(key, map.getAnimation(animationDescription.first));
             }
-            else {
-                throw std::invalid_argument("AnimationSystem: play: invalid event: the event must have a field 'animation'");
+            catch (const errors::WrongType &e) {
+                throw std::invalid_argument("AnimationSystem: play: the 'animation' field must be a string.");
             }
         }
         else {
@@ -68,13 +79,18 @@ namespace engine::systems {
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
 
-            if (auto k = event.getInt("queue") ; k.second) {
-                // Queue defined. We stop the queue
-                animation->getAnimator().stop(k.first);
+            try {
+                if (auto k = event.getInt("queue") ; k.second) {
+                    // Queue defined. We stop the queue
+                    animation->getAnimator().stop(k.first);
+                }
+                else {
+                    // No queue defined. We stop the whole animator
+                    animation->getAnimator().stop();
+                }
             }
-            else {
-                // No queue defined. We stop the whole animator
-                animation->getAnimator().stop();
+            catch (const errors::WrongType &e) {
+                throw std::invalid_argument("AnimationSystem: stop: the 'queue' field must be an integer");
             }
         }
     }
@@ -84,13 +100,18 @@ namespace engine::systems {
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
 
-            if (auto k = event.getInt("queue") ; k.second) {
-                // Queue defined. We pause the queue
-                animation->getAnimator().pause(k.first);
+            try {
+                if (auto k = event.getInt("queue") ; k.second) {
+                    // Queue defined. We pause the queue
+                    animation->getAnimator().pause(k.first);
+                }
+                else {
+                    // No queue defined. We pause the whole animator
+                    animation->getAnimator().pause();
+                }
             }
-            else {
-                // No queue defined. We pause the whole animator
-                animation->getAnimator().pause();
+            catch (const errors::WrongType &e) {
+                throw std::invalid_argument("AnimationSystem: pause: the 'queue' field must be an integer");
             }
         }
     }
@@ -100,13 +121,18 @@ namespace engine::systems {
         if (auto anim = entity->getComponent("animation") ; anim) {
             auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
 
-            if (auto k = event.getInt("queue") ; k.second) {
-                // Queue defined. We resume the queue
-                animation->getAnimator().resume(k.first);
+            try {
+                if (auto k = event.getInt("queue") ; k.second) {
+                    // Queue defined. We resume the queue
+                    animation->getAnimator().resume(k.first);
+                }
+                else {
+                    // No queue defined. We resume the whole animator
+                    animation->getAnimator().resume();
+                }
             }
-            else {
-                // No queue defined. We resume the whole animator
-                animation->getAnimator().resume();
+            catch (const errors::WrongType &e) {
+                throw std::invalid_argument("AnimationSystem: resume: the 'queue' field must be an integer");
             }
         }
     }
