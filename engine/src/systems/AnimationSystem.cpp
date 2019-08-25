@@ -1,16 +1,17 @@
 #include "SkellEngine/systems/AnimationSystem.h"
 
 #include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/entities/components/AnimationComponent.h"
 #include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
+#include "SkellEngine/errors/InvalidEvent.h"
 
 namespace engine::systems {
     AnimationSystem::AnimationSystem(SystemManager &manager) :
         System(manager) {
-        registerCallback("PlayAnimation", [this](const events::Event &event) { this->play(event); }, manager.getContext().stateName);
-        registerCallback("StopAnimation", [this](const events::Event &event) { this->stop(event); }, manager.getContext().stateName);
+        registerCallback("PlayAnimation", std::bind(&AnimationSystem::play, this, std::placeholders::_1), manager.getContext().stateName);
+        registerCallback("StopAnimation", std::bind(&AnimationSystem::stop, this, std::placeholders::_1), manager.getContext().stateName);
         registerCallback("PauseAnimation", [this](const events::Event &event) { this->pause(event); }, manager.getContext().stateName);
         registerCallback("ResumeAnimation", [this](const events::Event &event) { this->resume(event); }, manager.getContext().stateName);
+        registerCallback("EnableDefaultAnimation", std::bind(&AnimationSystem::enableDefault, this, std::placeholders::_1), manager.getContext().stateName);
     }
     
     bool AnimationSystem::update(sf::Int64 deltaTime, sf::View&) {
@@ -33,107 +34,133 @@ namespace engine::systems {
     }
 
     void AnimationSystem::play(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+        const auto &map = animation->getAnimationMap();
+        auto &animator = animation->getAnimator();
+
+        if (!event.has("animation")) {
+            throw errors::InvalidEvent("AnimationSystem: play: invalid event: the event must have a field 'animation'");
+        }
+        
+        animations::Animator<sf::Sprite>::QueueKey key = 0;
+        try {
+            if (auto k = event.getInt("queue") ; k.second) {
+                key = k.first;
+            }
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: play: the 'queue' animation must be an integer.");
+        }
+
+        try {
+            auto animationDescription = event.getString("animation");
+            animator.play(key, map.getAnimation(animationDescription.first));
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: play: the 'animation' field must be a string.");
+        }
+    }
+
+    void AnimationSystem::stop(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+
+        try {
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We stop the queue
+                animation->getAnimator().stop(k.first);
+            }
+            else {
+                // No queue defined. We stop the whole animator
+                animation->getAnimator().stop();
+            }
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: stop: the 'queue' field must be an integer");
+        }
+    }
+
+    void AnimationSystem::pause(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+
+        try {
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We pause the queue
+                animation->getAnimator().pause(k.first);
+            }
+            else {
+                // No queue defined. We pause the whole animator
+                animation->getAnimator().pause();
+            }
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: pause: the 'queue' field must be an integer");
+        }
+    }
+
+    void AnimationSystem::resume(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+
+        try {
+            if (auto k = event.getInt("queue") ; k.second) {
+                // Queue defined. We resume the queue
+                animation->getAnimator().resume(k.first);
+            }
+            else {
+                // No queue defined. We resume the whole animator
+                animation->getAnimator().resume();
+            }
+        }
+        catch (const errors::WrongType &e) {
+            throw errors::InvalidEvent("AnimationSystem: resume: the 'queue' field must be an integer");
+        }
+    }
+
+    void AnimationSystem::enableDefault(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+        animation->getAnimator().enableDefault();
+    }
+
+    void AnimationSystem::disableDefault(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+        animation->getAnimator().disableDefault();
+    }
+
+    void AnimationSystem::setDefault(const events::Event &event) {
+        auto animation = getAnimationComponent(event);
+            if (event.has("animation")) {
+                try {
+                    const std::string &defaultAnimation = event.getString("animation").first;
+                    if (animation->getAnimationMap().hasAnimation(defaultAnimation)) {
+                        animation->getAnimator().setDefault(animation->getAnimationMap().getAnimation(defaultAnimation));
+                    }
+                    else {
+                        throw errors::InvalidEvent("AnimationSystem: setDefaultAnimation: the animation " + defaultAnimation + " is unknown for the received entity");
+                    }
+                }
+                catch (const errors::WrongType &e) {
+                    throw errors::InvalidEvent("AnimationSystem: setDefaultAnimation: the 'animation' field must be a string");
+                }
+            }
+            else {
+                throw errors::InvalidEvent("AnimationSystem: setDefaultAnimation: the event must have a field 'animation'");
+            }
+    }
+
+    std::shared_ptr<entities::components::AnimationComponent> AnimationSystem::getAnimationComponent(const events::Event &event) const {
         if (event.getNumberOfEntities() != 1) {
             throw std::invalid_argument("AnimationSystem: invalid number of entities joined in the event of type " + event.getType() + ": there should be exactly 1 entity");
         }
         auto entity = event.getEntity(0);
 
         if (!entity) {
-            throw std::invalid_argument("AnimationSystem: play: the given entity is a null pointer");
+            throw errors::InvalidEvent("AnimationSystem: invalid event: the given entity is a null pointer");
         }
 
         if (auto anim = entity->getComponent("animation") ; anim) {
-            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-            const auto &map = animation->getAnimationMap();
-            auto &animator = animation->getAnimator();
-
-            if (!event.has("animation")) {
-                throw std::invalid_argument("AnimationSystem: play: invalid event: the event must have a field 'animation'");
-            }
-            
-            animations::Animator<sf::Sprite>::QueueKey key = 0;
-            try {
-                if (auto k = event.getInt("queue") ; k.second) {
-                    key = k.first;
-                }
-            }
-            catch (const errors::WrongType &e) {
-                throw std::invalid_argument("AnimationSystem: play: the 'queue' animation must be an integer.");
-            }
-
-            try {
-                auto animationDescription = event.getString("animation");
-                animator.play(key, map.getAnimation(animationDescription.first));
-            }
-            catch (const errors::WrongType &e) {
-                throw std::invalid_argument("AnimationSystem: play: the 'animation' field must be a string.");
-            }
+            return std::static_pointer_cast<entities::components::AnimationComponent>(anim);
         }
         else {
-            throw std::invalid_argument("AnimationSystem: play: invalid event: the joined event must have an animation component");
-        }
-    }
-
-    void AnimationSystem::stop(const events::Event &event) {
-        auto entity = event.getEntity(0);
-        if (auto anim = entity->getComponent("animation") ; anim) {
-            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-
-            try {
-                if (auto k = event.getInt("queue") ; k.second) {
-                    // Queue defined. We stop the queue
-                    animation->getAnimator().stop(k.first);
-                }
-                else {
-                    // No queue defined. We stop the whole animator
-                    animation->getAnimator().stop();
-                }
-            }
-            catch (const errors::WrongType &e) {
-                throw std::invalid_argument("AnimationSystem: stop: the 'queue' field must be an integer");
-            }
-        }
-    }
-
-    void AnimationSystem::pause(const events::Event &event) {
-        auto entity = event.getEntity(0);
-        if (auto anim = entity->getComponent("animation") ; anim) {
-            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-
-            try {
-                if (auto k = event.getInt("queue") ; k.second) {
-                    // Queue defined. We pause the queue
-                    animation->getAnimator().pause(k.first);
-                }
-                else {
-                    // No queue defined. We pause the whole animator
-                    animation->getAnimator().pause();
-                }
-            }
-            catch (const errors::WrongType &e) {
-                throw std::invalid_argument("AnimationSystem: pause: the 'queue' field must be an integer");
-            }
-        }
-    }
-
-    void AnimationSystem::resume(const events::Event &event) {
-        auto entity = event.getEntity(0);
-        if (auto anim = entity->getComponent("animation") ; anim) {
-            auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-
-            try {
-                if (auto k = event.getInt("queue") ; k.second) {
-                    // Queue defined. We resume the queue
-                    animation->getAnimator().resume(k.first);
-                }
-                else {
-                    // No queue defined. We resume the whole animator
-                    animation->getAnimator().resume();
-                }
-            }
-            catch (const errors::WrongType &e) {
-                throw std::invalid_argument("AnimationSystem: resume: the 'queue' field must be an integer");
-            }
+            throw errors::InvalidEvent("AnimationSystem: invalid event: the joined event must have an animation component");
         }
     }
 }

@@ -21,6 +21,7 @@ public:
 
     void onChangeState(const engine::events::Event &) {
         getStateContext().context.stateManager->switchTo("mainmenu");
+        getStateContext().context.stateManager->remove("game");
     }
 
     virtual void onCreate() override {
