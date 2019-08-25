@@ -7,10 +7,6 @@
 namespace engine::entities::components {
     /*
      * Only supports three animation types!
-     * 
-     *  "default": "idle" // If not present, animation stuck on the last frame
-     * 
-     *  + allow overwriting
      */
     class AnimationComponent : public Component {
     public:

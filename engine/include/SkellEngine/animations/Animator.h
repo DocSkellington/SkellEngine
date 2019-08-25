@@ -15,11 +15,19 @@ namespace engine::animations {
 
     public:
         Animator() :
-            m_pause(false) {
+            m_pause(false),
+            m_useDefault(false),
+            m_defaultAnimation(nullptr) {
 
         }
 
         void update(sf::Uint64 deltaTime) {
+            if (m_useDefault && m_defaultAnimation != nullptr) {
+                if (m_queues.size() == 0 || m_queues.begin()->first != 0 || m_queues.begin()->second.empty()) {
+                    queue(0, *m_defaultAnimation);
+                }
+            }
+
             if (!m_pause) {
                 for (auto &[key, queue] : m_queues) {
                     queue.update(deltaTime);
@@ -33,6 +41,18 @@ namespace engine::animations {
                     queue.animate(animated);
                 }
             }
+        }
+
+        void enableDefault() {
+            m_useDefault = true;
+        }
+
+        void disableDefault() {
+            m_useDefault = false;
+        }
+
+        void setDefault(const TimedAnimationAnimated &animation) {
+            m_defaultAnimation = &animation;
         }
 
         void play(const QueueKey &key, const TimedAnimationAnimated &animation) {
@@ -95,6 +115,14 @@ namespace engine::animations {
     private:
         class Queue {
         public:
+            /**
+             * \brief A queue is empty if there aren't any playing animations and if there aren't any queued animations
+             * \return True iff the queue is empty
+             */
+            inline bool empty() {
+                return m_queuedAnimations.size() == 0 && m_playingAnimations.size() == 0;
+            }
+
             inline void update(sf::Uint64 deltaTime) {
                 if (!m_pause) {
                     // How much time we have left to execute
@@ -168,7 +196,7 @@ namespace engine::animations {
             }
 
             inline void queue(const TimedAnimationAnimated &animation) {
-                for (unsigned int i = 1 ; i < animation.getRepeats() ; i++) {
+                for (unsigned int i = 0 ; i < animation.getRepeats() ; i++) {
                     m_queuedAnimations.push_back(animation);
                 }
             }
@@ -197,5 +225,7 @@ namespace engine::animations {
     private:
         bool m_pause;
         std::map<QueueKey, Queue> m_queues;
+        bool m_useDefault;
+        TimedAnimationAnimated const *m_defaultAnimation;
     };
 }

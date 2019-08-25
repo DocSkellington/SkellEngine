@@ -5,6 +5,7 @@
         "filePath" : "test.png"
     },
     "animation": {
+        "default": "framing",
         "coloring": {
             "type": "color",
             "colors" : [
@@ -25,8 +26,8 @@
         },
         "framing": {
             "type": "frame",
-            "duration": 5,
-            "loop": true,
+            "duration": 2,
+            "loop": false,
             "frames": [
                 {
                     "color": "red",

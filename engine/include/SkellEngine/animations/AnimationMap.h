@@ -33,6 +33,10 @@ namespace engine::animations {
             m_animations.erase(id);
         }
 
+        bool hasAnimation(Id id) {
+            return m_animations.find(id) != m_animations.end();
+        }
+
         TimedAnimationAnimated& getAnimation(Id id) {
             return m_animations.at(id);
         }
