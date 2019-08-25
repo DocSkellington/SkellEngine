@@ -18,11 +18,11 @@ namespace engine::errors {
          * \brief Constructor
          * \param message The message to send with the error
          */
-        explicit SystemNotFound(const std::string &message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        explicit SystemNotFound(const std::string &message) : runtime_error(message) { }
         /**
          * \brief Constructor
          * \param message The message to send with the error
          */
-        explicit SystemNotFound(const char *message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        explicit SystemNotFound(const char *message) : runtime_error(message) { }
     };
 }

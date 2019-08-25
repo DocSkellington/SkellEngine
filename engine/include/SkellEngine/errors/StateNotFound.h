@@ -15,11 +15,11 @@ namespace engine::errors {
          * \brief Constructor
          * \param message The message to send with the error
          */
-        explicit StateNotFound(const std::string &message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        explicit StateNotFound(const std::string &message) : runtime_error(message) { }
         /**
          * \brief Constructor
          * \param message The message to send with the error
          */
-        explicit StateNotFound(const char *message) : runtime_error(message) { tmx::Logger::log(message, tmx::Logger::Type::Error); }
+        explicit StateNotFound(const char *message) : runtime_error(message) { }
     };
 }
