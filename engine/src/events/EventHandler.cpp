@@ -44,7 +44,7 @@ namespace engine::events {
 
         bool sent = itr->second.sendEvent(event);
         if (!sent) {
-            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type (please check that the state given to registerCallback is correct)");
+            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type (please check that the state given to registerCallback is correct) or an error occured during the execution of every listener (please see above messages)");
         }
         return sent;
     }
