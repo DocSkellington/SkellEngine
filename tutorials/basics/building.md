@@ -1,9 +1,10 @@
 ---
-layout: page
+layout: tutorial
 title: How to build and dependencies
+shortitle: "Building"
 ---
 
-First, we need to download the necessary dependencies. After that, we can compile and use SkellEngine.
+First, you need to download the necessary dependencies. After that, you can compile and use SkellEngine in your own projects.
 
 # Dependencies
 ## What to install
@@ -53,4 +54,4 @@ This adds a library called `SkellEngine`. You can use it as follow:
     add_executable(YourExecutable ${Your_Files})
     target_link_libraries(YourExecutable PUBLIC SkellEngine)
 
-Full examples can be seen in the other tutorials.
+You might have to tell to CMake where to find the files. If that case happens, CMake will tell you what to do.
