@@ -4,10 +4,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <SkellEngine/tmxlite/Map.hpp>
-#include <SkellEngine/tmxlite/TileLayer.hpp>
-#include <SkellEngine/tmxlite/ImageLayer.hpp>
-#include <SkellEngine/tmxlite/ObjectGroup.hpp>
+#include <tmxlite/Map.hpp>
+#include <tmxlite/TileLayer.hpp>
+#include <tmxlite/ImageLayer.hpp>
+#include <tmxlite/ObjectGroup.hpp>
 
 namespace engine::map {
     class Map;

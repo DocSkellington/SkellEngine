@@ -6,15 +6,21 @@ add_subdirectory(dependencies/lua)
 
 # Sol2
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/CMakeLists.txt)
-    message(FATAL_ERROR "An external dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+    message(FATAL_ERROR "An internal dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
-# Local dependencies
+# Tmxlite
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/CMakeLists.txt)
+    add_subdirectory(dependencies/tmxlite/tmxlite)
+else()
+    message(FATAL_ERROR "An internal dependency () could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+endif()
+
 # Thor
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/CMakeLists.txt)
     add_subdirectory(dependencies/Thor)
 else()
-    message(FATAL_ERROR "An external dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+    message(FATAL_ERROR "An internal dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 # TGUI
@@ -22,12 +28,12 @@ if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
     set(TGUI_PKGCONFIG_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig CACHE FILEPATH "" FORCE)
     add_subdirectory(dependencies/TGUI)
 else()
-    message(FATAL_ERROR "An external dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+    message(FATAL_ERROR "An internal dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 # JSON for modern C++
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
-    message(FATAL_ERROR "An external dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
+    message(FATAL_ERROR "An internal dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 configure_file(
@@ -96,18 +102,6 @@ set(SOURCES
     src/utilities/lua_gui.cpp
     src/utilities/MemberStorage.cpp
     src/utilities/ExternMemberStorage.cpp
-
-    src/tmxlite/FreeFuncs.cpp
-    src/tmxlite/ImageLayer.cpp
-    src/tmxlite/Map.cpp
-    src/tmxlite/miniz.c
-    src/tmxlite/Object.cpp
-    src/tmxlite/ObjectGroup.cpp
-    src/tmxlite/Property.cpp
-    src/tmxlite/TileLayer.cpp
-    src/tmxlite/Tileset.cpp
-
-    src/tmxlite/detail/pugixml.cpp
 )
 
 # Library
@@ -119,6 +113,7 @@ target_include_directories(${LIBRARY_NAME}
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/include>
@@ -130,6 +125,7 @@ target_include_directories(${LIBRARY_NAME}
 target_link_libraries(${LIBRARY_NAME}
     PUBLIC
         lua
+        tmxlite
         thor
         tgui
         GL
@@ -156,13 +152,29 @@ target_compile_options(${LIBRARY_NAME}
         >
 )
 
-# std::filesystem for GCC
+# std::filesystem for GCC and Clang
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     target_link_libraries(${LIBRARY_NAME}
         PRIVATE
             stdc++fs
     )
 endif()
+
+# tmxlite
+# install(TARGETS tmxlite
+#     EXPORT tmxliteConfig
+#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+# )
+
+# install(EXPORT tmxliteConfig
+#     FILE tmxliteConfig.cmake
+#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tmxlite
+# )
+# export(EXPORT tmxliteConfig
+#     FILE tmxliteConfig.cmake
+# )
 
 # Thor
 install(TARGETS thor
@@ -192,44 +204,44 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include/n
 )
 
 # SkellEngine
-install(TARGETS ${LIBRARY_NAME}
-    EXPORT ${LIBRARY_NAME}-targets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+# install(TARGETS ${LIBRARY_NAME}
+#     EXPORT ${LIBRARY_NAME}-targets
+#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+# )
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+# install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
+#     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+# )
 
-install(EXPORT ${LIBRARY_NAME}-targets
-    FILE ${LIBRARY_NAME}-targets.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-)
+# install(EXPORT ${LIBRARY_NAME}-targets
+#     FILE ${LIBRARY_NAME}-targets.cmake
+#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+# )
 
-# Config file
-include(CMakePackageConfigHelpers)
+# # Config file
+# include(CMakePackageConfigHelpers)
 
-configure_package_config_file(
-    ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
-    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-)
+# configure_package_config_file(
+#     ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
+#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+#     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+# )
 
-write_basic_package_version_file(
-    ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-    VERSION ${SkellEngine_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
+# write_basic_package_version_file(
+#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+#     VERSION ${SkellEngine_VERSION}
+#     COMPATIBILITY AnyNewerVersion
+# )
 
-install(
-    FILES
-        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-        ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-)
+# install(
+#     FILES
+#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
+#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
+#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+# )
 
-export(EXPORT ${LIBRARY_NAME}-targets
-    FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
-)
+# export(EXPORT ${LIBRARY_NAME}-targets
+#     FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
+# )

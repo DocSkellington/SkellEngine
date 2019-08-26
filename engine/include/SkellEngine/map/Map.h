@@ -4,9 +4,9 @@
 #include <filesystem>
 
 #include <SFML/Graphics.hpp>
+#include <tmxlite/Map.hpp>
+#include <tmxlite/TileLayer.hpp>
 
-#include <SkellEngine/tmxlite/Map.hpp>
-#include <SkellEngine/tmxlite/TileLayer.hpp>
 #include "SkellEngine/map/Layers.h"
 #include "SkellEngine/states/StateContext.h"
 

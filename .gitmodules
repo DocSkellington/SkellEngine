@@ -16,3 +16,6 @@
 [submodule "engine/dependencies/LDoc"]
 	path = engine/dependencies/LDoc
 	url = https://github.com/stevedonovan/LDoc
+[submodule "engine/dependencies/tmxlite"]
+	path = engine/dependencies/tmxlite
+	url = https://github.com/fallahn/tmxlite
