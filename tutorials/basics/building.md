@@ -1,7 +1,7 @@
 ---
 layout: tutorial
 title: How to build and dependencies
-shortitle: "Building"
+shorttitle: "Building"
 ---
 
 First, you need to download the necessary dependencies. After that, you can compile and use SkellEngine in your own projects.
