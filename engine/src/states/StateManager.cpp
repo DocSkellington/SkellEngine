@@ -51,7 +51,7 @@ namespace engine::states {
 
     void StateManager::switchTo(const std::string &name) {
         if (name == "all") {
-            tmx::Logger::log("State manager: 'all' is an invalid state name (it's a reserved keyword)", tmx::Logger::Type::Warning);
+            m_context.logger.log("State manager: 'all' is an invalid state name (it's a reserved keyword)", LogType::Warning);
             return;
         }
 
@@ -89,11 +89,16 @@ namespace engine::states {
                 m_states.front().second->deactivate();
 
             // Creation
-            std::shared_ptr<State> state = State::createInstance(m_switchTo, *this);
-            if (state) {
-                state->onCreate();
-                m_states.emplace_front(m_switchTo, std::move(state));
-                m_states.front().second->activate();
+            try {
+                std::shared_ptr<State> state = State::createInstance(m_switchTo, *this);
+                if (state) {
+                    state->onCreate();
+                    m_states.emplace_front(m_switchTo, std::move(state));
+                    m_states.front().second->activate();
+                }
+            }
+            catch (const std::exception &e) {
+                m_context.logger.logError("StateManager: impossible to create the state " + m_switchTo + ". The state won't be added to the state manager", e);
             }
 
             m_switchTo = "";

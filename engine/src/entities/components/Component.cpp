@@ -18,7 +18,7 @@ namespace engine::entities::components {
         Ptr ptr = RegisteredComponents::construct(componentType, context);
 
         if (!ptr) {
-            tmx::Logger::log("Component: createInstance: creating an ExternComponent since " + componentType + " is not registered");
+            context.context.logger.log("Component: createInstance: creating an ExternComponent since " + componentType + " is not registered");
             ptr = std::make_shared<ExternComponent>(context);
         }
         return ptr;

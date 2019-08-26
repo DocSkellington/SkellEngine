@@ -20,7 +20,7 @@ namespace engine::entities::components {
                         defaultAnimation = desc.get<std::string>();
                     }
                     else {
-                        tmx::Logger::log("AnimationComponent: the 'default' field must be a string", tmx::Logger::Type::Warning);
+                        getContext().logger.log("AnimationComponent: the 'default' field must be a string", LogType::Warning);
                     }
                 }
                 else {
@@ -33,21 +33,25 @@ namespace engine::entities::components {
                             duration = sf::seconds(*dur);
                         }
                         else {
-                            tmx::Logger::log("AnimationComponent: 'duration' field absent or has an invalid type (it should be a number). The length of the animation defaults to 1 second", tmx::Logger::Type::Warning);
+                            getContext().logger.log("AnimationComponent: 'duration' field absent or has an invalid type (it should be a number). The length of the animation defaults to 1 second", LogType::Warning);
                         }
 
-                        if (auto l = desc.find("loop") ; l != desc.end() && l->is_boolean()) {
-                            loop = l->get<bool>();
-                        }
-                        else {
-                            tmx::Logger::log("AnimationComponent: 'loop' field absent or has an invalid type (it should be a boolean). It defaults to false");
+                        if (auto l = desc.find("loop") ; l != desc.end()) {
+                            if (l->is_boolean()) {
+                                loop = l->get<bool>();
+                            }
+                            else {
+                                getContext().logger.log("AnimationComponent: 'loop' must be a boolean. It defaults to false", LogType::Warning);
+                            }
                         }
 
-                        if (auto r = desc.find("repeats") ; r != desc.end() && r->is_number()) {
-                            repeats = r->get<unsigned int>();
-                        }
-                        else {
-                            tmx::Logger::log("AnimationComponent: 'repeats' field absent or has an invalid type (it should be a number). It defaults to 1");
+                        if (auto r = desc.find("repeats") ; r != desc.end()) {
+                            if (r->is_number()) {
+                                repeats = r->get<unsigned int>();
+                            }
+                            else {
+                                getContext().logger.log("AnimationComponent: 'repeats' must be a number. It defaults to 1", LogType::Warning);
+                            }
                         }
 
                         if (*type == "frame") {
@@ -55,12 +59,12 @@ namespace engine::entities::components {
                                 try {
                                     m_animations.addAnimation(name, animations::FrameAnimation(frames->get<nlohmann::json>()), duration, loop, repeats);
                                 }
-                                catch (const std::invalid_argument &e) {
-                                    tmx::Logger::logError("AnimationComponent: an error occured during the creation of a FrameAnimation:", e);
+                                catch (const std::exception &e) {
+                                    getContext().logger.logError("AnimationComponent: an error occured during the creation of a FrameAnimation:", e);
                                 }
                             }
                             else {
-                                tmx::Logger::log("AnimationComponent: invalid frame animation description: the field 'frames' must be present", tmx::Logger::Type::Warning);
+                                getContext().logger.log("AnimationComponent: invalid frame animation description: the field 'frames' must be present", LogType::Warning);
                             }
                         }
                         else if (*type == "color") {
@@ -68,28 +72,28 @@ namespace engine::entities::components {
                                 try {
                                     m_animations.addAnimation(name, animations::ColorAnimation(*colors), duration, loop, repeats);
                                 }
-                                catch (const std::invalid_argument &e) {
-                                    tmx::Logger::logError("AnimationComponent: an error occured during the creation of a ColorAnimation:", e);
+                                catch (const std::exception &e) {
+                                    getContext().logger.logError("AnimationComponent: an error occured during the creation of a ColorAnimation:", e);
                                 }
                             }
                             else {
-                                tmx::Logger::log("AnimationComponent: invalid color animation description: the field 'colors' must be present", tmx::Logger::Type::Warning);
+                                getContext().logger.log("AnimationComponent: invalid color animation description: the field 'colors' must be present", LogType::Warning);
                             }
                         }
                         else if (*type == "fade") {
                             try {
                                 m_animations.addAnimation(name, animations::FadeAnimation(desc), duration, loop, repeats);
                             }
-                            catch (const std::invalid_argument &e) {
-                                tmx::Logger::logError("AnimationComponent: an error occured during the creation of a FadeAnimation: ", e);
+                            catch (const std::exception &e) {
+                                getContext().logger.logError("AnimationComponent: an error occured during the creation of a FadeAnimation: ", e);
                             }
                         }
                         else {
-                            tmx::Logger::log("AnimationComponent: invalid animation description: the type of the animation is unkown. It must be 'frame', 'color' or 'fade'", tmx::Logger::Type::Warning);
+                            getContext().logger.log("AnimationComponent: invalid animation description: the type of the animation is unkown. It must be 'frame', 'color' or 'fade'", LogType::Warning);
                         }
                     }
                     else {
-                        tmx::Logger::log("AnimationComponent: the animation description must have a 'type' field and it must be a string. The animation will not be loaded.", tmx::Logger::Type::Warning);
+                        getContext().logger.log("AnimationComponent: the animation description must have a 'type' field and it must be a string. The animation will not be loaded.", LogType::Warning);
                     }
                 }
             }
@@ -101,12 +105,12 @@ namespace engine::entities::components {
                     m_animator.enableDefault();
                 }
                 else {
-                    tmx::Logger::log("AnimationComponent: invalid default animation: unknown animation", tmx::Logger::Type::Warning);
+                    getContext().logger.log("AnimationComponent: invalid default animation: unknown animation", LogType::Warning);
                 }
             }
         }
         else {
-            tmx::Logger::log("AnimationComponent: the animation description must be an object with pairs (name of the animation, description of the animation)", tmx::Logger::Type::Warning);
+            getContext().logger.log("AnimationComponent: the animation description must be an object with pairs (name of the animation, description of the animation)", LogType::Warning);
         }
     }
 

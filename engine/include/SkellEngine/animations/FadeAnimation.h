@@ -26,6 +26,7 @@ namespace engine::animations {
          * \brief Constructor
          * \param description The JSON object describing the animation
          * \throws std::invalid_argument if the outRatio is invalid (not in the [0, 1 - inRatio] interval)
+         * \throws errors::InvalidJSON if the description is invalid
          */
         FadeAnimation(const nlohmann::json &description);
 

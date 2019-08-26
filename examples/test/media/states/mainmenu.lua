@@ -1,4 +1,6 @@
 function onCreate()
+    registerCallback("WindowClosed", game.closeEngine, "mainmenu")
+
     registerCallback("ChangeState", onChangeState, "mainmenu")
     game.systemManager:loadSystems("graphicalorthogonal")
     game.level:changeLevel("tutorial")

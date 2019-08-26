@@ -7,7 +7,6 @@
 #include <sol/sol.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/utilities/MemberStorage.h"
 #include "SkellEngine/utilities/RegisterClass.h"
 #include "SkellEngine/states/StateContext.h"

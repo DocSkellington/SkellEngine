@@ -3,7 +3,6 @@
 #include <sol/sol.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/errors/FileNotFound.h"
 #include "SkellEngine/config.h"
 #include "SkellEngine/events/EventHandler.h"
@@ -16,40 +15,32 @@ namespace engine {
         // Erasing the old log
         std::filesystem::path logPath = baseMediaPath / "log.txt";
         std::filesystem::remove(logPath);
-        // Setting default value to the output
-        tmx::Logger::setOutput(tmx::Logger::Output::Console);
 
         lua = std::make_shared<sol::state>();
         lua->open_libraries(sol::lib::base, sol::lib::math, sol::lib::table, sol::lib::string);
 
         fileManager = std::make_shared<files::FileManager>(*this, baseMediaPath);
-
-        // We set the logger output according to the game description
-        auto description = fileManager->getGameDescription();
-        tmx::Logger::setOutput(description.log.output);
-        description.log.logPath = baseMediaPath / description.log.logPath;
-        tmx::Logger::setLogPath(description.log.logPath);
         
-        tmx::Logger::log("File manager ready");
+        logger.log("File manager ready");
 
         textureHolder = std::make_shared<thor::ResourceHolder<sf::Texture, std::string>>();
-        tmx::Logger::log("Texture holder ready");
+        logger.log("Texture holder ready");
 
         fontHolder = std::make_shared<thor::ResourceHolder<sf::Font, std::string>>();
-        tmx::Logger::log("Font holder ready");
+        logger.log("Font holder ready");
 
         stateManager = std::make_shared<states::StateManager>(*this);
-        tmx::Logger::log("State manager ready");
+        logger.log("State manager ready");
 
         eventHandler = std::make_shared<events::EventHandler>(*this);
-        tmx::Logger::log("Event handler ready");
+        logger.log("Event handler ready");
 
         inputHandler = std::make_shared<input::InputHandler>(*this);
-        tmx::Logger::log("Input handler ready");
+        logger.log("Input handler ready");
 
-        std::ifstream inputFile(description.media.inputDescription);
+        std::ifstream inputFile(fileManager->getGameDescription().media.inputDescription);
         if (!inputFile.is_open()) {
-            throw errors::FileNotFound(description.media.inputDescription.string() + " could not be found.");
+            throw errors::FileNotFound(fileManager->getGameDescription().media.inputDescription.string() + " could not be found.");
         }
         nlohmann::json inputDescription;
         inputFile >> inputDescription;
@@ -57,13 +48,13 @@ namespace engine {
 
         if (graphical) {
             // Creating the window
-            createWindow(description.window, description.version);
-            tmx::Logger::log("Window created");
+            createWindow(fileManager->getGameDescription().window, fileManager->getGameDescription().version);
+            logger.log("Window created");
         }
     }
 
     void Context::closeEngine() {
-        tmx::Logger::log("Closing the window");
+        logger.log("Closing the window");
         window->close();
     }
 

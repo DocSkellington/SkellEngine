@@ -2,7 +2,6 @@
 
 #include <cctype>
 
-#include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/systems/ExternSystem.h"
 #include "SkellEngine/systems/SystemManager.h"
 
@@ -44,6 +43,10 @@ namespace engine::systems {
         }
 
         return ptr;
+    }
+
+    const SystemManager& System::getSystemManager() const {
+        return m_manager;
     }
 
     SystemManager& System::getSystemManager() {

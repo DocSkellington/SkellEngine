@@ -10,10 +10,9 @@
 #include "SkellEngine/errors/SystemNotFound.h"
 #include "SkellEngine/errors/StateNotFound.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
-#include "SkellEngine/tmxlite/Log.hpp"
 
 namespace engine::files {
-    FileManager::FileManager(const Context &context, const std::string &baseMediapath) :
+    FileManager::FileManager(Context &context, const std::string &baseMediapath) :
         m_context(context) {
         std::filesystem::path basePath = baseMediapath;
         std::filesystem::path gameJSONPath = basePath / "game.json";
@@ -37,6 +36,12 @@ namespace engine::files {
         m_gameDescription.media.levelsFolder = basePath / m_gameDescription.media.levelsFolder;
         m_gameDescription.media.statesFolder = basePath / m_gameDescription.media.statesFolder;
         m_gameDescription.media.inputDescription = basePath / m_gameDescription.media.inputDescription;
+
+        m_gameDescription.log.logPath = basePath / m_gameDescription.log.logPath;
+
+        context.logger.setLogLevel(m_gameDescription.log.level);
+        context.logger.setLogOutput(m_gameDescription.log.output);
+        context.logger.setOutputFile(m_gameDescription.log.logPath);
 
         registerExternSystems();
         registerExternStates();
@@ -66,8 +71,8 @@ namespace engine::files {
                         std::smatch isGraphical;
                         std::regex graphical("graphical", std::regex::icase);
                         if (std::regex_search(systemName, isGraphical, graphical)) {
-                            // The name starts with "graphical"/i. We reject every graphical system in Lua.
-                            tmx::Logger::log("Registering extern systems: a system defined in Lua can not be graphical and can not start with the word 'graphical' (case does not matter). " + filename + " is not correct. Ignoring...", tmx::Logger::Type::Warning);
+                            // The name starts with "graphical". We reject every graphical system in Lua.
+                            m_context.logger.log("Registering extern systems: a system defined in Lua can not be graphical and can not start with the word 'graphical' (case does not matter). " + filename + " is not correct.", LogType::Warning);
                         }
                         else {
                             std::smatch matchSystemName;
@@ -82,14 +87,14 @@ namespace engine::files {
 
                             m_systemsPath[systemName] = file.path();
 
-                            tmx::Logger::log("Registering system " + systemName);
+                            m_context.logger.log("Registering system " + systemName);
                         }
                     }
                 }
             }
         }
         else {
-            tmx::Logger::log("No external systems found", tmx::Logger::Type::Info);
+            m_context.logger.log("No external systems found", LogType::Info);
         }
     }
 
@@ -114,16 +119,16 @@ namespace engine::files {
                         }
 
                         std::transform(stateName.begin(), stateName.end(), stateName.begin(), ::tolower);
-                        tmx::Logger::log(stateName);
+                        m_context.logger.log(stateName);
                         m_statesPath[stateName] = file.path();
 
-                        tmx::Logger::log("Registering state " + stateName);
+                        m_context.logger.log("Registering state " + stateName);
                     }
                 }
             }
         }
         else {
-            tmx::Logger::log("No external states found", tmx::Logger::Type::Info);
+            m_context.logger.log("No external states found", LogType::Info);
         }
     }
 

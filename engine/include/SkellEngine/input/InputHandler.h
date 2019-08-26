@@ -171,6 +171,7 @@ namespace engine::input {
          * \param eventType The type of the event to send
          * \param inputDescription The description of the input
          * \param allowTables True iff tables are allowed in the description. Tables are only allowed at the first level
+         * \throws errors::InvalidJSON if the inputDescription is invalid
          */
         EventInformation createEventInformation(const std::string &eventType, nlohmann::json &inputDescription, bool allowTables = true) const;
     

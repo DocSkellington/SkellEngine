@@ -22,6 +22,7 @@ namespace engine::map {
             throw errors::BadLevelDescription("Map " + mapName + " could not be loaded. Please check that the map is in the correct folder and that the tmx file is correct.");
         }
         
+        m_mapName = mapName;
         loadTilesets();
 
         auto &layers = m_map.getLayers();
@@ -29,18 +30,18 @@ namespace engine::map {
             const auto* layer = layers[i].get();
             switch(layer->getType()) {
             case tmx::Layer::Type::Tile:
-                loadTileLayer(layer, mapName);
+                loadTileLayer(layer);
                 break;
             case tmx::Layer::Type::Object:
-                loadObjectLayer(layer, mapName);
+                loadObjectLayer(layer);
                 break;
             case tmx::Layer::Type::Image:
-                loadImageLayer(layer, mapName);
+                loadImageLayer(layer);
                 break;
             }
         }
 
-        tmx::Logger::log("Map loaded");
+        m_context.context.logger.log("Map loaded");
     }
 
     void Map::clear() {
@@ -57,12 +58,25 @@ namespace engine::map {
 
     void Map::updateLayers(sf::Int64 deltaTime) {
         for (auto &layer : m_layers) {
-            layer->update(deltaTime);
+            try {
+                layer->update(deltaTime);
+            }
+            catch (thor::ResourceLoadingException& e) {
+                m_context.context.logger.logError("Error while loading a tile texture in the map " + m_mapName, e);
+            }
         }
     }
 
     std::size_t Map::getLayerCount() const {
         return m_layers.size();
+    }
+
+    states::StateContext& Map::getStateContext() {
+        return m_context;
+    }
+
+    const states::StateContext& Map::getStateContext() const {
+        return m_context;
     }
 
     void Map::loadTilesets() {
@@ -79,18 +93,28 @@ namespace engine::map {
         }
     }
 
-    void Map::loadTileLayer(const tmx::Layer *layer, const std::string &mapName) {
+    void Map::loadTileLayer(const tmx::Layer *layer) {
         const auto& l = *dynamic_cast<const tmx::TileLayer*>(layer);
-        m_layers.push_back(std::make_unique<TileLayer>(*this, mapName, l));
+        m_layers.push_back(std::make_unique<TileLayer>(*this, l));
     }
 
-    void Map::loadObjectLayer(const tmx::Layer *layer, const std::string &mapName) {
+    void Map::loadObjectLayer(const tmx::Layer *layer) {
         const auto& l = *dynamic_cast<const tmx::ObjectGroup*>(layer);
-        m_layers.push_back(std::make_unique<ObjectLayer>(*this, mapName, l));
+        try {
+            m_layers.push_back(std::make_unique<ObjectLayer>(*this, l));
+        }
+        catch (const thor::ResourceLoadingException &e) {
+            m_context.context.logger.logError("Error while loading a object layer in the map " + m_mapName, e);
+        }
     }
 
-    void Map::loadImageLayer(const tmx::Layer *layer, const std::string &mapName) {
+    void Map::loadImageLayer(const tmx::Layer *layer) {
         const auto& l = *dynamic_cast<const tmx::ImageLayer*>(layer);
-        m_layers.push_back(std::make_unique<ImageLayer>(*this, mapName, l));
+        try {
+            m_layers.push_back(std::make_unique<ImageLayer>(*this, l));
+        }
+        catch (const thor::ResourceLoadingException& e) {
+            m_context.context.logger.logError("Error while loading an image in the map " + m_mapName, e);
+        }
     }
 }

@@ -102,11 +102,11 @@ namespace engine::entities {
                     componentsVector[i++] = compo.second.as<std::string>();
                 }
                 else {
-                    tmx::Logger::log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain string values. The named value " + std::to_string(compo.first.as<int>()) + " will be ignored.", tmx::Logger::Type::Warning);
+                    getContext().context.logger.log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain string values. The named value " + std::to_string(compo.first.as<int>()) + " will be ignored.", LogType::Warning);
                 }
             }
             else {
-                tmx::Logger::log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain unnamed values. The named value " + compo.first.as<std::string>() + " will be ignored.", tmx::Logger::Type::Warning);
+                getContext().context.logger.log("EntityManager: Invalid use of getEntity(name, components). The 'components' table can only contain unnamed values. The named value " + compo.first.as<std::string>() + " will be ignored.", LogType::Warning);
             }
         }
 

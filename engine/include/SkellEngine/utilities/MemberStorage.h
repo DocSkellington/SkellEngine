@@ -8,12 +8,8 @@
 
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/errors/WrongType.h"
-
-namespace engine{
-    class Context;
-}
+#include "SkellEngine/Context.h"
 
 namespace engine::utilities {
     /**
@@ -210,7 +206,7 @@ namespace engine::utilities {
         template <typename T>
         void registerMember(const std::string &name, T* member) {
             if (mapMembers.find(name) != mapMembers.end()) {
-                tmx::Logger::log(getLogErrorPrefix() + ": registerMember: " + name + " is already used. The component will be overwritten by the new assignation.", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": registerMember: " + name + " is already used. The component will be overwritten by the new assignation.", LogType::Warning);
             }
 
             mapMembers.insert(std::make_pair(name, member));

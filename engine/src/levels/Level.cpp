@@ -28,7 +28,7 @@ namespace engine::levels {
     }
 
     void Level::changeLevel(const std::string& levelName) {
-        tmx::Logger::log("Changing level to: " + levelName, tmx::Logger::Type::Info);
+        m_context.context.logger.log("Changing level to: " + levelName, LogType::Info);
         // Clearing 
         m_levelDescription.clear();
         m_entitiesGlobal.clear();

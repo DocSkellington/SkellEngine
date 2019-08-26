@@ -1,7 +1,6 @@
 #include "SkellEngine/levels/LevelDescription.h"
 
 #include "SkellEngine/errors/BadLevelDescription.h"
-#include <SkellEngine/tmxlite/Log.hpp>
 
 namespace engine::levels {
     LevelDescription::EntityDescription::EntityDescription(const std::string &name, const nlohmann::json &description) :

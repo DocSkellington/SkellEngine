@@ -1,6 +1,5 @@
 #include "SkellEngine/events/EventHandler.h"
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/Context.h"
 #include "SkellEngine/utilities/json_lua.h"
 #include "SkellEngine/states/StateManager.h"
@@ -16,7 +15,7 @@ namespace engine::events {
         auto itr = m_callbacksPerEventType.find(eventType);
 
         if (itr == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: register callback: adding a new type of event: " + eventType, tmx::Logger::Type::Info);
+            getContext().logger.log("Event handler: register callback: adding a new type of event: " + eventType, LogType::Info);
             itr = m_callbacksPerEventType.emplace(eventType, CallbackStorage(*this)).first;
         }
 
@@ -38,15 +37,24 @@ namespace engine::events {
         auto itr = m_callbacksPerEventType.find(type);
 
         if (itr == m_callbacksPerEventType.end()) {
-            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener were ever registered for this type");
+            getContext().logger.log("Event handler: impossible to send an event of type '" + type + "' because no listener were ever registered for this type");
             return false;
         }
 
-        bool sent = itr->second.sendEvent(event);
-        if (!sent) {
-            tmx::Logger::log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type (please check that the state given to registerCallback is correct) or an error occured during the execution of every listener (please see above messages)");
+        try {
+            bool sent = itr->second.sendEvent(event);
+            if (!sent) {
+                getContext().logger.log("Event handler: impossible to send an event of type '" + type + "' because no listener are currently registered for this type (please check that the state given to registerCallback is correct)");
+            }
+            return sent;
         }
-        return sent;
+        catch(const sol::error &e) {
+            getContext().logger.logError("Event handler: error during the execution of a Lua callback for the event type " + event.getType() + ":", e);
+        }
+        catch(const std::exception &e) {
+            getContext().logger.logError("Event handler: error during the execution of a C++ callback for the event type " + event.getType() + ": ", e);
+        }
+        return false;
     }
 
     bool EventHandler::sendEvent(const std::string &type) {
@@ -110,7 +118,7 @@ namespace engine::events {
                 entities.push_back(v.get<entities::Entity::Ptr>());
             }
             else {
-                tmx::Logger::log("EventHandler: impossible to send an event because the list of entities contains a value that is not an entity", tmx::Logger::Type::Error);
+                getContext().logger.log("EventHandler: impossible to send an event because the list of entities contains a value that is not an entity", LogType::Error);
                 return false;
             }
         }
@@ -148,26 +156,15 @@ namespace engine::events {
         bool atLeastOne = false;
         for (const auto& itr : m_callbacks) {
             if (itr.state == "all" || m_handler.getContext().stateManager->isCurrentState(itr.state)) {
-                try {
-                    itr.callback.call(event);
-                    atLeastOne = true;
-                }
-                catch(const sol::error &e) {
-                    tmx::Logger::logError("Event handler: error during the execution of a Lua callback for the event type " + event.getType() + ":", e);
-                }
-                catch(const std::exception &e) {
-                    tmx::Logger::logError("Event handler: error during the execution of a C++ callback for the event type " + event.getType() + ": ", e);
-                }
+                itr.callback.call(event);
+                atLeastOne = true;
             }
         }
         return atLeastOne;
     }
 
     void EventHandler::CallbackStorage::remove(EventHandler::CallbackStorage::Iterator iterator) {
-        if (m_callbacks.size() == 0) {
-            tmx::Logger::log("Event handler: empty storage", tmx::Logger::Type::Warning);
-        }
-        else {
+        if (m_callbacks.size() != 0) {
             iterator->swap(m_callbacks.back());
             m_callbacks.pop_back();
         }

@@ -22,10 +22,9 @@ namespace engine::map {
         /**
          * \brief The constructor
          * \param map The map that uses this layer
-         * \param mapName The name of the map
          * \param visible Whether to draw this layer
          */
-        Layer(Map &map, const std::string& mapName, bool visible);
+        Layer(Map &map, bool visible);
         Layer(const Layer&) = delete;
         virtual ~Layer();
 
@@ -46,15 +45,9 @@ namespace engine::map {
          * \return A reference to the map
          */
         Map &getMap();
-        /**
-         * \brief Gives the name of the map
-         * \return The name of the map
-         */
-        const std::string& getMapName() const;
 
     private:
         Map &m_map;
-        const std::string& m_mapName;
         bool m_visible;
     };
 
@@ -66,10 +59,9 @@ namespace engine::map {
         /**
          * \brief The constructor
          * \param map The map that uses this layer
-         * \param mapName The name of the map
          * \param layer The description of this layer
          */
-        TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer);
+        TileLayer(Map &map, const tmx::TileLayer &layer);
         TileLayer(const TileLayer&) = delete;
         virtual ~TileLayer();
 
@@ -99,7 +91,6 @@ namespace engine::map {
             /**
              * \brief The constructor
              * \param map A refernce to the map
-             * \param mapName The name of the map
              * \param x The x position of the tile
              * \param y The y position of the tile
              * \param tile The tmx tile
@@ -107,7 +98,7 @@ namespace engine::map {
              * \param alpha The opacity
              * \param offset The offset from the top left corner of the layer
              */
-            Tile(Map &map, const std::string& mapName, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
+            Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlag, std::uint8_t alpha, const tmx::Vector2i& offset = tmx::Vector2i(0.f, 0.f));
 
             /**
              * \brief Updates the tile
@@ -122,6 +113,10 @@ namespace engine::map {
 
         private:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+            /**
+             * \brief Updates the sprite of the tile
+             * \throws thor::ResourceLoadingException if the sprite could not be loaded
+             */
             void updateSprite();
             void handleFlip();
             void flipVertical();
@@ -129,7 +124,6 @@ namespace engine::map {
 
         private:
             Map &m_map;
-            const std::string& m_mapName;
             std::shared_ptr<const tmx::Tileset::Tile> m_tile;
             std::uint8_t m_flip;
             std::size_t m_currentFrame;
@@ -150,10 +144,10 @@ namespace engine::map {
         /**
          * \brief The constructor
          * \param map The map that uses this layer
-         * \param mapName The name of the map
          * \param layer The description of this layer
+         * \throws thor::ResourceLoadingException if the sprite could not be loaded
          */
-        ImageLayer(Map &map, const std::string& mapName, const tmx::ImageLayer &layer);
+        ImageLayer(Map &map, const tmx::ImageLayer &layer);
         ImageLayer(const ImageLayer&) = delete;
         virtual ~ImageLayer();
 
@@ -183,10 +177,10 @@ namespace engine::map {
         /**
          * \brief The constructor
          * \param map The map that uses this layer
-         * \param mapName The name of the map
          * \param layer The description of this layer
+         * \throws errors::NotImplemented if a non-implemented shape is required
          */
-        ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer);
+        ObjectLayer(Map &map, const tmx::ObjectGroup &layer);
         ObjectLayer(const ObjectLayer&) = delete;
         virtual ~ObjectLayer();
 
@@ -217,7 +211,11 @@ namespace engine::map {
         std::vector<sf::Text> m_texts;
 
     private:
-        // Every shape except lines
+        /** 
+         * \brief Every shape except lines
+         * \param object The object to parse
+         * \throws errors::NotImplemented if a non-implemented shape is required
+         */
         void handleShape(const tmx::Object &object);
         // object must describe a polyline
         void handlePolyLines(const tmx::Object &object);

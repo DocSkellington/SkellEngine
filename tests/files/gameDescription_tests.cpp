@@ -17,7 +17,8 @@ TEST_CASE("Game description loading", "[json_description][files]") {
         SECTION("Log Description is verified") {
             GameDescription::LogDescription log = game.log;
             SECTION ("'output' is correct") {
-                REQUIRE(log.output == tmx::Logger::Output::All);
+                REQUIRE(log.output == LogOutput::All);
+                REQUIRE(log.level == LogType::Error);
             }
         }
 
@@ -95,7 +96,8 @@ TEST_CASE("Game description loading", "[json_description][files]") {
 
         SECTION("Log description is initialised by default") {
             GameDescription::LogDescription log = game.log;
-            REQUIRE(log.output == tmx::Logger::Output::None);
+            REQUIRE(log.output == LogOutput::Console);
+            REQUIRE(log.level == LogType::Info);
         }
         SECTION("Window description is initialised by default") {
             GameDescription::WindowDescription win = game.window;

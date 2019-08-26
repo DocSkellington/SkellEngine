@@ -2,16 +2,15 @@
 
 #include <Thor/Resources.hpp>
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/map/Map.h"
 #include "SkellEngine/Context.h"
 #include "SkellEngine/shapes/EllipseShape.h"
 #include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/errors/NotImplemented.h"
 
 namespace engine::map {
-    Layer::Layer(Map &map, const std::string& mapName, bool visible) :
+    Layer::Layer(Map &map, bool visible) :
         m_map(map),
-        m_mapName(mapName),
         m_visible(visible) {
     }
 
@@ -27,13 +26,8 @@ namespace engine::map {
         return m_map;
     }
 
-    const std::string& Layer::getMapName() const {
-        return m_mapName;
-    }
-
-    TileLayer::Tile::Tile(Map &map, const std::string& mapName, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
+    TileLayer::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
         m_map(map),
-        m_mapName(mapName),
         m_tile(tile),
         m_flip(flipFlags),
         m_currentFrame(0),
@@ -61,18 +55,14 @@ namespace engine::map {
 
     void TileLayer::Tile::updateSprite() {
         auto tile = m_tile;
-        try {
-            if (m_tile->animation.frames.size() > 1) {
-                auto ID = m_tile->animation.frames[m_currentFrame].tileID;
-                tile = m_map.m_tilesetTiles[ID];
-                m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
-            }
-            else {
-                m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
-            }
+
+        if (m_tile->animation.frames.size() > 1) {
+            auto ID = m_tile->animation.frames[m_currentFrame].tileID;
+            tile = m_map.m_tilesetTiles[ID];
+            m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
         }
-        catch (thor::ResourceLoadingException& e) {
-            tmx::Logger::logError("Error while loading a tile texture in the map " + m_mapName, e);
+        else {
+            m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
         }
 
         m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
@@ -145,8 +135,8 @@ namespace engine::map {
         target.draw(m_sprite);
     }
 
-    TileLayer::TileLayer(Map &map, const std::string& mapName, const tmx::TileLayer &layer) :
-        Layer(map, mapName, layer.getVisible()) {
+    TileLayer::TileLayer(Map &map, const tmx::TileLayer &layer) :
+        Layer(map, layer.getVisible()) {
         for (std::size_t y = 0 ; y < map.m_map.getTileCount().y ; y++) {
             std::vector<std::shared_ptr<Tile>> row;
             for (std::size_t x = 0 ; x < map.m_map.getTileCount().x ; x++) {
@@ -158,7 +148,7 @@ namespace engine::map {
                 offset.x += map.m_tileOffset[tile.ID-1]->x;
                 offset.y += map.m_tileOffset[tile.ID-1]->y;
 
-                std::shared_ptr<Tile> t = std::make_shared<Tile>(map, mapName, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
+                std::shared_ptr<Tile> t = std::make_shared<Tile>(map, x, y, map.m_tilesetTiles[tile.ID-1], tile.flipFlags, alpha, offset);
                 row.push_back(t);
 
                 if (t->isAnimated()) {
@@ -188,8 +178,8 @@ namespace engine::map {
         }
     }
 
-    ImageLayer::ImageLayer(Map &map, const std::string& mapName, const tmx::ImageLayer &layer) :
-        Layer(map, mapName, layer.getVisible()) {
+    ImageLayer::ImageLayer(Map &map, const tmx::ImageLayer &layer) :
+        Layer(map, layer.getVisible()) {
         sf::Image image;
         image.loadFromFile(layer.getImagePath());
 
@@ -199,12 +189,7 @@ namespace engine::map {
             id += std::to_string(layer.getTransparencyColour().r) + " " + std::to_string(layer.getTransparencyColour().g) + " " + std::to_string(layer.getTransparencyColour().b) + " " + std::to_string(layer.getTransparencyColour().a);
         }
 
-        try {
-            m_sprite.setTexture(getMap().m_context.context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
-        }
-        catch (thor::ResourceLoadingException& e) {
-            tmx::Logger::logError("Error while loading an image in the map " + getMapName(), e);
-        }
+        m_sprite.setTexture(getMap().m_context.context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
 
         m_sprite.setColor(sf::Color(255, 255, 255, layer.getOpacity() * 255));
 
@@ -223,8 +208,8 @@ namespace engine::map {
         target.draw(m_sprite, states);
     }
 
-    ObjectLayer::ObjectLayer(Map &map, const std::string& mapName, const tmx::ObjectGroup &layer) :
-        Layer(map, mapName, layer.getVisible()) {
+    ObjectLayer::ObjectLayer(Map &map, const tmx::ObjectGroup &layer) :
+        Layer(map, layer.getVisible()) {
         for (const auto &object : layer.getObjects()) {
             if (object.getShape() == tmx::Object::Shape::Polyline)
                 handlePolyLines(object);
@@ -272,7 +257,7 @@ namespace engine::map {
             shape = handlePolygon(object);
             break;
         default:
-            tmx::Logger::log("Shape not implemented", tmx::Logger::Type::Warning);
+            throw errors::NotImplemented("Shape not implemented");
             return;
         }
 
@@ -376,10 +361,11 @@ namespace engine::map {
         if (text.fontFamily != "") {
             // If the font is not found, we use default one
             try {
-                getMap().m_context.context.fileManager->loadFont(text.fontFamily);
+                auto& font = getMap().m_context.context.fileManager->loadFont(text.fontFamily);
+                label->getRenderer()->setFont(font);
             }
             catch (thor::ResourceLoadingException& e) {
-                tmx::Logger::log("Could not load font: " + text.fontFamily + ". Default TGUI's font will be used.", tmx::Logger::Type::Warning);
+                getMap().getStateContext().context.logger.log("Could not load font: " + text.fontFamily + ". Default TGUI's font will be used.", LogType::Warning);
             }
         }
 

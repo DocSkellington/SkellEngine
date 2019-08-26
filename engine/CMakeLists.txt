@@ -39,6 +39,7 @@ configure_file(
 set(SOURCES
     src/Engine.cpp
     src/Context.cpp
+    src/Logger.cpp
 
     src/entities/Entity.cpp
     src/entities/EntityManager.cpp

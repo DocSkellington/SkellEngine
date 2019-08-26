@@ -1,6 +1,7 @@
 #include "SkellEngine/animations/FrameAnimation.h"
 
 #include "SkellEngine/animations/detail/to_from_sfml_color.h"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 namespace engine::animations {
     FrameAnimation::FrameAnimation(const nlohmann::json &description) {
@@ -10,7 +11,7 @@ namespace engine::animations {
             }
         }
         else {
-            throw std::invalid_argument("FrameAnimation: invalid frame animation description: the description must be a JSON array containing each frame");
+            throw errors::InvalidJSON("FrameAnimation: invalid frame animation description: the description must be a JSON array containing each frame");
         }
     }
 

@@ -101,6 +101,7 @@ namespace engine::states {
          * \param name The name of the state
          * \param manager The state manager
          * \return The state
+         * \throws Exceptions are thrown if the system could not be created 
          */
         static Ptr createInstance(const std::string &name, StateManager &manager);
 

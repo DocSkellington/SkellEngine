@@ -70,17 +70,28 @@ namespace engine::map {
          */
         std::size_t getLayerCount() const;
 
+    protected:
+        /** @{ */
+        /**
+         * \brief Gets the state context
+         * \return The state context
+         */
+        states::StateContext& getStateContext();
+        const states::StateContext& getStateContext() const;
+        /** @} */
+
     private:
         void loadTilesets();
-        void loadTileLayer(const tmx::Layer *layer, const std::string& mapName);
-        void loadObjectLayer(const tmx::Layer *layer, const std::string& mapName);
-        void loadImageLayer(const tmx::Layer *layer, const std::string& mapName);
+        void loadTileLayer(const tmx::Layer *layer);
+        void loadObjectLayer(const tmx::Layer *layer);
+        void loadImageLayer(const tmx::Layer *layer);
 
     private:
         states::StateContext &m_context;
         const std::filesystem::path m_folder;
 
         tmx::Map m_map;
+        std::string m_mapName;
 
         std::vector<std::unique_ptr<Layer>> m_layers;
 

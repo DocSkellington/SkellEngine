@@ -3,9 +3,9 @@
 #include <Thor/Input.hpp>
 #include <Thor/Graphics/ToString.hpp>
 
-#include "SkellEngine/tmxlite/Log.hpp"
 #include "SkellEngine/input/detail/default.h"
 #include "SkellEngine/input/detail/to_from_sfml_events.h"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 namespace engine::input::detail {
     inline void parseInputDescriptionObjectKeyboard(nlohmann::json &inputDescription, sf::Event &event) {
@@ -19,12 +19,12 @@ namespace engine::input::detail {
                         setDefaultKeyButton(event);
                     }
                     else {
-                        tmx::Logger::log("Input handler: error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>(), tmx::Logger::Type::Warning);
+                        throw errors::InvalidJSON("Error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>());
                     }
                 }
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>(), tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'key' field could not be converted to a keyboard key. Received key: " + key->get<std::string>());
             }
 
             inputDescription.erase(key);
@@ -42,12 +42,12 @@ namespace engine::input::detail {
                         setDefaultKeyButton(event);
                     }
                     else {
-                        tmx::Logger::log("Input handler: error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>(), tmx::Logger::Type::Warning);
+                        throw errors::InvalidJSON("Error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>());
                     }
                 }
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>(), tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'mouse button' field could not be converted to a mouse button. Received: " + mouseButton->get<std::string>());
             }
 
             inputDescription.erase(mouseButton);
@@ -60,7 +60,7 @@ namespace engine::input::detail {
                 event.joystickButton.joystickId = *id;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick id' field must be an unsigned integer", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'joystick id' field must be an unsigned integer");
             }
 
             inputDescription.erase(id);
@@ -74,7 +74,7 @@ namespace engine::input::detail {
                 event.joystickButton.button = *button;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick button' field must be an unsigned integer", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'joystick button' field must be an unsigned integer");
             }
 
             inputDescription.erase(button);
@@ -87,7 +87,7 @@ namespace engine::input::detail {
                 event.joystickMove.joystickId = *id;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'joystick id' field must be an unsigned integer", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'joystick id' field must be an unsigned integer");
             }
 
             inputDescription.erase(id);
@@ -103,19 +103,19 @@ namespace engine::input::detail {
                 }
                 catch (const thor::StringConversionException &error) { // The axis was invalid
                     event.type = sf::Event::EventType::Count;
-                    tmx::Logger::log("Input handler: error while parsing an input description: the 'axis' field could not be converted to a joystick axis. Received: " + axis->get<std::string>(), tmx::Logger::Type::Warning);
+                    throw errors::InvalidJSON("Error while parsing an input description: the 'axis' field could not be converted to a joystick axis. Received: " + axis->get<std::string>());
                 }
             }
             else {
                 event.type = sf::Event::EventType::Count;
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'axis' field must be a string", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'axis' field must be a string");
             }
 
             inputDescription.erase(axis);
         }
         else {
             event.type = sf::Event::EventType::Count;
-            tmx::Logger::log("Input handler: while parsing the input description: the 'axis' field is not present for a JoystickMove input", tmx::Logger::Type::Warning);
+            throw errors::InvalidJSON("Ehile parsing the input description: the 'axis' field is not present for a JoystickMove input");
         }
     }
 
@@ -125,7 +125,7 @@ namespace engine::input::detail {
                 lshift = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'shift' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'shift' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -135,7 +135,7 @@ namespace engine::input::detail {
                 lshift = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'lshift' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'lshift' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -145,7 +145,7 @@ namespace engine::input::detail {
                 rshift = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'rshift' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'rshift' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -156,7 +156,7 @@ namespace engine::input::detail {
                 lalt = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'alt' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'alt' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -166,7 +166,7 @@ namespace engine::input::detail {
                 lalt = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'lalt' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'lalt' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -176,7 +176,7 @@ namespace engine::input::detail {
                 ralt = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'ralt' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'ralt' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -187,7 +187,7 @@ namespace engine::input::detail {
                 lcontrol = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'control' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'control' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -197,7 +197,7 @@ namespace engine::input::detail {
                 lcontrol = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'lcontrol' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'lcontrol' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -207,7 +207,7 @@ namespace engine::input::detail {
                 rcontrol = *modifier;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'rcontrol' field must be a boolean", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'rcontrol' field must be a boolean");
             }
 
             inputDescription.erase(modifier);
@@ -249,7 +249,7 @@ namespace engine::input::detail {
             inputDescription.erase(type);
         }
         else {
-            tmx::Logger::log("Input handler: error while parsing an input description: the type of the input must be present and must be a string", tmx::Logger::Type::Warning);
+            throw errors::InvalidJSON("Error while parsing an input description: the type of the input must be present and must be a string");
         }
 
         // Second: information on the input
@@ -276,7 +276,7 @@ namespace engine::input::detail {
         parseInputDescriptionObjectModifiers(inputDescription, lalt, lshift, lcontrol, ralt, rshift, rcontrol);
 
         if (event.type == sf::Event::EventType::Count) {
-            tmx::Logger::log("Input handler: error while parsing an input description: the 'type' field is absent from the input description or an error occured (see above messages). Description received: " + inputDescription.dump(4), tmx::Logger::Type::Warning);
+            throw errors::InvalidJSON("Error while parsing an input description: the 'type' field is absent from the input description or an error occured (see above messages). Description received: " + inputDescription.dump(4));
             return;
         }
 
@@ -285,7 +285,7 @@ namespace engine::input::detail {
                 state = *s;
             }
             else {
-                tmx::Logger::log("Input handler: error while parsing an input description: the 'state' valid must be a string. It default to 'all'.", tmx::Logger::Type::Warning);
+                throw errors::InvalidJSON("Error while parsing an input description: the 'state' valid must be a string. It default to 'all'.");
                 state = "all";
             }
 

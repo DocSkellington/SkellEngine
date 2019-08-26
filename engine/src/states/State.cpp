@@ -53,17 +53,9 @@ namespace engine::states {
 
     State::Ptr State::createInstance(const std::string &name, StateManager &manager) {
         Ptr ptr = RegisteredStates::construct(name, manager, name);
-
         if (!ptr) {
-            try {
-                ptr = std::make_shared<ExternState>(manager, name);
-            }
-            catch (const std::exception &e) {
-                tmx::Logger::logError("ExternState: impossible to load the Lua script for state " + name + ". The state won't be added to the state manager", e);
-                return nullptr;
-            }
+            ptr = std::make_shared<ExternState>(manager, name);
         }
-
         return ptr;
     }
 

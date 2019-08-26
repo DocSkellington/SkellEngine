@@ -49,7 +49,7 @@ namespace engine::events {
         Event::Ptr ptr = RegisteredEvents::construct(type, context);
 
         if (!ptr) {
-            tmx::Logger::log("Event: createEvent: creating an ExternEvent since " + type + " is not registered");
+            context.logger.log("Event: createEvent: creating an ExternEvent since " + type + " is not registered");
             ptr = std::make_shared<ExternEvent>(type, context);
         }
 

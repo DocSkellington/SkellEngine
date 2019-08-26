@@ -1,8 +1,8 @@
 #include "SkellEngine/animations/ColorAnimation.h"
 
-#include "SkellEngine/tmxlite/Log.hpp"
-
 #include "SkellEngine/animations/detail/to_from_sfml_color.h"
+
+#include <list>
 
 namespace engine::animations {
     ColorAnimation::ColorAnimation(const thor::ColorGradient &gradient)  :

@@ -8,7 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <sol/sol.hpp>
 
-#include <SkellEngine/tmxlite/Log.hpp>
+#include "SkellEngine/Logger.h"
 
 namespace engine::files {
     /**
@@ -25,9 +25,15 @@ namespace engine::files {
          */
         struct LogDescription {
             /**
-             * \brief Where the logging messages are printed (in the standard output, in a file or in both)
+             * \brief Where the logging messages are printed (in nothing, in the standard output, in a file or in both)
              */
-            tmx::Logger::Output output;
+            LogOutput output = LogOutput::Console;
+            /**
+             * \brief The log level.
+             * 
+             * The log messages with a lower type that the level are not logged.
+             */
+            LogType level = LogType::Info;
             /**
              * \brief The path to the log file
              */
@@ -43,43 +49,43 @@ namespace engine::files {
             /**
              * \brief Whether the window must be fullscreen
              */
-            bool fullscreen;
+            bool fullscreen = false;
             /**
              * \brief Whether to show the titlebar (in windowed mode)
              */
-            bool titlebar;
+            bool titlebar = true;
             /**
              * \brief Whether to allow the user to resize the window (in windowed mode)
              */
-            bool resize;
+            bool resize = true;
             /**
              * \brief Whether to show the close button (in windowed mode)
              */
-            bool close;
+            bool close = true;
             /**
              * \brief Whether to show the version of the game in the titlebar (in windowed mode and if the titlebar is shown)
              */
-            bool version;
+            bool version = true;
             /**
              * \brief Whether to show the name of the engine in the titlebar (in windowed mode and if the titlebar is shown)
              */
-            bool engine;
+            bool engine = true;
             /**
              * \brief The title to set in the titlebar (in windowed mode and if the titlebar is shown)
              */
-            std::string title;
+            std::string title = "";
             /**
              * \brief The width of the window (in windowed mode)
              */
-            int width;
+            int width = 800;
             /**
              * \brief The height of the window (in windowed mode)
              */
-            int height;
+            int height = 600;
             /**
              * \brief The level of anti-aliasing
              */
-            int antialiasingLevel;
+            int antialiasingLevel = 0;
             /**
              * \brief The FPS limit
              * 
@@ -87,13 +93,13 @@ namespace engine::files {
              * 
              * Set to 0 or a negative number if you want an unlimited FPS
              */
-            int FPS;
+            int FPS = 60;
             /**
              * \brief Whether to use the vertical synchronisation
              * 
              * If true, the FPS limit is ignored
              */
-            bool verticalSynchronisation;
+            bool verticalSynchronisation = false;
         };
 
         /**
@@ -105,39 +111,39 @@ namespace engine::files {
             /**
              * \brief The path to the folder containing the sprites
              */
-            std::filesystem::path baseSprites;
+            std::filesystem::path baseSprites = "sprites/";
             /**
              * \brief The path to the folder containing the maps
              */
-            std::filesystem::path mapFolder;
+            std::filesystem::path mapFolder = "maps/";
             /**
              * \brief The path to the folder containing the systems
              */
-            std::filesystem::path systemsFolder;
+            std::filesystem::path systemsFolder = "systems/";
             /**
              * \brief The path to the folder containing the fonts
              */
-            std::filesystem::path fontsFolder;
+            std::filesystem::path fontsFolder = "fonts/";
             /**
              * \brief The path to the folder containing the entities descriptions
              */
-            std::filesystem::path entitiesFolder;
+            std::filesystem::path entitiesFolder = "entities/";
             /**
              * \brief The path to the folder containing the levels
              */
-            std::filesystem::path levelsFolder;
+            std::filesystem::path levelsFolder = "levels/";
             /**
              * \brief The path to the folder containing the states
              */
-            std::filesystem::path statesFolder;
+            std::filesystem::path statesFolder = "states/";
             /**
              * \brief The path to the JSON file describing the input bindings
              */
-            std::filesystem::path inputDescription;
+            std::filesystem::path inputDescription = "keys.json";
             /**
              * \brief The path to the "media" folder
              */
-            std::filesystem::path baseMediaPath;
+            std::filesystem::path baseMediaPath = "";
         };
 
         /**
@@ -147,7 +153,7 @@ namespace engine::files {
             /**
              * \brief The state to launch when the application starts
              */
-            std::string firstState;
+            std::string firstState = "intro";
         };
 
     public:
@@ -180,11 +186,11 @@ namespace engine::files {
          * 
          * Recommanded format: x.x.x
          */
-        std::string version;
+        std::string version = "";
         /**
          * \brief The name of the game
          */
-        std::string name;
+        std::string name = "";
     };
     
     /**

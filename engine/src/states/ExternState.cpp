@@ -35,7 +35,7 @@ namespace engine::states {
             sol::protected_function_result res = func();
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the onCreate function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the onCreate function", e);
             }
         }
     }
@@ -46,7 +46,7 @@ namespace engine::states {
             sol::protected_function_result res = func();
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the onDestroy function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the onDestroy function", e);
             }
         }
     }
@@ -57,7 +57,7 @@ namespace engine::states {
             sol::protected_function_result res = func();
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the activate function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the activate function", e);
             }
         }
     }
@@ -68,7 +68,7 @@ namespace engine::states {
             sol::protected_function_result res = func();
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the deactivate function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the deactivate function", e);
             }
         }
     }
@@ -79,7 +79,7 @@ namespace engine::states {
             sol::protected_function_result res = func(deltatime);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the update function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the update function", e);
             }
         }
     }
@@ -90,7 +90,7 @@ namespace engine::states {
             sol::protected_function_result res = func(event);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the handleEvent function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the handleEvent function", e);
             }
         }
         else {
@@ -104,7 +104,7 @@ namespace engine::states {
             sol::protected_function_result res = func(target);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternState: " + getStateContext().stateName + ": error during the draw function", e);
+                getStateContext().context.logger.logError("ExternState: " + getStateContext().stateName + ": error during the draw function", e);
             }
         }
     }

@@ -2,7 +2,8 @@
     "version" : "Test Version",
     "name" : "Catch2",
     "log": {
-        "output": "all"
+        "output": "all",
+        "level": "error"
     },
     "window" : {
         "fullscreen" : true,

@@ -49,7 +49,7 @@ namespace engine::systems {
             sol::protected_function_result res = destroyFunc();
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: error during destroy. For more details: ", e);
+                getSystemManager().getContext().context.logger.logError("ExternSystem: error during destroy. For more details: ", e);
             }
         }
         getStoreEventConnections().clearEventConnections();
@@ -62,7 +62,7 @@ namespace engine::systems {
 
         if (!load.valid()) {
             sol::error e = load;
-            tmx::Logger::logError("ExternState: impossible to load the Lua script for system " + systemName, e);
+            getSystemManager().getContext().context.logger.logError("ExternState: impossible to load the Lua script for system " + systemName, e);
         }
         else {
             sol::protected_function initFunc = m_lua["init"];
@@ -70,7 +70,7 @@ namespace engine::systems {
                 sol::protected_function_result res = initFunc();
                 if (!res.valid()) {
                     sol::error e = res;
-                    tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during init. The system could not be properly initiliazed and may not work as intented", e);
+                    getSystemManager().getContext().context.logger.logError("ExternSystem: " + m_systemName + ": error during init. The system could not be properly initiliazed and may not work as intented", e);
                 }
             }
         }
@@ -82,12 +82,12 @@ namespace engine::systems {
             sol::protected_function_result res = updateFunc(deltatime, view);
             if (!res.valid()) {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during update", e);
+                getSystemManager().getContext().context.logger.logError("ExternSystem: " + m_systemName + ": error during update", e);
                 return false;
             }
         }
         else {
-            tmx::Logger::log("ExternSystem: " + m_systemName + " does not have an update function", tmx::Logger::Type::Warning);
+            getSystemManager().getContext().context.logger.log("ExternSystem: " + m_systemName + " does not have an update function", LogType::Warning);
         }
         return true;
     }
@@ -102,16 +102,16 @@ namespace engine::systems {
                     return r;
                 }
                 else {
-                    tmx::Logger::log("ExternSystem: " + m_systemName + ": checkComponents must return a boolean.", tmx::Logger::Type::Error);
+                    getSystemManager().getContext().context.logger.log("ExternSystem: " + m_systemName + ": checkComponents must return a boolean.", LogType::Error);
                 }
             }
             else {
                 sol::error e = res;
-                tmx::Logger::logError("ExternSystem: " + m_systemName + ": error during checkComponents. No entities will be added in the system", e);
+                getSystemManager().getContext().context.logger.logError("ExternSystem: " + m_systemName + ": error during checkComponents. No entities will be added in the system", e);
             }
         }
         else {
-            tmx::Logger::log("ExternSystem: " + m_systemName + " does not have a checkComponents function. Therefore, no entities will be added in the system.", tmx::Logger::Type::Warning);
+            getSystemManager().getContext().context.logger.log("ExternSystem: " + m_systemName + " does not have a checkComponents function. Therefore, no entities will be added in the system.", LogType::Warning);
         }
         return false;
     }

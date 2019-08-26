@@ -21,9 +21,7 @@
 namespace engine {
     Engine::Engine(const std::filesystem::path &baseMediapath) :
         m_context(baseMediapath) {
-        m_context.eventHandler->registerCallback("WindowClosed", [&](const engine::events::Event &) { tmx::Logger::log("Closing the window"); m_context.window->close(); });
 
-        tmx::Logger::log("Launching the first state");
         // Launching the first state of the game
         if (m_context.fileManager->getGameDescription().states.firstState == "mainmenu" || m_context.fileManager->getGameDescription().states.firstState == "mainmenustate")
             m_context.stateManager->switchTo("mainmenu");

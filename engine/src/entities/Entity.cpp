@@ -1,6 +1,5 @@
 #include "SkellEngine/entities/Entity.h"
 
-#include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/utilities/json_lua.h"
 #include "SkellEngine/entities/components/ExternComponent.h"
 #include "SkellEngine/entities/EntityManager.h"
@@ -19,13 +18,13 @@ namespace engine::entities {
 
     components::Component::Ptr Entity::addComponent(const std::string &componentType) {
         if (m_components.find(componentType) != m_components.end()) {
-            tmx::Logger::log("Entity: Impossible to add two components of the same type (" + componentType + ")", tmx::Logger::Type::Error);
+            m_entityManager.getContext().context.logger.log("Entity: Impossible to add two components of the same type (" + componentType + ")", LogType::Error);
             return nullptr;
         }
 
         auto compo = components::Component::createInstance(m_entityManager.getContext(), componentType);
         if (!compo) {
-            tmx::Logger::log("Entity: Impossible to create a " + componentType, tmx::Logger::Type::Error);
+            m_entityManager.getContext().context.logger.log("Entity: Impossible to create a " + componentType, LogType::Error);
             return nullptr;
         }
 

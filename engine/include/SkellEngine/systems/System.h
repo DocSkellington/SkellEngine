@@ -87,11 +87,14 @@ namespace engine::systems {
          */
         System(SystemManager& manager);
 
+        /** @{ */
         /**
          * \brief Returns the system manager
          * \return The SystemManager
          */
+        const SystemManager& getSystemManager() const;
         SystemManager& getSystemManager();
+        /** @} */
 
         /**
          * \brief Checks if the entity meets the requirements of this system (if it has the needed components).

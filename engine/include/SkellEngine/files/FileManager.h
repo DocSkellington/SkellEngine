@@ -21,10 +21,12 @@ namespace engine::files {
     public:
         /**
          * The constructor
+         * 
+         * It loads the game description, sets the configuration of the logger and registers the Lua states and systems
          * \param context The context
          * \param baseMediapath The path to the folder containing the "media" folder
          */
-        explicit FileManager(const Context &context, const std::string& baseMediapath);
+        explicit FileManager(Context &context, const std::string& baseMediapath);
         FileManager(const FileManager&) = delete;
 
         /**

@@ -8,8 +8,6 @@
 #include <memory>
 #include <functional>
 
-#include "SkellEngine/tmxlite/Log.hpp"
-
 /**
  * \brief Defines some classes and functions that are used by different parts of the engine
  */
@@ -56,14 +54,11 @@ namespace engine::utilities {
              */
             Register(const std::string &name) {
                 static_assert(std::is_base_of<BaseClass, T>::value, "RegisterClass: 'T' is not a valid class. It must inherit from 'BaseClass'.");
-
-                if (getMapToClasses().find(name) != getMapToClasses().end()) {
-                    tmx::Logger::log("RegisterClass: " + name + " is already defined. The value will be overwritten", tmx::Logger::Type::Warning);
-                }
                 getMapToClasses().emplace(name, std::make_shared<T, ConstructorArgs...>);
             }
         };
 
+    public:
         /**
          * \brief Constructs a pointer to an instance of a registered class.
          * 

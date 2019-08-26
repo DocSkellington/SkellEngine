@@ -30,11 +30,11 @@ namespace engine::utilities {
                 convertAndSet<double>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with int", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with int", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -49,11 +49,11 @@ namespace engine::utilities {
                 convertAndSet<double>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with long", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with long", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -68,11 +68,11 @@ namespace engine::utilities {
                 convertAndSet<float>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with float", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with float", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -83,11 +83,11 @@ namespace engine::utilities {
                 convertAndSet<double>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with double", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -98,11 +98,11 @@ namespace engine::utilities {
                 convertAndSet<bool>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with bool", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with bool", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -117,11 +117,11 @@ namespace engine::utilities {
                 convertAndSet<std::string>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with std::string", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with std::string", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -151,11 +151,11 @@ namespace engine::utilities {
                 convertAndSet<nlohmann::json>(itr->second, nlohmann::json());
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with sol::nil_t", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with sol::nil_t", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
     }
@@ -171,11 +171,11 @@ namespace engine::utilities {
                 convertAndSet<nlohmann::json>(itr->second, value);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with nlohmann::json", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with nlohmann::json", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": " + name + " is not a known member", LogType::Warning);
         }
     }
 
@@ -198,11 +198,11 @@ namespace engine::utilities {
                 pair = std::make_pair(getValue<long>(itr->second), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not an integer (int or long) variable", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not an integer (int or long) variable", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;
@@ -220,11 +220,11 @@ namespace engine::utilities {
                 pair = std::make_pair(getValue<double>(itr->second), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a floating point (float or double) variable", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a floating point (float or double) variable", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;
@@ -239,11 +239,11 @@ namespace engine::utilities {
                 pair = std::make_pair(getValue<bool>(itr->second), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a boolean variable", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a boolean variable", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;
@@ -258,11 +258,11 @@ namespace engine::utilities {
                 pair = std::make_pair(getValue<std::string>(itr->second), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a std::string variable", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a std::string variable", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;
@@ -277,11 +277,11 @@ namespace engine::utilities {
                 pair = std::make_pair(getValue<nlohmann::json>(itr->second), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a JSON variable", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a JSON variable", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;
@@ -314,11 +314,11 @@ namespace engine::utilities {
                 pair = std::make_pair(sol::make_object<nlohmann::json>(*getContext().lua, getValue<nlohmann::json>(itr->second)), true);
             }
             else {
-                tmx::Logger::log(getLogErrorPrefix() + ": getObject: " + name + " does not have an appropriate type", tmx::Logger::Type::Warning);
+                m_context.logger.log(getLogErrorPrefix() + ": getObject: " + name + " does not have an appropriate type", LogType::Warning);
             }
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": getObject: " + name + " is not a known member", tmx::Logger::Type::Warning);
+            m_context.logger.log(getLogErrorPrefix() + ": getObject: " + name + " is not a known member", LogType::Warning);
         }
 
         return pair;

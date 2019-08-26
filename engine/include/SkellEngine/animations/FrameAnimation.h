@@ -34,7 +34,7 @@ namespace engine::animations {
         /**
          * \brief Constructor
          * \param description The description of the frame animation
-         * \throws std::invalid_argument if the description is invalid
+         * \throws errors::InvalidJSON if the description is invalid
          */
         FrameAnimation(const nlohmann::json &description);
         /**

@@ -1,6 +1,5 @@
 #include "SkellEngine/systems/SystemManager.h"
 
-#include <SkellEngine/tmxlite/Log.hpp>
 #include "SkellEngine/Context.h"
 
 namespace engine::systems {
@@ -31,7 +30,7 @@ namespace engine::systems {
     bool SystemManager::addSystem(std::string name) {
         std::transform(name.begin(), name.end(), name.begin(), ::tolower);
         if (m_systems.find(name) != m_systems.end()) {
-            tmx::Logger::log("Impossible to use two systems of the same type (" + name + ").", tmx::Logger::Type::Error);
+            m_context.context.logger.log("Impossible to use two systems of the same type (" + name + ").", LogType::Error);
             return false;
         }
 

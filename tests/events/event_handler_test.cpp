@@ -22,9 +22,8 @@ public:
 
     int integer = 0;
 
-    static events::Event::RegisterEvent<TestEvent> rete;
+    REGISTER_EVENT(TestEvent, "test")
 };
-events::Event::RegisterEvent<TestEvent> TestEvent::rete = events::Event::RegisterEvent<TestEvent>("test");
 
 bool called1 = false;
 bool called2 = false;

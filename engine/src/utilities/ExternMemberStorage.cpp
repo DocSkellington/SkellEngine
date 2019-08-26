@@ -79,7 +79,7 @@ namespace engine::utilities {
     std::pair<sol::object, bool> ExternMemberStorage::getObject(const std::string &name) const {
         auto itr = m_jsonTable.find(name);
         if (itr != m_jsonTable.end()) {
-            sol::object o;
+            sol::object o(sol::nil);
             switch(itr->type()) {
             case nlohmann::json::value_t::array:
             case nlohmann::json::value_t::object:
@@ -105,14 +105,12 @@ namespace engine::utilities {
                 o = getContext().lua->create_table();
                 break;
             default:
-                // TODO:
-                std::cout << "What are you?\n";
+                getContext().logger.log(getLogErrorPrefix() + ": unknown value type. nil will be returned");
                 break;
             }
             return std::make_pair(o, true);
         }
         else {
-            tmx::Logger::log(getLogErrorPrefix() + ": the value " + name + " is undefined.", tmx::Logger::Type::Warning);
             return std::make_pair(sol::nil, false);
         }
     }

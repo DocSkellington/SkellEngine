@@ -1,6 +1,6 @@
 #include "SkellEngine/animations/FadeAnimation.h"
 
-#include "SkellEngine/tmxlite/Log.hpp"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 namespace engine::animations {
     FadeAnimation::FadeAnimation(float inRatio, float outRatio) :
@@ -11,18 +11,22 @@ namespace engine::animations {
 
     FadeAnimation::FadeAnimation(const nlohmann::json &description) {
         m_inRatio = m_outRatio = 0;
-        if (auto in = description.find("in") ; in != description.end() && in->is_number()) {
-            m_inRatio = *in;
-        }
-        else {
-            tmx::Logger::log("FadeAnimation: the 'in' field in not present or is not a float. The value defaults to 0.", tmx::Logger::Type::Warning);
+        if (auto in = description.find("in") ; in != description.end()) {
+            if (in->is_number_float()) {
+                m_inRatio = in->get<float>();
+            }
+            else {
+                throw errors::InvalidJSON("FadeAnimation: the 'in' field must be a float");
+            }
         }
 
-        if (auto out = description.find("out") ; out != description.end() && out->is_number()) {
-            m_outRatio = *out;
-        }
-        else {
-            tmx::Logger::log("FadeAnimation: the 'out' field in not present or is not a float. The value defaults to 0.", tmx::Logger::Type::Warning);
+        if (auto out = description.find("out") ; out != description.end()) {
+            if (out->is_number()) {
+                m_outRatio = *out;
+            }
+            else {
+                throw errors::InvalidJSON("FadeAnimation: the 'out' field must be a float");
+            }
         }
 
         checkRatio();

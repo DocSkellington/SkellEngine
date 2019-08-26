@@ -7,7 +7,8 @@
 #include <sol/sol.hpp>
 #include <TGUI/TGUI.hpp>
 
-#include "files/GameDescription.h"
+#include "SkellEngine/files/GameDescription.h"
+#include "SkellEngine/Logger.h"
 
 namespace engine {
     namespace files {
@@ -53,6 +54,10 @@ namespace engine {
         void luaFunctions(sol::state &lua);
 
     public:
+        /**
+         * \brief The logger
+         */
+        Logger logger;
         /**
          * \brief The file manager
          */

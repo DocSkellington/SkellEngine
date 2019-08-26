@@ -3,8 +3,6 @@
 #include <cctype>
 #include <filesystem>
 
-#include <SkellEngine/tmxlite/Log.hpp>
-
 namespace sol {
     template<>
     struct is_container<std::filesystem::path> : std::false_type {};
@@ -48,174 +46,173 @@ namespace engine::files {
         );
     }
 
-    GameDescription::LogDescription defaultLog {tmx::Logger::Output::None, "log.txt"};
-
     void from_json(const nlohmann::json &j, GameDescription::LogDescription &l) {
-        auto file = j.find("file");
-
-        if (file != j.end() && file->is_string()) {
-            l.logPath = file->get<std::string>();
+        if (auto file = j.find("file") ; file != j.end() && file->is_string()) {
+            if (file->is_string()) {
+                l.logPath = file->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: log description: 'file' must be a string. 'log.txt' will be used as default.");
+            }
         }
-        else {
-            tmx::Logger::log("game.json: log description: the value of 'file' is not present or not valid. 'log.txt' will be used as default.");
-        }
 
-        auto output = j.find("output");
-
-        if (output != j.end()) {
-            if (output->is_string()) {
-                std::string o = *output;
-                if (o == "console") {
-                    l.output = tmx::Logger::Output::Console;
+        if (auto level = j.find("level") ; level != j.end()) {
+            if (level->is_string()) {
+                const std::string &lev = level->get<std::string>();
+                if (lev == "info") {
+                    l.level = LogType::Info;
                 }
-                else if (o == "file") {
-                    l.output = tmx::Logger::Output::File;
+                else if (lev == "warning") {
+                    l.level = LogType::Warning;
                 }
-                else if (o == "all") {
-                    l.output = tmx::Logger::Output::All;
-                }
-                else if (o == "none") {
-                    l.output = tmx::Logger::Output::None;
+                else if (lev == "error") {
+                    l.level = LogType::Error;
                 }
                 else {
-                    l.output = defaultLog.output;
-                    tmx::Logger::log("game.json: log description: the value of 'output' is not valid. It must be \"none\", \"console\", \"file\" or \"all\". 'none' will be used as default", tmx::Logger::Type::Warning);
+                    Logger::forceLog("game.json: log description: the value of 'level' is invalid. It must be \"info\", \"warning\" or \"error\". \"info\" is used by default.");
                 }
             }
             else {
-                tmx::Logger::log("game.json: log description: 'output' has an invalid type. It must be a string or an array. 'none' will be used as default.", tmx::Logger::Type::Warning);
-                l.output = defaultLog.output;
+                Logger::forceLog("game.json: log description: 'level' has an invalid type. It must be a string. 'info' is used by default.");
             }
         }
-        else {
-            tmx::Logger::log("game.json: log description does not the contain the 'output' field. 'None' will be used as default", tmx::Logger::Type::Warning);
-            l.output = defaultLog.output;
-        }
-    }
 
-    GameDescription::WindowDescription defaultWindow {false, true, true, true, true, true, "", 800, 600, 0, 60, false};
-
-    void from_json(const nlohmann::json &j, GameDescription::WindowDescription &w) {
-        auto fullscreen = j.find("fullscreen");
-        if (fullscreen != j.end() && fullscreen->is_boolean())
-            w.fullscreen = *fullscreen;
-        else {
-            w.fullscreen = defaultWindow.fullscreen;
-            tmx::Logger::log("game.json: window description does not contain the 'fullscreen' field or its type is not valid (should be a boolean). 'false' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto titlebar = j.find("showTitlebar");
-        if (titlebar != j.end() && titlebar->is_boolean())
-            w.titlebar = *titlebar;
-        else {
-            w.titlebar = defaultWindow.titlebar;
-            tmx::Logger::log("game.json: window description does not contain the 'showTitlebar' field or its type is not valid (should be a boolean). 'true' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto resize = j.find("showResize");
-        if (resize != j.end() && resize->is_boolean())
-            w.resize = *resize;
-        else {
-            w.resize = defaultWindow.resize;
-            tmx::Logger::log("game.json: window description does not contain the 'showResize' field or its type is not valid (should be a boolean). 'true' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto close = j.find("showClose");
-        if (close != j.end() && close->is_boolean())
-            w.close = *close;
-        else {
-            w.close = defaultWindow.close;
-            tmx::Logger::log("game.json: window description does not contain the 'showClose' field or its type is not valid (should be a boolean). 'true' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto engine = j.find("showEngine");
-        if (engine != j.end() && engine->is_boolean())
-            w.engine = *engine;
-        else {
-            w.engine = defaultWindow.engine;
-            tmx::Logger::log("game.json: window description does not contain the 'showEngine' field or its type is not valid (should be a boolean). 'true' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto version = j.find("showVersion");
-        if (version != j.end() && version->is_boolean())
-            w.version = *version;
-        else {
-            w.version = defaultWindow.version;
-            tmx::Logger::log("game.json: window description does not contain the 'showVersion' field or its type is not valid (should be a boolean). 'true' will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto title = j.find("title");
-        if (title != j.end() && title->is_string())
-            w.title = *title;
-        else {
-            w.title = defaultWindow.title;
-            tmx::Logger::log("game.json: window description does not contain the 'title' field or its type is not valid (should be a string). An empty string will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto size = j.find("size");
-        if (size != j.end() && size->is_array()) {
-            if (size->size() == 2 && (*size)[0].is_number_integer() && (*size)[1].is_number_integer()) {
-                w.width = (*size)[0];
-                w.height = (*size)[1];
+        if (auto output = j.find("output") ; output != j.end()) {
+            if (output->is_string()) {
+                const std::string& o = output->get<std::string>();
+                if (o == "console") {
+                    l.output = LogOutput::Console;
+                }
+                else if (o == "file") {
+                    l.output = LogOutput::File;
+                }
+                else if (o == "all") {
+                    l.output = LogOutput::All;
+                }
+                else if (o == "none") {
+                    l.output = LogOutput::None;
+                }
+                else {
+                    Logger::forceLog("game.json: log description: the value of 'output' is not valid. It must be \"none\", \"console\", \"file\" or \"all\". 'none' will be used as default");
+                }
             }
             else {
-                w.width = defaultWindow.width;
-                w.height = defaultWindow.height;
-                tmx::Logger::log("game.json: window description: the 'size' field must be an array of 2 integers. [800, 600] will be used as default.", tmx::Logger::Type::Warning);
+                Logger::forceLog("game.json: log description: 'output' has an invalid type. It must be a string or an array. 'none' will be used as default.");
             }
-        }
-        else {
-            w.width = defaultWindow.width;
-            w.height = defaultWindow.height;
-            tmx::Logger::log("game.json: window description does not contain the 'size' field or its type is not valid (it should be an array of 2 integers). [800, 600] will be used as default.", tmx::Logger::Type::Warning);
-        }
-
-        auto antialiasing = j.find("antialiasingLevel");
-        if (antialiasing != j.end() && antialiasing->is_number()) {
-            w.antialiasingLevel = *antialiasing;
-        }
-        else {
-            w.antialiasingLevel = defaultWindow.antialiasingLevel;
-            tmx::Logger::log("game.json: window description does not contain the 'antialiasingLevel' field or its type is not valid (it should be an integer). 0 will be used as default.");
-        }
-
-        if (auto FPS = j.find("FPS") ; FPS != j.end() && FPS->is_number()) {
-            w.FPS = *FPS;
-        }
-        else {
-            w.FPS = defaultWindow.FPS;
-            tmx::Logger::log("game.json: window description does not contain the 'FPS' field or its type is not valid (it should be an integer). 60 will be used as default.");
-        }
-
-        if (auto verticalSync = j.find("verticalSynchronisation") ; verticalSync != j.end() && verticalSync->is_boolean()) {
-            w.verticalSynchronisation = *verticalSync;
-        }
-        else {
-            w.verticalSynchronisation = defaultWindow.verticalSynchronisation;
-            tmx::Logger::log("game.json: window description does not contain the 'verticalSynchronisation' field or its type is not valid (it should be a boolean). 'false' will be used as default.");
         }
     }
 
-    GameDescription::MediaDescription defaultMedia {
-        "sprites/",
-        "maps/",
-        "systems/",
-        "fonts/",
-        "entities/",
-        "levels/",
-        "states/",
-        "keys.json",
-        ""
-    };
+    void from_json(const nlohmann::json &j, GameDescription::WindowDescription &w) {
+        if (auto fullscreen = j.find("fullscreen") ; fullscreen != j.end()) {
+            if (fullscreen->is_boolean()) {
+                w.fullscreen = fullscreen->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'fullscreen' must be a boolean. 'false' will be used as default.");
+            }
+        }
+
+        if (auto titlebar = j.find("showTitlebar") ; titlebar != j.end()) {
+            if (titlebar->is_boolean()) {
+                w.titlebar = titlebar->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'showTitlebar' must be a boolean. 'true' will be used as default.");
+            }
+        }
+
+        
+        if (auto resize = j.find("showResize") ; resize != j.end()) {
+            if (resize->is_boolean()) {
+                w.resize = resize->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'showResize' must be a boolean. 'true' will be used as default.");
+            }
+        }
+
+        if (auto close = j.find("showClose") ; close != j.end()) {
+            if (close->is_boolean()) {
+                w.close = close->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'showClose' must be a boolean. 'true' will be used as default.");
+            }
+        }
+
+        if (auto engine = j.find("showEngine") ; engine != j.end()) {
+            if (engine->is_boolean()) {
+                w.engine = engine->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'showEngine' must be a boolean. 'true' will be used as default.");
+            }
+        }
+
+        if (auto version = j.find("showVersion") ; version != j.end()) {
+            if (version->is_boolean()) {
+                w.version = version->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'showVersion' must be a boolean. 'true' will be used as default.");
+            }
+        }
+
+        if (auto title = j.find("title") ; title != j.end()) {
+            if (title->is_string()) {
+                w.title = title->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'title' must be a string. An empty string will be used as default.");
+            }
+        }
+
+        if (auto size = j.find("size") ; size != j.end()) {
+            if (size->is_array() && size->size() == 2 && (*size)[0].is_number_integer() && (*size)[1].is_number_integer()) {
+                w.width = (*size)[0].get<int>();
+                w.height = (*size)[1].get<int>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: the 'size' field must be an array of 2 integers. [800, 600] will be used as default.");
+            }
+        }
+
+        if (auto antialiasing = j.find("antialiasingLevel") ; antialiasing != j.end()) {
+            if (antialiasing->is_number_integer()) {
+                w.antialiasingLevel = antialiasing->get<int>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'antialiasingLevel' must be an integer. 0 will be used as default.");
+            }
+        }
+
+        if (auto FPS = j.find("FPS") ; FPS != j.end()) {
+            if (FPS->is_number_integer()) {
+                w.FPS = FPS->get<int>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'FPS' must be an integer. 60 will be used as default.");
+            }
+        }
+
+        if (auto verticalSync = j.find("verticalSynchronisation") ; verticalSync != j.end()) {
+            if (verticalSync->is_boolean()) {
+                w.verticalSynchronisation = verticalSync->get<bool>();
+            }
+            else {
+                Logger::forceLog("game.json: window description: 'verticalSynchronisation' must be a boolean. 'false' will be used as default.");
+            }
+        }
+    }
 
     void from_json(const nlohmann::json &j, GameDescription::MediaDescription &m) {
-        auto baseSprites = j.find("baseSprites");
-        if (baseSprites != j.end() && baseSprites->is_string()) {
-            m.baseSprites = baseSprites->get<std::string>();
-        }
-        else {
-            m.baseSprites = defaultMedia.baseSprites;
-            tmx::Logger::log("game.json: media description does not contain the 'baseSprites' field or its type is not valid (it should be a string). 'sprites/' will be used as default.", tmx::Logger::Type::Warning);
+        if (auto baseSprites = j.find("baseSprites") ; baseSprites != j.end()) {
+            if (baseSprites->is_string()) {
+                m.baseSprites = baseSprites->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'baseSprites' must be a string. 'sprites/' will be used as default.");
+            }
         }
 
         auto maps = j.find("maps");
@@ -224,139 +221,134 @@ namespace engine::files {
                 m.mapFolder = maps->get<std::string>();
             }
             else {
-                m.mapFolder = defaultMedia.mapFolder;
-                tmx::Logger::log("game.json: media description: the 'maps' field's type is not valid (it should be a string or an object). 'maps/' will be used as default.", tmx::Logger::Type::Warning);
+                Logger::forceLog("game.json: media description: 'maps' must be a string . 'maps/' will be used as default.");
             }
         }
-        else {
-            m.mapFolder = defaultMedia.mapFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'maps' field. 'maps' will be used as default.", tmx::Logger::Type::Warning);
+
+        if (auto systems = j.find("systems") ; systems != j.end()) {
+            if (systems->is_string()) {
+                m.systemsFolder = systems->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'systems' must be a string. 'systems/' will be used as default");
+            }
         }
 
-        auto systems = j.find("systems");
-        if (systems != j.end() && systems->is_string()) {
-            m.systemsFolder = systems->get<std::string>();
-        }
-        else {
-            m.systemsFolder = defaultMedia.systemsFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'systems' field or its type is not valid (it should be a string). 'systems/' will be used as default", tmx::Logger::Type::Warning);
-        }
-
-        auto fonts = j.find("fonts");
-        if (fonts != j.end() && fonts->is_string()) {
-            m.fontsFolder = fonts->get<std::string>();
-        }
-        else {
-            m.fontsFolder = defaultMedia.fontsFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'fonts' field or its type is not valid (it should be a string). 'fonts/' will be used as default", tmx::Logger::Type::Warning);
+        if (auto fonts = j.find("fonts") ; fonts != j.end()) {
+            if (fonts->is_string()) {
+                m.fontsFolder = fonts->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'fonts' must be a string. 'fonts/' will be used as default");
+            }
         }
 
-        auto entities = j.find("entities");
-        if (entities != j.end() && entities->is_string()) {
-            m.entitiesFolder = entities->get<std::string>();
-        }
-        else {
-            m.entitiesFolder = defaultMedia.entitiesFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'entities' field or its type is not valid (it should be a string). 'entities/' will be used as default", tmx::Logger::Type::Warning);
-        }
-
-        auto levels = j.find("levels");
-        if (levels != j.end() && levels->is_string()) {
-            m.levelsFolder = levels->get<std::string>();
-        }
-        else {
-            m.levelsFolder = defaultMedia.levelsFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'levels' field or its type is not valid (it should be a string). 'levels/' will be used as default", tmx::Logger::Type::Warning);
+        if (auto entities = j.find("entities") ; entities != j.end()) {
+            if (entities->is_string()) {
+                m.entitiesFolder = entities->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'entities' must be a string. 'entities/' will be used as default");
+            }
         }
 
-        auto states = j.find("states");
-        if (states != j.end() && states->is_string()) {
-            m.statesFolder = states->get<std::string>();
-        }
-        else {
-            m.statesFolder = defaultMedia.statesFolder;
-            tmx::Logger::log("game.json: media description does not contain the 'states' field or its type is not valid (it should be a string). 'states/' will be used as default", tmx::Logger::Type::Warning);
+        if (auto levels = j.find("levels") ; levels != j.end()) {
+            if (levels->is_string()) {
+                m.levelsFolder = levels->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'levels' must be a string. 'levels/' will be used as default");
+            }
         }
 
-        auto input = j.find("input");
-        if (input != j.end() && input->is_string()) {
-            m.inputDescription = input->get<std::string>();
+        
+        if (auto states = j.find("states") ; states != j.end()) {
+            if (states->is_string()) {
+                m.statesFolder = states->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'states' must be a string. 'states/' will be used as default");
+            }
         }
-        else {
-            m.inputDescription = defaultMedia.inputDescription;
-            tmx::Logger::log("game.json: media description does not contain the 'input' field or its type is not valid (it should be a string). 'keys.json' will be used as default", tmx::Logger::Type::Warning);
+
+        if (auto input = j.find("input") ; input != j.end()) {
+            if (input->is_string()) {
+                m.inputDescription = input->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: media description: 'input' must be a string. 'keys.json' will be used as default");
+            }
         }
     }
 
-    GameDescription::StatesDescription defaultState {"intro"};
-
     void from_json(const nlohmann::json &j, GameDescription::StatesDescription &s) {
-        auto first = j.find("first");
-        if(first != j.end()) {
-            std::string firstS = *first;
-            std::transform(firstS.begin(), firstS.end(), firstS.begin(), ::tolower);
-            s.firstState = firstS;
-        }
-        else {
-            s.firstState = defaultState.firstState;
-            tmx::Logger::log("game.json: states description does not contain the 'first' field or its type is not valid (it should be a string). 'intro' will be used as default value.", tmx::Logger::Type::Warning);
+        if(auto first = j.find("first") ; first != j.end()) {
+            if (first->is_string()) {
+                std::string firstS = first->get<std::string>();
+                std::transform(firstS.begin(), firstS.end(), firstS.begin(), ::tolower);
+                s.firstState = firstS;
+            }
+            else {
+                Logger::forceLog("game.json: states description: 'first' must be a string. 'intro' will be used as default value.");
+            }
         }
     }
 
     void from_json(const nlohmann::json &j, GameDescription &g) {
         // We load the log description only in Debug build
-        auto log = j.find("log");
-        if (log != j.end() && log->is_object()) {
-            g.log = *log;
-        }
-        else {
-            g.log = defaultLog;
-            tmx::Logger::log("game.json: the log description is not present. Default values will be used", tmx::Logger::Type::Warning);
-        }
-
-        auto window = j.find("window");
-        if (window != j.end() && window->is_object()) {
-            g.window = *window;
-        }
-        else {
-            g.window = defaultWindow;
-            tmx::Logger::log("game.json: the window description is not present. Default values will be used", tmx::Logger::Type::Warning);
+        if (auto log = j.find("log") ; log != j.end()) {
+            if (log->is_object()) {
+                g.log = log->get<GameDescription::LogDescription>();
+            }
+            else {
+                Logger::forceLog("game.json: the log description must be an object. Default values will be used");
+            }
         }
 
-        auto media = j.find("media");
-        if (media != j.end() && media->is_object()) {
-            g.media = *media;
-        }
-        else {
-            g.media = defaultMedia;
-            tmx::Logger::log("game.json: the media description is not present. Default values will be used", tmx::Logger::Type::Warning);
-        }
-
-        auto states = j.find("states");
-        if (states != j.end() && states->is_object()) {
-            g.states = *states;
-        }
-        else {
-            g.states = defaultState;
-            tmx::Logger::log("game.json: the states description is not present. Default values will be used", tmx::Logger::Type::Warning);
+        if (auto window = j.find("window") ; window != j.end()) {
+            if (window->is_object()) {
+                g.window = window->get<GameDescription::WindowDescription>();
+            }
+            else {
+                Logger::forceLog("game.json: the window description must be an object. Default values will be used");
+            }
         }
 
-        auto version = j.find("version");
-        if (version != j.end() && version->is_string()) {
-            g.version = *version;
-        }
-        else {
-            g.version = "";
-            tmx::Logger::log("game.json: the 'version' field is not present or is not a string. An empty string will be used as default");
+        if (auto media = j.find("media") ; media != j.end()) {
+            if (media->is_object()) {
+                g.media = media->get<GameDescription::MediaDescription>();
+            }
+            else {
+                Logger::forceLog("game.json: the media description must be an object. Default values will be used");
+            }
         }
 
-        auto name = j.find("name");
-        if (name != j.end() && name->is_string()) {
-            g.name = *name;
+        if (auto states = j.find("states") ; states != j.end()) {
+            if (states->is_object()) {
+                g.states = states->get<GameDescription::StatesDescription>();
+            }
+            else {
+                Logger::forceLog("game.json: the states description must be an object. Default values will be used");
+            }
         }
-        else {
-            g.name = "";
-            tmx::Logger::log("game.json: the 'name' field is not present or is not a string. An empty string will be used as default");
+
+        if (auto version = j.find("version") ; version != j.end()) {
+            if (version->is_string()) {
+                g.version = version->get<std::string>();
+            }
+            else {
+                g.version = "";
+                Logger::forceLog("game.json: the 'version' field must be a string. An empty string will be used as default");
+            }
+        }
+
+        if (auto name = j.find("name") ; name != j.end()) {
+            if (name->is_string()) {
+                g.name = name->get<std::string>();
+            }
+            else {
+                Logger::forceLog("game.json: the 'name' field must be a string. An empty string will be used as default");
+            }
         }
     }
 }

@@ -9,15 +9,15 @@ namespace engine::states {
         context(context),
         stateName(stateName) {
         entityManager = std::make_shared<entities::EntityManager>(*this);
-        tmx::Logger::log("Entity manager ready");
+        context.logger.log("Entity manager ready");
         systemManager = std::make_shared<systems::SystemManager>(*this);
-        tmx::Logger::log("System manager ready");
+        context.logger.log("System manager ready");
         level = std::make_shared<levels::Level>(*this);
-        tmx::Logger::log("Level system ready");
+        context.logger.log("Level system ready");
             
         if (context.window) {
             gui = std::make_shared<tgui::Gui>(*context.window);
-            tmx::Logger::log("Graphical user interface system ready");
+            context.logger.log("Graphical user interface system ready");
         }
     }
 }

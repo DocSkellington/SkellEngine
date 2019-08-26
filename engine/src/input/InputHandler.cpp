@@ -8,6 +8,7 @@
 #include "SkellEngine/input/detail/default.h"
 #include "SkellEngine/states/StateManager.h"
 #include "SkellEngine/events/EventHandler.h"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 thor::Action applyModifiers(thor::Action action, bool lshift, bool lalt, bool lcontrol, bool rshift, bool ralt, bool rcontrol) {
     if (lshift) {
@@ -60,18 +61,12 @@ namespace engine::input {
     }
 
     InputHandler::InputConnection InputHandler::connectInput(const std::string &eventType, nlohmann::json inputDescription) {
-        EventInformation information = createEventInformation(eventType, inputDescription);
-        bool error = information.m_input.size() == 0;
-        if (!error) {
-            for (const auto& input : information.m_input) {
-                if (input.input.type == sf::Event::EventType::Count) {
-                    error = true;
-                    break;
-                }
-            }
+        EventInformation information;
+        try {
+            information = createEventInformation(eventType, inputDescription);
         }
-        if (error) {
-            tmx::Logger::log("Input handler: an error occured during the creation of an input reaction. The input will not be connected.", tmx::Logger::Type::Warning);
+        catch (const errors::InvalidJSON &e) {
+            m_context.logger.logError("Input handler: an error occured during the creation of an input reaction. The input will not be connected.", e);
             return InputConnection(*this, thor::Connection(), 0);
         }
 
@@ -135,7 +130,7 @@ namespace engine::input {
     void InputHandler::processAction(const thor::ActionContext<InputHandler::ActionId> &actionContext) {
         auto itr = m_actionIdToEventInformation.find(actionContext.actionId);
         if (itr == m_actionIdToEventInformation.end()) {
-            tmx::Logger::log("Input handler: an input has triggered a registered callback but the callback was deleted before it could be called", tmx::Logger::Type::Warning);
+            m_context.logger.log("Input handler: an input has triggered a registered callback but the callback was deleted before it could be called");
             return;
         }
 
@@ -211,7 +206,7 @@ namespace engine::input {
                     // Nothing to do
                     break;
                 default:
-                    tmx::Logger::log("Input handler: error while handling an input: unknown input type. No information is extracted from the input.");
+                    m_context.logger.log("Input handler: error while handling an input: unknown input type. No information is extracted from the input.");
                     break;
                 }
                 break;
@@ -238,8 +233,7 @@ namespace engine::input {
         }
         else if (inputDescription.is_array()) { // An array is an OR operation
             if (!allowTables) {
-                tmx::Logger::log("Input handler: the input description is invalid: nested tables are not allowed", tmx::Logger::Type::Warning);
-                return EventInformation();
+                throw errors::InvalidJSON("Input handler: the input description is invalid: nested tables are not allowed");
             }
 
             EventInformation information;
@@ -267,8 +261,7 @@ namespace engine::input {
             return information;
         }
         else {
-            tmx::Logger::log("Input handler: the input description is invalid: the description must be an object, an array or a string.", tmx::Logger::Type::Warning);
-            return EventInformation();
+            throw errors::InvalidJSON("Input handler: the input description is invalid: the description must be an object, an array or a string.");
         }
 
         thor::Action::ActionType actionType;
