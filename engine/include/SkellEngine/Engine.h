@@ -13,7 +13,7 @@ namespace engine {
     public:
         /**
          * The constructor
-         * \param baseMediapath The path to the folder containing the "media" folder
+         * \param baseMediapath The path to the media folder
          */
         explicit Engine(const std::filesystem::path &baseMediapath = ".");
         Engine(const Engine&) = delete;

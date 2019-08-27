@@ -24,7 +24,7 @@ namespace engine::files {
          * 
          * It loads the game description, sets the configuration of the logger and registers the Lua states and systems
          * \param context The context
-         * \param baseMediapath The path to the folder containing the "media" folder
+         * \param baseMediapath The path to the media folder
          */
         explicit FileManager(Context &context, const std::string& baseMediapath);
         FileManager(const FileManager&) = delete;
