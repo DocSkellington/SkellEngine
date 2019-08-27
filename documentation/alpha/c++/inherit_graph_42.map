@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="5,201,123,243"/>
+<area shape="rect" id="node2" href="$classengine_1_1entities_1_1components_1_1Component.html" title="The base of every component. " alt="" coords="171,136,360,177"/>
+<area shape="rect" id="node7" href="$classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="191,267,340,294"/>
+<area shape="rect" id="node9" href="$classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. " alt="" coords="189,201,341,243"/>
+<area shape="rect" id="node3" href="$classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="A component describing the animation of an entity. " alt="" coords="423,5,613,47"/>
+<area shape="rect" id="node4" href="$classengine_1_1entities_1_1components_1_1ExternComponent.html" title="This component is defined only through JSON. " alt="" coords="423,201,613,243"/>
+<area shape="rect" id="node5" href="$classengine_1_1entities_1_1components_1_1GraphicalSpriteSheetComponent.html" title="Describes the sprite sheet of a component. " alt="" coords="408,71,628,112"/>
+<area shape="rect" id="node6" href="$classengine_1_1entities_1_1components_1_1PositionComponent.html" title="Describes the position of a component in the world. " alt="" coords="423,136,613,177"/>
+<area shape="rect" id="node8" href="$classengine_1_1events_1_1ExternEvent.html" title="This event is defined only with JSON. " alt="" coords="425,267,611,294"/>
+</map>

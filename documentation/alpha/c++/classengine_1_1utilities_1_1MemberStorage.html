@@ -67,6 +67,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classengine_1_1utilities_1_1MemberStorage-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -84,11 +85,12 @@ Inheritance diagram for engine::utilities::MemberStorage:</div>
 <div class="center"><img src="classengine_1_1utilities_1_1MemberStorage__inherit__graph.png" border="0" usemap="#engine_1_1utilities_1_1MemberStorage_inherit__map" alt="Inheritance graph"/></div>
 <map name="engine_1_1utilities_1_1MemberStorage_inherit__map" id="engine_1_1utilities_1_1MemberStorage_inherit__map">
 <area shape="rect" id="node2" href="classengine_1_1entities_1_1components_1_1Component.html" title="The base of every component. " alt="" coords="171,136,360,177"/>
-<area shape="rect" id="node7" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="191,234,340,261"/>
-<area shape="rect" id="node3" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="engine::entities::components\l::AnimationComponent" alt="" coords="423,5,613,47"/>
-<area shape="rect" id="node4" href="classengine_1_1entities_1_1components_1_1ExternComponent.html" title="This component is defined only through JSON. " alt="" coords="423,71,613,112"/>
-<area shape="rect" id="node5" href="classengine_1_1entities_1_1components_1_1GraphicalSpriteSheetComponent.html" title="Describes the sprite sheet of a component. " alt="" coords="408,136,628,177"/>
-<area shape="rect" id="node6" href="classengine_1_1entities_1_1components_1_1PositionComponent.html" title="Describes the position of a component in the world. " alt="" coords="423,201,613,243"/>
+<area shape="rect" id="node7" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="191,267,340,294"/>
+<area shape="rect" id="node9" href="classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. " alt="" coords="189,201,341,243"/>
+<area shape="rect" id="node3" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="A component describing the animation of an entity. " alt="" coords="423,5,613,47"/>
+<area shape="rect" id="node4" href="classengine_1_1entities_1_1components_1_1ExternComponent.html" title="This component is defined only through JSON. " alt="" coords="423,201,613,243"/>
+<area shape="rect" id="node5" href="classengine_1_1entities_1_1components_1_1GraphicalSpriteSheetComponent.html" title="Describes the sprite sheet of a component. " alt="" coords="408,71,628,112"/>
+<area shape="rect" id="node6" href="classengine_1_1entities_1_1components_1_1PositionComponent.html" title="Describes the position of a component in the world. " alt="" coords="423,136,613,177"/>
 <area shape="rect" id="node8" href="classengine_1_1events_1_1ExternEvent.html" title="This event is defined only with JSON. " alt="" coords="425,267,611,294"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -98,36 +100,39 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9845d5530bd04fb5b328dfe349c12685"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a9845d5530bd04fb5b328dfe349c12685">MemberStorage</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context)</td></tr>
 <tr class="memdesc:a9845d5530bd04fb5b328dfe349c12685"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="#a9845d5530bd04fb5b328dfe349c12685">More...</a><br /></td></tr>
 <tr class="separator:a9845d5530bd04fb5b328dfe349c12685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9ab44fd40d86dcdeef3a5fd6f351062"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aa9ab44fd40d86dcdeef3a5fd6f351062">set</a> (const std::string &amp;name, int value)</td></tr>
-<tr class="memdesc:aa9ab44fd40d86dcdeef3a5fd6f351062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="#aa9ab44fd40d86dcdeef3a5fd6f351062">More...</a><br /></td></tr>
-<tr class="separator:aa9ab44fd40d86dcdeef3a5fd6f351062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a755d056bcac3beb719cf4ac55accdfe1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a755d056bcac3beb719cf4ac55accdfe1">set</a> (const std::string &amp;name, long value)</td></tr>
-<tr class="memdesc:a755d056bcac3beb719cf4ac55accdfe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="#a755d056bcac3beb719cf4ac55accdfe1">More...</a><br /></td></tr>
-<tr class="separator:a755d056bcac3beb719cf4ac55accdfe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67a4cd787977b6e45b30a2c10505972"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ad67a4cd787977b6e45b30a2c10505972">set</a> (const std::string &amp;name, float value)</td></tr>
-<tr class="memdesc:ad67a4cd787977b6e45b30a2c10505972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="#ad67a4cd787977b6e45b30a2c10505972">More...</a><br /></td></tr>
-<tr class="separator:ad67a4cd787977b6e45b30a2c10505972"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada5885093ff53fc563d7fc53a830d6fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ada5885093ff53fc563d7fc53a830d6fe">set</a> (const std::string &amp;name, double value)</td></tr>
-<tr class="memdesc:ada5885093ff53fc563d7fc53a830d6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="#ada5885093ff53fc563d7fc53a830d6fe">More...</a><br /></td></tr>
-<tr class="separator:ada5885093ff53fc563d7fc53a830d6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac28a9b88b2a315100db828011c66d029"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ac28a9b88b2a315100db828011c66d029">set</a> (const std::string &amp;name, bool value)</td></tr>
-<tr class="memdesc:ac28a9b88b2a315100db828011c66d029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="#ac28a9b88b2a315100db828011c66d029">More...</a><br /></td></tr>
-<tr class="separator:ac28a9b88b2a315100db828011c66d029"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849e6d07d2887af0d7f436062850e6aa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a849e6d07d2887af0d7f436062850e6aa">set</a> (const std::string &amp;name, const char *value)</td></tr>
-<tr class="memdesc:a849e6d07d2887af0d7f436062850e6aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="#a849e6d07d2887af0d7f436062850e6aa">More...</a><br /></td></tr>
-<tr class="separator:a849e6d07d2887af0d7f436062850e6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c9d35d2f4ef169bf007f4e2236a63dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6c9d35d2f4ef169bf007f4e2236a63dd">set</a> (const std::string &amp;name, const std::string &amp;value)</td></tr>
-<tr class="memdesc:a6c9d35d2f4ef169bf007f4e2236a63dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="#a6c9d35d2f4ef169bf007f4e2236a63dd">More...</a><br /></td></tr>
-<tr class="separator:a6c9d35d2f4ef169bf007f4e2236a63dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e4780024694086d258dd90cf8f63d86"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a2e4780024694086d258dd90cf8f63d86">set</a> (const std::string &amp;name, const nlohmann::json &amp;value)</td></tr>
-<tr class="memdesc:a2e4780024694086d258dd90cf8f63d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="#a2e4780024694086d258dd90cf8f63d86">More...</a><br /></td></tr>
-<tr class="separator:a2e4780024694086d258dd90cf8f63d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a004c45d4576e89ab3e8f4ac97353d2d3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a004c45d4576e89ab3e8f4ac97353d2d3">set</a> (const std::string &amp;name, sol::nil_t value)</td></tr>
-<tr class="memdesc:a004c45d4576e89ab3e8f4ac97353d2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="#a004c45d4576e89ab3e8f4ac97353d2d3">More...</a><br /></td></tr>
-<tr class="separator:a004c45d4576e89ab3e8f4ac97353d2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a956741e6afa959e567c179964144348c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a956741e6afa959e567c179964144348c">set</a> (const std::string &amp;name, const sol::table &amp;value)</td></tr>
-<tr class="memdesc:a956741e6afa959e567c179964144348c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="#a956741e6afa959e567c179964144348c">More...</a><br /></td></tr>
-<tr class="separator:a956741e6afa959e567c179964144348c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810ab140646f14d8204cc107972eac7f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a810ab140646f14d8204cc107972eac7f">set</a> (const std::string &amp;name, int value) noexcept</td></tr>
+<tr class="memdesc:a810ab140646f14d8204cc107972eac7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="#a810ab140646f14d8204cc107972eac7f">More...</a><br /></td></tr>
+<tr class="separator:a810ab140646f14d8204cc107972eac7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88347aa2b5bbbf13168709bd1158ad96"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a88347aa2b5bbbf13168709bd1158ad96">set</a> (const std::string &amp;name, long value) noexcept</td></tr>
+<tr class="memdesc:a88347aa2b5bbbf13168709bd1158ad96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="#a88347aa2b5bbbf13168709bd1158ad96">More...</a><br /></td></tr>
+<tr class="separator:a88347aa2b5bbbf13168709bd1158ad96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca21880b29b832334466ef4603429746"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aca21880b29b832334466ef4603429746">set</a> (const std::string &amp;name, float value) noexcept</td></tr>
+<tr class="memdesc:aca21880b29b832334466ef4603429746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="#aca21880b29b832334466ef4603429746">More...</a><br /></td></tr>
+<tr class="separator:aca21880b29b832334466ef4603429746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36dac40ed574810905611f27d42c18f3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a36dac40ed574810905611f27d42c18f3">set</a> (const std::string &amp;name, double value) noexcept</td></tr>
+<tr class="memdesc:a36dac40ed574810905611f27d42c18f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="#a36dac40ed574810905611f27d42c18f3">More...</a><br /></td></tr>
+<tr class="separator:a36dac40ed574810905611f27d42c18f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636f23ba1197567659e790f1f30e68a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a636f23ba1197567659e790f1f30e68a6">set</a> (const std::string &amp;name, bool value) noexcept</td></tr>
+<tr class="memdesc:a636f23ba1197567659e790f1f30e68a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="#a636f23ba1197567659e790f1f30e68a6">More...</a><br /></td></tr>
+<tr class="separator:a636f23ba1197567659e790f1f30e68a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b2ad3100e2b7f63757e58cf3ff0423d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a1b2ad3100e2b7f63757e58cf3ff0423d">set</a> (const std::string &amp;name, const char *value) noexcept</td></tr>
+<tr class="memdesc:a1b2ad3100e2b7f63757e58cf3ff0423d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="#a1b2ad3100e2b7f63757e58cf3ff0423d">More...</a><br /></td></tr>
+<tr class="separator:a1b2ad3100e2b7f63757e58cf3ff0423d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f58aa59ed168f1048c74cefa0540297"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a8f58aa59ed168f1048c74cefa0540297">set</a> (const std::string &amp;name, const std::string &amp;value) noexcept</td></tr>
+<tr class="memdesc:a8f58aa59ed168f1048c74cefa0540297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="#a8f58aa59ed168f1048c74cefa0540297">More...</a><br /></td></tr>
+<tr class="separator:a8f58aa59ed168f1048c74cefa0540297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639d6fe70c78df9795edd087db22df20"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a639d6fe70c78df9795edd087db22df20">set</a> (const std::string &amp;name, const nlohmann::json &amp;value) noexcept</td></tr>
+<tr class="memdesc:a639d6fe70c78df9795edd087db22df20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="#a639d6fe70c78df9795edd087db22df20">More...</a><br /></td></tr>
+<tr class="separator:a639d6fe70c78df9795edd087db22df20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab85cabaa5f00aa4ae002c18df80fa8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aaab85cabaa5f00aa4ae002c18df80fa8">set</a> (const std::string &amp;name, sol::nil_t value) noexcept</td></tr>
+<tr class="memdesc:aaab85cabaa5f00aa4ae002c18df80fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="#aaab85cabaa5f00aa4ae002c18df80fa8">More...</a><br /></td></tr>
+<tr class="separator:aaab85cabaa5f00aa4ae002c18df80fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7ac4ea6a125428ae8cb2435d2254b1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a5b7ac4ea6a125428ae8cb2435d2254b1">set</a> (const std::string &amp;name, const sol::table &amp;value) noexcept</td></tr>
+<tr class="memdesc:a5b7ac4ea6a125428ae8cb2435d2254b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="#a5b7ac4ea6a125428ae8cb2435d2254b1">More...</a><br /></td></tr>
+<tr class="separator:a5b7ac4ea6a125428ae8cb2435d2254b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002f2ec611ddee1e731f2f3882c560b5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a002f2ec611ddee1e731f2f3882c560b5">has</a> (const std::string &amp;name) const noexcept</td></tr>
+<tr class="memdesc:a002f2ec611ddee1e731f2f3882c560b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a variable called "name" exists.  <a href="#a002f2ec611ddee1e731f2f3882c560b5">More...</a><br /></td></tr>
+<tr class="separator:a002f2ec611ddee1e731f2f3882c560b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f76d5000b3cb1667989c54eb0e834e5"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; long, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6f76d5000b3cb1667989c54eb0e834e5">getInt</a> (const std::string &amp;name) const</td></tr>
 <tr class="memdesc:a6f76d5000b3cb1667989c54eb0e834e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as an integer.  <a href="#a6f76d5000b3cb1667989c54eb0e834e5">More...</a><br /></td></tr>
 <tr class="separator:a6f76d5000b3cb1667989c54eb0e834e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,8 +158,23 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a71df4046733a8563c39a0e34cc0856de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the Lua functions for the <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. ">MemberStorage</a> class.  <a href="#a71df4046733a8563c39a0e34cc0856de">More...</a><br /></td></tr>
 <tr class="separator:a71df4046733a8563c39a0e34cc0856de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:aac194dfc55d9ad68b15e9da1855d31c4"><td class="memItemLeft" align="right" valign="top"><a id="aac194dfc55d9ad68b15e9da1855d31c4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> = std::map&lt; std::string, std::any &gt;</td></tr>
+<tr class="memdesc:aac194dfc55d9ad68b15e9da1855d31c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal container. <br /></td></tr>
+<tr class="separator:aac194dfc55d9ad68b15e9da1855d31c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a727abc2544efc49a8a50b734a06327ad">convertAndSet</a> (std::any variable, T value) noexcept</td></tr>
+<tr class="memdesc:a727abc2544efc49a8a50b734a06327ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the value of given type in a std::any variable.  <a href="#a727abc2544efc49a8a50b734a06327ad">More...</a><br /></td></tr>
+<tr class="separator:a727abc2544efc49a8a50b734a06327ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#afae0ca3652753c5a8e93884c94560314">getValue</a> (std::any variable) const</td></tr>
+<tr class="memdesc:afae0ca3652753c5a8e93884c94560314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of a std::any variable as the type T.  <a href="#afae0ca3652753c5a8e93884c94560314">More...</a><br /></td></tr>
+<tr class="separator:afae0ca3652753c5a8e93884c94560314"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">registerMember</a> (const std::string &amp;name, T *member)</td></tr>
 <tr class="memdesc:a242c8cf9d0875ad6b422ace3af18bef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member variable to be accessed through get and set functions.  <a href="#a242c8cf9d0875ad6b422ace3af18bef5">More...</a><br /></td></tr>
@@ -170,6 +190,13 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <tr class="memitem:a1c23d5f265c997e131861f861f59948f"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a1c23d5f265c997e131861f861f59948f">getLogErrorPrefix</a> () const =0</td></tr>
 <tr class="memdesc:a1c23d5f265c997e131861f861f59948f"><td class="mdescLeft">&#160;</td><td class="mdescRight">What to print in front of the log messages.  <a href="#a1c23d5f265c997e131861f861f59948f">More...</a><br /></td></tr>
 <tr class="separator:a1c23d5f265c997e131861f861f59948f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a5079b90d28ad0eb2a3a37202ddcfa30c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a5079b90d28ad0eb2a3a37202ddcfa30c">getContainer</a> ()</td></tr>
+<tr class="memdesc:a5079b90d28ad0eb2a3a37202ddcfa30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="#a5079b90d28ad0eb2a3a37202ddcfa30c">More...</a><br /></td></tr>
+<tr class="separator:a5079b90d28ad0eb2a3a37202ddcfa30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a880f6f1ccaaafb08358e6d61f1ee91a9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a880f6f1ccaaafb08358e6d61f1ee91a9">getContainer</a> () const</td></tr>
+<tr class="memdesc:a880f6f1ccaaafb08358e6d61f1ee91a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="#a880f6f1ccaaafb08358e6d61f1ee91a9">More...</a><br /></td></tr>
+<tr class="separator:a880f6f1ccaaafb08358e6d61f1ee91a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Allows to retrieve and modify the registered members of a class. </p>
@@ -202,6 +229,59 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a727abc2544efc49a8a50b734a06327ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a727abc2544efc49a8a50b734a06327ad">&#9670;&nbsp;</a></span>convertAndSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void engine::utilities::MemberStorage::convertAndSet </td>
+          <td>(</td>
+          <td class="paramtype">std::any&#160;</td>
+          <td class="paramname"><em>variable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the value of given type in a std::any variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">variable</td><td>The variable to modify </td></tr>
+    <tr><td class="paramname">value</td><td>The value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1be753c8b0407ed8a143f55579da3d14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1be753c8b0407ed8a143f55579da3d14">&#9670;&nbsp;</a></span>getBool()</h2>
 
@@ -236,12 +316,68 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a boolean and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to boolean </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to boolean </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a4811391b3737dd6ca72108ce9f43b555">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#ac3589dd683111f9bb3beecea06a73576">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a634847a9b5e39644f665a428ed884e80">engine::utilities::ExternMemberStorage</a>.</p>
+
+</div>
+</div>
+<a id="a5079b90d28ad0eb2a3a37202ddcfa30c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5079b90d28ad0eb2a3a37202ddcfa30c">&#9670;&nbsp;</a></span>getContainer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a>&amp; engine::utilities::MemberStorage::getContainer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the internal container. </p>
+<dl class="section return"><dt>Returns</dt><dd>The internal container </dd></dl>
+
+</div>
+</div>
+<a id="a880f6f1ccaaafb08358e6d61f1ee91a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a880f6f1ccaaafb08358e6d61f1ee91a9">&#9670;&nbsp;</a></span>getContainer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a>&amp; engine::utilities::MemberStorage::getContainer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the internal container. </p>
+<dl class="section return"><dt>Returns</dt><dd>The internal container </dd></dl>
 
 </div>
 </div>
@@ -279,12 +415,12 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a double and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to double </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to double </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a35eeb625bec281fe41f90a2eb73645d9">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a4e751ec4c166868db6bd36cd6bf7110a">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a10f5f095390b4a60b59c6a6206a026c4">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
@@ -322,12 +458,12 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a long integer and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to integer </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to integer </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a6bc662ff4a922a53a930901fbedaee56">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a9f07d1946f5f1b0eb8eaf3ae9551afea">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae7ae8939e9b4bb7f4bf37b104ec27f9b">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
@@ -365,10 +501,12 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a JSON object and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to a JSON object </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to a JSON object </td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae532c4609e38f880db1bf46c9f319335">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
@@ -399,7 +537,7 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <p>For example, the class Component returns "Component" </p><dl class="section return"><dt>Returns</dt><dd>The string to print </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>Implementation of <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5" title="Registers a member variable to be accessed through get and set functions. ">registerMember</a> </dd></dl>
 
-<p>Implemented in <a class="el" href="classengine_1_1events_1_1Event.html#a35730d1897e825166f5a210c97881eb8">engine::events::Event</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1Component.html#ae93d0f0f4cb9dcffc0ec90d4d7c974e8">engine::entities::components::Component</a>.</p>
+<p>Implemented in <a class="el" href="classengine_1_1events_1_1Event.html#a35730d1897e825166f5a210c97881eb8">engine::events::Event</a>, <a class="el" href="classengine_1_1entities_1_1components_1_1Component.html#ae93d0f0f4cb9dcffc0ec90d4d7c974e8">engine::entities::components::Component</a>, <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a5f2267769734fad0160e0eeee39bcf10">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a9980640d342796116ddb8a445955ecdb">engine::entities::components::ExternComponent</a>.</p>
 
 </div>
 </div>
@@ -437,12 +575,12 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a generic Lua object and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to a Lua object </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to a Lua object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a3e1f8c0ca89840b0f6c981d2edcd453a">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#ae94dbb675f42148e006f074a35fdb6ee">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ad2a95af442d80ee5297fbbc91f0d1b1e">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
@@ -480,12 +618,98 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 <dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a string and found a boolean (true iff the variable exists) </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to string </td></tr>
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">engine::errors::WrongType</a></td><td>when the value can not be converted to string </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a327033ff486334abf9be370e8ccee5d8">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a5e54ce95713beb9f29e1f6559b786212">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3859f62d5de887308db0adc91dc05947">engine::utilities::ExternMemberStorage</a>.</p>
+
+</div>
+</div>
+<a id="afae0ca3652753c5a8e93884c94560314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae0ca3652753c5a8e93884c94560314">&#9670;&nbsp;</a></span>getValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T engine::utilities::MemberStorage::getValue </td>
+          <td>(</td>
+          <td class="paramtype">std::any&#160;</td>
+          <td class="paramname"><em>variable</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the value of a std::any variable as the type T. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">variable</td><td>The variable to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value cast to T </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1WrongType.html" title="The error to throw if a variable in a MemberStorage instance can not be converted to the requested ty...">errors::WrongType</a></td><td>when the value can not be converted to T </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the variable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a002f2ec611ddee1e731f2f3882c560b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a002f2ec611ddee1e731f2f3882c560b5">&#9670;&nbsp;</a></span>has()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool engine::utilities::MemberStorage::has </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if a variable called "name" exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff the variable exists </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3d10d6bcae56576586734b2433ee6b0a">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
@@ -571,8 +795,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aa9ab44fd40d86dcdeef3a5fd6f351062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9ab44fd40d86dcdeef3a5fd6f351062">&#9670;&nbsp;</a></span>set() <span class="overload">[1/10]</span></h2>
+<a id="a810ab140646f14d8204cc107972eac7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a810ab140646f14d8204cc107972eac7f">&#9670;&nbsp;</a></span>set() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,7 +824,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -614,12 +838,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a1f00f5ae1b86118e452b190f9061ba1f">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a9c7a00674ac1aaa2ec083f4d0c7f7632">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ac3160392a649a2bbf9fa89f56f5acedc">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a755d056bcac3beb719cf4ac55accdfe1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a755d056bcac3beb719cf4ac55accdfe1">&#9670;&nbsp;</a></span>set() <span class="overload">[2/10]</span></h2>
+<a id="a88347aa2b5bbbf13168709bd1158ad96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88347aa2b5bbbf13168709bd1158ad96">&#9670;&nbsp;</a></span>set() <span class="overload">[2/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -647,7 +871,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -661,12 +885,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a85940b6da32e32a0482d6d046a9f8155">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a0b1ee0f508b5508408dc7f3bd8cd69cb">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a9ee9784e252af25403b7629bec362a5a">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="ad67a4cd787977b6e45b30a2c10505972"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad67a4cd787977b6e45b30a2c10505972">&#9670;&nbsp;</a></span>set() <span class="overload">[3/10]</span></h2>
+<a id="aca21880b29b832334466ef4603429746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca21880b29b832334466ef4603429746">&#9670;&nbsp;</a></span>set() <span class="overload">[3/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -694,7 +918,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -708,12 +932,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a772df03fa3499a714b37b9ead0a0248a">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a3050580f8a1b92bc99c53806b6afefd9">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a08ee34b2f10c932afd347923693718ec">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="ada5885093ff53fc563d7fc53a830d6fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada5885093ff53fc563d7fc53a830d6fe">&#9670;&nbsp;</a></span>set() <span class="overload">[4/10]</span></h2>
+<a id="a36dac40ed574810905611f27d42c18f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36dac40ed574810905611f27d42c18f3">&#9670;&nbsp;</a></span>set() <span class="overload">[4/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -741,7 +965,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -755,12 +979,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a2c1d90f6815e6250c2697d80f7d404ba">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a041c03b99060348be6df8c08740d0d72">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a52ae3d5af9a82e1a1aa46f022bba2378">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="ac28a9b88b2a315100db828011c66d029"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac28a9b88b2a315100db828011c66d029">&#9670;&nbsp;</a></span>set() <span class="overload">[5/10]</span></h2>
+<a id="a636f23ba1197567659e790f1f30e68a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a636f23ba1197567659e790f1f30e68a6">&#9670;&nbsp;</a></span>set() <span class="overload">[5/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +1012,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -802,12 +1026,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a29e4945bcc5760c27059e13f8be9849e">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a958677c95ae21e41c04abe40767e79aa">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#af6f9ea27f457d889163778fcf5ea7fa2">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a849e6d07d2887af0d7f436062850e6aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a849e6d07d2887af0d7f436062850e6aa">&#9670;&nbsp;</a></span>set() <span class="overload">[6/10]</span></h2>
+<a id="a1b2ad3100e2b7f63757e58cf3ff0423d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b2ad3100e2b7f63757e58cf3ff0423d">&#9670;&nbsp;</a></span>set() <span class="overload">[6/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -835,7 +1059,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -849,12 +1073,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a0b35faa0c42b2225ecae80d8535c8765">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a1bbfe582d82a43e029c49597101df40e">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a33665bfb9962ad72c55d4090ac7f926a">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a6c9d35d2f4ef169bf007f4e2236a63dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c9d35d2f4ef169bf007f4e2236a63dd">&#9670;&nbsp;</a></span>set() <span class="overload">[7/10]</span></h2>
+<a id="a8f58aa59ed168f1048c74cefa0540297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f58aa59ed168f1048c74cefa0540297">&#9670;&nbsp;</a></span>set() <span class="overload">[7/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -882,7 +1106,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -896,12 +1120,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#aa84fa18af2c91b4bf3eb11f853daa361">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a2b772f7797a6d8bf1100166e37b9071b">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a5b37e2cd4e574820b1dec2d986e0ea2a">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a2e4780024694086d258dd90cf8f63d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e4780024694086d258dd90cf8f63d86">&#9670;&nbsp;</a></span>set() <span class="overload">[8/10]</span></h2>
+<a id="a639d6fe70c78df9795edd087db22df20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639d6fe70c78df9795edd087db22df20">&#9670;&nbsp;</a></span>set() <span class="overload">[8/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -929,7 +1153,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -943,12 +1167,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#a97cdbd89f20dc9f21c47d8be8a6f597f">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#ac706283c480ded7220e23cfbbc6f2042">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a11e575baf7a5810f1168584ec598e456">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a004c45d4576e89ab3e8f4ac97353d2d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a004c45d4576e89ab3e8f4ac97353d2d3">&#9670;&nbsp;</a></span>set() <span class="overload">[9/10]</span></h2>
+<a id="aaab85cabaa5f00aa4ae002c18df80fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab85cabaa5f00aa4ae002c18df80fa8">&#9670;&nbsp;</a></span>set() <span class="overload">[9/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -976,7 +1200,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -990,12 +1214,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#af272f77475644d893a47753ae4a7d986">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a4fd799f2d3085740e0646c009bea9f61">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a4427ab4b9bb412ad68c59742ebae492a">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
-<a id="a956741e6afa959e567c179964144348c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a956741e6afa959e567c179964144348c">&#9670;&nbsp;</a></span>set() <span class="overload">[10/10]</span></h2>
+<a id="a5b7ac4ea6a125428ae8cb2435d2254b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b7ac4ea6a125428ae8cb2435d2254b1">&#9670;&nbsp;</a></span>set() <span class="overload">[10/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1023,7 +1247,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1037,12 +1261,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classengine_1_1events_1_1ExternEvent.html#aff711aa945b55867116b73ff9ab5de07">engine::events::ExternEvent</a>, and <a class="el" href="classengine_1_1entities_1_1components_1_1ExternComponent.html#a02ce54dc2d151cc94e32da9fa63bd638">engine::entities::components::ExternComponent</a>.</p>
+<p>Reimplemented in <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ab6c6345ee5563fe561538c10fb3843d1">engine::utilities::ExternMemberStorage</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/utilities/<a class="el" href="MemberStorage_8h_source.html">MemberStorage.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/utilities/<a class="el" href="MemberStorage_8h_source.html">MemberStorage.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

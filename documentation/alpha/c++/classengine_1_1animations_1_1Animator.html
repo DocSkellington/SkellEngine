@@ -65,6 +65,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classengine_1_1animations_1_1Animator-members.html">List of all members</a>  </div>
@@ -72,45 +73,406 @@ $(function() {
 <div class="title">engine::animations::Animator&lt; Animated &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A structure that eases to use of animations.  
+ <a href="classengine_1_1animations_1_1Animator.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Animator_8h_source.html">Animator.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aceb7277444865d42c24d5fdd7e1d3d61"><td class="memItemLeft" align="right" valign="top"><a id="aceb7277444865d42c24d5fdd7e1d3d61"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>TimedAnimation</b> = TimedAnimation&lt; Animated &gt;</td></tr>
-<tr class="separator:aceb7277444865d42c24d5fdd7e1d3d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a94899a708990e7ee0d463740a8215"><td class="memItemLeft" align="right" valign="top"><a id="ac4a94899a708990e7ee0d463740a8215"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationSignature</b> = typename TimedAnimation::AnimationFunction</td></tr>
-<tr class="separator:ac4a94899a708990e7ee0d463740a8215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ee7b5040076dbbc9381976e55ea445"><td class="memItemLeft" align="right" valign="top"><a id="a64ee7b5040076dbbc9381976e55ea445"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> = <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">TimedAnimation</a>&lt; Animated &gt;</td></tr>
+<tr class="memdesc:a64ee7b5040076dbbc9381976e55ea445"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html" title="An animation that has a duration. ">TimedAnimation</a> used internally. <br /></td></tr>
+<tr class="separator:a64ee7b5040076dbbc9381976e55ea445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a9a3674c503db54215314566e41018b"><td class="memItemLeft" align="right" valign="top"><a id="a4a9a3674c503db54215314566e41018b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a4a9a3674c503db54215314566e41018b">AnimationSignature</a> = typename <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">TimedAnimationAnimated::AnimationFunction</a></td></tr>
+<tr class="memdesc:a4a9a3674c503db54215314566e41018b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The signature of each animation. <br /></td></tr>
+<tr class="separator:a4a9a3674c503db54215314566e41018b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8c40fed911d12d496675461eadf0ad"><td class="memItemLeft" align="right" valign="top"><a id="a6b8c40fed911d12d496675461eadf0ad"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> = long</td></tr>
+<tr class="memdesc:a6b8c40fed911d12d496675461eadf0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the queues' key. <br /></td></tr>
+<tr class="separator:a6b8c40fed911d12d496675461eadf0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6aecf3b88b94df7e6a3b0a84273a9dc"><td class="memItemLeft" align="right" valign="top"><a id="ae6aecf3b88b94df7e6a3b0a84273a9dc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (sf::Uint64 deltaTime)</td></tr>
+<tr class="memitem:a336246bc13722e7996822aac76ffb757"><td class="memItemLeft" align="right" valign="top"><a id="a336246bc13722e7996822aac76ffb757"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a336246bc13722e7996822aac76ffb757">Animator</a> ()</td></tr>
+<tr class="memdesc:a336246bc13722e7996822aac76ffb757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:a336246bc13722e7996822aac76ffb757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6aecf3b88b94df7e6a3b0a84273a9dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#ae6aecf3b88b94df7e6a3b0a84273a9dc">update</a> (sf::Uint64 deltaTime)</td></tr>
+<tr class="memdesc:ae6aecf3b88b94df7e6a3b0a84273a9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the animator.  <a href="#ae6aecf3b88b94df7e6a3b0a84273a9dc">More...</a><br /></td></tr>
 <tr class="separator:ae6aecf3b88b94df7e6a3b0a84273a9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af555934a016b19ce3d7dc99c328ce47e"><td class="memItemLeft" align="right" valign="top"><a id="af555934a016b19ce3d7dc99c328ce47e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>animate</b> (Animated &amp;animated)</td></tr>
+<tr class="memitem:af555934a016b19ce3d7dc99c328ce47e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#af555934a016b19ce3d7dc99c328ce47e">animate</a> (Animated &amp;animated)</td></tr>
+<tr class="memdesc:af555934a016b19ce3d7dc99c328ce47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Animated an object.  <a href="#af555934a016b19ce3d7dc99c328ce47e">More...</a><br /></td></tr>
 <tr class="separator:af555934a016b19ce3d7dc99c328ce47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e1488883fb42d13eac34bd4a551dd85"><td class="memItemLeft" align="right" valign="top"><a id="a6e1488883fb42d13eac34bd4a551dd85"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>play</b> (const TimedAnimation &amp;animation)</td></tr>
-<tr class="separator:a6e1488883fb42d13eac34bd4a551dd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d29de7884347973d83c179bb04eb8d"><td class="memItemLeft" align="right" valign="top"><a id="ab1d29de7884347973d83c179bb04eb8d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>queue</b> (const TimedAnimation &amp;animation)</td></tr>
-<tr class="separator:ab1d29de7884347973d83c179bb04eb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5f7a5c1934ad1ee2a244544f1f6640b"><td class="memItemLeft" align="right" valign="top"><a id="ad5f7a5c1934ad1ee2a244544f1f6640b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#ad5f7a5c1934ad1ee2a244544f1f6640b">enableDefault</a> ()</td></tr>
+<tr class="memdesc:ad5f7a5c1934ad1ee2a244544f1f6640b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the use of a default animation. <br /></td></tr>
+<tr class="separator:ad5f7a5c1934ad1ee2a244544f1f6640b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4876be0bf88ee3c52b980083bafe9b96"><td class="memItemLeft" align="right" valign="top"><a id="a4876be0bf88ee3c52b980083bafe9b96"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a4876be0bf88ee3c52b980083bafe9b96">disableDefault</a> ()</td></tr>
+<tr class="memdesc:a4876be0bf88ee3c52b980083bafe9b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the use of a default animation. <br /></td></tr>
+<tr class="separator:a4876be0bf88ee3c52b980083bafe9b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ba37bc54e45d6f01a5264e5e949ca9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#ae9ba37bc54e45d6f01a5264e5e949ca9">setDefault</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;animation)</td></tr>
+<tr class="memdesc:ae9ba37bc54e45d6f01a5264e5e949ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default animation.  <a href="#ae9ba37bc54e45d6f01a5264e5e949ca9">More...</a><br /></td></tr>
+<tr class="separator:ae9ba37bc54e45d6f01a5264e5e949ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9772cdd5852e50537ca89feb94c1455c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a9772cdd5852e50537ca89feb94c1455c">play</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;key, const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;animation)</td></tr>
+<tr class="memdesc:a9772cdd5852e50537ca89feb94c1455c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the queue with the given key, resumes the animator and adds the animation in the queue.  <a href="#a9772cdd5852e50537ca89feb94c1455c">More...</a><br /></td></tr>
+<tr class="separator:a9772cdd5852e50537ca89feb94c1455c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66656b6524f3509baa0e5111b22718bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a66656b6524f3509baa0e5111b22718bf">queue</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;key, const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;animation)</td></tr>
+<tr class="memdesc:a66656b6524f3509baa0e5111b22718bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the animation in the queue of the given key without clearing the queue and whithout resuming the animator.  <a href="#a66656b6524f3509baa0e5111b22718bf">More...</a><br /></td></tr>
+<tr class="separator:a66656b6524f3509baa0e5111b22718bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7db8ecfe21e421d8e7323a528f6981b"><td class="memItemLeft" align="right" valign="top"><a id="af7db8ecfe21e421d8e7323a528f6981b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#af7db8ecfe21e421d8e7323a528f6981b">stop</a> ()</td></tr>
+<tr class="memdesc:af7db8ecfe21e421d8e7323a528f6981b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears every queue. <br /></td></tr>
 <tr class="separator:af7db8ecfe21e421d8e7323a528f6981b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bcd3839ed739956dd8da06c519576a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a9bcd3839ed739956dd8da06c519576a6">stop</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;key)</td></tr>
+<tr class="memdesc:a9bcd3839ed739956dd8da06c519576a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the queue of the given key.  <a href="#a9bcd3839ed739956dd8da06c519576a6">More...</a><br /></td></tr>
+<tr class="separator:a9bcd3839ed739956dd8da06c519576a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07db81b214cb07c0136375894e32149d"><td class="memItemLeft" align="right" valign="top"><a id="a07db81b214cb07c0136375894e32149d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pause</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a07db81b214cb07c0136375894e32149d">pause</a> ()</td></tr>
+<tr class="memdesc:a07db81b214cb07c0136375894e32149d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the animator and every queue. <br /></td></tr>
 <tr class="separator:a07db81b214cb07c0136375894e32149d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713088562e5ae7b4831971a9e5937e6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a713088562e5ae7b4831971a9e5937e6e">pause</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;key)</td></tr>
+<tr class="memdesc:a713088562e5ae7b4831971a9e5937e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the queue with the given key. It doesn't pause the animator itself.  <a href="#a713088562e5ae7b4831971a9e5937e6e">More...</a><br /></td></tr>
+<tr class="separator:a713088562e5ae7b4831971a9e5937e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac08f40a8a8a1b40dc8ca7a1075a1eba0"><td class="memItemLeft" align="right" valign="top"><a id="ac08f40a8a8a1b40dc8ca7a1075a1eba0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>resume</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#ac08f40a8a8a1b40dc8ca7a1075a1eba0">resume</a> ()</td></tr>
+<tr class="memdesc:ac08f40a8a8a1b40dc8ca7a1075a1eba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the animator and every queue. <br /></td></tr>
 <tr class="separator:ac08f40a8a8a1b40dc8ca7a1075a1eba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a197f85f89ed3457d8b3ff8bd2f91a37d"><td class="memItemLeft" align="right" valign="top"><a id="a197f85f89ed3457d8b3ff8bd2f91a37d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>togglePause</b> ()</td></tr>
-<tr class="separator:a197f85f89ed3457d8b3ff8bd2f91a37d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a352e6ade636159770c5de65d9717b1bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html#a352e6ade636159770c5de65d9717b1bd">resume</a> (const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;key)</td></tr>
+<tr class="memdesc:a352e6ade636159770c5de65d9717b1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the animator and the queue with the given key.  <a href="#a352e6ade636159770c5de65d9717b1bd">More...</a><br /></td></tr>
+<tr class="separator:a352e6ade636159770c5de65d9717b1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Animated&gt;<br />
+class engine::animations::Animator&lt; Animated &gt;</h3>
+
+<p>A structure that eases to use of animations. </p>
+<p>Each animation must receive a float between 0 and 1 indicating the progress of the animation. The animator computes the progress of each animation.</p>
+<p>The animator can also handle multiple queues of animations. If animations are in different queues, they are played in parallel. The queues are processed in the increasing order of their key. The default queue is numbered 0. Therefore, if you want to execute an animation before the default queue, use a negative key. If you want to execute an animation after the default queue, use a positive key. Be careful that some animations (such as <a class="el" href="classengine_1_1animations_1_1FrameAnimation.html" title="An animation that works frame by frame. ">FrameAnimation</a>) overrides most values.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Animated</td><td>The type of the object to animate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classengine_1_1animations_1_1AnimationMap.html" title="A structure that stores animations. Each animation has a unique ID. ">AnimationMap</a> for an easy way to store <a class="el" href="namespaceengine_1_1animations.html" title="Namespace for animations. ">animations</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af555934a016b19ce3d7dc99c328ce47e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af555934a016b19ce3d7dc99c328ce47e">&#9670;&nbsp;</a></span>animate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::animate </td>
+          <td>(</td>
+          <td class="paramtype">Animated &amp;&#160;</td>
+          <td class="paramname"><em>animated</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Animated an object. </p>
+<p>Applies the playing animations in each queue on the object to animate </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">animated</td><td>The object to animate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a713088562e5ae7b4831971a9e5937e6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a713088562e5ae7b4831971a9e5937e6e">&#9670;&nbsp;</a></span>pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::pause </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pauses the queue with the given key. It doesn't pause the animator itself. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the queue to pause </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9772cdd5852e50537ca89feb94c1455c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9772cdd5852e50537ca89feb94c1455c">&#9670;&nbsp;</a></span>play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::play </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;&#160;</td>
+          <td class="paramname"><em>animation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears the queue with the given key, resumes the animator and adds the animation in the queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the queue </td></tr>
+    <tr><td class="paramname">animation</td><td>The animaiton to play </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a66656b6524f3509baa0e5111b22718bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66656b6524f3509baa0e5111b22718bf">&#9670;&nbsp;</a></span>queue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::queue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;&#160;</td>
+          <td class="paramname"><em>animation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds the animation in the queue of the given key without clearing the queue and whithout resuming the animator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the queue </td></tr>
+    <tr><td class="paramname">animation</td><td>The animation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a352e6ade636159770c5de65d9717b1bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a352e6ade636159770c5de65d9717b1bd">&#9670;&nbsp;</a></span>resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::resume </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resumes the animator and the queue with the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the queue to resume </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae9ba37bc54e45d6f01a5264e5e949ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ba37bc54e45d6f01a5264e5e949ca9">&#9670;&nbsp;</a></span>setDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::setDefault </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a64ee7b5040076dbbc9381976e55ea445">TimedAnimationAnimated</a> &amp;&#160;</td>
+          <td class="paramname"><em>animation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the default animation. </p>
+<p>The animation must exist as long as it's used. If the animation is destroyed and the default animation is used, the program will crash. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">animation</td><td>The animation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9bcd3839ed739956dd8da06c519576a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bcd3839ed739956dd8da06c519576a6">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::stop </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1animations_1_1Animator.html#a6b8c40fed911d12d496675461eadf0ad">QueueKey</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears the queue of the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the queue to clear </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae6aecf3b88b94df7e6a3b0a84273a9dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6aecf3b88b94df7e6a3b0a84273a9dc">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1Animator.html">engine::animations::Animator</a>&lt; Animated &gt;::update </td>
+          <td>(</td>
+          <td class="paramtype">sf::Uint64&#160;</td>
+          <td class="paramname"><em>deltaTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the animator. </p>
+<p>Each queue is updated independtly from the others</p>
+<p>If a default animation is set and if the default queue is empty, the default animation is started </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>The time (in microseconds) since the last call </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="Animator_8h_source.html">Animator.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="Animator_8h_source.html">Animator.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

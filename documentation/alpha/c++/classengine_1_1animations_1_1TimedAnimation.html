@@ -72,33 +72,250 @@ $(function() {
 <div class="title">engine::animations::TimedAnimation&lt; Animated &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>An animation that has a duration.  
+ <a href="classengine_1_1animations_1_1TimedAnimation.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="TimedAnimation_8h_source.html">TimedAnimation.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a7ba220d30ec6e8f33588b99e2dd2abfa"><td class="memItemLeft" align="right" valign="top"><a id="a7ba220d30ec6e8f33588b99e2dd2abfa"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationFunction</b> = std::function&lt; void(Animated &amp;, float)&gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">AnimationFunction</a> = std::function&lt; void(Animated &amp;, float)&gt;</td></tr>
+<tr class="memdesc:a7ba220d30ec6e8f33588b99e2dd2abfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The signature the animation must have. <br /></td></tr>
 <tr class="separator:a7ba220d30ec6e8f33588b99e2dd2abfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa02bf012d04ae1ff2640f9448da158d5"><td class="memItemLeft" align="right" valign="top"><a id="aa02bf012d04ae1ff2640f9448da158d5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TimedAnimation</b> (AnimationFunction function, sf::Time duration, bool loop, unsigned int repeats)</td></tr>
+<tr class="memitem:aa02bf012d04ae1ff2640f9448da158d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#aa02bf012d04ae1ff2640f9448da158d5">TimedAnimation</a> (<a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">AnimationFunction</a> function, sf::Time duration, bool loop, unsigned int repeats)</td></tr>
+<tr class="memdesc:aa02bf012d04ae1ff2640f9448da158d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aa02bf012d04ae1ff2640f9448da158d5">More...</a><br /></td></tr>
 <tr class="separator:aa02bf012d04ae1ff2640f9448da158d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd22eaa7e01a362e7b28f6f02f05acce"><td class="memItemLeft" align="right" valign="top"><a id="acd22eaa7e01a362e7b28f6f02f05acce"></a>
-const sf::Time &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getDuration</b> () const</td></tr>
+<tr class="memitem:acd22eaa7e01a362e7b28f6f02f05acce"><td class="memItemLeft" align="right" valign="top">const sf::Time &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#acd22eaa7e01a362e7b28f6f02f05acce">getDuration</a> () const</td></tr>
+<tr class="memdesc:acd22eaa7e01a362e7b28f6f02f05acce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the duration of the animation.  <a href="#acd22eaa7e01a362e7b28f6f02f05acce">More...</a><br /></td></tr>
 <tr class="separator:acd22eaa7e01a362e7b28f6f02f05acce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9b15005ce3534e8a4324a5c328457e5"><td class="memItemLeft" align="right" valign="top"><a id="ae9b15005ce3534e8a4324a5c328457e5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLoop</b> () const</td></tr>
+<tr class="memitem:ae9b15005ce3534e8a4324a5c328457e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#ae9b15005ce3534e8a4324a5c328457e5">isLoop</a> () const</td></tr>
+<tr class="memdesc:ae9b15005ce3534e8a4324a5c328457e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this animation must loop infinitely.  <a href="#ae9b15005ce3534e8a4324a5c328457e5">More...</a><br /></td></tr>
 <tr class="separator:ae9b15005ce3534e8a4324a5c328457e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68cdbc182b2dba1dd5439ab2f20b2e9c"><td class="memItemLeft" align="right" valign="top"><a id="a68cdbc182b2dba1dd5439ab2f20b2e9c"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getRepeats</b> () const</td></tr>
+<tr class="memitem:a68cdbc182b2dba1dd5439ab2f20b2e9c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a68cdbc182b2dba1dd5439ab2f20b2e9c">getRepeats</a> () const</td></tr>
+<tr class="memdesc:a68cdbc182b2dba1dd5439ab2f20b2e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of time this animation must be played.  <a href="#a68cdbc182b2dba1dd5439ab2f20b2e9c">More...</a><br /></td></tr>
 <tr class="separator:a68cdbc182b2dba1dd5439ab2f20b2e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ee2eec677b600f09f3213acd013c45e"><td class="memItemLeft" align="right" valign="top"><a id="a1ee2eec677b600f09f3213acd013c45e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (Animated &amp;animated, float progress)</td></tr>
+<tr class="memitem:a1ee2eec677b600f09f3213acd013c45e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a1ee2eec677b600f09f3213acd013c45e">operator()</a> (Animated &amp;animated, float progress)</td></tr>
+<tr class="memdesc:a1ee2eec677b600f09f3213acd013c45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the underlying animation.  <a href="#a1ee2eec677b600f09f3213acd013c45e">More...</a><br /></td></tr>
 <tr class="separator:a1ee2eec677b600f09f3213acd013c45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Animated&gt;<br />
+class engine::animations::TimedAnimation&lt; Animated &gt;</h3>
+
+<p>An animation that has a duration. </p>
+<p>It relies on an actual animation (such as <a class="el" href="classengine_1_1animations_1_1FrameAnimation.html" title="An animation that works frame by frame. ">FrameAnimation</a>) </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">The</td><td>type of the animated object </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa02bf012d04ae1ff2640f9448da158d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa02bf012d04ae1ff2640f9448da158d5">&#9670;&nbsp;</a></span>TimedAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">engine::animations::TimedAnimation</a>&lt; Animated &gt;::<a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">TimedAnimation</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">AnimationFunction</a>&#160;</td>
+          <td class="paramname"><em>function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Time&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>repeats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td>The animation </td></tr>
+    <tr><td class="paramname">duration</td><td>The duration (in seconds) of the animation </td></tr>
+    <tr><td class="paramname">loop</td><td>Whether the animation must infinitely loop </td></tr>
+    <tr><td class="paramname">repeats</td><td>The number of times the animation must be played </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acd22eaa7e01a362e7b28f6f02f05acce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd22eaa7e01a362e7b28f6f02f05acce">&#9670;&nbsp;</a></span>getDuration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Time&amp; <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">engine::animations::TimedAnimation</a>&lt; Animated &gt;::getDuration </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the duration of the animation. </p>
+<dl class="section return"><dt>Returns</dt><dd>The duration of the animation </dd></dl>
+
+</div>
+</div>
+<a id="a68cdbc182b2dba1dd5439ab2f20b2e9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68cdbc182b2dba1dd5439ab2f20b2e9c">&#9670;&nbsp;</a></span>getRepeats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">engine::animations::TimedAnimation</a>&lt; Animated &gt;::getRepeats </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the number of time this animation must be played. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of time this animation must be played </dd></dl>
+
+</div>
+</div>
+<a id="ae9b15005ce3534e8a4324a5c328457e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9b15005ce3534e8a4324a5c328457e5">&#9670;&nbsp;</a></span>isLoop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">engine::animations::TimedAnimation</a>&lt; Animated &gt;::isLoop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether this animation must loop infinitely. </p>
+<dl class="section return"><dt>Returns</dt><dd>True iff the animation must loop infinitely </dd></dl>
+
+</div>
+</div>
+<a id="a1ee2eec677b600f09f3213acd013c45e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ee2eec677b600f09f3213acd013c45e">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">engine::animations::TimedAnimation</a>&lt; Animated &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">Animated &amp;&#160;</td>
+          <td class="paramname"><em>animated</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>progress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applies the underlying animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">animated</td><td>The animated object </td></tr>
+    <tr><td class="paramname">progress</td><td>A float between 0 and 1 indicating the progress of the animation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="TimedAnimation_8h_source.html">TimedAnimation.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="TimedAnimation_8h_source.html">TimedAnimation.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

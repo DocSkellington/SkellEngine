@@ -77,6 +77,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html">ExternMemberStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores data in a JSON table.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">MemberStorage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows to retrieve and modify the registered members of a class.  <a href="classengine_1_1utilities_1_1MemberStorage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -95,8 +98,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ab35ecf822710ef555dd1a55ef99409ce"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceengine_1_1utilities.html#ab35ecf822710ef555dd1a55ef99409ce">lua_to_json</a> (const sol::table &amp;lua)</td></tr>
 <tr class="memdesc:ab35ecf822710ef555dd1a55ef99409ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Lua table into a JSON object.  <a href="#ab35ecf822710ef555dd1a55ef99409ce">More...</a><br /></td></tr>
 <tr class="separator:ab35ecf822710ef555dd1a55ef99409ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee59f534a09ab8ce0ea7b91b758f5bc4"><td class="memItemLeft" align="right" valign="top"><a id="aee59f534a09ab8ce0ea7b91b758f5bc4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>registerTGUILuaFunctions</b> (sol::state &amp;lua, std::shared_ptr&lt; tgui::Gui &gt; gui)</td></tr>
+<tr class="memitem:aee59f534a09ab8ce0ea7b91b758f5bc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceengine_1_1utilities.html#aee59f534a09ab8ce0ea7b91b758f5bc4">registerTGUILuaFunctions</a> (sol::state &amp;lua, std::shared_ptr&lt; tgui::Gui &gt; gui)</td></tr>
+<tr class="memdesc:aee59f534a09ab8ce0ea7b91b758f5bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register Lua functions for the GUI.  <a href="#aee59f534a09ab8ce0ea7b91b758f5bc4">More...</a><br /></td></tr>
 <tr class="separator:aee59f534a09ab8ce0ea7b91b758f5bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e39646b9c8d34b4e05ecc8eebe8e641"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4e39646b9c8d34b4e05ecc8eebe8e641"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceengine_1_1utilities.html#a4e39646b9c8d34b4e05ecc8eebe8e641">registerVector2</a> (sol::state &amp;lua, const std::string &amp;name)</td></tr>
@@ -291,6 +294,43 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lua</td><td>The Lua state </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aee59f534a09ab8ce0ea7b91b758f5bc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee59f534a09ab8ce0ea7b91b758f5bc4">&#9670;&nbsp;</a></span>registerTGUILuaFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void engine::utilities::registerTGUILuaFunctions </td>
+          <td>(</td>
+          <td class="paramtype">sol::state &amp;&#160;</td>
+          <td class="paramname"><em>lua</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; tgui::Gui &gt;&#160;</td>
+          <td class="paramname"><em>gui</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register Lua functions for the GUI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lua</td><td>The Lua state </td></tr>
+    <tr><td class="paramname">gui</td><td>The GUI object </td></tr>
   </table>
   </dd>
 </dl>

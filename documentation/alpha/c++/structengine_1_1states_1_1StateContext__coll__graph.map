@@ -1,3 +1,4 @@
 <map id="engine::states::StateContext" name="engine::states::StateContext">
-<area shape="rect" id="node2" href="$classengine_1_1Context.html" title="Defines the context of the engine. " alt="" coords="43,5,157,32"/>
+<area shape="rect" id="node2" href="$classengine_1_1Context.html" title="Defines the context of the engine. " alt="" coords="43,95,157,121"/>
+<area shape="rect" id="node3" href="$classengine_1_1Logger.html" title="The logger. " alt="" coords="47,5,153,32"/>
 </map>
