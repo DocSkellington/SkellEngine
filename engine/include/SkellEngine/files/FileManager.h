@@ -6,6 +6,7 @@
 #include <sol/sol.hpp>
 #include <map>
 #include <SFML/Graphics/Font.hpp>
+#include <Thor/Resources.hpp>
 
 #include "SkellEngine/files/GameDescription.h"
 #include "SkellEngine/Context.h"
@@ -36,11 +37,59 @@ namespace engine::files {
         const GameDescription& getGameDescription() const;
 
         /**
-         * \brief Loads a font and stores it in the appropriate ressource holder.
+         * \brief Gets the font "fontName"
+         * 
+         * The font must be in the "fonts" folder of the game description
          * \param fontName The name of the font to load
-         * \return The loaded font
+         * \return The font
+         * \throws thor::ResourceLoadingException
          */
         sf::Font& loadFont(const std::string &fontName);
+
+        /**
+         * \brief Loads the sprite texture from the path
+         * 
+         * The texture must be in the "baseSprites" folder of the game description
+         * 
+         * The ID of the texture if the path
+         * \param path The path to the texture to load (relative to baseSprites)
+         * \param override If true, the texture is overriden by the new one
+         * \return The texture
+         * \throws thor::ResourceLoadingException
+         */
+        sf::Texture& loadSpriteTexture(const std::filesystem::path &path, bool override = false);
+
+        /**
+         * \brief Loads the texture in the given path and registers it under the textureName
+         * 
+         * The ID of the texture if the path
+         * 
+         * \param path The path to the texture (relative from the root of the media folder)
+         * \param override If true, the texture is overriden by the new one
+         * \return The texture
+         * \throws thor::ResourceLoadingException
+         */
+        sf::Texture& loadTexture(const std::filesystem::path &path, bool override = false);
+
+        /** @{ */
+        /**
+         * \brief Gets a texture already loaded
+         * \param id The ID of the texture
+         * \return The texture
+         * \throws thor::ResourceAccessException
+         */
+        const sf::Texture& getTexture(const std::string &id) const;
+        sf::Texture& getTexture(const std::string &id);
+        /** @} */
+
+        /**
+         * \brief Loads a texture from an image
+         * \param id The id of the texture
+         * \param image The image
+         * \param override If true, the texture is overriden by the new one
+         * \return The texture
+         */
+        sf::Texture& loadTextureFromImage(const std::string &id, const sf::Image &image, bool override = false);
 
         /**
          * \brief Gets the path to the given system
@@ -71,6 +120,16 @@ namespace engine::files {
         GameDescription m_gameDescription;
         std::map<std::string, std::filesystem::path> m_systemsPath;
         std::map<std::string, std::filesystem::path> m_statesPath;
+
+        /**
+         * \brief The texture holder
+         */
+        thor::ResourceHolder<sf::Texture, std::string> m_textureHolder;
+        
+        /**
+         * \brief The font holder
+         */
+        thor::ResourceHolder<sf::Font, std::string> m_fontHolder;
 
     private:
         const std::filesystem::path fontPath(const std::string &fontName) const;

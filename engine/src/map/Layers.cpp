@@ -59,10 +59,10 @@ namespace engine::map {
         if (m_tile->animation.frames.size() > 1) {
             auto ID = m_tile->animation.frames[m_currentFrame].tileID;
             tile = m_map.m_tilesetTiles[ID];
-            m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+            m_sprite.setTexture(m_map.getStateContext().context.fileManager->loadTexture(tile->imagePath));
         }
         else {
-            m_sprite.setTexture(m_map.m_context.context.textureHolder->acquire(tile->imagePath, thor::Resources::fromFile<sf::Texture>(tile->imagePath), thor::Resources::Reuse));
+            m_sprite.setTexture(m_map.getStateContext().context.fileManager->loadTexture(tile->imagePath));
         }
 
         m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(tile->imagePosition.x, tile->imagePosition.y), sf::Vector2i(tile->imageSize.x, tile->imageSize.y)));
@@ -189,7 +189,7 @@ namespace engine::map {
             id += std::to_string(layer.getTransparencyColour().r) + " " + std::to_string(layer.getTransparencyColour().g) + " " + std::to_string(layer.getTransparencyColour().b) + " " + std::to_string(layer.getTransparencyColour().a);
         }
 
-        m_sprite.setTexture(getMap().m_context.context.textureHolder->acquire(id, thor::Resources::fromImage<sf::Texture>(image), thor::Resources::Reuse));
+        m_sprite.setTexture(getMap().getStateContext().context.fileManager->loadTextureFromImage(id, image));
 
         m_sprite.setColor(sf::Color(255, 255, 255, layer.getOpacity() * 255));
 

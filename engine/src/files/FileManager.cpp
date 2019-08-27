@@ -52,7 +52,39 @@ namespace engine::files {
     }
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
-        return m_context.fontHolder->acquire(fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+        return m_fontHolder.acquire(fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+    }
+
+    sf::Texture& FileManager::loadSpriteTexture(const std::filesystem::path &path, bool override) {
+        return m_textureHolder.acquire(
+            path.string(),
+            thor::Resources::fromFile<sf::Texture>(m_gameDescription.media.baseSprites / path.string()),
+            override ? thor::Resources::KnownIdStrategy::Reload : thor::Resources::KnownIdStrategy::Reuse
+        );
+    }
+
+    sf::Texture& FileManager::loadTexture(const std::filesystem::path &path, bool override) {
+        return m_textureHolder.acquire(
+            path.string(),
+            thor::Resources::fromFile<sf::Texture>(m_gameDescription.media.baseMediaPath / path.string()),
+            override ? thor::Resources::KnownIdStrategy::Reload : thor::Resources::KnownIdStrategy::Reuse
+        );
+    }
+
+    sf::Texture& FileManager::getTexture(const std::string &id) {
+        return m_textureHolder[id];
+    }
+
+    const sf::Texture& FileManager::getTexture(const std::string &id) const {
+        return m_textureHolder[id];
+    }
+
+    sf::Texture& FileManager::loadTextureFromImage(const std::string &id, const sf::Image &image, bool override) {
+        return m_textureHolder.acquire(
+            id, 
+            thor::Resources::fromImage<sf::Texture>(image),
+            override ? thor::Resources::KnownIdStrategy::Reload : thor::Resources::KnownIdStrategy::Reuse
+        );
     }
 
     void FileManager::registerExternSystems() {

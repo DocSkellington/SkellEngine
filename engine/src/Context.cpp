@@ -23,12 +23,6 @@ namespace engine {
         
         logger.log("File manager ready");
 
-        textureHolder = std::make_shared<thor::ResourceHolder<sf::Texture, std::string>>();
-        logger.log("Texture holder ready");
-
-        fontHolder = std::make_shared<thor::ResourceHolder<sf::Font, std::string>>();
-        logger.log("Font holder ready");
-
         stateManager = std::make_shared<states::StateManager>(*this);
         logger.log("State manager ready");
 

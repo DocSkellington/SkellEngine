@@ -3,7 +3,6 @@
 #include <memory>
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <Thor/Resources.hpp>
 #include <sol/sol.hpp>
 #include <TGUI/TGUI.hpp>
 
@@ -74,20 +73,6 @@ namespace engine {
          * \brief The SFML window
          */
         std::shared_ptr<sf::RenderWindow> window;
-
-        /**
-         * \brief The texture holder
-         * 
-         * Every texture used by the engine should be registered in this holder
-         */
-        std::shared_ptr<thor::ResourceHolder<sf::Texture, std::string>> textureHolder;
-        
-        /**
-         * \brief The font holder
-         * 
-         * Every font used by the engine should be registered in this holder
-         */
-        std::shared_ptr<thor::ResourceHolder<sf::Font, std::string>> fontHolder;
 
         /**
          * \brief The state manager
