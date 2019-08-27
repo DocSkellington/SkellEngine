@@ -10,6 +10,7 @@ var searchData=
   ['eventhandler',['EventHandler',['../classengine_1_1events_1_1EventHandler.html',1,'engine::events']]],
   ['externcomponent',['ExternComponent',['../classengine_1_1entities_1_1components_1_1ExternComponent.html',1,'engine::entities::components']]],
   ['externevent',['ExternEvent',['../classengine_1_1events_1_1ExternEvent.html',1,'engine::events']]],
+  ['externmemberstorage',['ExternMemberStorage',['../classengine_1_1utilities_1_1ExternMemberStorage.html',1,'engine::utilities']]],
   ['externstate',['ExternState',['../classengine_1_1states_1_1ExternState.html',1,'engine::states']]],
   ['externsystem',['ExternSystem',['../classengine_1_1systems_1_1ExternSystem.html',1,'engine::systems']]]
 ];

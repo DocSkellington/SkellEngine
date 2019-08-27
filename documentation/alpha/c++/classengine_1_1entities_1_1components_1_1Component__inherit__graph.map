@@ -1,5 +1,5 @@
 <map id="engine::entities::components::Component" name="engine::entities::components::Component">
-<area shape="rect" id="node3" href="$classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="engine::entities::components\l::AnimationComponent" alt="" coords="423,5,613,47"/>
+<area shape="rect" id="node3" href="$classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="A component describing the animation of an entity. " alt="" coords="423,5,613,47"/>
 <area shape="rect" id="node4" href="$classengine_1_1entities_1_1components_1_1ExternComponent.html" title="This component is defined only through JSON. " alt="" coords="423,71,613,112"/>
 <area shape="rect" id="node5" href="$classengine_1_1entities_1_1components_1_1GraphicalSpriteSheetComponent.html" title="Describes the sprite sheet of a component. " alt="" coords="408,136,628,177"/>
 <area shape="rect" id="node6" href="$classengine_1_1entities_1_1components_1_1PositionComponent.html" title="Describes the position of a component in the world. " alt="" coords="423,201,613,243"/>

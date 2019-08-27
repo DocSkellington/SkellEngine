@@ -79,10 +79,13 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0cf90bdfb4e1ab35958094a11966d380"><td class="memItemLeft" align="right" valign="top"><a id="a0cf90bdfb4e1ab35958094a11966d380"></a>
-tmx::Logger::Output&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structengine_1_1files_1_1GameDescription_1_1LogDescription.html#a0cf90bdfb4e1ab35958094a11966d380">output</a></td></tr>
-<tr class="memdesc:a0cf90bdfb4e1ab35958094a11966d380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where the logging messages are printed (in the standard output, in a file or in both) <br /></td></tr>
-<tr class="separator:a0cf90bdfb4e1ab35958094a11966d380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7f35aafc45cec16be8879f716952fdd"><td class="memItemLeft" align="right" valign="top"><a id="aa7f35aafc45cec16be8879f716952fdd"></a>
+<a class="el" href="namespaceengine.html#a3ba5ce8cf61e21aba5361a12aaaab92c">LogOutput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structengine_1_1files_1_1GameDescription_1_1LogDescription.html#aa7f35aafc45cec16be8879f716952fdd">output</a> = LogOutput::Console</td></tr>
+<tr class="memdesc:aa7f35aafc45cec16be8879f716952fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where the logging messages are printed (in nothing, in the standard output, in a file or in both) <br /></td></tr>
+<tr class="separator:aa7f35aafc45cec16be8879f716952fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d3f90422a40e7c6c4977381ddd2b89"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceengine.html#a16fdd12969613a92d5474159f108cde8">LogType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structengine_1_1files_1_1GameDescription_1_1LogDescription.html#a62d3f90422a40e7c6c4977381ddd2b89">level</a> = LogType::Info</td></tr>
+<tr class="memdesc:a62d3f90422a40e7c6c4977381ddd2b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">The log level.  <a href="#a62d3f90422a40e7c6c4977381ddd2b89">More...</a><br /></td></tr>
+<tr class="separator:a62d3f90422a40e7c6c4977381ddd2b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e52f982ffab76dc05bbea0513617d22"><td class="memItemLeft" align="right" valign="top"><a id="a3e52f982ffab76dc05bbea0513617d22"></a>
 std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structengine_1_1files_1_1GameDescription_1_1LogDescription.html#a3e52f982ffab76dc05bbea0513617d22">logPath</a></td></tr>
 <tr class="memdesc:a3e52f982ffab76dc05bbea0513617d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">The path to the log file. <br /></td></tr>
@@ -91,8 +94,26 @@ std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Describes the logging system. </p>
 <p>It should be loaded trough JSON </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/files/<a class="el" href="GameDescription_8h_source.html">GameDescription.h</a></li>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a62d3f90422a40e7c6c4977381ddd2b89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d3f90422a40e7c6c4977381ddd2b89">&#9670;&nbsp;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceengine.html#a16fdd12969613a92d5474159f108cde8">LogType</a> engine::files::GameDescription::LogDescription::level = LogType::Info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The log level. </p>
+<p>The log messages with a lower type that the level are not logged. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/files/<a class="el" href="GameDescription_8h_source.html">GameDescription.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

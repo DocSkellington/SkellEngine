@@ -1,7 +1,9 @@
-<map id="/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/entities/components/Component.h" name="/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/entities/components/Component.h">
-<area shape="rect" id="node5" href="$MemberStorage_8h_source.html" title="SkellEngine/utilities\l/MemberStorage.h" alt="" coords="85,303,221,344"/>
-<area shape="rect" id="node9" href="$RegisterClass_8h.html" title="SkellEngine/utilities\l/RegisterClass.h" alt="" coords="1081,213,1217,255"/>
-<area shape="rect" id="node13" href="$StateContext_8h_source.html" title="SkellEngine/states\l/StateContext.h" alt="" coords="535,124,665,165"/>
-<area shape="rect" id="node14" href="$Context_8h_source.html" title="SkellEngine/Context.h" alt="" coords="524,221,676,247"/>
-<area shape="rect" id="node18" href="$GameDescription_8h_source.html" title="files/GameDescription.h" alt="" coords="600,310,763,337"/>
+<map id="/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/entities/components/Component.h" name="/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/entities/components/Component.h">
+<area shape="rect" id="node4" href="$MemberStorage_8h_source.html" title="SkellEngine/utilities\l/MemberStorage.h" alt="" coords="203,124,339,165"/>
+<area shape="rect" id="node21" href="$RegisterClass_8h.html" title="SkellEngine/utilities\l/RegisterClass.h" alt="" coords="1530,124,1666,165"/>
+<area shape="rect" id="node24" href="$StateContext_8h_source.html" title="SkellEngine/states\l/StateContext.h" alt="" coords="1051,124,1182,165"/>
+<area shape="rect" id="node8" href="$WrongType_8h_source.html" title="SkellEngine/errors\l/WrongType.h" alt="" coords="24,213,152,255"/>
+<area shape="rect" id="node10" href="$Context_8h_source.html" title="SkellEngine/Context.h" alt="" coords="767,221,919,247"/>
+<area shape="rect" id="node15" href="$GameDescription_8h_source.html" title="SkellEngine/files/GameDescription.h" alt="" coords="1076,303,1311,329"/>
+<area shape="rect" id="node19" href="$Logger_8h_source.html" title="SkellEngine/Logger.h" alt="" coords="736,377,881,404"/>
 </map>

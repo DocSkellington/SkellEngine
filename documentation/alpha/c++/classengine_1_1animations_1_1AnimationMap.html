@@ -72,33 +72,333 @@ $(function() {
 <div class="title">engine::animations::AnimationMap&lt; Animated, Id &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A structure that stores animations. Each animation has a unique ID.  
+ <a href="classengine_1_1animations_1_1AnimationMap.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="AnimationMap_8h_source.html">AnimationMap.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a669bd13adf0e3c88962397084b98136a"><td class="memItemLeft" align="right" valign="top"><a id="a669bd13adf0e3c88962397084b98136a"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>TimedAnimation</b> = TimedAnimation&lt; Animated &gt;</td></tr>
-<tr class="separator:a669bd13adf0e3c88962397084b98136a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc80c28944b69c48678cd1f598b33cf1"><td class="memItemLeft" align="right" valign="top"><a id="acc80c28944b69c48678cd1f598b33cf1"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationSignature</b> = typename TimedAnimation::AnimationFunction</td></tr>
-<tr class="separator:acc80c28944b69c48678cd1f598b33cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d6a92c0df1f8775eb21b2bf13633cda"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a> = <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">TimedAnimation</a>&lt; Animated &gt;</td></tr>
+<tr class="separator:a5d6a92c0df1f8775eb21b2bf13633cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed879b0315d0794222d125dbdde9b4f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a4ed879b0315d0794222d125dbdde9b4f">AnimationSignature</a> = typename <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">TimedAnimationAnimated::AnimationFunction</a></td></tr>
+<tr class="separator:a4ed879b0315d0794222d125dbdde9b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a84487ec112a004ac4183a5d19b18f100"><td class="memItemLeft" align="right" valign="top"><a id="a84487ec112a004ac4183a5d19b18f100"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addAnimation</b> (Id id, AnimationSignature animation, sf::Time duration, bool loop=false, unsigned int repeats=1)</td></tr>
+<tr class="memitem:ae48d182e77746b3a66224cb6931312ae"><td class="memItemLeft" align="right" valign="top"><a id="ae48d182e77746b3a66224cb6931312ae"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#ae48d182e77746b3a66224cb6931312ae">AnimationMap</a> ()=default</td></tr>
+<tr class="memdesc:ae48d182e77746b3a66224cb6931312ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:ae48d182e77746b3a66224cb6931312ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda1caa4b04bd49cf2d5bc07be0ba69c"><td class="memItemLeft" align="right" valign="top"><a id="acda1caa4b04bd49cf2d5bc07be0ba69c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationMap</b> (const <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">AnimationMap</a> &amp;)=delete</td></tr>
+<tr class="separator:acda1caa4b04bd49cf2d5bc07be0ba69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84487ec112a004ac4183a5d19b18f100"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a84487ec112a004ac4183a5d19b18f100">addAnimation</a> (Id id, <a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a4ed879b0315d0794222d125dbdde9b4f">AnimationSignature</a> animation, sf::Time duration, bool loop=false, unsigned int repeats=1)</td></tr>
+<tr class="memdesc:a84487ec112a004ac4183a5d19b18f100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new animation.  <a href="#a84487ec112a004ac4183a5d19b18f100">More...</a><br /></td></tr>
 <tr class="separator:a84487ec112a004ac4183a5d19b18f100"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1120946c37055d616c46dcae324aec4"><td class="memItemLeft" align="right" valign="top"><a id="ae1120946c37055d616c46dcae324aec4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeAnimation</b> (Id id)</td></tr>
+<tr class="memitem:ae1120946c37055d616c46dcae324aec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#ae1120946c37055d616c46dcae324aec4">removeAnimation</a> (Id id)</td></tr>
+<tr class="memdesc:ae1120946c37055d616c46dcae324aec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an animation.  <a href="#ae1120946c37055d616c46dcae324aec4">More...</a><br /></td></tr>
 <tr class="separator:ae1120946c37055d616c46dcae324aec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9d8f130b6e211bcbe8610d5c356630"><td class="memItemLeft" align="right" valign="top"><a id="a0d9d8f130b6e211bcbe8610d5c356630"></a>
-TimedAnimation &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimation</b> (Id id)</td></tr>
-<tr class="separator:a0d9d8f130b6e211bcbe8610d5c356630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cb005ddcf081b4827541b53e1ba9ef3"><td class="memItemLeft" align="right" valign="top"><a id="a8cb005ddcf081b4827541b53e1ba9ef3"></a>
-const TimedAnimation &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimation</b> (Id id) const</td></tr>
-<tr class="separator:a8cb005ddcf081b4827541b53e1ba9ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae3dd2d9d75aa9812581d884f7862c9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a1ae3dd2d9d75aa9812581d884f7862c9">hasAnimation</a> (Id id)</td></tr>
+<tr class="memdesc:a1ae3dd2d9d75aa9812581d884f7862c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an animation is registered for the given ID.  <a href="#a1ae3dd2d9d75aa9812581d884f7862c9">More...</a><br /></td></tr>
+<tr class="separator:a1ae3dd2d9d75aa9812581d884f7862c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ad528ed751856e7cc379fa72a6acbfdbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#ad528ed751856e7cc379fa72a6acbfdbb">getAnimation</a> (Id id)</td></tr>
+<tr class="memdesc:ad528ed751856e7cc379fa72a6acbfdbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an animation.  <a href="#ad528ed751856e7cc379fa72a6acbfdbb">More...</a><br /></td></tr>
+<tr class="separator:ad528ed751856e7cc379fa72a6acbfdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30db7a7e44d4c438e30c3811a7462eb6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a30db7a7e44d4c438e30c3811a7462eb6">getAnimation</a> (Id id) const</td></tr>
+<tr class="memdesc:a30db7a7e44d4c438e30c3811a7462eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an animation.  <a href="#a30db7a7e44d4c438e30c3811a7462eb6">More...</a><br /></td></tr>
+<tr class="separator:a30db7a7e44d4c438e30c3811a7462eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Animated, typename Id&gt;<br />
+class engine::animations::AnimationMap&lt; Animated, Id &gt;</h3>
+
+<p>A structure that stores animations. Each animation has a unique ID. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Animated</td><td>The type of the object that is animated by the animations in this structure </td></tr>
+    <tr><td class="paramname">Id</td><td>The type of the ID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classengine_1_1animations_1_1Animator.html" title="A structure that eases to use of animations. ">Animator</a> for an easy way to use <a class="el" href="namespaceengine_1_1animations.html" title="Namespace for animations. ">animations</a> </dd></dl>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a4ed879b0315d0794222d125dbdde9b4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed879b0315d0794222d125dbdde9b4f">&#9670;&nbsp;</a></span>AnimationSignature</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::<a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a4ed879b0315d0794222d125dbdde9b4f">AnimationSignature</a> =  typename <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html#a7ba220d30ec6e8f33588b99e2dd2abfa">TimedAnimationAnimated::AnimationFunction</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>signature of the animation function </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5d6a92c0df1f8775eb21b2bf13633cda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d6a92c0df1f8775eb21b2bf13633cda">&#9670;&nbsp;</a></span>TimedAnimationAnimated</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::<a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a> =  <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">TimedAnimation</a>&lt;Animated&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>type of the <a class="el" href="classengine_1_1animations_1_1TimedAnimation.html" title="An animation that has a duration. ">TimedAnimation</a> used to store the animations </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a84487ec112a004ac4183a5d19b18f100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84487ec112a004ac4183a5d19b18f100">&#9670;&nbsp;</a></span>addAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::addAnimation </td>
+          <td>(</td>
+          <td class="paramtype">Id&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a4ed879b0315d0794222d125dbdde9b4f">AnimationSignature</a>&#160;</td>
+          <td class="paramname"><em>animation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Time&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>repeats</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a new animation. </p>
+<p>If there is already an animation registered for this id, the map is not modified </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the animation </td></tr>
+    <tr><td class="paramname">animation</td><td>The animation </td></tr>
+    <tr><td class="paramname">duration</td><td>The duration (in seconds) of the animation </td></tr>
+    <tr><td class="paramname">loop</td><td>Whether the animation must infinitely loop </td></tr>
+    <tr><td class="paramname">repeats</td><td>The number of times the animation must be played </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad528ed751856e7cc379fa72a6acbfdbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad528ed751856e7cc379fa72a6acbfdbb">&#9670;&nbsp;</a></span>getAnimation() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a>&amp; <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::getAnimation </td>
+          <td>(</td>
+          <td class="paramtype">Id&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets an animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the animation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The animation </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the ID is not in the map </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a30db7a7e44d4c438e30c3811a7462eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30db7a7e44d4c438e30c3811a7462eb6">&#9670;&nbsp;</a></span>getAnimation() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classengine_1_1animations_1_1AnimationMap.html#a5d6a92c0df1f8775eb21b2bf13633cda">TimedAnimationAnimated</a>&amp; <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::getAnimation </td>
+          <td>(</td>
+          <td class="paramtype">Id&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets an animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the animation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The animation </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the ID is not in the map </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1ae3dd2d9d75aa9812581d884f7862c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae3dd2d9d75aa9812581d884f7862c9">&#9670;&nbsp;</a></span>hasAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::hasAnimation </td>
+          <td>(</td>
+          <td class="paramtype">Id&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if an animation is registered for the given ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff there is an animation under the given ID </dd></dl>
+
+</div>
+</div>
+<a id="ae1120946c37055d616c46dcae324aec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1120946c37055d616c46dcae324aec4">&#9670;&nbsp;</a></span>removeAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Animated, typename Id&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">engine::animations::AnimationMap</a>&lt; Animated, Id &gt;::removeAnimation </td>
+          <td>(</td>
+          <td class="paramtype">Id&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes an animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the animation to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="AnimationMap_8h_source.html">AnimationMap.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/animations/<a class="el" href="AnimationMap_8h_source.html">AnimationMap.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

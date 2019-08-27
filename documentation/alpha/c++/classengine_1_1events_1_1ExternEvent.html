@@ -67,6 +67,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classengine_1_1events_1_1ExternEvent-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">engine::events::ExternEvent Class Reference</div>  </div>
@@ -82,8 +83,9 @@ Inheritance diagram for engine::events::ExternEvent:</div>
 <div class="dyncontent">
 <div class="center"><img src="classengine_1_1events_1_1ExternEvent__inherit__graph.png" border="0" usemap="#engine_1_1events_1_1ExternEvent_inherit__map" alt="Inheritance graph"/></div>
 <map name="engine_1_1events_1_1ExternEvent_inherit__map" id="engine_1_1events_1_1ExternEvent_inherit__map">
-<area shape="rect" id="node2" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="24,95,173,121"/>
-<area shape="rect" id="node3" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="40,5,157,47"/>
+<area shape="rect" id="node2" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="5,102,155,129"/>
+<area shape="rect" id="node3" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="108,5,225,47"/>
+<area shape="rect" id="node4" href="classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. " alt="" coords="179,95,331,136"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,8 +93,9 @@ Collaboration diagram for engine::events::ExternEvent:</div>
 <div class="dyncontent">
 <div class="center"><img src="classengine_1_1events_1_1ExternEvent__coll__graph.png" border="0" usemap="#engine_1_1events_1_1ExternEvent_coll__map" alt="Collaboration graph"/></div>
 <map name="engine_1_1events_1_1ExternEvent_coll__map" id="engine_1_1events_1_1ExternEvent_coll__map">
-<area shape="rect" id="node2" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="24,95,173,121"/>
-<area shape="rect" id="node3" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="40,5,157,47"/>
+<area shape="rect" id="node2" href="classengine_1_1events_1_1Event.html" title="The base class for events. " alt="" coords="5,102,155,129"/>
+<area shape="rect" id="node3" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="108,5,225,47"/>
+<area shape="rect" id="node4" href="classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. " alt="" coords="179,95,331,136"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -104,51 +107,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a09beb9c720e770e6c6fa22650538f790"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a09beb9c720e770e6c6fa22650538f790">create</a> (const nlohmann::json &amp;jsonTable) override</td></tr>
 <tr class="memdesc:a09beb9c720e770e6c6fa22650538f790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises an event with the given JSON table.  <a href="#a09beb9c720e770e6c6fa22650538f790">More...</a><br /></td></tr>
 <tr class="separator:a09beb9c720e770e6c6fa22650538f790"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f00f5ae1b86118e452b190f9061ba1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a1f00f5ae1b86118e452b190f9061ba1f">set</a> (const std::string &amp;name, int value) override</td></tr>
-<tr class="memdesc:a1f00f5ae1b86118e452b190f9061ba1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="#a1f00f5ae1b86118e452b190f9061ba1f">More...</a><br /></td></tr>
-<tr class="separator:a1f00f5ae1b86118e452b190f9061ba1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85940b6da32e32a0482d6d046a9f8155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a85940b6da32e32a0482d6d046a9f8155">set</a> (const std::string &amp;name, long value) override</td></tr>
-<tr class="memdesc:a85940b6da32e32a0482d6d046a9f8155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="#a85940b6da32e32a0482d6d046a9f8155">More...</a><br /></td></tr>
-<tr class="separator:a85940b6da32e32a0482d6d046a9f8155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a772df03fa3499a714b37b9ead0a0248a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a772df03fa3499a714b37b9ead0a0248a">set</a> (const std::string &amp;name, float value) override</td></tr>
-<tr class="memdesc:a772df03fa3499a714b37b9ead0a0248a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="#a772df03fa3499a714b37b9ead0a0248a">More...</a><br /></td></tr>
-<tr class="separator:a772df03fa3499a714b37b9ead0a0248a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c1d90f6815e6250c2697d80f7d404ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a2c1d90f6815e6250c2697d80f7d404ba">set</a> (const std::string &amp;name, double value) override</td></tr>
-<tr class="memdesc:a2c1d90f6815e6250c2697d80f7d404ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="#a2c1d90f6815e6250c2697d80f7d404ba">More...</a><br /></td></tr>
-<tr class="separator:a2c1d90f6815e6250c2697d80f7d404ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29e4945bcc5760c27059e13f8be9849e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a29e4945bcc5760c27059e13f8be9849e">set</a> (const std::string &amp;name, bool value) override</td></tr>
-<tr class="memdesc:a29e4945bcc5760c27059e13f8be9849e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="#a29e4945bcc5760c27059e13f8be9849e">More...</a><br /></td></tr>
-<tr class="separator:a29e4945bcc5760c27059e13f8be9849e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b35faa0c42b2225ecae80d8535c8765"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a0b35faa0c42b2225ecae80d8535c8765">set</a> (const std::string &amp;name, const char *value) override</td></tr>
-<tr class="memdesc:a0b35faa0c42b2225ecae80d8535c8765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="#a0b35faa0c42b2225ecae80d8535c8765">More...</a><br /></td></tr>
-<tr class="separator:a0b35faa0c42b2225ecae80d8535c8765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa84fa18af2c91b4bf3eb11f853daa361"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#aa84fa18af2c91b4bf3eb11f853daa361">set</a> (const std::string &amp;name, const std::string &amp;value) override</td></tr>
-<tr class="memdesc:aa84fa18af2c91b4bf3eb11f853daa361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="#aa84fa18af2c91b4bf3eb11f853daa361">More...</a><br /></td></tr>
-<tr class="separator:aa84fa18af2c91b4bf3eb11f853daa361"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97cdbd89f20dc9f21c47d8be8a6f597f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a97cdbd89f20dc9f21c47d8be8a6f597f">set</a> (const std::string &amp;name, const nlohmann::json &amp;value) override</td></tr>
-<tr class="memdesc:a97cdbd89f20dc9f21c47d8be8a6f597f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="#a97cdbd89f20dc9f21c47d8be8a6f597f">More...</a><br /></td></tr>
-<tr class="separator:a97cdbd89f20dc9f21c47d8be8a6f597f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af272f77475644d893a47753ae4a7d986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#af272f77475644d893a47753ae4a7d986">set</a> (const std::string &amp;name, sol::nil_t value) override</td></tr>
-<tr class="memdesc:af272f77475644d893a47753ae4a7d986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="#af272f77475644d893a47753ae4a7d986">More...</a><br /></td></tr>
-<tr class="separator:af272f77475644d893a47753ae4a7d986"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff711aa945b55867116b73ff9ab5de07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#aff711aa945b55867116b73ff9ab5de07">set</a> (const std::string &amp;name, const sol::table &amp;value) override</td></tr>
-<tr class="memdesc:aff711aa945b55867116b73ff9ab5de07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="#aff711aa945b55867116b73ff9ab5de07">More...</a><br /></td></tr>
-<tr class="separator:aff711aa945b55867116b73ff9ab5de07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bc662ff4a922a53a930901fbedaee56"><td class="memItemLeft" align="right" valign="top">std::pair&lt; long, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a6bc662ff4a922a53a930901fbedaee56">getInt</a> (const std::string &amp;name) const override</td></tr>
-<tr class="memdesc:a6bc662ff4a922a53a930901fbedaee56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as an integer.  <a href="#a6bc662ff4a922a53a930901fbedaee56">More...</a><br /></td></tr>
-<tr class="separator:a6bc662ff4a922a53a930901fbedaee56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35eeb625bec281fe41f90a2eb73645d9"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a35eeb625bec281fe41f90a2eb73645d9">getFloat</a> (const std::string &amp;name) const override</td></tr>
-<tr class="memdesc:a35eeb625bec281fe41f90a2eb73645d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a floating point number.  <a href="#a35eeb625bec281fe41f90a2eb73645d9">More...</a><br /></td></tr>
-<tr class="separator:a35eeb625bec281fe41f90a2eb73645d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4811391b3737dd6ca72108ce9f43b555"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a4811391b3737dd6ca72108ce9f43b555">getBool</a> (const std::string &amp;name) const override</td></tr>
-<tr class="memdesc:a4811391b3737dd6ca72108ce9f43b555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a boolean.  <a href="#a4811391b3737dd6ca72108ce9f43b555">More...</a><br /></td></tr>
-<tr class="separator:a4811391b3737dd6ca72108ce9f43b555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a327033ff486334abf9be370e8ccee5d8"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a327033ff486334abf9be370e8ccee5d8">getString</a> (const std::string &amp;name) const override</td></tr>
-<tr class="memdesc:a327033ff486334abf9be370e8ccee5d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a string.  <a href="#a327033ff486334abf9be370e8ccee5d8">More...</a><br /></td></tr>
-<tr class="separator:a327033ff486334abf9be370e8ccee5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e1f8c0ca89840b0f6c981d2edcd453a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; sol::object, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a3e1f8c0ca89840b0f6c981d2edcd453a">getObject</a> (const std::string &amp;name) const override</td></tr>
-<tr class="memdesc:a3e1f8c0ca89840b0f6c981d2edcd453a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a generic Lua object.  <a href="#a3e1f8c0ca89840b0f6c981d2edcd453a">More...</a><br /></td></tr>
-<tr class="separator:a3e1f8c0ca89840b0f6c981d2edcd453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classengine_1_1events_1_1Event"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classengine_1_1events_1_1Event')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classengine_1_1events_1_1Event.html">engine::events::Event</a></td></tr>
 <tr class="memitem:a0151f7aaa0ae52411d7d27d38e7777cd inherit pub_methods_classengine_1_1events_1_1Event"><td class="memItemLeft" align="right" valign="top"><a id="a0151f7aaa0ae52411d7d27d38e7777cd"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Event</b> (const <a class="el" href="classengine_1_1events_1_1Event.html">Event</a> &amp;)=delete</td></tr>
@@ -167,9 +125,61 @@ const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 <tr class="memitem:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a9845d5530bd04fb5b328dfe349c12685">MemberStorage</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context)</td></tr>
 <tr class="memdesc:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a9845d5530bd04fb5b328dfe349c12685">More...</a><br /></td></tr>
 <tr class="separator:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a563be046dd79d11a92bcd620c2f45bab inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; nlohmann::json, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a563be046dd79d11a92bcd620c2f45bab">getJSON</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a563be046dd79d11a92bcd620c2f45bab inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a JSON object.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a563be046dd79d11a92bcd620c2f45bab">More...</a><br /></td></tr>
-<tr class="separator:a563be046dd79d11a92bcd620c2f45bab inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classengine_1_1utilities_1_1ExternMemberStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html">engine::utilities::ExternMemberStorage</a></td></tr>
+<tr class="memitem:acfc74f9472bc02d92cda9a38bee7f181 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#acfc74f9472bc02d92cda9a38bee7f181">ExternMemberStorage</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context)</td></tr>
+<tr class="memdesc:acfc74f9472bc02d92cda9a38bee7f181 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#acfc74f9472bc02d92cda9a38bee7f181">More...</a><br /></td></tr>
+<tr class="separator:acfc74f9472bc02d92cda9a38bee7f181 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3160392a649a2bbf9fa89f56f5acedc inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ac3160392a649a2bbf9fa89f56f5acedc">set</a> (const std::string &amp;name, int value) noexcept override</td></tr>
+<tr class="memdesc:ac3160392a649a2bbf9fa89f56f5acedc inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ac3160392a649a2bbf9fa89f56f5acedc">More...</a><br /></td></tr>
+<tr class="separator:ac3160392a649a2bbf9fa89f56f5acedc inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ee9784e252af25403b7629bec362a5a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a9ee9784e252af25403b7629bec362a5a">set</a> (const std::string &amp;name, long value) noexcept override</td></tr>
+<tr class="memdesc:a9ee9784e252af25403b7629bec362a5a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a9ee9784e252af25403b7629bec362a5a">More...</a><br /></td></tr>
+<tr class="separator:a9ee9784e252af25403b7629bec362a5a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08ee34b2f10c932afd347923693718ec inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a08ee34b2f10c932afd347923693718ec">set</a> (const std::string &amp;name, float value) noexcept override</td></tr>
+<tr class="memdesc:a08ee34b2f10c932afd347923693718ec inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a08ee34b2f10c932afd347923693718ec">More...</a><br /></td></tr>
+<tr class="separator:a08ee34b2f10c932afd347923693718ec inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ae3d5af9a82e1a1aa46f022bba2378 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a52ae3d5af9a82e1a1aa46f022bba2378">set</a> (const std::string &amp;name, double value) noexcept override</td></tr>
+<tr class="memdesc:a52ae3d5af9a82e1a1aa46f022bba2378 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a52ae3d5af9a82e1a1aa46f022bba2378">More...</a><br /></td></tr>
+<tr class="separator:a52ae3d5af9a82e1a1aa46f022bba2378 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f9ea27f457d889163778fcf5ea7fa2 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#af6f9ea27f457d889163778fcf5ea7fa2">set</a> (const std::string &amp;name, bool value) noexcept override</td></tr>
+<tr class="memdesc:af6f9ea27f457d889163778fcf5ea7fa2 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#af6f9ea27f457d889163778fcf5ea7fa2">More...</a><br /></td></tr>
+<tr class="separator:af6f9ea27f457d889163778fcf5ea7fa2 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33665bfb9962ad72c55d4090ac7f926a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a33665bfb9962ad72c55d4090ac7f926a">set</a> (const std::string &amp;name, const char *value) noexcept override</td></tr>
+<tr class="memdesc:a33665bfb9962ad72c55d4090ac7f926a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a33665bfb9962ad72c55d4090ac7f926a">More...</a><br /></td></tr>
+<tr class="separator:a33665bfb9962ad72c55d4090ac7f926a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b37e2cd4e574820b1dec2d986e0ea2a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a5b37e2cd4e574820b1dec2d986e0ea2a">set</a> (const std::string &amp;name, const std::string &amp;value) noexcept override</td></tr>
+<tr class="memdesc:a5b37e2cd4e574820b1dec2d986e0ea2a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a5b37e2cd4e574820b1dec2d986e0ea2a">More...</a><br /></td></tr>
+<tr class="separator:a5b37e2cd4e574820b1dec2d986e0ea2a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e575baf7a5810f1168584ec598e456 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a11e575baf7a5810f1168584ec598e456">set</a> (const std::string &amp;name, const nlohmann::json &amp;value) noexcept override</td></tr>
+<tr class="memdesc:a11e575baf7a5810f1168584ec598e456 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a11e575baf7a5810f1168584ec598e456">More...</a><br /></td></tr>
+<tr class="separator:a11e575baf7a5810f1168584ec598e456 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4427ab4b9bb412ad68c59742ebae492a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a4427ab4b9bb412ad68c59742ebae492a">set</a> (const std::string &amp;name, sol::nil_t value) noexcept override</td></tr>
+<tr class="memdesc:a4427ab4b9bb412ad68c59742ebae492a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a4427ab4b9bb412ad68c59742ebae492a">More...</a><br /></td></tr>
+<tr class="separator:a4427ab4b9bb412ad68c59742ebae492a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6c6345ee5563fe561538c10fb3843d1 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ab6c6345ee5563fe561538c10fb3843d1">set</a> (const std::string &amp;name, const sol::table &amp;value) noexcept override</td></tr>
+<tr class="memdesc:ab6c6345ee5563fe561538c10fb3843d1 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ab6c6345ee5563fe561538c10fb3843d1">More...</a><br /></td></tr>
+<tr class="separator:ab6c6345ee5563fe561538c10fb3843d1 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d10d6bcae56576586734b2433ee6b0a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3d10d6bcae56576586734b2433ee6b0a">has</a> (const std::string &amp;name) const noexcept override</td></tr>
+<tr class="memdesc:a3d10d6bcae56576586734b2433ee6b0a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a variable called "name" exists.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3d10d6bcae56576586734b2433ee6b0a">More...</a><br /></td></tr>
+<tr class="separator:a3d10d6bcae56576586734b2433ee6b0a inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7ae8939e9b4bb7f4bf37b104ec27f9b inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; long, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae7ae8939e9b4bb7f4bf37b104ec27f9b">getInt</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:ae7ae8939e9b4bb7f4bf37b104ec27f9b inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as an integer.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae7ae8939e9b4bb7f4bf37b104ec27f9b">More...</a><br /></td></tr>
+<tr class="separator:ae7ae8939e9b4bb7f4bf37b104ec27f9b inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10f5f095390b4a60b59c6a6206a026c4 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a10f5f095390b4a60b59c6a6206a026c4">getFloat</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a10f5f095390b4a60b59c6a6206a026c4 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a floating point number.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a10f5f095390b4a60b59c6a6206a026c4">More...</a><br /></td></tr>
+<tr class="separator:a10f5f095390b4a60b59c6a6206a026c4 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634847a9b5e39644f665a428ed884e80 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a634847a9b5e39644f665a428ed884e80">getBool</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a634847a9b5e39644f665a428ed884e80 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a boolean.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a634847a9b5e39644f665a428ed884e80">More...</a><br /></td></tr>
+<tr class="separator:a634847a9b5e39644f665a428ed884e80 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3859f62d5de887308db0adc91dc05947 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3859f62d5de887308db0adc91dc05947">getString</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:a3859f62d5de887308db0adc91dc05947 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a string.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a3859f62d5de887308db0adc91dc05947">More...</a><br /></td></tr>
+<tr class="separator:a3859f62d5de887308db0adc91dc05947 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae532c4609e38f880db1bf46c9f319335 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; nlohmann::json, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae532c4609e38f880db1bf46c9f319335">getJSON</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:ae532c4609e38f880db1bf46c9f319335 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a JSON object.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ae532c4609e38f880db1bf46c9f319335">More...</a><br /></td></tr>
+<tr class="separator:ae532c4609e38f880db1bf46c9f319335 inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2a95af442d80ee5297fbbc91f0d1b1e inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">std::pair&lt; sol::object, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ad2a95af442d80ee5297fbbc91f0d1b1e">getObject</a> (const std::string &amp;name) const override</td></tr>
+<tr class="memdesc:ad2a95af442d80ee5297fbbc91f0d1b1e inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as a generic Lua object.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ad2a95af442d80ee5297fbbc91f0d1b1e">More...</a><br /></td></tr>
+<tr class="separator:ad2a95af442d80ee5297fbbc91f0d1b1e inherit pub_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -196,6 +206,65 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a71df4046733a8563c39a0e34cc0856de inherit pub_static_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a71df4046733a8563c39a0e34cc0856de">luaFunctions</a> (sol::state &amp;lua)</td></tr>
 <tr class="memdesc:a71df4046733a8563c39a0e34cc0856de inherit pub_static_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the Lua functions for the <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. ">MemberStorage</a> class.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a71df4046733a8563c39a0e34cc0856de">More...</a><br /></td></tr>
 <tr class="separator:a71df4046733a8563c39a0e34cc0856de inherit pub_static_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classengine_1_1utilities_1_1ExternMemberStorage')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html">engine::utilities::ExternMemberStorage</a></td></tr>
+<tr class="memitem:af633ad775f80fb6daa01b5743bd96b74 inherit pub_static_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#af633ad775f80fb6daa01b5743bd96b74">luaFunctions</a> (sol::state &amp;lua)</td></tr>
+<tr class="memdesc:af633ad775f80fb6daa01b5743bd96b74 inherit pub_static_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register Lua functions for <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. ">ExternMemberStorage</a>.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#af633ad775f80fb6daa01b5743bd96b74">More...</a><br /></td></tr>
+<tr class="separator:af633ad775f80fb6daa01b5743bd96b74 inherit pub_static_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a5f2267769734fad0160e0eeee39bcf10"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1ExternEvent.html#a5f2267769734fad0160e0eeee39bcf10">getLogErrorPrefix</a> () const override</td></tr>
+<tr class="memdesc:a5f2267769734fad0160e0eeee39bcf10"><td class="mdescLeft">&#160;</td><td class="mdescRight">What to print in front of the log messages.  <a href="#a5f2267769734fad0160e0eeee39bcf10">More...</a><br /></td></tr>
+<tr class="separator:a5f2267769734fad0160e0eeee39bcf10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classengine_1_1events_1_1Event"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1events_1_1Event')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1events_1_1Event.html">engine::events::Event</a></td></tr>
+<tr class="memitem:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1Event.html#a0ed48b00ce3be07d8fba0a9e6f70cc53">Event</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context, const std::string &amp;type)</td></tr>
+<tr class="memdesc:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an event.  <a href="classengine_1_1events_1_1Event.html#a0ed48b00ce3be07d8fba0a9e6f70cc53">More...</a><br /></td></tr>
+<tr class="separator:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classengine_1_1utilities_1_1MemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1utilities_1_1MemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">engine::utilities::MemberStorage</a></td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a727abc2544efc49a8a50b734a06327ad">convertAndSet</a> (std::any variable, T value) noexcept</td></tr>
+<tr class="memdesc:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the value of given type in a std::any variable.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a727abc2544efc49a8a50b734a06327ad">More...</a><br /></td></tr>
+<tr class="separator:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#afae0ca3652753c5a8e93884c94560314">getValue</a> (std::any variable) const</td></tr>
+<tr class="memdesc:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of a std::any variable as the type T.  <a href="classengine_1_1utilities_1_1MemberStorage.html#afae0ca3652753c5a8e93884c94560314">More...</a><br /></td></tr>
+<tr class="separator:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">registerMember</a> (const std::string &amp;name, T *member)</td></tr>
+<tr class="memdesc:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member variable to be accessed through get and set functions.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">More...</a><br /></td></tr>
+<tr class="separator:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="ac5cfd19f64ab02691719665dbe2a35ea"></a>
+<a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ac5cfd19f64ab02691719665dbe2a35ea">getContext</a> ()</td></tr>
+<tr class="memdesc:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the context. <br /></td></tr>
+<tr class="separator:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="a616f224aa966e6d3837c62bf9b88843d"></a>
+const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a616f224aa966e6d3837c62bf9b88843d">getContext</a> () const</td></tr>
+<tr class="memdesc:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the context. <br /></td></tr>
+<tr class="separator:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a5079b90d28ad0eb2a3a37202ddcfa30c">getContainer</a> ()</td></tr>
+<tr class="memdesc:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a5079b90d28ad0eb2a3a37202ddcfa30c">More...</a><br /></td></tr>
+<tr class="separator:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a880f6f1ccaaafb08358e6d61f1ee91a9">getContainer</a> () const</td></tr>
+<tr class="memdesc:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a880f6f1ccaaafb08358e6d61f1ee91a9">More...</a><br /></td></tr>
+<tr class="separator:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1utilities_1_1ExternMemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html">engine::utilities::ExternMemberStorage</a></td></tr>
+<tr class="memitem:a0e53de32ad6e380be584ece09acba397 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a0e53de32ad6e380be584ece09acba397">setInternalJSONTable</a> (const nlohmann::json &amp;jsonTable)</td></tr>
+<tr class="memdesc:a0e53de32ad6e380be584ece09acba397 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the internal JSON storage to the given JSON.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a0e53de32ad6e380be584ece09acba397">More...</a><br /></td></tr>
+<tr class="separator:a0e53de32ad6e380be584ece09acba397 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2af9551ea59715e6a36951fa8b08e00 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad2af9551ea59715e6a36951fa8b08e00 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ad2af9551ea59715e6a36951fa8b08e00">setInternally</a> (const std::string &amp;name, T value) noexcept</td></tr>
+<tr class="memdesc:ad2af9551ea59715e6a36951fa8b08e00 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the value of given type in the internal JSON storage.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ad2af9551ea59715e6a36951fa8b08e00">More...</a><br /></td></tr>
+<tr class="separator:ad2af9551ea59715e6a36951fa8b08e00 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22419585c23c7d4560d7f7d9c1062a40 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a22419585c23c7d4560d7f7d9c1062a40 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; T, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a22419585c23c7d4560d7f7d9c1062a40">getValue</a> (const std::string &amp;name, T defaultValue) const</td></tr>
+<tr class="memdesc:a22419585c23c7d4560d7f7d9c1062a40 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value that is stored under the name 'name'.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a22419585c23c7d4560d7f7d9c1062a40">More...</a><br /></td></tr>
+<tr class="separator:a22419585c23c7d4560d7f7d9c1062a40 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a21311297d8eb198fcd608712c017e6 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">nlohmann::json &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#a5a21311297d8eb198fcd608712c017e6">getInternalJSONTable</a> ()</td></tr>
+<tr class="memdesc:a5a21311297d8eb198fcd608712c017e6 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal JSON storage.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#a5a21311297d8eb198fcd608712c017e6">More...</a><br /></td></tr>
+<tr class="separator:a5a21311297d8eb198fcd608712c017e6 inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0dc167730a0ff0afa6456395c5a33f inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memItemLeft" align="right" valign="top">const nlohmann::json &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1ExternMemberStorage.html#ada0dc167730a0ff0afa6456395c5a33f">getInternalJSONTable</a> () const</td></tr>
+<tr class="memdesc:ada0dc167730a0ff0afa6456395c5a33f inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal JSON storage.  <a href="classengine_1_1utilities_1_1ExternMemberStorage.html#ada0dc167730a0ff0afa6456395c5a33f">More...</a><br /></td></tr>
+<tr class="separator:ada0dc167730a0ff0afa6456395c5a33f inherit pro_methods_classengine_1_1utilities_1_1ExternMemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -213,26 +282,11 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memitem:a9d6abfebbb5a95d02e2bf406fd74d428 inherit pro_types_classengine_1_1events_1_1Event"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1Event.html#a9d6abfebbb5a95d02e2bf406fd74d428">RegisterEvent</a> = <a class="el" href="structengine_1_1utilities_1_1RegisterClass_1_1Register.html">RegisteredEvents::Register</a>&lt; T &gt;</td></tr>
 <tr class="memdesc:a9d6abfebbb5a95d02e2bf406fd74d428 inherit pro_types_classengine_1_1events_1_1Event"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shortcut to register an event.  <a href="classengine_1_1events_1_1Event.html#a9d6abfebbb5a95d02e2bf406fd74d428">More...</a><br /></td></tr>
 <tr class="separator:a9d6abfebbb5a95d02e2bf406fd74d428 inherit pro_types_classengine_1_1events_1_1Event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classengine_1_1events_1_1Event"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1events_1_1Event')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1events_1_1Event.html">engine::events::Event</a></td></tr>
-<tr class="memitem:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1Event.html#a0ed48b00ce3be07d8fba0a9e6f70cc53">Event</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context, const std::string &amp;type)</td></tr>
-<tr class="memdesc:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an event.  <a href="classengine_1_1events_1_1Event.html#a0ed48b00ce3be07d8fba0a9e6f70cc53">More...</a><br /></td></tr>
-<tr class="separator:a0ed48b00ce3be07d8fba0a9e6f70cc53 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35730d1897e825166f5a210c97881eb8 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1events_1_1Event.html#a35730d1897e825166f5a210c97881eb8">getLogErrorPrefix</a> () const override</td></tr>
-<tr class="memdesc:a35730d1897e825166f5a210c97881eb8 inherit pro_methods_classengine_1_1events_1_1Event"><td class="mdescLeft">&#160;</td><td class="mdescRight">What to print in front of the log messages.  <a href="classengine_1_1events_1_1Event.html#a35730d1897e825166f5a210c97881eb8">More...</a><br /></td></tr>
-<tr class="separator:a35730d1897e825166f5a210c97881eb8 inherit pro_methods_classengine_1_1events_1_1Event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classengine_1_1utilities_1_1MemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1utilities_1_1MemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">engine::utilities::MemberStorage</a></td></tr>
-<tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">registerMember</a> (const std::string &amp;name, T *member)</td></tr>
-<tr class="memdesc:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member variable to be accessed through get and set functions.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">More...</a><br /></td></tr>
-<tr class="separator:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="ac5cfd19f64ab02691719665dbe2a35ea"></a>
-<a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ac5cfd19f64ab02691719665dbe2a35ea">getContext</a> ()</td></tr>
-<tr class="memdesc:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the context. <br /></td></tr>
-<tr class="separator:ac5cfd19f64ab02691719665dbe2a35ea inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="a616f224aa966e6d3837c62bf9b88843d"></a>
-const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a616f224aa966e6d3837c62bf9b88843d">getContext</a> () const</td></tr>
-<tr class="memdesc:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the context. <br /></td></tr>
-<tr class="separator:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_classengine_1_1utilities_1_1MemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classengine_1_1utilities_1_1MemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">engine::utilities::MemberStorage</a></td></tr>
+<tr class="memitem:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="aac194dfc55d9ad68b15e9da1855d31c4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> = std::map&lt; std::string, std::any &gt;</td></tr>
+<tr class="memdesc:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal container. <br /></td></tr>
+<tr class="separator:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This event is defined only with JSON. </p>
@@ -313,8 +367,8 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 
 </div>
 </div>
-<a id="a4811391b3737dd6ca72108ce9f43b555"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4811391b3737dd6ca72108ce9f43b555">&#9670;&nbsp;</a></span>getBool()</h2>
+<a id="a5f2267769734fad0160e0eeee39bcf10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2267769734fad0160e0eeee39bcf10">&#9670;&nbsp;</a></span>getLogErrorPrefix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,208 +377,24 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;bool, bool&gt; engine::events::ExternEvent::getBool </td>
+          <td class="memname">virtual std::string engine::events::ExternEvent::getLogErrorPrefix </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gets the value of the variable "name" as a boolean. </p>
-<p>If the variable does not exist, the second value of the pair is false </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a boolean and found a boolean (true iff the variable exists) </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to boolean </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>What to print in front of the log messages. </p>
+<p>For example, the class Component returns "Component" </p><dl class="section return"><dt>Returns</dt><dd>The string to print </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Implementation of <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5" title="Registers a member variable to be accessed through get and set functions. ">registerMember</a> </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a1be753c8b0407ed8a143f55579da3d14">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a35eeb625bec281fe41f90a2eb73645d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35eeb625bec281fe41f90a2eb73645d9">&#9670;&nbsp;</a></span>getFloat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;double, bool&gt; engine::events::ExternEvent::getFloat </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the value of the variable "name" as a floating point number. </p>
-<p>If the variable does not exist, the second value of the pair is false </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a double and found a boolean (true iff the variable exists) </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to double </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aadb6ead06804e24dc1ee1ad542086075">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a6bc662ff4a922a53a930901fbedaee56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bc662ff4a922a53a930901fbedaee56">&#9670;&nbsp;</a></span>getInt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;long, bool&gt; engine::events::ExternEvent::getInt </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the value of the variable "name" as an integer. </p>
-<p>If the variable does not exist, the second value of the pair is false. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a long integer and found a boolean (true iff the variable exists) </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to integer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6f76d5000b3cb1667989c54eb0e834e5">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a3e1f8c0ca89840b0f6c981d2edcd453a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e1f8c0ca89840b0f6c981d2edcd453a">&#9670;&nbsp;</a></span>getObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;sol::object, bool&gt; engine::events::ExternEvent::getObject </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the value of the variable "name" as a generic Lua object. </p>
-<p>If the variable does not exist, the second value of the pair is false </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a generic Lua object and found a boolean (true iff the variable exists) </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to a Lua object </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a788147c9743a99d562046ee919928e1a">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a327033ff486334abf9be370e8ccee5d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a327033ff486334abf9be370e8ccee5d8">&#9670;&nbsp;</a></span>getString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;std::string, bool&gt; engine::events::ExternEvent::getString </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the value of the variable "name" as a string. </p>
-<p>If the variable does not exist, the second value of the pair is false </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pair (value, found) with value a string and found a boolean (true iff the variable exists) </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::bad_any_cast</td><td>When the value can not be converted to string </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aa29f6cd17a6c7ca5d1ac50daad3255aa">engine::utilities::MemberStorage</a>.</p>
+<p>Reimplemented from <a class="el" href="classengine_1_1events_1_1Event.html#a35730d1897e825166f5a210c97881eb8">engine::events::Event</a>.</p>
 
 </div>
 </div>
@@ -562,478 +432,8 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 
 </div>
 </div>
-<a id="a1f00f5ae1b86118e452b190f9061ba1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f00f5ae1b86118e452b190f9061ba1f">&#9670;&nbsp;</a></span>set() <span class="overload">[1/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to an integer value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aa9ab44fd40d86dcdeef3a5fd6f351062">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a85940b6da32e32a0482d6d046a9f8155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85940b6da32e32a0482d6d046a9f8155">&#9670;&nbsp;</a></span>set() <span class="overload">[2/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a long value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a755d056bcac3beb719cf4ac55accdfe1">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a772df03fa3499a714b37b9ead0a0248a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a772df03fa3499a714b37b9ead0a0248a">&#9670;&nbsp;</a></span>set() <span class="overload">[3/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a flot value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ad67a4cd787977b6e45b30a2c10505972">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a2c1d90f6815e6250c2697d80f7d404ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c1d90f6815e6250c2697d80f7d404ba">&#9670;&nbsp;</a></span>set() <span class="overload">[4/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a double value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ada5885093ff53fc563d7fc53a830d6fe">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a29e4945bcc5760c27059e13f8be9849e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29e4945bcc5760c27059e13f8be9849e">&#9670;&nbsp;</a></span>set() <span class="overload">[5/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a boolean value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ac28a9b88b2a315100db828011c66d029">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a0b35faa0c42b2225ecae80d8535c8765"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b35faa0c42b2225ecae80d8535c8765">&#9670;&nbsp;</a></span>set() <span class="overload">[6/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a const array of characters value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a849e6d07d2887af0d7f436062850e6aa">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="aa84fa18af2c91b4bf3eb11f853daa361"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa84fa18af2c91b4bf3eb11f853daa361">&#9670;&nbsp;</a></span>set() <span class="overload">[7/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a string value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6c9d35d2f4ef169bf007f4e2236a63dd">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="a97cdbd89f20dc9f21c47d8be8a6f597f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97cdbd89f20dc9f21c47d8be8a6f597f">&#9670;&nbsp;</a></span>set() <span class="overload">[8/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const nlohmann::json &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a JSON object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a2e4780024694086d258dd90cf8f63d86">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="af272f77475644d893a47753ae4a7d986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af272f77475644d893a47753ae4a7d986">&#9670;&nbsp;</a></span>set() <span class="overload">[9/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sol::nil_t&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a Lua nil value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a004c45d4576e89ab3e8f4ac97353d2d3">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
-<a id="aff711aa945b55867116b73ff9ab5de07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff711aa945b55867116b73ff9ab5de07">&#9670;&nbsp;</a></span>set() <span class="overload">[10/10]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void engine::events::ExternEvent::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sol::table &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets a variable called "name" to a Lua table. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the variable. If the variable already exists, its value is overwritten </td></tr>
-    <tr><td class="paramname">value</td><td>The value </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a956741e6afa959e567c179964144348c">engine::utilities::MemberStorage</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/events/<a class="el" href="ExternEvent_8h_source.html">ExternEvent.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/events/<a class="el" href="ExternEvent_8h_source.html">ExternEvent.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -77,22 +77,30 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1AnimationMap.html">AnimationMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure that stores animations. Each animation has a unique ID.  <a href="classengine_1_1animations_1_1AnimationMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1Animator.html">Animator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure that eases to use of animations.  <a href="classengine_1_1animations_1_1Animator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1ColorAnimation.html">ColorAnimation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An animation that gradually changes the color of an object over time.  <a href="classengine_1_1animations_1_1ColorAnimation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1FadeAnimation.html">FadeAnimation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An animation that applies a fading effect on an object.  <a href="classengine_1_1animations_1_1FadeAnimation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1RefAnimation.html">RefAnimation</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1FrameAnimation.html">FrameAnimation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An animation that works frame by frame.  <a href="classengine_1_1animations_1_1FrameAnimation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1animations_1_1TimedAnimation.html">TimedAnimation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An animation that has a duration.  <a href="classengine_1_1animations_1_1TimedAnimation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace for animations. </p>
-<p>Animations can be applied on always every type (depending on the exact animation). They are mostly used for graphical objects.</p>
-<p>The classes are inspired from the Thor library. However, this implementation adds more animation types and allows to have animations that are used only once and then erased. </p>
+<p>An animation is simply a function that takes the object to animate and a float between 0 and 1 that indicates the progress of the animation.</p>
+<p>Animations can be applied on every type (depending on the exact animation). They are mostly used for graphical objects.</p>
+<p>The classes and the structure of this namespace are inspired from the Thor library. However, this implementation allows to have animations that are used only once and then erased.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html" title="A system that animates entities. ">systems::AnimationSystem</a> for a system that operates on sprites and that can be used by a state </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

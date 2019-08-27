@@ -1,11 +1,4 @@
 var searchData=
 [
-  ['registercomponent',['RegisterComponent',['../classengine_1_1entities_1_1components_1_1Component.html#afbcaf14818db5d727cf2c60deef491bf',1,'engine::entities::components::Component']]],
-  ['registeredcomponents',['RegisteredComponents',['../classengine_1_1entities_1_1components_1_1Component.html#a4f8bc5b4c7b1f3f4baec544f014e79a4',1,'engine::entities::components::Component']]],
-  ['registeredevents',['RegisteredEvents',['../classengine_1_1events_1_1Event.html#a1ea00e941389a7ded8f29c9953f13328',1,'engine::events::Event']]],
-  ['registeredstates',['RegisteredStates',['../classengine_1_1states_1_1State.html#a34b77216237c95edad33a54563468ac8',1,'engine::states::State']]],
-  ['registeredsystems',['RegisteredSystems',['../classengine_1_1systems_1_1System.html#a5851799b3e7304c4257c708df26d7956',1,'engine::systems::System']]],
-  ['registerevent',['RegisterEvent',['../classengine_1_1events_1_1Event.html#a9d6abfebbb5a95d02e2bf406fd74d428',1,'engine::events::Event']]],
-  ['registerstate',['RegisterState',['../classengine_1_1states_1_1State.html#a1074cd4cc18849f429272b9c302eada1',1,'engine::states::State']]],
-  ['registersystem',['RegisterSystem',['../classengine_1_1systems_1_1System.html#a0473d535842bfcb822566740b1714b13',1,'engine::systems::System']]]
+  ['ptr',['Ptr',['../classengine_1_1entities_1_1components_1_1Component.html#a09b6ab45042e0e454cd5c6e5ee444a26',1,'engine::entities::components::Component::Ptr()'],['../classengine_1_1entities_1_1Entity.html#a52b93bb8ed6c9b5fb3ef50d6b89119b9',1,'engine::entities::Entity::Ptr()'],['../classengine_1_1events_1_1Event.html#a4f7d8028d4df275d53d4bbf5c5899872',1,'engine::events::Event::Ptr()'],['../classengine_1_1states_1_1State.html#af99d7f431762862ca6f80de0e1ae65d5',1,'engine::states::State::Ptr()'],['../classengine_1_1systems_1_1ExternSystem.html#a5aafb4e12edbeb2ae005234685ed3258',1,'engine::systems::ExternSystem::Ptr()'],['../classengine_1_1systems_1_1GraphicalSystem.html#a5063aa684c94efff786a32852083a3de',1,'engine::systems::GraphicalSystem::Ptr()'],['../classengine_1_1systems_1_1System.html#ac972fbd176eded2ad35b3c8a8fe4c4bc',1,'engine::systems::System::Ptr()']]]
 ];

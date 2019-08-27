@@ -72,6 +72,11 @@ $(function() {
 <div class="title">engine::entities::components::AnimationComponent Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A component describing the animation of an entity.  
+ <a href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="AnimationComponent_8h_source.html">AnimationComponent.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for engine::entities::components::AnimationComponent:</div>
 <div class="dyncontent">
@@ -94,10 +99,12 @@ Collaboration diagram for engine::entities::components::AnimationComponent:</div
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a6196662f2fe009a2f45b1d18867e2e54"><td class="memItemLeft" align="right" valign="top"><a id="a6196662f2fe009a2f45b1d18867e2e54"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Animator</b> = <a class="el" href="classengine_1_1animations_1_1Animator.html">animations::Animator</a>&lt; sf::Sprite &gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a6196662f2fe009a2f45b1d18867e2e54">Animator</a> = <a class="el" href="classengine_1_1animations_1_1Animator.html">animations::Animator</a>&lt; sf::Sprite &gt;</td></tr>
+<tr class="memdesc:a6196662f2fe009a2f45b1d18867e2e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the animator of this component. <br /></td></tr>
 <tr class="separator:a6196662f2fe009a2f45b1d18867e2e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a841ad13572a32fe8a8e74b54bd704ab1"><td class="memItemLeft" align="right" valign="top"><a id="a841ad13572a32fe8a8e74b54bd704ab1"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationMap</b> = <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">animations::AnimationMap</a>&lt; sf::Sprite, std::string &gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a841ad13572a32fe8a8e74b54bd704ab1">AnimationMap</a> = <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">animations::AnimationMap</a>&lt; sf::Sprite, std::string &gt;</td></tr>
+<tr class="memdesc:a841ad13572a32fe8a8e74b54bd704ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of structure that stores the animations. <br /></td></tr>
 <tr class="separator:a841ad13572a32fe8a8e74b54bd704ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classengine_1_1entities_1_1components_1_1Component"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classengine_1_1entities_1_1components_1_1Component')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classengine_1_1entities_1_1components_1_1Component.html">engine::entities::components::Component</a></td></tr>
 <tr class="memitem:a09b6ab45042e0e454cd5c6e5ee444a26 inherit pub_types_classengine_1_1entities_1_1components_1_1Component"><td class="memItemLeft" align="right" valign="top"><a id="a09b6ab45042e0e454cd5c6e5ee444a26"></a>
@@ -107,23 +114,25 @@ typedef std::shared_ptr&lt; <a class="el" href="classengine_1_1entities_1_1compo
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a37c79e215d02afe957a7864fdf8c15e5"><td class="memItemLeft" align="right" valign="top"><a id="a37c79e215d02afe957a7864fdf8c15e5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationComponent</b> (<a class="el" href="structengine_1_1states_1_1StateContext.html">states::StateContext</a> &amp;stateContext)</td></tr>
+<tr class="memitem:a37c79e215d02afe957a7864fdf8c15e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a37c79e215d02afe957a7864fdf8c15e5">AnimationComponent</a> (<a class="el" href="structengine_1_1states_1_1StateContext.html">states::StateContext</a> &amp;stateContext)</td></tr>
+<tr class="memdesc:a37c79e215d02afe957a7864fdf8c15e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a37c79e215d02afe957a7864fdf8c15e5">More...</a><br /></td></tr>
 <tr class="separator:a37c79e215d02afe957a7864fdf8c15e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef0c65bcc5822987e6dd4146ec288e3e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#aef0c65bcc5822987e6dd4146ec288e3e">create</a> (const nlohmann::json &amp;description) override</td></tr>
 <tr class="memdesc:aef0c65bcc5822987e6dd4146ec288e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises a component with the given jsonTable.  <a href="#aef0c65bcc5822987e6dd4146ec288e3e">More...</a><br /></td></tr>
 <tr class="separator:aef0c65bcc5822987e6dd4146ec288e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60c14f06f10b21df9b96873dbd047bba"><td class="memItemLeft" align="right" valign="top"><a id="a60c14f06f10b21df9b96873dbd047bba"></a>
-<a class="el" href="classengine_1_1animations_1_1AnimationMap.html">AnimationMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimationMap</b> ()</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a60c14f06f10b21df9b96873dbd047bba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a841ad13572a32fe8a8e74b54bd704ab1">AnimationMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a60c14f06f10b21df9b96873dbd047bba">getAnimationMap</a> ()</td></tr>
+<tr class="memdesc:a60c14f06f10b21df9b96873dbd047bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the structure that stores the animations.  <a href="#a60c14f06f10b21df9b96873dbd047bba">More...</a><br /></td></tr>
 <tr class="separator:a60c14f06f10b21df9b96873dbd047bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65c81351177b487b65f2526947e14308"><td class="memItemLeft" align="right" valign="top"><a id="a65c81351177b487b65f2526947e14308"></a>
-const <a class="el" href="classengine_1_1animations_1_1AnimationMap.html">AnimationMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimationMap</b> () const</td></tr>
+<tr class="memitem:a65c81351177b487b65f2526947e14308"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a841ad13572a32fe8a8e74b54bd704ab1">AnimationMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a65c81351177b487b65f2526947e14308">getAnimationMap</a> () const</td></tr>
+<tr class="memdesc:a65c81351177b487b65f2526947e14308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the structure that stores the animations.  <a href="#a65c81351177b487b65f2526947e14308">More...</a><br /></td></tr>
 <tr class="separator:a65c81351177b487b65f2526947e14308"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a103a77a52345443bcb679974edf6a0d3"><td class="memItemLeft" align="right" valign="top"><a id="a103a77a52345443bcb679974edf6a0d3"></a>
-<a class="el" href="classengine_1_1animations_1_1Animator.html">Animator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimator</b> ()</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a103a77a52345443bcb679974edf6a0d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a6196662f2fe009a2f45b1d18867e2e54">Animator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a103a77a52345443bcb679974edf6a0d3">getAnimator</a> ()</td></tr>
+<tr class="memdesc:a103a77a52345443bcb679974edf6a0d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the animator.  <a href="#a103a77a52345443bcb679974edf6a0d3">More...</a><br /></td></tr>
 <tr class="separator:a103a77a52345443bcb679974edf6a0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96e1a37596f23c4f0b3da69dfbadcaba"><td class="memItemLeft" align="right" valign="top"><a id="a96e1a37596f23c4f0b3da69dfbadcaba"></a>
-const <a class="el" href="classengine_1_1animations_1_1Animator.html">Animator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimator</b> () const</td></tr>
+<tr class="memitem:a96e1a37596f23c4f0b3da69dfbadcaba"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a6196662f2fe009a2f45b1d18867e2e54">Animator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a96e1a37596f23c4f0b3da69dfbadcaba">getAnimator</a> () const</td></tr>
+<tr class="memdesc:a96e1a37596f23c4f0b3da69dfbadcaba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the animator.  <a href="#a96e1a37596f23c4f0b3da69dfbadcaba">More...</a><br /></td></tr>
 <tr class="separator:a96e1a37596f23c4f0b3da69dfbadcaba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classengine_1_1entities_1_1components_1_1Component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classengine_1_1entities_1_1components_1_1Component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classengine_1_1entities_1_1components_1_1Component.html">engine::entities::components::Component</a></td></tr>
 <tr class="memitem:a391cd8384c6efb87b9fcb95d9352c159 inherit pub_methods_classengine_1_1entities_1_1components_1_1Component"><td class="memItemLeft" align="right" valign="top"><a id="a391cd8384c6efb87b9fcb95d9352c159"></a>
@@ -133,36 +142,39 @@ const <a class="el" href="classengine_1_1animations_1_1Animator.html">Animator</
 <tr class="memitem:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a9845d5530bd04fb5b328dfe349c12685">MemberStorage</a> (<a class="el" href="classengine_1_1Context.html">Context</a> &amp;context)</td></tr>
 <tr class="memdesc:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a9845d5530bd04fb5b328dfe349c12685">More...</a><br /></td></tr>
 <tr class="separator:a9845d5530bd04fb5b328dfe349c12685 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9ab44fd40d86dcdeef3a5fd6f351062 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aa9ab44fd40d86dcdeef3a5fd6f351062">set</a> (const std::string &amp;name, int value)</td></tr>
-<tr class="memdesc:aa9ab44fd40d86dcdeef3a5fd6f351062 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#aa9ab44fd40d86dcdeef3a5fd6f351062">More...</a><br /></td></tr>
-<tr class="separator:aa9ab44fd40d86dcdeef3a5fd6f351062 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a755d056bcac3beb719cf4ac55accdfe1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a755d056bcac3beb719cf4ac55accdfe1">set</a> (const std::string &amp;name, long value)</td></tr>
-<tr class="memdesc:a755d056bcac3beb719cf4ac55accdfe1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a755d056bcac3beb719cf4ac55accdfe1">More...</a><br /></td></tr>
-<tr class="separator:a755d056bcac3beb719cf4ac55accdfe1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67a4cd787977b6e45b30a2c10505972 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ad67a4cd787977b6e45b30a2c10505972">set</a> (const std::string &amp;name, float value)</td></tr>
-<tr class="memdesc:ad67a4cd787977b6e45b30a2c10505972 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#ad67a4cd787977b6e45b30a2c10505972">More...</a><br /></td></tr>
-<tr class="separator:ad67a4cd787977b6e45b30a2c10505972 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada5885093ff53fc563d7fc53a830d6fe inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ada5885093ff53fc563d7fc53a830d6fe">set</a> (const std::string &amp;name, double value)</td></tr>
-<tr class="memdesc:ada5885093ff53fc563d7fc53a830d6fe inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#ada5885093ff53fc563d7fc53a830d6fe">More...</a><br /></td></tr>
-<tr class="separator:ada5885093ff53fc563d7fc53a830d6fe inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac28a9b88b2a315100db828011c66d029 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#ac28a9b88b2a315100db828011c66d029">set</a> (const std::string &amp;name, bool value)</td></tr>
-<tr class="memdesc:ac28a9b88b2a315100db828011c66d029 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#ac28a9b88b2a315100db828011c66d029">More...</a><br /></td></tr>
-<tr class="separator:ac28a9b88b2a315100db828011c66d029 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849e6d07d2887af0d7f436062850e6aa inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a849e6d07d2887af0d7f436062850e6aa">set</a> (const std::string &amp;name, const char *value)</td></tr>
-<tr class="memdesc:a849e6d07d2887af0d7f436062850e6aa inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a849e6d07d2887af0d7f436062850e6aa">More...</a><br /></td></tr>
-<tr class="separator:a849e6d07d2887af0d7f436062850e6aa inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c9d35d2f4ef169bf007f4e2236a63dd inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6c9d35d2f4ef169bf007f4e2236a63dd">set</a> (const std::string &amp;name, const std::string &amp;value)</td></tr>
-<tr class="memdesc:a6c9d35d2f4ef169bf007f4e2236a63dd inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a6c9d35d2f4ef169bf007f4e2236a63dd">More...</a><br /></td></tr>
-<tr class="separator:a6c9d35d2f4ef169bf007f4e2236a63dd inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e4780024694086d258dd90cf8f63d86 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a2e4780024694086d258dd90cf8f63d86">set</a> (const std::string &amp;name, const nlohmann::json &amp;value)</td></tr>
-<tr class="memdesc:a2e4780024694086d258dd90cf8f63d86 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a2e4780024694086d258dd90cf8f63d86">More...</a><br /></td></tr>
-<tr class="separator:a2e4780024694086d258dd90cf8f63d86 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a004c45d4576e89ab3e8f4ac97353d2d3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a004c45d4576e89ab3e8f4ac97353d2d3">set</a> (const std::string &amp;name, sol::nil_t value)</td></tr>
-<tr class="memdesc:a004c45d4576e89ab3e8f4ac97353d2d3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a004c45d4576e89ab3e8f4ac97353d2d3">More...</a><br /></td></tr>
-<tr class="separator:a004c45d4576e89ab3e8f4ac97353d2d3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a956741e6afa959e567c179964144348c inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a956741e6afa959e567c179964144348c">set</a> (const std::string &amp;name, const sol::table &amp;value)</td></tr>
-<tr class="memdesc:a956741e6afa959e567c179964144348c inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a956741e6afa959e567c179964144348c">More...</a><br /></td></tr>
-<tr class="separator:a956741e6afa959e567c179964144348c inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810ab140646f14d8204cc107972eac7f inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a810ab140646f14d8204cc107972eac7f">set</a> (const std::string &amp;name, int value) noexcept</td></tr>
+<tr class="memdesc:a810ab140646f14d8204cc107972eac7f inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to an integer value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a810ab140646f14d8204cc107972eac7f">More...</a><br /></td></tr>
+<tr class="separator:a810ab140646f14d8204cc107972eac7f inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88347aa2b5bbbf13168709bd1158ad96 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a88347aa2b5bbbf13168709bd1158ad96">set</a> (const std::string &amp;name, long value) noexcept</td></tr>
+<tr class="memdesc:a88347aa2b5bbbf13168709bd1158ad96 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a long value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a88347aa2b5bbbf13168709bd1158ad96">More...</a><br /></td></tr>
+<tr class="separator:a88347aa2b5bbbf13168709bd1158ad96 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca21880b29b832334466ef4603429746 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aca21880b29b832334466ef4603429746">set</a> (const std::string &amp;name, float value) noexcept</td></tr>
+<tr class="memdesc:aca21880b29b832334466ef4603429746 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a flot value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#aca21880b29b832334466ef4603429746">More...</a><br /></td></tr>
+<tr class="separator:aca21880b29b832334466ef4603429746 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36dac40ed574810905611f27d42c18f3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a36dac40ed574810905611f27d42c18f3">set</a> (const std::string &amp;name, double value) noexcept</td></tr>
+<tr class="memdesc:a36dac40ed574810905611f27d42c18f3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a double value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a36dac40ed574810905611f27d42c18f3">More...</a><br /></td></tr>
+<tr class="separator:a36dac40ed574810905611f27d42c18f3 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636f23ba1197567659e790f1f30e68a6 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a636f23ba1197567659e790f1f30e68a6">set</a> (const std::string &amp;name, bool value) noexcept</td></tr>
+<tr class="memdesc:a636f23ba1197567659e790f1f30e68a6 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a boolean value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a636f23ba1197567659e790f1f30e68a6">More...</a><br /></td></tr>
+<tr class="separator:a636f23ba1197567659e790f1f30e68a6 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b2ad3100e2b7f63757e58cf3ff0423d inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a1b2ad3100e2b7f63757e58cf3ff0423d">set</a> (const std::string &amp;name, const char *value) noexcept</td></tr>
+<tr class="memdesc:a1b2ad3100e2b7f63757e58cf3ff0423d inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a const array of characters value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a1b2ad3100e2b7f63757e58cf3ff0423d">More...</a><br /></td></tr>
+<tr class="separator:a1b2ad3100e2b7f63757e58cf3ff0423d inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f58aa59ed168f1048c74cefa0540297 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a8f58aa59ed168f1048c74cefa0540297">set</a> (const std::string &amp;name, const std::string &amp;value) noexcept</td></tr>
+<tr class="memdesc:a8f58aa59ed168f1048c74cefa0540297 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a string value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a8f58aa59ed168f1048c74cefa0540297">More...</a><br /></td></tr>
+<tr class="separator:a8f58aa59ed168f1048c74cefa0540297 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639d6fe70c78df9795edd087db22df20 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a639d6fe70c78df9795edd087db22df20">set</a> (const std::string &amp;name, const nlohmann::json &amp;value) noexcept</td></tr>
+<tr class="memdesc:a639d6fe70c78df9795edd087db22df20 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a JSON object.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a639d6fe70c78df9795edd087db22df20">More...</a><br /></td></tr>
+<tr class="separator:a639d6fe70c78df9795edd087db22df20 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab85cabaa5f00aa4ae002c18df80fa8 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aaab85cabaa5f00aa4ae002c18df80fa8">set</a> (const std::string &amp;name, sol::nil_t value) noexcept</td></tr>
+<tr class="memdesc:aaab85cabaa5f00aa4ae002c18df80fa8 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua nil value.  <a href="classengine_1_1utilities_1_1MemberStorage.html#aaab85cabaa5f00aa4ae002c18df80fa8">More...</a><br /></td></tr>
+<tr class="separator:aaab85cabaa5f00aa4ae002c18df80fa8 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7ac4ea6a125428ae8cb2435d2254b1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a5b7ac4ea6a125428ae8cb2435d2254b1">set</a> (const std::string &amp;name, const sol::table &amp;value) noexcept</td></tr>
+<tr class="memdesc:a5b7ac4ea6a125428ae8cb2435d2254b1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a variable called "name" to a Lua table.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a5b7ac4ea6a125428ae8cb2435d2254b1">More...</a><br /></td></tr>
+<tr class="separator:a5b7ac4ea6a125428ae8cb2435d2254b1 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002f2ec611ddee1e731f2f3882c560b5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a002f2ec611ddee1e731f2f3882c560b5">has</a> (const std::string &amp;name) const noexcept</td></tr>
+<tr class="memdesc:a002f2ec611ddee1e731f2f3882c560b5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a variable called "name" exists.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a002f2ec611ddee1e731f2f3882c560b5">More...</a><br /></td></tr>
+<tr class="separator:a002f2ec611ddee1e731f2f3882c560b5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f76d5000b3cb1667989c54eb0e834e5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; long, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a6f76d5000b3cb1667989c54eb0e834e5">getInt</a> (const std::string &amp;name) const</td></tr>
 <tr class="memdesc:a6f76d5000b3cb1667989c54eb0e834e5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of the variable "name" as an integer.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a6f76d5000b3cb1667989c54eb0e834e5">More...</a><br /></td></tr>
 <tr class="separator:a6f76d5000b3cb1667989c54eb0e834e5 inherit pub_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,6 +216,11 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memitem:afbcaf14818db5d727cf2c60deef491bf inherit pro_types_classengine_1_1entities_1_1components_1_1Component"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1Component.html#afbcaf14818db5d727cf2c60deef491bf">RegisterComponent</a> = <a class="el" href="structengine_1_1utilities_1_1RegisterClass_1_1Register.html">RegisteredComponents::Register</a>&lt; T &gt;</td></tr>
 <tr class="memdesc:afbcaf14818db5d727cf2c60deef491bf inherit pro_types_classengine_1_1entities_1_1components_1_1Component"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shortcut to register a component.  <a href="classengine_1_1entities_1_1components_1_1Component.html#afbcaf14818db5d727cf2c60deef491bf">More...</a><br /></td></tr>
 <tr class="separator:afbcaf14818db5d727cf2c60deef491bf inherit pro_types_classengine_1_1entities_1_1components_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_classengine_1_1utilities_1_1MemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classengine_1_1utilities_1_1MemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">engine::utilities::MemberStorage</a></td></tr>
+<tr class="memitem:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a id="aac194dfc55d9ad68b15e9da1855d31c4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> = std::map&lt; std::string, std::any &gt;</td></tr>
+<tr class="memdesc:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal container. <br /></td></tr>
+<tr class="separator:aac194dfc55d9ad68b15e9da1855d31c4 inherit pro_types_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classengine_1_1entities_1_1components_1_1Component"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1entities_1_1components_1_1Component')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1entities_1_1components_1_1Component.html">engine::entities::components::Component</a></td></tr>
 <tr class="memitem:a23c790731deb8bcd1d0f39e360082382 inherit pro_methods_classengine_1_1entities_1_1components_1_1Component"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1entities_1_1components_1_1Component.html#a23c790731deb8bcd1d0f39e360082382">Component</a> (<a class="el" href="structengine_1_1states_1_1StateContext.html">states::StateContext</a> &amp;context)</td></tr>
 <tr class="memdesc:a23c790731deb8bcd1d0f39e360082382 inherit pro_methods_classengine_1_1entities_1_1components_1_1Component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="classengine_1_1entities_1_1components_1_1Component.html#a23c790731deb8bcd1d0f39e360082382">More...</a><br /></td></tr>
@@ -212,6 +229,14 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memdesc:ae93d0f0f4cb9dcffc0ec90d4d7c974e8 inherit pro_methods_classengine_1_1entities_1_1components_1_1Component"><td class="mdescLeft">&#160;</td><td class="mdescRight">What to print in front of the log messages.  <a href="classengine_1_1entities_1_1components_1_1Component.html#ae93d0f0f4cb9dcffc0ec90d4d7c974e8">More...</a><br /></td></tr>
 <tr class="separator:ae93d0f0f4cb9dcffc0ec90d4d7c974e8 inherit pro_methods_classengine_1_1entities_1_1components_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classengine_1_1utilities_1_1MemberStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1utilities_1_1MemberStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html">engine::utilities::MemberStorage</a></td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a727abc2544efc49a8a50b734a06327ad">convertAndSet</a> (std::any variable, T value) noexcept</td></tr>
+<tr class="memdesc:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the value of given type in a std::any variable.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a727abc2544efc49a8a50b734a06327ad">More...</a><br /></td></tr>
+<tr class="separator:a727abc2544efc49a8a50b734a06327ad inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#afae0ca3652753c5a8e93884c94560314">getValue</a> (std::any variable) const</td></tr>
+<tr class="memdesc:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the value of a std::any variable as the type T.  <a href="classengine_1_1utilities_1_1MemberStorage.html#afae0ca3652753c5a8e93884c94560314">More...</a><br /></td></tr>
+<tr class="separator:afae0ca3652753c5a8e93884c94560314 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">registerMember</a> (const std::string &amp;name, T *member)</td></tr>
 <tr class="memdesc:a242c8cf9d0875ad6b422ace3af18bef5 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member variable to be accessed through get and set functions.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a242c8cf9d0875ad6b422ace3af18bef5">More...</a><br /></td></tr>
@@ -224,7 +249,48 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a616f224aa966e6d3837c62bf9b88843d">getContext</a> () const</td></tr>
 <tr class="memdesc:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the context. <br /></td></tr>
 <tr class="separator:a616f224aa966e6d3837c62bf9b88843d inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a5079b90d28ad0eb2a3a37202ddcfa30c">getContainer</a> ()</td></tr>
+<tr class="memdesc:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a5079b90d28ad0eb2a3a37202ddcfa30c">More...</a><br /></td></tr>
+<tr class="separator:a5079b90d28ad0eb2a3a37202ddcfa30c inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#aac194dfc55d9ad68b15e9da1855d31c4">Container</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1utilities_1_1MemberStorage.html#a880f6f1ccaaafb08358e6d61f1ee91a9">getContainer</a> () const</td></tr>
+<tr class="memdesc:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the internal container.  <a href="classengine_1_1utilities_1_1MemberStorage.html#a880f6f1ccaaafb08358e6d61f1ee91a9">More...</a><br /></td></tr>
+<tr class="separator:a880f6f1ccaaafb08358e6d61f1ee91a9 inherit pro_methods_classengine_1_1utilities_1_1MemberStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A component describing the animation of an entity. </p>
+<p>The entity must have a spritesheet component.</p>
+<p>This component supports three animation types:</p><ul>
+<li>ColorAnimation</li>
+<li>FadeAnimation</li>
+<li>FrameAnimation </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a37c79e215d02afe957a7864fdf8c15e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c79e215d02afe957a7864fdf8c15e5">&#9670;&nbsp;</a></span>AnimationComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">engine::entities::components::AnimationComponent::AnimationComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structengine_1_1states_1_1StateContext.html">states::StateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>stateContext</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stateContext</td><td>The context of the state </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aef0c65bcc5822987e6dd4146ec288e3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef0c65bcc5822987e6dd4146ec288e3e">&#9670;&nbsp;</a></span>create()</h2>
@@ -262,8 +328,88 @@ const <a class="el" href="classengine_1_1Context.html">Context</a> &amp;&#160;</
 
 </div>
 </div>
+<a id="a60c14f06f10b21df9b96873dbd047bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c14f06f10b21df9b96873dbd047bba">&#9670;&nbsp;</a></span>getAnimationMap() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a841ad13572a32fe8a8e74b54bd704ab1">AnimationMap</a>&amp; engine::entities::components::AnimationComponent::getAnimationMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the structure that stores the animations. </p>
+<dl class="section return"><dt>Returns</dt><dd>The animation map </dd></dl>
+
+</div>
+</div>
+<a id="a65c81351177b487b65f2526947e14308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c81351177b487b65f2526947e14308">&#9670;&nbsp;</a></span>getAnimationMap() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a841ad13572a32fe8a8e74b54bd704ab1">AnimationMap</a>&amp; engine::entities::components::AnimationComponent::getAnimationMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the structure that stores the animations. </p>
+<dl class="section return"><dt>Returns</dt><dd>The animation map </dd></dl>
+
+</div>
+</div>
+<a id="a103a77a52345443bcb679974edf6a0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a103a77a52345443bcb679974edf6a0d3">&#9670;&nbsp;</a></span>getAnimator() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a6196662f2fe009a2f45b1d18867e2e54">Animator</a>&amp; engine::entities::components::AnimationComponent::getAnimator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the animator. </p>
+<dl class="section return"><dt>Returns</dt><dd>The animator </dd></dl>
+
+</div>
+</div>
+<a id="a96e1a37596f23c4f0b3da69dfbadcaba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e1a37596f23c4f0b3da69dfbadcaba">&#9670;&nbsp;</a></span>getAnimator() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html#a6196662f2fe009a2f45b1d18867e2e54">Animator</a>&amp; engine::entities::components::AnimationComponent::getAnimator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the animator. </p>
+<dl class="section return"><dt>Returns</dt><dd>The animator </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/entities/components/<a class="el" href="AnimationComponent_8h_source.html">AnimationComponent.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/entities/components/<a class="el" href="AnimationComponent_8h_source.html">AnimationComponent.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

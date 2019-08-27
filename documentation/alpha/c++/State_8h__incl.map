@@ -1,13 +1,15 @@
-<map id="/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/states/State.h" name="/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/states/State.h">
-<area shape="rect" id="node4" href="$RegisterClass_8h.html" title="SkellEngine/utilities\l/RegisterClass.h" alt="" coords="1463,571,1599,612"/>
-<area shape="rect" id="node8" href="$StateContext_8h_source.html" title="SkellEngine/states\l/StateContext.h" alt="" coords="526,571,656,612"/>
-<area shape="rect" id="node20" href="$StoreEventConnections_8h_source.html" title="SkellEngine/events\l/StoreEventConnections.h" alt="" coords="698,124,873,165"/>
-<area shape="rect" id="node9" href="$Context_8h_source.html" title="SkellEngine/Context.h" alt="" coords="243,660,395,687"/>
-<area shape="rect" id="node14" href="$GameDescription_8h_source.html" title="files/GameDescription.h" alt="" coords="118,742,280,769"/>
-<area shape="rect" id="node21" href="$EventConnection_8h_source.html" title="SkellEngine/events\l/EventConnection.h" alt="" coords="482,303,620,344"/>
-<area shape="rect" id="node23" href="$EventHandler_8h_source.html" title="SkellEngine/events\l/EventHandler.h" alt="" coords="833,213,968,255"/>
-<area shape="rect" id="node28" href="$Event_8h.html" title="SkellEngine/events\l/Event.h" alt="" coords="1304,303,1438,344"/>
-<area shape="rect" id="node31" href="$Entity_8h_source.html" title="SkellEngine/entities\l/Entity.h" alt="" coords="760,392,897,433"/>
-<area shape="rect" id="node29" href="$MemberStorage_8h_source.html" title="SkellEngine/utilities\l/MemberStorage.h" alt="" coords="1108,735,1244,776"/>
-<area shape="rect" id="node33" href="$Component_8h.html" title="SkellEngine/entities\l/components/Component.h" alt="" coords="1015,481,1194,523"/>
+<map id="/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/states/State.h" name="/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/states/State.h">
+<area shape="rect" id="node4" href="$RegisterClass_8h.html" title="SkellEngine/utilities\l/RegisterClass.h" alt="" coords="1586,571,1722,612"/>
+<area shape="rect" id="node7" href="$StateContext_8h_source.html" title="SkellEngine/states\l/StateContext.h" alt="" coords="1381,571,1511,612"/>
+<area shape="rect" id="node21" href="$StoreEventConnections_8h_source.html" title="SkellEngine/events\l/StoreEventConnections.h" alt="" coords="1785,124,1960,165"/>
+<area shape="rect" id="node8" href="$Context_8h_source.html" title="SkellEngine/Context.h" alt="" coords="1266,667,1418,694"/>
+<area shape="rect" id="node13" href="$GameDescription_8h_source.html" title="SkellEngine/files/GameDescription.h" alt="" coords="841,749,1075,776"/>
+<area shape="rect" id="node19" href="$Logger_8h_source.html" title="SkellEngine/Logger.h" alt="" coords="1219,824,1364,851"/>
+<area shape="rect" id="node22" href="$EventConnection_8h_source.html" title="SkellEngine/events\l/EventConnection.h" alt="" coords="1804,303,1941,344"/>
+<area shape="rect" id="node24" href="$EventHandler_8h_source.html" title="SkellEngine/events\l/EventHandler.h" alt="" coords="1520,213,1655,255"/>
+<area shape="rect" id="node29" href="$Event_8h.html" title="SkellEngine/events\l/Event.h" alt="" coords="1225,303,1360,344"/>
+<area shape="rect" id="node34" href="$Entity_8h_source.html" title="SkellEngine/entities\l/Entity.h" alt="" coords="1540,392,1677,433"/>
+<area shape="rect" id="node30" href="$MemberStorage_8h_source.html" title="SkellEngine/utilities\l/MemberStorage.h" alt="" coords="749,571,885,612"/>
+<area shape="rect" id="node32" href="$WrongType_8h_source.html" title="SkellEngine/errors\l/WrongType.h" alt="" coords="601,660,729,701"/>
+<area shape="rect" id="node36" href="$Component_8h.html" title="SkellEngine/entities\l/components/Component.h" alt="" coords="1254,481,1433,523"/>
 </map>

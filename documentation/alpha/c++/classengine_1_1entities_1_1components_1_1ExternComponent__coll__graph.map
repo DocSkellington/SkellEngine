@@ -1,4 +1,5 @@
 <map id="engine::entities::components::ExternComponent" name="engine::entities::components::ExternComponent">
 <area shape="rect" id="node2" href="$classengine_1_1entities_1_1components_1_1Component.html" title="The base of every component. " alt="" coords="5,95,195,136"/>
-<area shape="rect" id="node3" href="$classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="41,5,159,47"/>
+<area shape="rect" id="node3" href="$classengine_1_1utilities_1_1MemberStorage.html" title="Allows to retrieve and modify the registered members of a class. " alt="" coords="139,5,256,47"/>
+<area shape="rect" id="node4" href="$classengine_1_1utilities_1_1ExternMemberStorage.html" title="Stores data in a JSON table. " alt="" coords="219,95,371,136"/>
 </map>

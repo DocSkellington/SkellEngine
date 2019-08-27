@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Animates a sprite.  
+<p>A system that animates entities.  
  <a href="classengine_1_1systems_1_1AnimationSystem.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="AnimationSystem_8h_source.html">AnimationSystem.h</a>&gt;</code></p>
@@ -96,8 +96,8 @@ Collaboration diagram for engine::systems::AnimationSystem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af99747506499351fd1ea64f08e1c17ea"><td class="memItemLeft" align="right" valign="top"><a id="af99747506499351fd1ea64f08e1c17ea"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AnimationSystem</b> (<a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;manager)</td></tr>
+<tr class="memitem:af99747506499351fd1ea64f08e1c17ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#af99747506499351fd1ea64f08e1c17ea">AnimationSystem</a> (<a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;manager)</td></tr>
+<tr class="memdesc:af99747506499351fd1ea64f08e1c17ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#af99747506499351fd1ea64f08e1c17ea">More...</a><br /></td></tr>
 <tr class="separator:af99747506499351fd1ea64f08e1c17ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f8c0a8873378ae43411336e246aadfa"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a4f8c0a8873378ae43411336e246aadfa">update</a> (sf::Int64 deltaTime, sf::View &amp;view) override</td></tr>
 <tr class="memdesc:a4f8c0a8873378ae43411336e246aadfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the system.  <a href="#a4f8c0a8873378ae43411336e246aadfa">More...</a><br /></td></tr>
@@ -118,31 +118,49 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a04f78372a4fe1ef324d3aa0bd63225bc"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a04f78372a4fe1ef324d3aa0bd63225bc">checkComponents</a> (<a class="el" href="classengine_1_1entities_1_1Entity.html#a52b93bb8ed6c9b5fb3ef50d6b89119b9">engine::entities::Entity::Ptr</a> entity) const override</td></tr>
 <tr class="memdesc:a04f78372a4fe1ef324d3aa0bd63225bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the entity meets the requirements of this system (if it has the needed components).  <a href="#a04f78372a4fe1ef324d3aa0bd63225bc">More...</a><br /></td></tr>
 <tr class="separator:a04f78372a4fe1ef324d3aa0bd63225bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7151a1ea5ed727bdff99868733cd1c1b"><td class="memItemLeft" align="right" valign="top"><a id="a7151a1ea5ed727bdff99868733cd1c1b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>play</b> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memitem:a7151a1ea5ed727bdff99868733cd1c1b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a7151a1ea5ed727bdff99868733cd1c1b">play</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a7151a1ea5ed727bdff99868733cd1c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to play an animation.  <a href="#a7151a1ea5ed727bdff99868733cd1c1b">More...</a><br /></td></tr>
 <tr class="separator:a7151a1ea5ed727bdff99868733cd1c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc8df3c66d415839a7c6d138abdd000b"><td class="memItemLeft" align="right" valign="top"><a id="abc8df3c66d415839a7c6d138abdd000b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memitem:a3bf4c3f8e304ee730f0ffc43cf15834e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a3bf4c3f8e304ee730f0ffc43cf15834e">queue</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a3bf4c3f8e304ee730f0ffc43cf15834e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to queue an animation.  <a href="#a3bf4c3f8e304ee730f0ffc43cf15834e">More...</a><br /></td></tr>
+<tr class="separator:a3bf4c3f8e304ee730f0ffc43cf15834e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc8df3c66d415839a7c6d138abdd000b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#abc8df3c66d415839a7c6d138abdd000b">stop</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:abc8df3c66d415839a7c6d138abdd000b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to stop (a queue)  <a href="#abc8df3c66d415839a7c6d138abdd000b">More...</a><br /></td></tr>
 <tr class="separator:abc8df3c66d415839a7c6d138abdd000b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5121fcfe16e49f302229204263d1dcd1"><td class="memItemLeft" align="right" valign="top"><a id="a5121fcfe16e49f302229204263d1dcd1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pause</b> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memitem:a5121fcfe16e49f302229204263d1dcd1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a5121fcfe16e49f302229204263d1dcd1">pause</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a5121fcfe16e49f302229204263d1dcd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to pause (a queue)  <a href="#a5121fcfe16e49f302229204263d1dcd1">More...</a><br /></td></tr>
 <tr class="separator:a5121fcfe16e49f302229204263d1dcd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a622fbc16a8a8d8273638d323976d7e03"><td class="memItemLeft" align="right" valign="top"><a id="a622fbc16a8a8d8273638d323976d7e03"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>resume</b> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memitem:a622fbc16a8a8d8273638d323976d7e03"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a622fbc16a8a8d8273638d323976d7e03">resume</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a622fbc16a8a8d8273638d323976d7e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to resume (a queue)  <a href="#a622fbc16a8a8d8273638d323976d7e03">More...</a><br /></td></tr>
 <tr class="separator:a622fbc16a8a8d8273638d323976d7e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c7b2266c57ba460a87636ab6c9452d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a14c7b2266c57ba460a87636ab6c9452d">enableDefault</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a14c7b2266c57ba460a87636ab6c9452d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to enable the default animation.  <a href="#a14c7b2266c57ba460a87636ab6c9452d">More...</a><br /></td></tr>
+<tr class="separator:a14c7b2266c57ba460a87636ab6c9452d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d8ea98a4a11db51b598652c7cf037c4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a6d8ea98a4a11db51b598652c7cf037c4">disableDefault</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a6d8ea98a4a11db51b598652c7cf037c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to disable the default animation.  <a href="#a6d8ea98a4a11db51b598652c7cf037c4">More...</a><br /></td></tr>
+<tr class="separator:a6d8ea98a4a11db51b598652c7cf037c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a87a8b068ba68e18b3f2bc28f0e4564"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a5a87a8b068ba68e18b3f2bc28f0e4564">setDefault</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a5a87a8b068ba68e18b3f2bc28f0e4564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks the animator of the entity sent with the event to set the default animation according to the event.  <a href="#a5a87a8b068ba68e18b3f2bc28f0e4564">More...</a><br /></td></tr>
+<tr class="separator:a5a87a8b068ba68e18b3f2bc28f0e4564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a739ff9ffc3dd0d08283a434b4eb59f4a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html">entities::components::AnimationComponent</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1AnimationSystem.html#a739ff9ffc3dd0d08283a434b4eb59f4a">getAnimationComponent</a> (const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;event) const</td></tr>
+<tr class="memdesc:a739ff9ffc3dd0d08283a434b4eb59f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the animation component from the entity sent with an event.  <a href="#a739ff9ffc3dd0d08283a434b4eb59f4a">More...</a><br /></td></tr>
+<tr class="separator:a739ff9ffc3dd0d08283a434b4eb59f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classengine_1_1systems_1_1System"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classengine_1_1systems_1_1System')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classengine_1_1systems_1_1System.html">engine::systems::System</a></td></tr>
 <tr class="memitem:af418b20650fea91e0e8c0c8fdf226b2a inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#af418b20650fea91e0e8c0c8fdf226b2a">System</a> (<a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;manager)</td></tr>
 <tr class="memdesc:af418b20650fea91e0e8c0c8fdf226b2a inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="classengine_1_1systems_1_1System.html#af418b20650fea91e0e8c0c8fdf226b2a">More...</a><br /></td></tr>
 <tr class="separator:af418b20650fea91e0e8c0c8fdf226b2a inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#a2db7396cf622c3302c8134bce8312cb2">getSystemManager</a> ()</td></tr>
-<tr class="memdesc:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the system manager.  <a href="classengine_1_1systems_1_1System.html#a2db7396cf622c3302c8134bce8312cb2">More...</a><br /></td></tr>
-<tr class="separator:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ed30b1656381150a42cef3ae534e49f inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classengine_1_1entities_1_1Entity.html#a52b93bb8ed6c9b5fb3ef50d6b89119b9">engine::entities::Entity::Ptr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#a7ed30b1656381150a42cef3ae534e49f">getEntities</a> ()</td></tr>
 <tr class="memdesc:a7ed30b1656381150a42cef3ae534e49f inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entities of the system.  <a href="classengine_1_1systems_1_1System.html#a7ed30b1656381150a42cef3ae534e49f">More...</a><br /></td></tr>
 <tr class="separator:a7ed30b1656381150a42cef3ae534e49f inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad86b08abe40c19488e458cf02806d824 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1events_1_1EventConnection.html">events::EventConnection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#ad86b08abe40c19488e458cf02806d824">registerCallback</a> (const std::string &amp;eventType, const <a class="el" href="classengine_1_1events_1_1EventHandler.html#ad8013e673c44d36bc9fb852408d07e39">events::EventHandler::callbackSignature</a> &amp;callback, const std::string &amp;state=&quot;all&quot;)</td></tr>
 <tr class="memdesc:ad86b08abe40c19488e458cf02806d824 inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new callback in the storage for this system.  <a href="classengine_1_1systems_1_1System.html#ad86b08abe40c19488e458cf02806d824">More...</a><br /></td></tr>
 <tr class="separator:ad86b08abe40c19488e458cf02806d824 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73b2b0b7c6db891ee4ab36534dcddf91 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#a73b2b0b7c6db891ee4ab36534dcddf91">getSystemManager</a> () const</td></tr>
+<tr class="memdesc:a73b2b0b7c6db891ee4ab36534dcddf91 inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the system manager.  <a href="classengine_1_1systems_1_1System.html#a73b2b0b7c6db891ee4ab36534dcddf91">More...</a><br /></td></tr>
+<tr class="separator:a73b2b0b7c6db891ee4ab36534dcddf91 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#a2db7396cf622c3302c8134bce8312cb2">getSystemManager</a> ()</td></tr>
+<tr class="memdesc:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the system manager.  <a href="classengine_1_1systems_1_1System.html#a2db7396cf622c3302c8134bce8312cb2">More...</a><br /></td></tr>
+<tr class="separator:a2db7396cf622c3302c8134bce8312cb2 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf929d612ecd8bdcaac883e9998a6905 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classengine_1_1events_1_1StoreEventConnections.html">events::StoreEventConnections</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classengine_1_1systems_1_1System.html#aaf929d612ecd8bdcaac883e9998a6905">getStoreEventConnections</a> ()</td></tr>
 <tr class="memdesc:aaf929d612ecd8bdcaac883e9998a6905 inherit pro_methods_classengine_1_1systems_1_1System"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the EventConnections' storage.  <a href="classengine_1_1systems_1_1System.html#aaf929d612ecd8bdcaac883e9998a6905">More...</a><br /></td></tr>
 <tr class="separator:aaf929d612ecd8bdcaac883e9998a6905 inherit pro_methods_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,8 +190,36 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="separator:a0473d535842bfcb822566740b1714b13 inherit pro_types_classengine_1_1systems_1_1System"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Animates a sprite. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>A system that animates entities. </p>
+<p>The entities must have a <a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html" title="A component describing the animation of an entity. ">entities::components::AnimationComponent</a> and a <a class="el" href="classengine_1_1entities_1_1components_1_1GraphicalSpriteSheetComponent.html" title="Describes the sprite sheet of a component. ">entities::components::GraphicalSpriteSheetComponent</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af99747506499351fd1ea64f08e1c17ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af99747506499351fd1ea64f08e1c17ea">&#9670;&nbsp;</a></span>AnimationSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">engine::systems::AnimationSystem::AnimationSystem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classengine_1_1systems_1_1SystemManager.html">SystemManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>manager</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">manager</td><td>The system manager </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a04f78372a4fe1ef324d3aa0bd63225bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04f78372a4fe1ef324d3aa0bd63225bc">&#9670;&nbsp;</a></span>checkComponents()</h2>
 
@@ -208,6 +254,367 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <dl class="section return"><dt>Returns</dt><dd>True if the entity has the required components, false otherwise </dd></dl>
 
 <p>Implements <a class="el" href="classengine_1_1systems_1_1System.html#a1af047ad1795355ac9dbe7d20f89ebc7">engine::systems::System</a>.</p>
+
+</div>
+</div>
+<a id="a6d8ea98a4a11db51b598652c7cf037c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8ea98a4a11db51b598652c7cf037c4">&#9670;&nbsp;</a></span>disableDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::disableDefault </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to disable the default animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity or if the entity does not contain an animation component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a14c7b2266c57ba460a87636ab6c9452d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c7b2266c57ba460a87636ab6c9452d">&#9670;&nbsp;</a></span>enableDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::enableDefault </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to enable the default animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity or if the entity does not contain an animation component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a739ff9ffc3dd0d08283a434b4eb59f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a739ff9ffc3dd0d08283a434b4eb59f4a">&#9670;&nbsp;</a></span>getAnimationComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classengine_1_1entities_1_1components_1_1AnimationComponent.html">entities::components::AnimationComponent</a>&gt; engine::systems::AnimationSystem::getAnimationComponent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Extracts the animation component from the entity sent with an event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The animation component </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity or if the entity does not contain an animation component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5121fcfe16e49f302229204263d1dcd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5121fcfe16e49f302229204263d1dcd1">&#9670;&nbsp;</a></span>pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::pause </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to pause (a queue) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the queue key is incorrect (if present) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7151a1ea5ed727bdff99868733cd1c1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7151a1ea5ed727bdff99868733cd1c1b">&#9670;&nbsp;</a></span>play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::play </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to play an animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the animation description is incorrect </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3bf4c3f8e304ee730f0ffc43cf15834e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf4c3f8e304ee730f0ffc43cf15834e">&#9670;&nbsp;</a></span>queue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::queue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to queue an animation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the animation description is incorrect </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a622fbc16a8a8d8273638d323976d7e03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a622fbc16a8a8d8273638d323976d7e03">&#9670;&nbsp;</a></span>resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::resume </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to resume (a queue) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the queue key is incorrect (if present) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a87a8b068ba68e18b3f2bc28f0e4564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a87a8b068ba68e18b3f2bc28f0e4564">&#9670;&nbsp;</a></span>setDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::setDefault </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to set the default animation according to the event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the animation description is incorrect </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abc8df3c66d415839a7c6d138abdd000b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc8df3c66d415839a7c6d138abdd000b">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void engine::systems::AnimationSystem::stop </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classengine_1_1events_1_1Event.html">events::Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asks the animator of the entity sent with the event to stop (a queue) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classengine_1_1errors_1_1InvalidEvent.html" title="The error to throw if a variable in an event does not contain the expected values. ">errors::InvalidEvent</a></td><td>if the event does not have exactly one entity, if the entity does not contain an animation component or if the queue key is incorrect (if present) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -260,7 +667,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/gaetan/Github/Games/Engine/engine/include/SkellEngine/systems/<a class="el" href="AnimationSystem_8h_source.html">AnimationSystem.h</a></li>
+<li>/home/gaetan/GitHub/Games/Engine/engine/include/SkellEngine/systems/<a class="el" href="AnimationSystem_8h_source.html">AnimationSystem.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
