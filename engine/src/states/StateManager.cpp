@@ -98,7 +98,7 @@ namespace engine::states {
                 }
             }
             catch (const std::exception &e) {
-                m_context.logger.logError("StateManager: impossible to create the state " + m_switchTo + ". The state won't be added to the state manager", e);
+                throw std::runtime_error("StateManager: impossible to create the state " + m_switchTo + ":\n" + e.what());
             }
 
             m_switchTo = "";
