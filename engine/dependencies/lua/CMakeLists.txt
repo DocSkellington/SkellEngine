@@ -72,20 +72,3 @@ target_include_directories(lua
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include/lua>
 )
-
-install(TARGETS lua
-    EXPORT luaConfig
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(EXPORT luaConfig
-    FILE luaConfig.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lua
-)
-
-export(EXPORT luaConfig
-    FILE luaConfig.cmake
-)

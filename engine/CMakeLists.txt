@@ -9,16 +9,68 @@ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/CMakeLists.t
     message(FATAL_ERROR "An internal dependency (Sol2) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
-# Tmxlite
+# tmxlite
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/CMakeLists.txt)
-    add_subdirectory(dependencies/tmxlite/tmxlite)
+    # Since the tmxlite's CMakeLists.txt is badly written, we need to manually compile the library
+    add_library(tmxlite SHARED
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/detail/pugixml.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/FreeFuncs.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/ImageLayer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/Map.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/miniz.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/Object.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/ObjectGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/Property.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/TileLayer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/LayerGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/Tileset.cpp
+    )
+    target_include_directories(tmxlite
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include>
+            $<INSTALL_INTERFACE:include>
+    )
 else()
     message(FATAL_ERROR "An internal dependency () could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
 # Thor
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/CMakeLists.txt)
-    add_subdirectory(dependencies/Thor)
+    # Since the Thor's CMakeLists.txt is badly written, we need to manually compile the library
+    add_library(thor SHARED
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Action.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ActionOperations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Affectors.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Arrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/BigSprite.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/BigTexture.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/CallbackTimer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ColorAnimation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ColorGradient.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ConcaveShape.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Connection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Distributions.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Emitters.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/FadeAnimation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/FrameAnimation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/InputNames.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Joystick.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Particle.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ParticleSystem.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Random.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Shapes.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/StopWatch.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Timer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/ToString.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Triangulation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/Trigonometry.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/src/UniformAccess.cpp
+    )
+    target_include_directories(thor
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/extlibs/aurora/include>
+    )
 else()
     message(FATAL_ERROR "An internal dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
@@ -160,88 +212,116 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     )
 endif()
 
-# tmxlite
-# install(TARGETS tmxlite
-#     EXPORT tmxliteConfig
-#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
-
-# install(EXPORT tmxliteConfig
-#     FILE tmxliteConfig.cmake
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tmxlite
-# )
-# export(EXPORT tmxliteConfig
-#     FILE tmxliteConfig.cmake
-# )
-
-# Thor
-install(TARGETS thor
-    EXPORT thorConfig
+# Lua
+install(TARGETS lua
+    EXPORT luaTargets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-install(EXPORT thorConfig
+install(EXPORT luaTargets
+    FILE luaConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lua
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/lua/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lua
+)
+
+# tmxlite
+install(TARGETS tmxlite
+    EXPORT tmxliteTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(
+    EXPORT tmxliteTargets
+    FILE tmxliteConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tmxlite
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# Thor
+install(TARGETS thor
+    EXPORT thorTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(
+    EXPORT thorTargets
     FILE thorConfig.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/thor
 )
 
-export(EXPORT thorConfig
-    FILE thorConfig.cmake
-)
-
-# sol
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/include/sol
+install(
+    DIRECTORY
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/include/
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/extlibs/aurora/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-# JSON for modern C++
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include/nlohmann
+# sol and nlohmann
+install(
+    DIRECTORY
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/sol2/single/include/
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # SkellEngine
-# install(TARGETS ${LIBRARY_NAME}
-#     EXPORT ${LIBRARY_NAME}-targets
-#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
+install(TARGETS ${LIBRARY_NAME}
+    EXPORT ${LIBRARY_NAME}Targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-# install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine
-#     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-# )
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    ${LIBRARY_NAME}ConfigVersion.cmake
+    VERSION ${SkellEngine_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
 
-# install(EXPORT ${LIBRARY_NAME}-targets
-#     FILE ${LIBRARY_NAME}-targets.cmake
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
+install(
+    EXPORT ${LIBRARY_NAME}Targets
+    FILE ${LIBRARY_NAME}Targets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
 
-# # Config file
-# include(CMakePackageConfigHelpers)
+configure_file(${LIBRARY_NAME}Config.cmake.in ${LIBRARY_NAME}Config.cmake @ONLY)
+install(FILES   "${CMAKE_CURRENT_BINARY_DIR}/SkellEngineConfig.cmake"
+                "${CMAKE_CURRENT_BINARY_DIR}/SkellEngineConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
+)
 
-# configure_package_config_file(
-#     ${CMAKE_SOURCE_DIR}/cmake/${LIBRARY_NAME}Config.cmake.in
-#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-#     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
+# We export everything
+export(
+    TARGETS ${LIBRARY_NAME}
+            tmxlite
+            thor
+            lua
+    FILE    ${LIBRARY_NAME}Targets.cmake
+)
 
-# write_basic_package_version_file(
-#     ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-#     VERSION ${SkellEngine_VERSION}
-#     COMPATIBILITY AnyNewerVersion
-# )
+# Packaging support
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "2D C++ Game engine with Lua API")
+set(CPACK_RESOURCE_FILE LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_READMA "${CMAKE_SOURCE_DIR}/README.md")
+set(CPACK_SOURCE_IGNORE_FILES
+    /.git
+    /build
+    /bin
+    /.vscode
+)
 
-# install(
-#     FILES
-#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config.cmake
-#         ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}Config-version.cmake
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBRARY_NAME}
-# )
-
-# export(EXPORT ${LIBRARY_NAME}-targets
-#     FILE ${CMAKE_BINARY_DIR}/cmake/${LIBRARY_NAME}-targets.cmake
-# )
+include(CPack)

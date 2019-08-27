@@ -1,0 +1,8 @@
+include(CMakeFindDependencyMacro)
+
+find_dependency(TGUI REQUIRED)
+find_dependency(thor REQUIRED)
+find_dependency(tmxlite REQUIRED)
+find_dependency(lua REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/@LIBRARY_NAME@Targets.cmake")
