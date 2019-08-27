@@ -1,0 +1,10 @@
+tutorials:
+  - title: "Building"
+    next: "Loop"
+  - title: "Loop"
+    previous: "Building"
+    next: "File"
+  - title: "File"
+    previous: "Loop"
+  - title: "States"
+    previous: "Loop"

@@ -11,3 +11,11 @@ config.ld
 _site
 Gemfile*
 .jekyll-cache/
+
+# LaTeX and tikz
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.synctex.gz

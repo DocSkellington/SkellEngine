@@ -1,0 +1,13 @@
+map:
+  - shorttitle: Building
+    title: How to build and dependencies
+    link: /tutorials/basics/building
+  - shorttitle: Loop
+    title: Game loop and Context
+    link: /tutorials/basics/loop
+  - shorttitle: File
+    title: File manager and Game description
+    link: /tutorials/basics/FileManager
+  - shorttitle: States
+    title: States
+    link: /tutorils/basics/states

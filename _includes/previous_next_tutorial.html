@@ -1,0 +1,36 @@
+<table style="width: 100%; table-layout: fixed; background: none; text-align: center; vertical-align: middle; border: none">
+    <col width="40%">
+    <col width="20%">
+    <col width="40%">
+    <tr>
+        {% for tutorial in site.data.tutorials_links.tutorials %}
+            {% if page.shorttitle == tutorial.title %}
+                <th style="background: none; vertical-align: middle">
+                {% unless tutorial.previous == nil %}
+                    {% for link in site.data.tutorials_map.map %}
+                        {% if link.shorttitle == tutorial.previous %}
+                            <img style="float: left; transform: scaleX(-1)" height="10px" src="{{ "/arrow.png" | relative_url}}">
+                            <a style="float: left; line-height: 45px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50%" href="{{ link.link | relative_url }}">{{ link.title }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endunless %}
+                </th>
+
+                <th style="background: none; vertical-align: middle">
+                    <a href="{{ "/tutorials" | relative_url }}">Tutorials</a>
+                </th>              
+
+                <th style="background: none">
+                {% unless tutorial.next == nil %}
+                    {% for link in site.data.tutorials_map.map %}
+                        {% if link.shorttitle == tutorial.next %}
+                            <img style="float: right;" height="10px" src="{{ "/arrow.png" | relative_url}}">
+                            <a style="float: right; line-height: 45px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50%;" href="{{ link.link | relative_url }}">{{ link.title }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endunless %}
+                </th>
+            {% endif %}
+        {% endfor %}
+    </tr>
+</table>

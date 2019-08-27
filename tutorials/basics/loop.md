@@ -4,7 +4,7 @@ title: "Game loop and Context"
 shorttitle: "Loop"
 ---
 
-The game loop is the main loop of the engine.
+The game loop is the main loop of the [engine]({{ "/documentation/alpha/c++/classengine_1_1Engine.html" | relative_url}}).
 
 As the following image shows, the engine performs the following actions:
   1. The engine is initialised when the program starts
@@ -25,7 +25,7 @@ The different parts of the context are created in this order:
   6. The Input Handler.
   7. The Window.
 
-The configuration of each part (if needed) is loaded from the `game.json` (at the root of the media folder). The following tutorials will explain the parts and how to configure them.
+The configuration of each part (if needed) is loaded from the `game.json` at the root of the media folder. The following tutorials will explain the parts and how to configure them.
 
 # The loop
 We will know explain a little more the three steps of the main loop:
