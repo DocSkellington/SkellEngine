@@ -9,7 +9,7 @@ config.ld
 
 # Jekyll
 _site
-Gemfile*
+Gemfile.lock
 .jekyll-cache/
 
 # LaTeX and tikz
