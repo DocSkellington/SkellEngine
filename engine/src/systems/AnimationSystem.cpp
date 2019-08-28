@@ -20,11 +20,15 @@ namespace engine::systems {
         for (auto entity : getEntities()) {
             if (auto anim = entity->getComponent("animation") ; anim) {
                 auto animation = std::static_pointer_cast<entities::components::AnimationComponent>(anim);
-                animation->getAnimator().update(deltaTime);
+                auto eventsToSend = animation->getAnimator().update(deltaTime);
 
                 if (auto sprite = entity->getComponent("spritesheet") ; sprite) {
                     auto spritesheet = std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(sprite);
                     animation->getAnimator().animate(spritesheet->getSprite());
+                }
+
+                for (auto &event : eventsToSend) {
+                    getSystemManager().getContext().context.eventHandler->sendEvent(event, {entity});
                 }
             }
         }

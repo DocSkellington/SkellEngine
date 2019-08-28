@@ -51,11 +51,12 @@ namespace engine::animations {
          * \param id The ID of the animation
          * \param animation The animation
          * \param duration The duration (in seconds) of the animation
+         * \param eventToSend The event to send when the animation is finished. If the animation is played multiple times, the event is sent each time. If the string is empty, no events are sent
          * \param loop Whether the animation must infinitely loop
          * \param repeats The number of times the animation must be played
          */
-        void addAnimation(Id id, AnimationSignature animation, sf::Time duration, bool loop = false, unsigned int repeats = 1) {
-            m_animations.emplace(id, TimedAnimation(animation, duration, loop, repeats));
+        void addAnimation(Id id, AnimationSignature animation, sf::Time duration, const std::string &eventToSend = "", bool loop = false, unsigned int repeats = 1) {
+            m_animations.emplace(id, TimedAnimation(animation, duration, eventToSend, loop, repeats));
         }
 
         /**

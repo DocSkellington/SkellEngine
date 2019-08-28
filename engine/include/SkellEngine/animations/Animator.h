@@ -57,19 +57,25 @@ namespace engine::animations {
          * 
          * If a default animation is set and if the default queue is empty, the default animation is started
          * \param deltaTime The time (in microseconds) since the last call
+         * \return A list with strings. Each string is the name of an event to send. Empty strings mean no events. You can ignore this return if you do not want to handle events
          */
-        void update(sf::Uint64 deltaTime) {
+        std::list<std::string> update(sf::Uint64 deltaTime) {
             if (m_useDefault && m_defaultAnimation != nullptr) {
                 if (m_queues.size() == 0 || m_queues.begin()->first != 0 || m_queues.begin()->second.empty()) {
                     queue(0, *m_defaultAnimation);
                 }
             }
 
+            std::list<std::string> events;
+
             if (!m_pause) {
                 for (auto &[key, queue] : m_queues) {
-                    queue.update(deltaTime);
+                    auto e = queue.update(deltaTime);
+                    std::move(e.begin(), e.end(), std::back_inserter(events));
                 }
             }
+
+            return events;
         }
 
         /**
@@ -215,23 +221,33 @@ namespace engine::animations {
                 return m_queuedAnimations.size() == 0 && m_playingAnimations.size() == 0;
             }
 
-            inline void update(sf::Uint64 deltaTime) {
+            inline std::list<std::string> update(sf::Uint64 deltaTime) {
+                std::list<std::string> eventsToSend;
+
                 if (!m_pause) {
                     // How much time we have left to execute
                     sf::Time durationLeft = sf::Time::Zero;
 
-                    // First, we clear the list of playing animations
+                    // First, we remove the completely played animations from the list
+                    // We also throw the events, if needed
                     if (!m_playingAnimations.empty()) {
+                        typename std::list<TimedAnimationAnimated>::iterator endIterator;
                         // Since it's a queue, we know that the last animation in the queue is the last played animation
                         sf::Time lastAnimationDuration = m_playingAnimations.back().getDuration();
                         if (m_elapsedTime < lastAnimationDuration) {
-                            // We stille have to update the last animation. Therefore, we remove everything except the last one
-                            m_playingAnimations.erase(m_playingAnimations.begin(), std::prev(m_playingAnimations.end()));
+                            // Every animation is finished except the last one
                             durationLeft = lastAnimationDuration;
+                            endIterator = std::prev(m_playingAnimations.end());
                         }
                         else {
-                            // The last animation was fully executed. We can remove everything
-                            m_playingAnimations.clear();
+                            // The last animation was fully executed
+                            endIterator = m_playingAnimations.end();
+                        }
+    
+                        // We effectively remove the animations and store the events to send
+                        for (auto itr = m_playingAnimations.begin() ; itr != endIterator ; ) {
+                            eventsToSend.push_back(itr->getEventToSend());
+                            itr = m_playingAnimations.erase(itr);
                         }
                     }
 
@@ -264,6 +280,8 @@ namespace engine::animations {
                         }
                     }
                 }
+
+                return eventsToSend;
             }
 
             inline void animate(Animated &animated) {

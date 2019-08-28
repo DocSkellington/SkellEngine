@@ -3,6 +3,7 @@
 #include "SkellEngine/animations/ColorAnimation.h"
 #include "SkellEngine/animations/FadeAnimation.h"
 #include "SkellEngine/animations/FrameAnimation.h"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :
@@ -28,12 +29,22 @@ namespace engine::entities::components {
                         sf::Time duration = sf::seconds(1);
                         bool loop = false;
                         unsigned int repeats = 1;
+                        std::string eventToSend = "";
 
-                        if (auto dur = desc.find("duration") ; dur != desc.end() && dur->is_number()) {
-                            duration = sf::seconds(*dur);
+                        if (auto dur = desc.find("duration") ; dur != desc.end() && dur->is_number_float()) {
+                            duration = sf::seconds(dur->get<float>());
                         }
                         else {
-                            getContext().logger.log("AnimationComponent: 'duration' field absent or has an invalid type (it should be a number). The length of the animation defaults to 1 second", LogType::Warning);
+                            throw errors::InvalidJSON("AnimationComponent: 'duration' field absent or has an invalid type (it should be a float)");
+                        }
+
+                        if (auto toSend = desc.find("event") ; toSend != desc.end()) {
+                            if (toSend->is_string()) {
+                                eventToSend = toSend->get<std::string>();
+                            }
+                            else {
+                                getContext().logger.log("AnimationComponent: 'event' must be a string. It defaults to an empty string (no event)", LogType::Warning);
+                            }
                         }
 
                         if (auto l = desc.find("loop") ; l != desc.end()) {
@@ -57,7 +68,7 @@ namespace engine::entities::components {
                         if (*type == "frame") {
                             if (auto frames = desc.find("frames") ; frames != desc.end()) {
                                 try {
-                                    m_animations.addAnimation(name, animations::FrameAnimation(frames->get<nlohmann::json>()), duration, loop, repeats);
+                                    m_animations.addAnimation(name, animations::FrameAnimation(frames->get<nlohmann::json>()), duration, eventToSend, loop, repeats);
                                 }
                                 catch (const std::exception &e) {
                                     getContext().logger.logError("AnimationComponent: an error occured during the creation of a FrameAnimation:", e);
@@ -70,7 +81,7 @@ namespace engine::entities::components {
                         else if (*type == "color") {
                             if (auto colors = desc.find("colors") ; colors != desc.end()) {
                                 try {
-                                    m_animations.addAnimation(name, animations::ColorAnimation(*colors), duration, loop, repeats);
+                                    m_animations.addAnimation(name, animations::ColorAnimation(*colors), duration, eventToSend, loop, repeats);
                                 }
                                 catch (const std::exception &e) {
                                     getContext().logger.logError("AnimationComponent: an error occured during the creation of a ColorAnimation:", e);
@@ -82,7 +93,7 @@ namespace engine::entities::components {
                         }
                         else if (*type == "fade") {
                             try {
-                                m_animations.addAnimation(name, animations::FadeAnimation(desc), duration, loop, repeats);
+                                m_animations.addAnimation(name, animations::FadeAnimation(desc), duration, eventToSend, loop, repeats);
                             }
                             catch (const std::exception &e) {
                                 getContext().logger.logError("AnimationComponent: an error occured during the creation of a FadeAnimation: ", e);

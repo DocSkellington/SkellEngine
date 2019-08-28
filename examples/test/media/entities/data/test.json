@@ -14,19 +14,20 @@
                 "blue",
                 "white"
             ],
-            "duration": 5,
+            "duration": 5.0,
             "loop": true
         },
         "fading": {
             "type": "fade",
             "in": 0.4,
             "out": 0.3,
-            "duration": 10,
+            "duration": 10.0,
             "loop": true
         },
         "framing": {
             "type": "frame",
-            "duration": 2,
+            "event": "framingEnded",
+            "duration": 2.0,
             "loop": false,
             "frames": [
                 {
