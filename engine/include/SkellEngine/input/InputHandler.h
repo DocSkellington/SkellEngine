@@ -28,7 +28,6 @@ namespace engine::input {
      * \see engine::files::GameDescription::MediaDescription, @ref json_game_description and TODO: the Markdown documentation for the file description
      * \see engine::events::EventHandler for how to subsribe for an event
      * \todo TODO: add graphical sprites for PS4, Xbox, Gamecube and Switch Pro controllers
-     * \todo TODO: save/load configuration
      */
     class InputHandler {
     private:
