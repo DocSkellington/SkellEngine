@@ -30,15 +30,17 @@ namespace engine {
         logger.log("Event handler ready");
 
         inputHandler = std::make_shared<input::InputHandler>(*this);
-        logger.log("Input handler ready");
 
         std::ifstream inputFile(fileManager->getGameDescription().media.inputDescription);
         if (!inputFile.is_open()) {
-            throw errors::FileNotFound(fileManager->getGameDescription().media.inputDescription.string() + " could not be found.");
+            logger.log(fileManager->getGameDescription().media.inputDescription.string() + " could not be found. The input holder will be initialised empty", LogType::Info);
         }
-        nlohmann::json inputDescription;
-        inputFile >> inputDescription;
-        inputHandler->loadConfiguration(inputDescription);
+        else {
+            nlohmann::json inputDescription;
+            inputFile >> inputDescription;
+            inputHandler->loadConfiguration(inputDescription);
+        }
+        logger.log("Input handler ready");
 
         if (graphical) {
             // Creating the window
