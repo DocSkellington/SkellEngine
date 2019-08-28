@@ -10,7 +10,11 @@ function onCreate()
     Theme.setDefault(theme)
 
     button = Button.create("BUTTON")
-    -- button:setPosition(200, 100)
+    button:setPosition(200, 100)
+    print(button:getPosition().x .. " " .. button:getPosition().y)
+    button:setSize(150, 300)
+    button:setVisible(true)
+    print(button:getFullSize().x .. " " .. button:getFullSize().y)
 
     game.gui:add(button)
 end

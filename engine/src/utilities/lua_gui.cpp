@@ -2,6 +2,45 @@
 
 using namespace tgui;
 
+#define WidgetFunctions(T)                                                          \
+    "setPosition", sol::overload(                                                   \
+        sol::resolve<void(const Layout2d&)>(&T::setPosition),                       \
+        sol::resolve<void(Layout, Layout)>(&T::setPosition),                        \
+        [](T::Ptr widget, float x, float y) { widget->setPosition(x, y); }          \
+    ),                                                                              \
+    "getPosition", &T::getPosition,                                                 \
+    "setSize", sol::overload(                                                       \
+        sol::resolve<void(const Layout2d&)>(&T::setSize),                           \
+        sol::resolve<void(Layout, Layout)>(&T::setSize),                            \
+        [](T::Ptr widget, float x, float y) { widget->setSize(x, y); }              \
+    ),                                                                              \
+    "getSize", &T::getSize,                                                         \
+    "getFullSize", &T::getFullSize,                                                 \
+    "getAbsolutePosition", &T::getAbsolutePosition,                                 \
+    "getWidgetOffset", &T::getWidgetOffset,                                         \
+    "showWithEffect", &T::showWithEffect,                                           \
+    "hideWithEffect", &T::hideWithEffect,                                           \
+    "setVisible", &T::setVisible,                                                   \
+    "isVisible", &T::isVisible,                                                     \
+    "setEnabled", &T::setEnabled,                                                   \
+    "isEnabled", &T::isEnabled,                                                     \
+    "setFocused", &T::setFocused,                                                   \
+    "isFocused", &T::isFocused,                                                     \
+    "getWidgetType", &T::getWidgetType,                                             \
+    "getParent", &T::getParent,                                                     \
+    "moveToFront", &T::moveToFront,                                                 \
+    "moveToBack", &T::moveToBack,                                                   \
+    "setInheritedFont", &T::setInheritedFont,                                       \
+    "getInheritedFont", &T::getInheritedFont,                                       \
+    "setInheritedOpacity", &T::setInheritedOpacity,                                 \
+    "getInheritedOpacity", &T::getInheritedOpacity,                                 \
+    "setToolTip", &T::setToolTip,                                                   \
+    "getToolTip", &T::getToolTip,                                                   \
+    "canGainFocus", &T::canGainFocus,                                               \
+    "isContainer", &T::isContainer,                                                 \
+    "mouseOnWidget", &T::mouseOnWidget,                                             \
+    "draw", &T::draw
+
 // We disable the automatic to_string bindings for some types
 namespace sol {
     template<>
@@ -11,16 +50,10 @@ namespace sol {
     struct is_to_stringable<AbsoluteOrRelativeValue> : std::false_type {};
 
     template<>
+    struct is_to_stringable<Vector2f> : std::false_type {};
+
+    template<>
     struct is_to_stringable<Theme> : std::false_type {};
-
-    template<>
-    struct is_to_stringable<SignalWidgetBase> : std::false_type {};
-
-    template<>
-    struct is_to_stringable<Widget> : std::false_type {};
-
-    template<>
-    struct is_to_stringable<ClickableWidget> : std::false_type {};
 
     template<>
     struct is_to_stringable<Button> : std::false_type {};
@@ -31,24 +64,21 @@ namespace sol {
 
 namespace engine::utilities {
     void registerWidgets(sol::state &lua) {
-        lua.new_usertype<Widget>("Widget",
-            "setPosition", sol::overload(
-                sol::resolve<void(const Layout2d&)>(&Widget::setPosition),
-                sol::resolve<void(Layout, Layout)>(&Widget::setPosition),
-                [](Widget::Ptr widget, int x, int y) { widget->setPosition(x, y); }
-            )
-        );
-
         lua.new_usertype<Button>("Button",
             "create", sol::factories(&Button::create, [](const std::string &string) { return Button::create(string); }),
-            // "setSize", &Button::setSize,
             "setEnabled", &Button::setEnabled,
-            "setText", &Button::setText
-            // sol::base_classes, sol::bases<tgui::Widget>()
+            "setText", &Button::setText,
+            WidgetFunctions(Button)
         );
     }
 
     void registerTGUILuaFunctions(sol::state &lua, std::shared_ptr<tgui::Gui> gui) {
+        lua.new_usertype<Vector2f>("Vector2f",
+            sol::constructors<Vector2f(), Vector2f(float x, float y), Vector2f(const sf::Vector2f&), Vector2f(const char*), Vector2f(std::string)>(),
+            "x", &Vector2f::x,
+            "y", &Vector2f::y
+        );
+
         registerWidgets(lua);
 
         lua.new_usertype<AbsoluteOrRelativeValue>("AbsoluteOrRelativeValue",
