@@ -1,0 +1,7 @@
+{
+    "name": "PacMan",
+    "version": "1.0.0",
+    "log": {
+        "output": "Console"
+    }
+}

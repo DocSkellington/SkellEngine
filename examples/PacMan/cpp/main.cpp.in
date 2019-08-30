@@ -1,0 +1,7 @@
+#include "SkellEngine/Engine.h"
+
+int main() {
+    engine::Engine engine("@CMAKE_CURRENT_SOURCE_DIR@/media");
+    engine.run();
+    return 0;
+}
