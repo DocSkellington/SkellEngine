@@ -59,4 +59,4 @@ As stated above, the file manager reads the `game.json` and extracts the configu
 If something is invalid, a message will be printed to the console (ignoring the logger configuration).
 The configurations are then used by the context to construct the other objects.
 
-The file manager can also be used to load the states and systems defined in Lua and the fonts.
+The file manager can also be used to load the states and systems defined in Lua and the fonts and to load and use textures and fonts.
