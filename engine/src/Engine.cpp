@@ -22,8 +22,7 @@ namespace engine {
     Engine::Engine(const std::filesystem::path &baseMediapath) :
         m_context(baseMediapath) {
         // Launching the first state of the game
-        if (m_context.fileManager->getGameDescription().states.firstState == "mainmenu" || m_context.fileManager->getGameDescription().states.firstState == "mainmenustate")
-            m_context.stateManager->switchTo("mainmenu");
+        m_context.stateManager->switchTo(m_context.fileManager->getGameDescription().states.firstState);
     }
 
     Engine::~Engine() {
