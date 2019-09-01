@@ -8,6 +8,9 @@ map:
   - shorttitle: File
     title: File manager and Game description
     link: /tutorials/basics/FileManager
+  - shorttitle: Logger
+    title: Logger
+    link: /tutorials/basics/logger
   - shorttitle: States
     title: States
     link: /tutorils/basics/states
