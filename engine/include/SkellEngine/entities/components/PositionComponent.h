@@ -21,6 +21,7 @@ namespace engine::entities::components {
 
     private:
         double m_x, m_y;
+        bool m_absolute;
 
         REGISTER_COMPONENT(PositionComponent, "position")
     };
