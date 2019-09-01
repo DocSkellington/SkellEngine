@@ -28,7 +28,9 @@ namespace engine::systems {
                 }
 
                 for (auto &event : eventsToSend) {
-                    getSystemManager().getContext().context.eventHandler->sendEvent(event, {entity});
+                    if (!event.empty()) {
+                        getSystemManager().getContext().context.eventHandler->sendEvent(event, {entity});
+                    }
                 }
             }
         }
