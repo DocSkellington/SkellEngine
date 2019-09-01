@@ -1,6 +1,7 @@
 #include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
 
 #include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/errors/InvalidJSON.h"
 
 namespace engine::entities::components {
     GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(states::StateContext &context) :
@@ -13,9 +14,17 @@ namespace engine::entities::components {
     }
 
     void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable) {
-        std::string filepath = jsonTable.at("filePath").get<std::string>();
-        auto &texture = getContext().fileManager->loadSpriteTexture(filepath);
-        m_sprite.setTexture(texture);
+        if (auto path = jsonTable.find("filePath") ; path != jsonTable.end()) {
+            if (path->is_string()) {
+                m_sprite.setTexture(getContext().fileManager->loadSpriteTexture(path->get<std::string>()));
+            }
+            else {
+                throw errors::InvalidJSON("Sprite sheet component: invalid description: the 'filePath' field must be a string");
+            }
+        }
+        else {
+            throw errors::InvalidJSON("Sprite sheet component: invalid description: the 'filePath' field must be present");
+        }
     }
 
     const sf::Sprite& GraphicalSpriteSheetComponent::getSprite() const {
