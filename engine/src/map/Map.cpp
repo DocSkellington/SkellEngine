@@ -2,7 +2,9 @@
 
 #include "SkellEngine/Context.h"
 #include "SkellEngine/errors/BadLevelDescription.h"
+#include "SkellEngine/errors/InvalidMap.h"
 #include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/errors/NotImplemented.h"
 
 namespace engine::map {
     Map::Map(states::StateContext &context) :
@@ -37,6 +39,9 @@ namespace engine::map {
                 break;
             case tmx::Layer::Type::Image:
                 loadImageLayer(layer);
+                break;
+            default:
+                throw errors::NotImplemented("Map: a map requests a not-implemented layer type");
                 break;
             }
         }
@@ -83,7 +88,7 @@ namespace engine::map {
         for (auto &tileset : m_map.getTilesets()) {
             for (const auto &tile : tileset.getTiles()) {
                 tmx::Tileset::Tile t = tile;
-                t.ID = t.ID + tileset.getFirstGID() - 1;
+                t.ID += tileset.getFirstGID() - 1;
                 for (auto &anim : t.animation.frames) {
                     anim.tileID += tileset.getFirstGID() - 1;
                 }
@@ -95,7 +100,15 @@ namespace engine::map {
 
     void Map::loadTileLayer(const tmx::Layer *layer) {
         const auto& l = *dynamic_cast<const tmx::TileLayer*>(layer);
-        m_layers.push_back(std::make_unique<TileLayer>(*this, l));
+        try {
+            m_layers.push_back(std::make_unique<TileLayer>(*this, l));
+        }
+        catch (const thor::ResourceLoadingException &e) {
+            m_context.context.logger.logError("Error while loading a tile layer in the map " + m_mapName, e);
+        }
+        catch (const errors::InvalidMap &e) {
+            m_context.context.logger.logError("Error while loading a tile layer in the map " + m_mapName, e);
+        }
     }
 
     void Map::loadObjectLayer(const tmx::Layer *layer) {

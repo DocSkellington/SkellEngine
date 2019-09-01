@@ -7,6 +7,7 @@
 #include "SkellEngine/shapes/EllipseShape.h"
 #include "SkellEngine/files/FileManager.h"
 #include "SkellEngine/errors/NotImplemented.h"
+#include "SkellEngine/errors/InvalidMap.h"
 
 namespace engine::map {
     Layer::Layer(Map &map, bool visible) :
@@ -143,6 +144,10 @@ namespace engine::map {
                 std::uint8_t alpha = layer.getOpacity() * 255;
 
                 const auto &tile = layer.getTiles()[y * map.m_map.getTileCount().y + x];
+
+                if (map.m_tileOffset.find(tile.ID-1) == map.m_tileOffset.end()) {
+                    throw errors::InvalidMap("Invalid tile layer. The tile ID used in the map was not present in any tileset");
+                }
 
                 tmx::Vector2i offset = layer.getOffset();
                 offset.x += map.m_tileOffset[tile.ID-1]->x;
