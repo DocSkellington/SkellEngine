@@ -18,13 +18,13 @@ The [Context]({{ "/documentation/alpha/c++/classengine_1_1Context.html" | relati
 The very first action the engine does is initialising the Context.
 The different parts of the context are created in this order:
   1. The [File Manager](FileManager) (which also configures the [Logger](logger)).
-  2. The State Manager.
-  3. The Event Handler.
-  4. The Input Handler.
+  2. The [State Manager](states).
+  3. The [Event Handler](events).
+  4. The [Input Handler](inputs).
   5. The Window.
 
 The configuration of each part (if needed) is loaded from the `game.json` at the root of the media folder.
-The following tutorials will explain the parts and how to configure them.
+The following tutorials will explain the parts and how to configure them, with the exception of the window (see the [SFML documenation](https://www.sfml-dev.org/) for more information).
 You can also click on the links above to directly jump to the related tutorial page.
 
 # The loop

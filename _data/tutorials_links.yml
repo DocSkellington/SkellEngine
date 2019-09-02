@@ -9,6 +9,12 @@ tutorials:
     next: "Logger"
   - title: "Logger"
     previous: "File"
-    next: "States"
-  - title: "States"
-    previous: "Logger"
+    next: Events
+  - title: Events
+    previous: Logger
+    next: Inputs
+  - title: Inputs
+    previous: Events
+    next: States
+  - title: States
+    previous: Inputs
