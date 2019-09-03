@@ -11,6 +11,9 @@ map:
   - shorttitle: Logger
     title: Logger
     link: /tutorials/basics/logger
+  - shorttitle: Events
+    title: Event handler and events
+    link: /tutorials/basics/events
   - shorttitle: States
     title: States
     link: /tutorials/basics/states
