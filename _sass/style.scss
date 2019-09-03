@@ -40,3 +40,34 @@ nav li a.current {
 table {
     width: 100%;
 }
+
+.alert {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.alert b {
+    font-weight: bold
+}
+
+.alert-info {
+    color: #003D5B;
+    background: #d9edf7;
+    border-color: #003d5b7f;
+}
+
+.alert-important {
+    color: #771111;
+    background: #ffc2c2;
+    border-color: #7711117f;
+}
+
+.alert-warning {
+    color: #292925;
+    background: #ffffa3;
+    border-color: #7272007f;
+}
