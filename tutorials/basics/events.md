@@ -4,8 +4,13 @@ title: Event handler and events
 shorttitle: Events
 ---
 
-An [Event]({{ "/documentation/alpha/c++/classengine_1_1events_1_1Event.html" | relative_url }}) is a way to transfer information between different parts of the engine (mainly, between systems).
+An [Event]({{ "/documentation/alpha/c++/classengine_1_1events_1_1Event.html" | relative_url }}) is the recommended way to transfer information between different parts of the engine (mainly, between systems).
 Each event has a type and can contain data and entities.
+
+{% include important.html content="
+Events and inputs are two different parts of the engine.
+Events are used to transfer information <em>within</em> the engine while inputs are used to transfer information <em>from</em> the player <em>to</em> the engine.
+" %}
 
 # Event handler
 The [Event handler]({{ "/documentation/alpha/c++/classengine_1_1events_1_1EventHandler.html" | relative_url }}) is used to map an event type to callbacks.

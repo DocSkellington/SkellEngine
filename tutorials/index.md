@@ -15,7 +15,7 @@ However, you can easily find the equivalent functions in the Lua documentation.
   - [Event handler and events](basics/events)
   - [Input handler and inputs](basics/inputs)
   - [State manager and states](basics/states)
-  - [Entity manager and entities](basics/entities)
+  - [Entity manager, entities and components](basics/entities)
   - [System manager and systems](basics/systems)
   - [Level and map](basics/level)
 
