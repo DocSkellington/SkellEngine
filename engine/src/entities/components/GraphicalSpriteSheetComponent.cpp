@@ -16,7 +16,9 @@ namespace engine::entities::components {
     void GraphicalSpriteSheetComponent::create(const nlohmann::json &jsonTable) {
         if (auto path = jsonTable.find("filePath") ; path != jsonTable.end()) {
             if (path->is_string()) {
-                m_sprite.setTexture(getContext().fileManager->loadSpriteTexture(path->get<std::string>()));
+                sf::Texture &texture = getContext().fileManager->loadSpriteTexture(path->get<std::string>());
+                m_sprite.setTexture(texture);
+                m_sprite.setOrigin(texture.getSize().x / 2., texture.getSize().y / 2.);
             }
             else {
                 throw errors::InvalidJSON("Sprite sheet component: invalid description: the 'filePath' field must be a string");
