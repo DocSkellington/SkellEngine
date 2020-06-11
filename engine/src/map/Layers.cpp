@@ -27,6 +27,10 @@ namespace engine::map {
         return m_map;
     }
 
+    const Map& Layer::getMap() const {
+        return m_map;
+    }
+
     TileLayer::Tile::Tile(Map &map, std::size_t x, std::size_t y, std::shared_ptr<const tmx::Tileset::Tile> tile, std::uint8_t flipFlags, std::uint8_t alpha, const tmx::Vector2i &offset) :
         m_map(map),
         m_tile(tile),
@@ -52,6 +56,40 @@ namespace engine::map {
 
     bool TileLayer::Tile::isAnimated() const {
         return m_tile->animation.frames.size() > 1;
+    }
+
+    nlohmann::json TileLayer::Tile::getTileProperties() const {
+        nlohmann::json json;
+        for (const auto &property : m_tile->properties) {
+            const auto &name = property.getName();
+            switch (property.getType()) {
+            case tmx::Property::Type::Boolean:
+                json[name] = property.getBoolValue();
+                break;
+            case tmx::Property::Type::Colour:
+                {
+                    const auto &colour = property.getColourValue();
+                    json[name] = nlohmann::json::array( { colour.r, colour.g, colour.b, colour.a });
+                }
+                break;
+            case tmx::Property::Type::File:
+                json[name] = property.getFileValue();
+                break;
+            case tmx::Property::Type::Float:
+                json[name] = property.getFloatValue();
+                break;
+            case tmx::Property::Type::Int:
+                json[name] = property.getIntValue();
+                break;
+            case tmx::Property::Type::String:
+                json[name] = property.getStringValue();
+                break;
+            default:
+                m_map.m_context.context.logger.log("Unknown type for property '" + name + "' for a tile (ID: " + std::to_string(m_tile->ID) + ")", engine::LogType::Warning);
+                break;
+            }
+        }
+        return json;
     }
 
     void TileLayer::Tile::updateSprite() {
@@ -166,6 +204,16 @@ namespace engine::map {
 
     TileLayer::~TileLayer() {
 
+    }
+
+    nlohmann::json TileLayer::getTileProperties(uint64_t x, uint64_t y) const {
+        if (x > tiles.size() || y > tiles[x].size()) {
+            getMap().m_context.context.logger.log("Error while getting tile properties from a tile: the position (" + std::to_string(x) + ", " + std::to_string(y) + ") is invalid", engine::LogType::Warning);
+            return nlohmann::json();
+        }
+        else {
+            return tiles[x][y]->getTileProperties();
+        }
     }
 
     void TileLayer::update(sf::Int64 deltaTime) {

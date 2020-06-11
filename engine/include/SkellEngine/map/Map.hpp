@@ -42,6 +42,17 @@ namespace engine::map {
         void load(const std::string& mapName);
 
         /**
+         * \brief Gets the properties attached to a tile's position.
+         * 
+         * If there are multiple tiles at that position, the different properties are fused together, i.e., a single JSON object is returned with the properties of all tiles.
+         * If multiple tiles define the same property but with different values, only the value that is in the higher layer is kept.
+         * \param x The x position of the tile
+         * \param y The y position of the tile
+         * \return A JSON object containing the properties
+         */
+        nlohmann::json getTileProperties(uint64_t x, uint64_t y) const;
+
+        /**
          * \brief Empties the map.
          * 
          * Any references to a tile or a chunk of the map will be made caduc.
@@ -69,6 +80,18 @@ namespace engine::map {
          * \return The number of layers
          */
         std::size_t getLayerCount() const;
+
+        /**
+         * \brief Gets the size of the map, in number of tiles
+         * \return The number of tiles in both directions
+         */
+        sf::Vector2u getSizeInTiles() const;
+
+        /**
+         * \brief Gets the size of a tile
+         * \return The size of a single tile
+         */
+        sf::Vector2u getTileSize() const;
 
     protected:
         /** @{ */

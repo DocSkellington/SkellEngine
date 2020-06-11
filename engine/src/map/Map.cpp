@@ -5,6 +5,7 @@
 #include "SkellEngine/errors/InvalidMap.hpp"
 #include "SkellEngine/files/FileManager.hpp"
 #include "SkellEngine/errors/NotImplemented.hpp"
+#include "SkellEngine/utilities/json_fusion.hpp"
 
 namespace engine::map {
     Map::Map(states::StateContext &context) :
@@ -49,6 +50,17 @@ namespace engine::map {
         m_context.context.logger.log("Map loaded");
     }
 
+    nlohmann::json Map::getTileProperties(uint64_t x, uint64_t y) const {
+        nlohmann::json json;
+        for (const auto& layer : m_layers) {
+            if (typeid(*layer) == typeid(TileLayer)) {
+                auto tileLayer = dynamic_cast<TileLayer*>(layer.get());
+                json = utilities::json_fusion(json, tileLayer->getTileProperties(x, y));
+            }
+        }
+        return json;
+    }
+
     void Map::clear() {
         m_layers.clear();
         m_tilesetTiles.clear();
@@ -74,6 +86,14 @@ namespace engine::map {
 
     std::size_t Map::getLayerCount() const {
         return m_layers.size();
+    }
+
+    sf::Vector2u Map::getSizeInTiles() const {
+        return sf::Vector2u(m_map.getTileCount().x, m_map.getTileCount().y);
+    }
+
+    sf::Vector2u Map::getTileSize() const {
+        return sf::Vector2u(m_map.getTileSize().x, m_map.getTileSize().y);
     }
 
     states::StateContext& Map::getStateContext() {

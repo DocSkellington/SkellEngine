@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include <nlohmann/json.hpp>
+
 #include <SFML/Graphics.hpp>
 
 #include <tmxlite/Map.hpp>
@@ -40,11 +42,14 @@ namespace engine::map {
         bool isVisible() const;
 
     protected:
+        /** @{ */
         /**
          * \brief Gives the map
          * \return A reference to the map
          */
         Map &getMap();
+        const Map &getMap() const;
+        /** @} */
 
     private:
         Map &m_map;
@@ -64,6 +69,17 @@ namespace engine::map {
         TileLayer(Map &map, const tmx::TileLayer &layer);
         TileLayer(const TileLayer&) = delete;
         virtual ~TileLayer();
+
+        /**
+         * \brief Gets the properties attached to a tile's position.
+         * 
+         * If there are multiple tiles at that position, the different properties are fused together, i.e., a single JSON object is returned with the properties of all tiles.
+         * If multiple tiles define the same property but with different values, only the value that is in the higher layer is kept.
+         * \param x The x position of the tile
+         * \param y The y position of the tile
+         * \return A JSON object containing the properties
+         */
+        nlohmann::json getTileProperties(uint64_t x, uint64_t y) const;
 
         /**
          * \brief Updates the tile layer
@@ -110,6 +126,8 @@ namespace engine::map {
              * \brief Whether the tile is animated or not
              */
             bool isAnimated() const;
+
+            nlohmann::json getTileProperties() const;
 
         private:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
