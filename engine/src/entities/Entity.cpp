@@ -48,6 +48,10 @@ namespace engine::entities {
         return m_components.find(componentType) != m_components.end();
     }
 
+    bool Entity::hasComponents(const std::string &componentType) const {
+        return hasComponent(componentType);
+    }
+
     components::Component::Ptr Entity::getComponent(const std::string &componentType) {
         auto itr = m_components.find(componentType);
         if (itr == m_components.end())

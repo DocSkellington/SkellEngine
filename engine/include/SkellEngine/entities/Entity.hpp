@@ -84,12 +84,31 @@ namespace engine::entities {
          */
         components::Component::Ptr addComponent(const std::string &componentType, const nlohmann::json &jsonTable);
 
+        /** @{ */
         /**
          * \brief Does this entity have the component?
          * \param componentType The type of the component to look for
          * \return True if the entity has the component, false otherwise
          */
         bool hasComponent(const std::string &componentType) const;
+        bool hasComponents(const std::string &componentType) const;
+        /** @} */
+
+        /**
+         * \brief Does this entity have these components?
+         * \param componentType The type of the component to look for
+         * \param otherTypes The other component types
+         * \return True if the entity has every component, false otherwise
+         */
+        template<typename... TArgs>
+        bool hasComponents(const std::string &componentType, TArgs... otherTypes) const {
+            if (!hasComponent(componentType)) {
+                return false;
+            }
+            else {
+                return hasComponents(otherTypes...);
+            }
+        }
 
         /**
          * \brief Gets the component, if it exists
