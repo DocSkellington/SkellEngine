@@ -57,6 +57,35 @@ namespace engine::levels {
          * \param lua The Lua state
          */
         void luaFunctions(sol::state &lua);
+
+        /** @{ */
+        /**
+         * \brief Gets the map
+         * \return The map
+         */
+        map::Map &getMap();
+        const map::Map &getMap() const;
+        /** @} */
+
+        /**
+         * \brief Converts a level position (i.e., a position relative to the tiles in the map) to an absolute position.
+         * 
+         * The absolute position is computed by multiplying the level position by the size of a tile.
+         * \param x The x position
+         * \param y The y position
+         * \return The absolute position
+         */
+        sf::Vector2f levelPositionToAbsolutePosition(double x, double y) const;
+
+        /**
+         * \brief Converts an absolute position to a level position (i.e., a position relative to the tiles in the map).
+         * 
+         * The relative position is computed by dividing the absolute position by the size of a tile.
+         * \param x The x position
+         * \param y The y position
+         * \return The level position
+         */
+        sf::Vector2f absolutePositionToLevelPosition(double x, double y) const;
     
     private:
         /**

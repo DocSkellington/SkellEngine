@@ -50,6 +50,24 @@ namespace engine::levels {
         lua["game"]["level"] = this;
     }
 
+    map::Map &Level::getMap() {
+        return m_map;
+    }
+
+    const map::Map &Level::getMap() const {
+        return m_map;
+    }
+
+    sf::Vector2f Level::levelPositionToAbsolutePosition(double x, double y) const {
+        auto tileSize = m_map.getTileSize();
+        return sf::Vector2f(x * tileSize.x, y * tileSize.y);
+    }
+
+    sf::Vector2f Level::absolutePositionToLevelPosition(double x, double y) const {
+        auto tileSize = m_map.getTileSize();
+        return sf::Vector2f(x / tileSize.x, y / tileSize.y);
+    }
+
     void Level::loadLevelDescription() {
         if (!m_levelDescription.name.empty()) {
             std::ifstream file;
