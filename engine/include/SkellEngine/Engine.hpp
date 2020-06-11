@@ -1,0 +1,34 @@
+#pragma once
+
+#include <filesystem>
+
+#include "SkellEngine/Context.hpp"
+
+/**
+* \brief This numespace contains everything the engine needs
+*/
+namespace engine {
+    /**
+    * \brief The class that effectively starts the engine
+    */
+    class Engine final {
+    public:
+        /**
+         * The constructor
+         * \param baseMediapath The path to the media folder
+         */
+        explicit Engine(const std::filesystem::path &baseMediapath = ".");
+        Engine(const Engine&) = delete;
+        ~Engine();
+
+        /**
+         * \brief Runs the engine
+         * 
+         * Only stops when the user requests game termination.
+         */
+        void run();
+
+    private:
+        Context m_context;
+    };
+}

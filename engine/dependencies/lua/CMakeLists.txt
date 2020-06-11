@@ -65,6 +65,7 @@ set(LUA_HEADERS
 
 add_library(lua SHARED
     ${LUA_SOURCES}
+    ${LUA_HEADERS}
 )
 
 target_include_directories(lua

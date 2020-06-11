@@ -1,8 +1,8 @@
-#include "SkellEngine/entities/Entity.h"
+#include "SkellEngine/entities/Entity.hpp"
 
-#include "SkellEngine/utilities/json_lua.h"
-#include "SkellEngine/entities/components/ExternComponent.h"
-#include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/entities/components/ExternComponent.hpp"
+#include "SkellEngine/entities/EntityManager.hpp"
 
 namespace engine::entities {
 

@@ -1,8 +1,8 @@
-#include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/entities/EntityManager.hpp"
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/utilities/json_lua.h"
-#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
 
 namespace engine::entities {
     EntityManager::EntityManager(states::StateContext &context) :

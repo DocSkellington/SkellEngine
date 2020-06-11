@@ -1,7 +1,7 @@
 #include <catch.hpp>
 
-#include "SkellEngine/entities/components/Component.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/entities/components/Component.hpp"
+#include "SkellEngine/Context.hpp"
 
 using namespace engine;
 using namespace entities;

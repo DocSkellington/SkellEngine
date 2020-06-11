@@ -1,16 +1,16 @@
-#include "SkellEngine/states/ExternState.h"
+#include "SkellEngine/states/ExternState.hpp"
 
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/utilities/lua_sfml.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/Context.h"
-#include "SkellEngine/entities/components/ExternComponent.h"
-#include "SkellEngine/events/ExternEvent.h"
-#include "SkellEngine/entities/EntityManager.h"
-#include "SkellEngine/states/StateManager.h"
-#include "SkellEngine/levels/Level.h"
-#include "SkellEngine/input/InputHandler.h"
-#include "SkellEngine/utilities/lua_gui.h"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/utilities/lua_sfml.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/entities/components/ExternComponent.hpp"
+#include "SkellEngine/events/ExternEvent.hpp"
+#include "SkellEngine/entities/EntityManager.hpp"
+#include "SkellEngine/states/StateManager.hpp"
+#include "SkellEngine/levels/Level.hpp"
+#include "SkellEngine/input/InputHandler.hpp"
+#include "SkellEngine/utilities/lua_gui.hpp"
 
 namespace engine::states {
     ExternState::ExternState(StateManager &manager, const std::string &stateName) :

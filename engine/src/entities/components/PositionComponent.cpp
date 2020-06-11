@@ -1,6 +1,6 @@
-#include "SkellEngine/entities/components/PositionComponent.h"
+#include "SkellEngine/entities/components/PositionComponent.hpp"
 
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::entities::components {
     PositionComponent::PositionComponent(states::StateContext &context) :

@@ -1,7 +1,7 @@
-#include "SkellEngine/utilities/MemberStorage.h"
+#include "SkellEngine/utilities/MemberStorage.hpp"
 
-#include "SkellEngine/utilities/json_lua.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/Context.hpp"
 
 namespace engine::utilities {
     MemberStorage::MemberStorage(Context &context) :

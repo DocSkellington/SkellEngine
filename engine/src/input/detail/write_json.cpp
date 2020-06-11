@@ -1,9 +1,9 @@
-#include "SkellEngine/input/detail/write_json.h"
+#include "SkellEngine/input/detail/write_json.hpp"
 
 #include <Thor/Input.hpp>
 
-#include "SkellEngine/input/detail/to_from_sfml_events.h"
-#include "SkellEngine/utilities/json_fusion.h"
+#include "SkellEngine/input/detail/to_from_sfml_events.hpp"
+#include "SkellEngine/utilities/json_fusion.hpp"
 
 namespace engine::input::detail {
     nlohmann::json writeInputDescriptionObject(const sf::Event &event, bool isHold, nlohmann::json payload, const std::string &state, bool lalt, bool lshift, bool lcontrol, bool ralt, bool rshift, bool rcontrol) {

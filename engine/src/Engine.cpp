@@ -1,4 +1,4 @@
-#include "SkellEngine/Engine.h"
+#include "SkellEngine/Engine.hpp"
 
 #include <memory>
 #include <fstream>
@@ -13,10 +13,10 @@
 #include <SFML/Window/Event.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/events/EventHandler.h"
-#include "SkellEngine/input/InputHandler.h"
-#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/events/EventHandler.hpp"
+#include "SkellEngine/input/InputHandler.hpp"
+#include "SkellEngine/states/StateManager.hpp"
 
 namespace engine {
     Engine::Engine(const std::filesystem::path &baseMediapath) :

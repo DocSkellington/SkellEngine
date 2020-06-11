@@ -1,4 +1,4 @@
-#include "SkellEngine/Logger.h"
+#include "SkellEngine/Logger.hpp"
 
 #include <iostream>
 

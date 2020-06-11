@@ -1,4 +1,4 @@
-#include "SkellEngine/input/detail/default.h"
+#include "SkellEngine/input/detail/default.hpp"
 
 namespace engine::input::detail {
     void setDefaultKeyButton(sf::Event &event) {

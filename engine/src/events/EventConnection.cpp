@@ -1,4 +1,4 @@
-#include "SkellEngine/events/EventConnection.h"
+#include "SkellEngine/events/EventConnection.hpp"
 
 namespace engine::events {
     EventConnection::EventConnection(const thor::Connection &connection) :

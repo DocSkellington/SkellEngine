@@ -1,4 +1,4 @@
-#include "SkellEngine/animations/detail/to_from_sfml_color.h"
+#include "SkellEngine/animations/detail/to_from_sfml_color.hpp"
 
 #include <algorithm>
 

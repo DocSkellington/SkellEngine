@@ -1,7 +1,7 @@
-#include "SkellEngine/utilities/ExternMemberStorage.h"
+#include "SkellEngine/utilities/ExternMemberStorage.hpp"
 
-#include "SkellEngine/utilities/json_lua.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/Context.hpp"
 
 namespace engine::utilities {
     ExternMemberStorage::ExternMemberStorage(Context &context) :

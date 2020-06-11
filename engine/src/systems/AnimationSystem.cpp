@@ -1,8 +1,8 @@
-#include "SkellEngine/systems/AnimationSystem.h"
+#include "SkellEngine/systems/AnimationSystem.hpp"
 
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
-#include "SkellEngine/errors/InvalidEvent.h"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.hpp"
+#include "SkellEngine/errors/InvalidEvent.hpp"
 
 namespace engine::systems {
     AnimationSystem::AnimationSystem(SystemManager &manager) :

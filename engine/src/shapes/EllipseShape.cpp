@@ -1,4 +1,4 @@
-#include "SkellEngine/shapes/EllipseShape.h"
+#include "SkellEngine/shapes/EllipseShape.hpp"
 
 #include <cmath>
 

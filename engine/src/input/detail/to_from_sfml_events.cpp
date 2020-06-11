@@ -1,4 +1,4 @@
-#include "SkellEngine/input/detail/to_from_sfml_events.h"
+#include "SkellEngine/input/detail/to_from_sfml_events.hpp"
 
 namespace engine::input::detail {
     sf::Event::EventType stringToEventType(std::string type) {

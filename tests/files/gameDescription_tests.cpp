@@ -1,8 +1,8 @@
 #include <iostream>
 #include <catch.hpp>
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/files/FileManager.hpp"
 
 using namespace engine;
 using namespace files;

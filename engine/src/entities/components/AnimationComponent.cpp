@@ -1,9 +1,9 @@
-#include "SkellEngine/entities/components/AnimationComponent.h"
+#include "SkellEngine/entities/components/AnimationComponent.hpp"
 
-#include "SkellEngine/animations/ColorAnimation.h"
-#include "SkellEngine/animations/FadeAnimation.h"
-#include "SkellEngine/animations/FrameAnimation.h"
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/animations/ColorAnimation.hpp"
+#include "SkellEngine/animations/FadeAnimation.hpp"
+#include "SkellEngine/animations/FrameAnimation.hpp"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :

@@ -1,7 +1,7 @@
-#include "SkellEngine/entities/components/Component.h"
+#include "SkellEngine/entities/components/Component.hpp"
 
-#include "SkellEngine/entities/components/ExternComponent.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/entities/components/ExternComponent.hpp"
+#include "SkellEngine/Context.hpp"
 
 namespace engine::entities::components {
     Component::Component(states::StateContext &context) :

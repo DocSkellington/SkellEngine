@@ -1,10 +1,10 @@
-#include "SkellEngine/map/Map.h"
+#include "SkellEngine/map/Map.hpp"
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/errors/BadLevelDescription.h"
-#include "SkellEngine/errors/InvalidMap.h"
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/errors/NotImplemented.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/errors/BadLevelDescription.hpp"
+#include "SkellEngine/errors/InvalidMap.hpp"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/errors/NotImplemented.hpp"
 
 namespace engine::map {
     Map::Map(states::StateContext &context) :

@@ -1,9 +1,9 @@
 #include <catch.hpp>
 
-#include "SkellEngine/events/Event.h"
-#include "SkellEngine/events/EventHandler.h"
+#include "SkellEngine/events/Event.hpp"
+#include "SkellEngine/events/EventHandler.hpp"
 
-#include "SkellEngine/Context.h"
+#include "SkellEngine/Context.hpp"
 
 using namespace engine;
 

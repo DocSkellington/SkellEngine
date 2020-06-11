@@ -1,7 +1,7 @@
-#include "SkellEngine/animations/FrameAnimation.h"
+#include "SkellEngine/animations/FrameAnimation.hpp"
 
-#include "SkellEngine/animations/detail/to_from_sfml_color.h"
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/animations/detail/to_from_sfml_color.hpp"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::animations {
     FrameAnimation::FrameAnimation(const nlohmann::json &description) {

@@ -1,7 +1,7 @@
-#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
+#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.hpp"
 
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::entities::components {
     GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(states::StateContext &context) :

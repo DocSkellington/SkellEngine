@@ -1,9 +1,9 @@
-#include "SkellEngine/systems/System.h"
+#include "SkellEngine/systems/System.hpp"
 
 #include <cctype>
 
-#include "SkellEngine/systems/ExternSystem.h"
-#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/systems/ExternSystem.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
 
 namespace engine::systems {
     System::System(SystemManager& manager) :

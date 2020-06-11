@@ -1,14 +1,14 @@
-#include "SkellEngine/Context.h"
+#include "SkellEngine/Context.hpp"
 
 #include <sol/sol.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/errors/FileNotFound.h"
-#include "SkellEngine/config.h"
-#include "SkellEngine/events/EventHandler.h"
-#include "SkellEngine/input/InputHandler.h"
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/errors/FileNotFound.hpp"
+#include "SkellEngine/config.hpp"
+#include "SkellEngine/events/EventHandler.hpp"
+#include "SkellEngine/input/InputHandler.hpp"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/states/StateManager.hpp"
 
 namespace engine {
     Context::Context(const std::filesystem::path &baseMediaPath, bool graphical) {

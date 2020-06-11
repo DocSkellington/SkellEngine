@@ -1,6 +1,6 @@
-#include "SkellEngine/levels/LevelDescription.h"
+#include "SkellEngine/levels/LevelDescription.hpp"
 
-#include "SkellEngine/errors/BadLevelDescription.h"
+#include "SkellEngine/errors/BadLevelDescription.hpp"
 
 namespace engine::levels {
     LevelDescription::EntityDescription::EntityDescription(const std::string &name, const nlohmann::json &description) :

@@ -1,9 +1,9 @@
 #include <catch.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/entities/Entity.h"
-#include "SkellEngine/Context.h"
-#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/entities/Entity.hpp"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/files/FileManager.hpp"
 
 using namespace engine;
 using namespace entities;

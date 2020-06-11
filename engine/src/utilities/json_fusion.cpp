@@ -1,4 +1,4 @@
-#include "SkellEngine/utilities/json_fusion.h"
+#include "SkellEngine/utilities/json_fusion.hpp"
 
 namespace engine::utilities {
     nlohmann::json json_fusion(const nlohmann::json &a, const nlohmann::json &b) {

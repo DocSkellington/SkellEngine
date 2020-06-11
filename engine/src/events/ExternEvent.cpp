@@ -1,4 +1,4 @@
-#include "SkellEngine/events/ExternEvent.h"
+#include "SkellEngine/events/ExternEvent.hpp"
 
 namespace engine::events {
     ExternEvent::ExternEvent(const std::string &type, Context &context) :

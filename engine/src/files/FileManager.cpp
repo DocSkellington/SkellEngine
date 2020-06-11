@@ -1,4 +1,4 @@
-#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/files/FileManager.hpp"
 
 #include <fstream>
 #include <cctype>
@@ -6,10 +6,10 @@
 #include <sol/sol.hpp>
 #include <filesystem>
 
-#include "SkellEngine/errors/FileNotFound.h"
-#include "SkellEngine/errors/SystemNotFound.h"
-#include "SkellEngine/errors/StateNotFound.h"
-#include "SkellEngine/errors/BadLevelDescription.h"
+#include "SkellEngine/errors/FileNotFound.hpp"
+#include "SkellEngine/errors/SystemNotFound.hpp"
+#include "SkellEngine/errors/StateNotFound.hpp"
+#include "SkellEngine/errors/BadLevelDescription.hpp"
 
 namespace engine::files {
     FileManager::FileManager(Context &context, const std::string &baseMediapath) :

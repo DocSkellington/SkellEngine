@@ -24,6 +24,21 @@ if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/CMakeLists.t
         ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/TileLayer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/LayerGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/src/Tileset.cpp
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/detail/Android.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/detail/Log.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Config.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/FreeFuncs.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/ImageLayer.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Layer.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/LayerGroup.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Map.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Object.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/ObjectGroup.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Property.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/TileLayer.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Tileset.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/tmxlite/tmxlite/include/tmxlite/Types.hpp
     )
     target_include_directories(tmxlite
         PUBLIC
@@ -89,8 +104,8 @@ if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
 endif()
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine/config.h.in
-    ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/SkellEngine/config.hpp.in
+    ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.hpp
 )
 
 # Source files
@@ -156,9 +171,87 @@ set(SOURCES
     src/utilities/ExternMemberStorage.cpp
 )
 
+set(HEADER_LIST
+    include/SkellEngine/Context.hpp
+    include/SkellEngine/Engine.hpp
+    include/SkellEngine/Logger.hpp
+
+    include/SkellEngine/entities/Entity.hpp
+    include/SkellEngine/entities/EntityManager.hpp
+
+    include/SkellEngine/entities/components/Component.hpp
+    include/SkellEngine/entities/components/ExternComponent.hpp
+    include/SkellEngine/entities/components/GraphicalSpriteSheetComponent.hpp
+    include/SkellEngine/entities/components/PositionComponent.hpp
+    include/SkellEngine/entities/components/AnimationComponent.hpp
+
+    include/SkellEngine/events/EventHandler.hpp
+    include/SkellEngine/events/Event.hpp
+    include/SkellEngine/events/ExternEvent.hpp
+    include/SkellEngine/events/StoreEventConnections.hpp
+    include/SkellEngine/events/EventConnection.hpp
+
+    include/SkellEngine/input/InputHandler.hpp
+    include/SkellEngine/input/detail/to_from_sfml_events.hpp
+    include/SkellEngine/input/detail/parse_json.hpp
+    include/SkellEngine/input/detail/write_json.hpp
+    include/SkellEngine/input/detail/default.hpp
+
+    include/SkellEngine/files/FileManager.hpp
+    include/SkellEngine/files/GameDescription.hpp
+
+    include/SkellEngine/levels/Level.hpp
+    include/SkellEngine/levels/LevelDescription.hpp
+
+    include/SkellEngine/map/Layers.hpp
+    include/SkellEngine/map/Map.hpp
+
+    include/SkellEngine/shapes/EllipseShape.hpp
+
+    include/SkellEngine/states/State.hpp
+    include/SkellEngine/states/ExternState.hpp
+    include/SkellEngine/states/StateManager.hpp
+    include/SkellEngine/states/StateContext.hpp
+
+    include/SkellEngine/systems/GraphicalOrthogonalSystem.hpp
+    include/SkellEngine/systems/GraphicalSystem.hpp
+    include/SkellEngine/systems/System.hpp
+    include/SkellEngine/systems/SystemManager.hpp
+    include/SkellEngine/systems/ExternSystem.hpp
+    include/SkellEngine/systems/AnimationSystem.hpp
+
+    include/SkellEngine/animations/FrameAnimation.hpp
+    include/SkellEngine/animations/ColorAnimation.hpp
+    include/SkellEngine/animations/FadeAnimation.hpp
+    include/SkellEngine/animations/AnimationMap.hpp
+    include/SkellEngine/animations/Animator.hpp
+    include/SkellEngine/animations/TimedAnimation.hpp
+    include/SkellEngine/animations/detail/to_from_sfml_color.hpp
+
+    include/SkellEngine/utilities/json_lua.hpp
+    include/SkellEngine/utilities/json_fusion.hpp
+    include/SkellEngine/utilities/lua_sfml.hpp
+    include/SkellEngine/utilities/lua_gui.hpp
+    include/SkellEngine/utilities/MemberStorage.hpp
+    include/SkellEngine/utilities/ExternMemberStorage.hpp
+
+    include/SkellEngine/errors/BadLevelDescription.hpp
+    include/SkellEngine/errors/FileNotFound.hpp
+    include/SkellEngine/errors/InvalidEvent.hpp
+    include/SkellEngine/errors/InvalidJSON.hpp
+    include/SkellEngine/errors/InvalidMap.hpp
+    include/SkellEngine/errors/NotImplemented.hpp
+    include/SkellEngine/errors/StateNotFound.hpp
+    include/SkellEngine/errors/SystemNotFound.hpp
+    include/SkellEngine/errors/WrongType.hpp
+
+    ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.hpp
+)
+
 # Library
 add_library(${LIBRARY_NAME} SHARED
     ${SOURCES}
+    ${HEADER_LIST}
 )
 
 target_include_directories(${LIBRARY_NAME}

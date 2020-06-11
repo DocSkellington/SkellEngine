@@ -1,10 +1,10 @@
-#include "SkellEngine/systems/GraphicalOrthogonalSystem.h"
+#include "SkellEngine/systems/GraphicalOrthogonalSystem.hpp"
 
 #include <memory>
 #include <iostream>
 
-#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.h"
-#include "SkellEngine/levels/Level.h"
+#include "SkellEngine/entities/components/GraphicalSpriteSheetComponent.hpp"
+#include "SkellEngine/levels/Level.hpp"
 
 namespace engine::systems {
     GraphicalOrthogonalSystem::GraphicalOrthogonalSystem(SystemManager &manager) :

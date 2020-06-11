@@ -1,13 +1,13 @@
-#include "SkellEngine/map/Layers.h"
+#include "SkellEngine/map/Layers.hpp"
 
 #include <Thor/Resources.hpp>
 
-#include "SkellEngine/map/Map.h"
-#include "SkellEngine/Context.h"
-#include "SkellEngine/shapes/EllipseShape.h"
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/errors/NotImplemented.h"
-#include "SkellEngine/errors/InvalidMap.h"
+#include "SkellEngine/map/Map.hpp"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/shapes/EllipseShape.hpp"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/errors/NotImplemented.hpp"
+#include "SkellEngine/errors/InvalidMap.hpp"
 
 namespace engine::map {
     Layer::Layer(Map &map, bool visible) :

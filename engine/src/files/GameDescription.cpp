@@ -1,4 +1,4 @@
-#include "SkellEngine/files/GameDescription.h"
+#include "SkellEngine/files/GameDescription.hpp"
 
 #include <cctype>
 #include <filesystem>

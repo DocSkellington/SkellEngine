@@ -1,6 +1,6 @@
-#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/states/StateManager.hpp"
 
-#include "SkellEngine/Context.h"
+#include "SkellEngine/Context.hpp"
 
 namespace engine::states {
     StateManager::StateManager(Context &context) :

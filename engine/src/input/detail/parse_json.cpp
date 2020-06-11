@@ -1,11 +1,11 @@
-#include "SkellEngine/input/detail/parse_json.h"
+#include "SkellEngine/input/detail/parse_json.hpp"
 
 #include <Thor/Input.hpp>
 #include <Thor/Graphics/ToString.hpp>
 
-#include "SkellEngine/input/detail/default.h"
-#include "SkellEngine/input/detail/to_from_sfml_events.h"
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/input/detail/default.hpp"
+#include "SkellEngine/input/detail/to_from_sfml_events.hpp"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::input::detail {
     inline void parseInputDescriptionObjectKeyboard(nlohmann::json &inputDescription, sf::Event &event) {

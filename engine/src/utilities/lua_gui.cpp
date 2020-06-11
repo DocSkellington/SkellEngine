@@ -1,4 +1,4 @@
-#include "SkellEngine/utilities/lua_gui.h"
+#include "SkellEngine/utilities/lua_gui.hpp"
 
 using namespace tgui;
 

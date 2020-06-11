@@ -1,8 +1,8 @@
 #include <catch.hpp>
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/errors/FileNotFound.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/errors/FileNotFound.hpp"
 
 using namespace engine;
 

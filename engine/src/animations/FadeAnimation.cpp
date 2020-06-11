@@ -1,6 +1,6 @@
-#include "SkellEngine/animations/FadeAnimation.h"
+#include "SkellEngine/animations/FadeAnimation.hpp"
 
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 namespace engine::animations {
     FadeAnimation::FadeAnimation(float inRatio, float outRatio) :

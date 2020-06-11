@@ -1,8 +1,8 @@
-#include "SkellEngine/states/StateContext.h"
+#include "SkellEngine/states/StateContext.hpp"
 
-#include "SkellEngine/levels/Level.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/entities/EntityManager.h"
+#include "SkellEngine/levels/Level.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/entities/EntityManager.hpp"
 
 namespace engine::states {
     StateContext::StateContext(Context &context, const std::string &stateName) :

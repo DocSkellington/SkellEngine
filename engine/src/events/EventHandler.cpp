@@ -1,8 +1,8 @@
-#include "SkellEngine/events/EventHandler.h"
+#include "SkellEngine/events/EventHandler.hpp"
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/utilities/json_lua.h"
-#include "SkellEngine/states/StateManager.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/states/StateManager.hpp"
 
 namespace engine::events {
     EventHandler::EventHandler(Context &context) :

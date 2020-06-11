@@ -1,10 +1,10 @@
-#include "SkellEngine/levels/Level.h"
+#include "SkellEngine/levels/Level.hpp"
 
-#include "SkellEngine/files/FileManager.h"
-#include "SkellEngine/utilities/json_fusion.h"
-#include "SkellEngine/errors/FileNotFound.h"
-#include "SkellEngine/entities/EntityManager.h"
-#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/utilities/json_fusion.hpp"
+#include "SkellEngine/errors/FileNotFound.hpp"
+#include "SkellEngine/entities/EntityManager.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
 
 namespace engine::levels {
     Level::Level(states::StateContext &context) :

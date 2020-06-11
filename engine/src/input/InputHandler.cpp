@@ -1,14 +1,14 @@
-#include "SkellEngine/input/InputHandler.h"
+#include "SkellEngine/input/InputHandler.hpp"
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/utilities/json_fusion.h"
-#include "SkellEngine/input/detail/to_from_sfml_events.h"
-#include "SkellEngine/input/detail/parse_json.h"
-#include "SkellEngine/input/detail/write_json.h"
-#include "SkellEngine/input/detail/default.h"
-#include "SkellEngine/states/StateManager.h"
-#include "SkellEngine/events/EventHandler.h"
-#include "SkellEngine/errors/InvalidJSON.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/utilities/json_fusion.hpp"
+#include "SkellEngine/input/detail/to_from_sfml_events.hpp"
+#include "SkellEngine/input/detail/parse_json.hpp"
+#include "SkellEngine/input/detail/write_json.hpp"
+#include "SkellEngine/input/detail/default.hpp"
+#include "SkellEngine/states/StateManager.hpp"
+#include "SkellEngine/events/EventHandler.hpp"
+#include "SkellEngine/errors/InvalidJSON.hpp"
 
 thor::Action applyModifiers(thor::Action action, bool lshift, bool lalt, bool lcontrol, bool rshift, bool ralt, bool rcontrol) {
     if (lshift) {

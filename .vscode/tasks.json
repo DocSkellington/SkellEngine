@@ -61,7 +61,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "command": "make doc_doxygen",
+            "command": "make documentation",
             "problemMatcher": []
         },
         {

@@ -1,4 +1,4 @@
-#include "SkellEngine/utilities/lua_sfml.h"
+#include "SkellEngine/utilities/lua_sfml.hpp"
 
 #include <string>
 

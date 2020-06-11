@@ -1,7 +1,7 @@
 #include <catch.hpp>
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/input/InputHandler.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/input/InputHandler.hpp"
 
 using namespace engine;
 using namespace input;

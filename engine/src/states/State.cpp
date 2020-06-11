@@ -1,8 +1,8 @@
-#include "SkellEngine/states/State.h"
+#include "SkellEngine/states/State.hpp"
 
-#include "SkellEngine/states/StateManager.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/states/ExternState.h"
+#include "SkellEngine/states/StateManager.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/states/ExternState.hpp"
 
 namespace engine::states {
     State::State(StateManager &manager, const std::string &stateName) :

@@ -1,6 +1,6 @@
-#include "SkellEngine/systems/SystemManager.h"
+#include "SkellEngine/systems/SystemManager.hpp"
 
-#include "SkellEngine/Context.h"
+#include "SkellEngine/Context.hpp"
 
 namespace engine::systems {
     SystemManager::SystemManager(states::StateContext& context) :

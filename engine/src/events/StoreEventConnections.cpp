@@ -1,4 +1,4 @@
-#include "SkellEngine/events/StoreEventConnections.h"
+#include "SkellEngine/events/StoreEventConnections.hpp"
 
 #include <typeinfo>
 

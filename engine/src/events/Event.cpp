@@ -1,7 +1,7 @@
-#include "SkellEngine/events/Event.h"
+#include "SkellEngine/events/Event.hpp"
 
-#include "SkellEngine/Context.h"
-#include "SkellEngine/events/ExternEvent.h"
+#include "SkellEngine/Context.hpp"
+#include "SkellEngine/events/ExternEvent.hpp"
 
 namespace engine::events {
     Event::Event(Context &context, const std::string &type) :
