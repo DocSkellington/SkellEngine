@@ -38,6 +38,22 @@ namespace engine::entities {
         Entity::Ptr addEntity(const std::string &name);        
 
         /**
+         * \brief Adds an entity of the given name and type.
+         * 
+         * It loads the global entity description from the JSON file, according to the type.
+         * If there is not JSON file, the description is then empty.
+         * 
+         * overload can be used to overwrite some values in the description.
+         *
+         * The entity is also added in the system manager (and the systems).
+         * \param name The name of the entity
+         * \param type The type of the entity
+         * \param overload Overwriting values
+         * \return A shared pointer to the entity
+         */
+        Entity::Ptr addEntity(const std::string &name, const std::string &type, const nlohmann::json &overload);
+
+        /**
          * \brief Adds an entity of the given name and constructs it with the given JSON table
          * 
          * It also adds the entity in the system manager (and the systems)
@@ -86,9 +102,19 @@ namespace engine::entities {
     private:
         std::vector<Entity::Ptr> m_entities;
         states::StateContext &m_context;
+        std::map<std::string, nlohmann::json> m_entitiesGlobal;
 
     private:
         Entity::Ptr addEntity(const std::string &name, const sol::table &luaTable);
         Entity::Ptr getEntity(const std::string &name, const sol::table &components);
+
+        /**
+         * \brief Loads the global JSON table of an entity.
+         *
+         * When loading an entity, it opens both the default file (if it exists) and the overriding one in the level folder (if it exists).
+         * \param entityType The entity of the entity
+         * \return The JSON table
+         */
+        nlohmann::json getEntityJSON(const std::string &entityType);
     };
 }

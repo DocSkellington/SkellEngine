@@ -31,7 +31,7 @@ namespace engine::levels {
         m_context.context.logger.log("Changing level to: " + levelName, LogType::Info);
         // Clearing 
         m_levelDescription.clear();
-        m_entitiesGlobal.clear();
+        m_entitiesDefinitions.clear();
 
         m_levelDescription.name = levelName;
 
@@ -88,6 +88,7 @@ namespace engine::levels {
 
     void Level::applyLevelDescription() {
         m_map.load(m_levelDescription.map);
+        auto gameDescription = m_context.context.fileManager->getGameDescription();
 
         auto &entities = m_levelDescription.entities;
 
@@ -99,39 +100,25 @@ namespace engine::levels {
                 type = t->get<std::string>();
                 description.erase(t);
             }
-            // We merge the specific data for this instance and the generic data for the type
-            auto entityGlobal = getEntityJSON(type);
-            auto entityDescription = utilities::json_fusion(entityGlobal, description);
-            // Finally, we create the new entity
-            m_context.entityManager->addEntity(entity.name, entityDescription);
+
+            // We load the descriptions specific for this level
+            nlohmann::json levelDescription;
+            if (m_entitiesDefinitions.find(type) == m_entitiesDefinitions.end()) {
+                // The entity is not yet known. Thus, we load it from a file, if it exists
+                if (std::ifstream levelFile ; !m_levelDescription.name.empty()) {
+                    std::filesystem::path levelFilePath = gameDescription.media.levelsFolder;
+                    levelFilePath /= m_levelDescription.name + "/entities/" + type + ".json";
+                    levelFile.open(levelFilePath);
+
+                    levelFile >> levelDescription;
+                    m_entitiesDefinitions[type] = levelDescription;
+                }
+            }
+            else {
+                levelDescription = m_entitiesDefinitions[type];
+            }
+            // Finally, we can add the entity
+            m_context.entityManager->addEntity(entity.name, type, levelDescription);
         }
-    }
-
-    nlohmann::json Level::getEntityJSON(const std::string &entityType) {
-        auto gameDescription = m_context.context.fileManager->getGameDescription();
-
-        if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
-            // If the entity is not yet known, we try to load the global settings (the global for the game and for the level), if they exist
-            std::filesystem::path defaultFilePath = gameDescription.media.entitiesFolder;
-            defaultFilePath /= entityType + ".json";
-            std::ifstream defaultFile(defaultFilePath);
-            std::ifstream levelGlobal;
-
-            if (!m_levelDescription.name.empty()) {
-                std::filesystem::path levelFilePath = gameDescription.media.levelsFolder;
-                levelFilePath /= m_levelDescription.name + "/entities/" + entityType + ".json";
-                levelGlobal.open(levelFilePath);
-            }
-
-            nlohmann::json def, lev;
-            if (defaultFile.is_open()) {
-                defaultFile >> def;
-            }
-            if (levelGlobal.is_open()) {
-                levelGlobal >> lev;
-            }
-            m_entitiesGlobal[entityType] = utilities::json_fusion(def, lev);
-        }
-        return m_entitiesGlobal[entityType];
     }
 }

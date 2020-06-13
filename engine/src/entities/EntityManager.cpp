@@ -2,7 +2,9 @@
 
 #include "SkellEngine/Context.hpp"
 #include "SkellEngine/utilities/json_lua.hpp"
+#include "SkellEngine/utilities/json_fusion.hpp"
 #include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/files/FileManager.hpp"
 
 namespace engine::entities {
     EntityManager::EntityManager(states::StateContext &context) :
@@ -26,6 +28,12 @@ namespace engine::entities {
         Entity::Ptr entity = std::make_shared<Entity>(*this, entityName);
         m_entities.push_back(entity);
         return entity;
+    }
+
+    Entity::Ptr EntityManager::addEntity(const std::string &name, const std::string &type, const nlohmann::json &overload) {
+        nlohmann::json globalDefinition = getEntityJSON(type);
+        nlohmann::json definition = utilities::json_fusion(globalDefinition, overload);
+        return addEntity(name, definition);
     }
 
     Entity::Ptr EntityManager::addEntity(const std::string &entityName, const nlohmann::json &jsonTable) {
@@ -111,5 +119,23 @@ namespace engine::entities {
         }
 
         return getEntity(name, componentsVector);
+    }
+
+    nlohmann::json EntityManager::getEntityJSON(const std::string &entityType) {
+        auto gameDescription = m_context.context.fileManager->getGameDescription();
+
+        if (m_entitiesGlobal.find(entityType) == m_entitiesGlobal.end()) {
+            // If the entity is not yet known, we try to load the global settings, if they exist
+            std::filesystem::path defaultFilePath = gameDescription.media.entitiesFolder;
+            defaultFilePath /= entityType + ".json";
+            std::ifstream defaultFile(defaultFilePath);
+
+            nlohmann::json def;
+            if (defaultFile.is_open()) {
+                defaultFile >> def;
+            }
+            m_entitiesGlobal[entityType] = def;
+        }
+        return m_entitiesGlobal[entityType];
     }
 }

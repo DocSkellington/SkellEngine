@@ -99,19 +99,10 @@ namespace engine::levels {
          */
         void applyLevelDescription();
 
-        /**
-         * \brief Loads the JSON table of an entity.
-         *
-         * When loading an entity, it opens both the default file (if it exists) and the overriding one in the level folder (if it exists).
-         * \param entityType The entity of the entity
-         * \return The JSON table
-         */
-        nlohmann::json getEntityJSON(const std::string &entityType);
-
     private:
         states::StateContext &m_context;
         map::Map m_map;
         LevelDescription m_levelDescription;
-        std::map<std::string, nlohmann::json> m_entitiesGlobal;
+        std::map<std::string, nlohmann::json> m_entitiesDefinitions;
     };
 }
