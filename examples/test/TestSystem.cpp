@@ -1,6 +1,6 @@
-#include "SkellEngine/systems/System.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/Context.h"
+#include "SkellEngine/systems/System.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/Context.hpp"
 
 using namespace engine::systems;
 

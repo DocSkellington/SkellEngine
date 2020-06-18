@@ -1,9 +1,9 @@
-#include "SkellEngine/states/State.h"
-#include "SkellEngine/systems/SystemManager.h"
-#include "SkellEngine/levels/Level.h"
-#include "SkellEngine/states/StateManager.h"
-#include "SkellEngine/entities/EntityManager.h"
-#include "SkellEngine/files/FileManager.h"
+#include "SkellEngine/states/State.hpp"
+#include "SkellEngine/systems/SystemManager.hpp"
+#include "SkellEngine/levels/Level.hpp"
+#include "SkellEngine/states/StateManager.hpp"
+#include "SkellEngine/entities/EntityManager.hpp"
+#include "SkellEngine/files/FileManager.hpp"
 
 class GameState : public engine::states::State {
 public:
