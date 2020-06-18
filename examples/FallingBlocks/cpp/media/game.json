@@ -1,0 +1,14 @@
+{
+    "name": "Tetris",
+    "version": "1.0.0",
+    "log": {
+        "output": "console"
+    },
+    "window" : {
+        "fullscreen" : false,
+        "size" : [600, 600]
+    },
+    "states": {
+        "first": "game"
+    }
+}

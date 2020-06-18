@@ -1,0 +1,30 @@
+{
+    "WindowClosed": {
+        "type": "Closed"
+    },
+    "MoveRight": {
+        "type": "KeyPressed",
+        "key": "Right",
+        "state": "game"
+    },
+    "MoveLeft": {
+        "type": "KeyPressed",
+        "key": "Left",
+        "state": "game"
+    },
+    "MoveDown": {
+        "type": "KeyPressed",
+        "key": "Down",
+        "state": "game"
+    },
+    "Drop": {
+        "type": "KeyPressed",
+        "key": "Space",
+        "state": "game"
+    },
+    "RotateClockwise": {
+        "type": "KeyPressed",
+        "key": "Up",
+        "state": "game"
+    }
+}
