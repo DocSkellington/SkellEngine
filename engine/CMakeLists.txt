@@ -120,6 +120,7 @@ set(SOURCES
     src/entities/components/Component.cpp
     src/entities/components/ExternComponent.cpp
     src/entities/components/GraphicalSpriteSheetComponent.cpp
+    src/entities/components/GraphicalComposedSpriteComponent.cpp
     src/entities/components/PositionComponent.cpp
     src/entities/components/AnimationComponent.cpp
 
@@ -182,6 +183,7 @@ set(HEADER_LIST
     include/SkellEngine/entities/components/Component.hpp
     include/SkellEngine/entities/components/ExternComponent.hpp
     include/SkellEngine/entities/components/GraphicalSpriteSheetComponent.hpp
+    include/SkellEngine/entities/components/GraphicalComposedSpriteComponent.hpp
     include/SkellEngine/entities/components/PositionComponent.hpp
     include/SkellEngine/entities/components/AnimationComponent.hpp
 
