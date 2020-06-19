@@ -4,6 +4,10 @@
         "player" : {
             "type": "test",
             "position": [30, 40]
+        },
+        "enemy": {
+            "type": "testComposedSprite",
+            "position": [500, 400]
         }
     }
 }
