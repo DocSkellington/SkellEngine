@@ -62,7 +62,7 @@ namespace engine {
                 float now = FPSClock.getElapsedTime().asSeconds();
                 // We use a moving average to smooth the FPS display
                 FPS = 0.6 * FPS + 0.4 * 1. / (now - lastTime);
-                // tmx::Logger::log(std::to_string(FPS));
+                // m_context.logger.log(std::to_string(FPS));
                 lastTime = now;
 
                 // To avoid overflow

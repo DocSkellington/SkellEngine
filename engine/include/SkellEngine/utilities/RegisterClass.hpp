@@ -119,6 +119,7 @@ namespace engine::utilities {
  * 
  * \note This macro adds a <b>private</b> member variable. The name of the variable is the concatenation of "registeringVariable" and the line number in the header file using this macro. This allows to register multiple times the same class under different names
  * \warning This macro uses "private: ". Therefore, everything declared after this macro will be marked as private in your class definition.
+ * \todo Add a way to register aliases
  */
 #define REGISTER_CLASS(REGISTER_OBJECT, TYPE, NAME)                                                 \
     private:                                                                                        \

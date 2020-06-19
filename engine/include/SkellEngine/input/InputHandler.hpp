@@ -26,8 +26,9 @@ namespace engine::input {
      * 
      * Typically, the connections are loaded from a JSON file describing the input
      * \see engine::files::GameDescription::MediaDescription, @ref json_game_description and TODO: the Markdown documentation for the file description
-     * \see engine::events::EventHandler for how to subsribe for an event
-     * \todo TODO: add graphical sprites for PS4, Xbox, Gamecube and Switch Pro controllers
+     * \see engine::events::EventHandler for how to subscribe for an event
+     * \todo Add graphical sprites for PS4, Xbox, Gamecube and Switch Pro controllers
+     * \todo Allow to have multiple inputs with the same keyboard's key
      */
     class InputHandler {
     private:
@@ -86,7 +87,7 @@ namespace engine::input {
         void proccess(const sf::Event &event);
 
         /**
-         * \brief Clears the events that have been temporaly stored
+         * \brief Clears the events that have been temporarily stored
          */
         void clearInputs();
 

@@ -51,7 +51,7 @@ namespace engine::files {
          * 
          * The texture must be in the "baseSprites" folder of the game description
          * 
-         * The ID of the texture if the path
+         * The ID of the texture is the given path
          * \param path The path to the texture to load (relative to baseSprites)
          * \param override If true, the texture is overriden by the new one
          * \return The texture
@@ -62,7 +62,7 @@ namespace engine::files {
         /**
          * \brief Loads the texture in the given path and registers it under the textureName
          * 
-         * The ID of the texture if the path
+         * The ID of the texture is the given path
          * 
          * \param path The path to the texture (relative from the root of the media folder)
          * \param override If true, the texture is overriden by the new one

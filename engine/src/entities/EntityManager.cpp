@@ -37,6 +37,10 @@ namespace engine::entities {
     }
 
     Entity::Ptr EntityManager::addEntity(const std::string &entityName, const nlohmann::json &jsonTable) {
+        if (!jsonTable.is_object()) {
+            getContext().context.logger.log("Error while creating a new entity: the given JSON must be an object. Received: '" + jsonTable.dump() + "'. No entity will be created.\n", engine::LogType::Warning);
+            return nullptr;
+        }
         Entity::Ptr entity = addEntity(entityName);
         
         for (auto itr = jsonTable.begin() ; itr != jsonTable.end() ; ++itr) {
