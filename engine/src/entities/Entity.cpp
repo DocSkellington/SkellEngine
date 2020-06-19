@@ -59,7 +59,7 @@ namespace engine::entities {
         return itr->second;
     }
 
-    std::size_t Entity::size() const {
+    Entity::mapType::size_type Entity::size() const {
         return m_components.size();
     }
 
