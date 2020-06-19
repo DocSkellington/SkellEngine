@@ -114,8 +114,6 @@ set(SOURCES
     src/Context.cpp
     src/Logger.cpp
 
-    # src/math/Vector2.cpp
-
     src/entities/Entity.cpp
     src/entities/EntityManager.cpp
 
@@ -180,6 +178,9 @@ set(HEADER_LIST
     include/SkellEngine/Logger.hpp
 
     include/SkellEngine/math/Vector2.hpp
+
+    include/SkellEngine/random/RandomGenerator.hpp
+    include/SkellEngine/random/UniformRandomGenerator.hpp
 
     include/SkellEngine/entities/Entity.hpp
     include/SkellEngine/entities/EntityManager.hpp
