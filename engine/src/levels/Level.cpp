@@ -117,8 +117,10 @@ namespace engine::levels {
             else {
                 levelDescription = m_entitiesDefinitions[type];
             }
+            // We fuse the level description and the local description
+            nlohmann::json completeDescription = utilities::json_fusion(description, levelDescription);
             // Finally, we can add the entity
-            m_context.entityManager->addEntity(entity.name, type, levelDescription);
+            m_context.entityManager->addEntity(entity.name, type, completeDescription);
         }
     }
 }
