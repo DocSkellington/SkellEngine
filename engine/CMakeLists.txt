@@ -114,6 +114,8 @@ set(SOURCES
     src/Context.cpp
     src/Logger.cpp
 
+    # src/math/Vector2.cpp
+
     src/entities/Entity.cpp
     src/entities/EntityManager.cpp
 
@@ -176,6 +178,8 @@ set(HEADER_LIST
     include/SkellEngine/Context.hpp
     include/SkellEngine/Engine.hpp
     include/SkellEngine/Logger.hpp
+
+    include/SkellEngine/math/Vector2.hpp
 
     include/SkellEngine/entities/Entity.hpp
     include/SkellEngine/entities/EntityManager.hpp
@@ -284,7 +288,7 @@ target_link_libraries(${LIBRARY_NAME}
 
 target_compile_features(${LIBRARY_NAME}
     PUBLIC
-        cxx_std_17
+        cxx_std_20
 )
 
 target_compile_options(${LIBRARY_NAME}

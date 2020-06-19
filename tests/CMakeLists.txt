@@ -16,6 +16,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/utilities/json_lua_tests.cpp ${CMAKE_
 set(TESTS_SOURCES
     main.cpp
 
+    math/vector2_test.cpp
+
     ${CMAKE_CURRENT_BINARY_DIR}/events/event_handler_test.cpp
 
     ${CMAKE_CURRENT_BINARY_DIR}/input/input_handler_test.cpp
