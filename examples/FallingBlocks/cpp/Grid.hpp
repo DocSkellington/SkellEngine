@@ -12,7 +12,7 @@
 // Handles movements of blocks
 class Grid {
 public:
-    Grid(unsigned int width, unsigned int height, engine::states::StateContext &stateContext);
+    Grid(unsigned int width, unsigned int height, unsigned int cellSize, engine::states::StateContext &stateContext);
     ~Grid();
 
     bool moveMainDown();
@@ -51,7 +51,7 @@ private:
     // Line, column
     std::vector<std::vector<engine::entities::Entity::Ptr>> m_grid;
 
-    const long m_cellSize = 10;
+    const long m_cellSize;
     const sf::Vector2f m_origin;
     const long m_width;
     const long m_height;

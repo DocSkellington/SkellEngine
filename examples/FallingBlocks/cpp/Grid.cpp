@@ -6,8 +6,9 @@
 // TODO: add a score system
 // TODO: add animations, sounds, and so on
 
-Grid::Grid(unsigned int width, unsigned int height, engine::states::StateContext &context) :
+Grid::Grid(unsigned int width, unsigned int height, unsigned int cellSize, engine::states::StateContext &context) :
     m_context(context),
+    m_cellSize(cellSize),
     m_origin(3 * m_cellSize, height * m_cellSize),
     m_width(width),
     m_height(height),
@@ -369,7 +370,8 @@ void Grid::createNewMainBlock() {
         json["position"] = {actualPosition.x, actualPosition.y};
         json["composedsprite"]["type"] = "quads";
         json["composedsprite"]["sprite"] = texture;
-        json["composedsprite"]["vertices"] = { {-5, -5}, {5, -5}, {5, 5}, {-5, 5} };
+        json["composedsprite"]["vertices"] = { {-1, -1}, {1, -1}, {1, 1}, {-1, 1} };
+        json["composedsprite"]["scale"] = m_cellSize / 2;
         m_mainBlock[i] = m_context.entityManager->addEntity("main" + std::to_string(i), json);
     }
     m_mainRotation = 0;

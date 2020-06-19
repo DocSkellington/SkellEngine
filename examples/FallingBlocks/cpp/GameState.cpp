@@ -24,7 +24,7 @@ public:
 
         registerCallback("Drop", [&](const engine::events::Event &event) {
             if (!m_grid) {
-                m_grid = std::make_unique<Grid>(m_gridSize.x, m_gridSize.y, getStateContext());
+                m_grid = std::make_unique<Grid>(m_gridSize.x, m_gridSize.y, 30, getStateContext());
                 m_timeSinceLastMove = 0;
             }
         });
