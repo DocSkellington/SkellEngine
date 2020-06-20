@@ -182,6 +182,7 @@ set(HEADER_LIST
     include/SkellEngine/random/RandomGenerator.hpp
     include/SkellEngine/random/UniformRandomGenerator.hpp
     include/SkellEngine/random/RandomChoice.hpp
+    include/SkellEngine/random/CombinedRandomGenerator.hpp
 
     include/SkellEngine/entities/Entity.hpp
     include/SkellEngine/entities/EntityManager.hpp

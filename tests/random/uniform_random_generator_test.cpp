@@ -3,6 +3,7 @@
 #include <catch.hpp>
 
 #include "SkellEngine/random/UniformRandomGenerator.hpp"
+#include "SkellEngine/random/CombinedRandomGenerator.hpp"
 
 using namespace engine;
 using namespace random;
@@ -68,5 +69,19 @@ SCENARIO("Uniform random generator on floating points", "[random][uniform]") {
             }
 
         }
+    }
+}
+
+SCENARIO("Mean of two uniform random generators", "[random][uniform][mean]") {
+    UniformRandomGenerator<long> a(-5, 10);
+    UniformRandomGenerator<long> b(0, 3);
+    // CombinedRandomGenerator gen(&a, &b, [](const long &t_1, const long &t_2) { return (t_1 + t_2) / 2; });
+    MeanRandomGenerator gen(&a, &b);
+
+    for (int i = 0 ; i < NUMBER_ITERATIONS ; i++) {
+        auto n = gen();
+        std::cout << n << "\n";
+        REQUIRE((-5 + 0) / 2 <= n);
+        REQUIRE(n <= (10 + 3) / 2);
     }
 }
