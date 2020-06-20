@@ -67,12 +67,36 @@ namespace engine{
         return os;
     }
 
+    /**
+     * \brief A 2D vector using char
+     */
     using Vector2c = Vector2<char>;
+    /**
+     * \brief A 2D vector using unsigned char
+     */
     using Vector2uc = Vector2<unsigned char>;
+    /**
+     * \brief A 2D vector using int
+     */
     using Vector2i = Vector2<int>;
+    /**
+     * \brief A 2D vector using unsigned int
+     */
     using Vector2ui = Vector2<unsigned int>;
+    /**
+     * \brief A 2D vector using long
+     */
     using Vector2l = Vector2<long>;
+    /**
+     * \brief A 2D vector using unsigned long
+     */
     using Vector2ul = Vector2<unsigned long>;
+    /**
+     * \brief A 2D vector using float
+     */
     using Vector2f = Vector2<float>;
+    /**
+     * \brief A 2D vector using double
+     */
     using Vector2d = Vector2<double>;
 }

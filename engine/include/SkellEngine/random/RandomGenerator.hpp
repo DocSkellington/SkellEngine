@@ -9,13 +9,29 @@
  * For instance, a Bernoulli distribution with probability 1/3 will always produce at least one true value out of three samples.
  */
 namespace engine::random {
+    /**
+     * \brief Base (abstract) interface of all random generators
+     */
     template <typename T>
     class RandomGenerator {
     public:
         RandomGenerator(const RandomGenerator &gen) = delete;
+        virtual ~RandomGenerator() = default;
 
+        /**
+         * \brief Generates a random element of type T
+         * 
+         * The exact generation depends on the actual generator.
+         */
         virtual T next() = 0;
 
+        /**
+         * \brief Generates a random element of type T
+         * 
+         * The exact generation depends on the actual generator.
+         * 
+         * This is exactly the same as next().
+         */
         T operator()() {
             return next();
         }

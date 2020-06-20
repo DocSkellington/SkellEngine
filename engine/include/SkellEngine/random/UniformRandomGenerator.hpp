@@ -20,6 +20,7 @@ namespace engine::random {
      * Of course, it may happen that multiple c are generated (due to randomness).
      * 
      * \warning If T is not an integral, nor a floating point, then the class does not compile
+     * \see engine::random::RandomChoice to randomly select a value in a container using an uniform distribution.
      */
     template <typename T>
         requires std::is_integral_v<T> || std::is_floating_point_v<T>
@@ -58,13 +59,15 @@ namespace engine::random {
          * \param riggedValue The wanted number to occur often
          * \param riggedPeriod The period of the riggedness
          */
-        UniformRandomGenerator(T a, T b, T riggedValue, long riggedPeriod) :
+        UniformRandomGenerator(T a, T b, T riggedValue, std::size_t riggedPeriod) :
             RandomGenerator<T>(true),
             m_distribution(a, getUpper(b)),
             m_riggedValue(riggedValue),
             m_period(riggedPeriod) {
 
         }
+
+        virtual ~UniformRandomGenerator() = default;
 
         T next() override {
             if (this->isRigged()) {
@@ -118,7 +121,7 @@ namespace engine::random {
             return b;
         }
         
-        template<typename Q>
+        template<typename Q = T>
         typename std::enable_if_t<std::is_floating_point_v<Q>, Q> getUpper(Q b) const {
             return std::nextafter(b, std::numeric_limits<Q>::max());
         }
@@ -126,7 +129,7 @@ namespace engine::random {
     private:
         distribution_type m_distribution;
         std::list<T> m_lastSamples;
-        T m_period;
+        std::size_t m_period;
         T m_riggedValue;
     };
 }
