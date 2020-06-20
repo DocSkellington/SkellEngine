@@ -18,6 +18,8 @@ set(TESTS_SOURCES
 
     math/vector2_test.cpp
 
+    random/uniform_random_generator_test.cpp
+
     ${CMAKE_CURRENT_BINARY_DIR}/events/event_handler_test.cpp
 
     ${CMAKE_CURRENT_BINARY_DIR}/input/input_handler_test.cpp
