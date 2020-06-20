@@ -9,7 +9,7 @@ using namespace random;
 
 #define NUMBER_ITERATIONS 1000
 
-SCENARIO("Uniform random generator on integers", "[random]") {
+SCENARIO("Uniform random generator on integers", "[random][uniform]") {
     GIVEN("A non-rigged generator") {
         UniformRandomGenerator<long> uniform(-5, 10);
 
@@ -38,7 +38,7 @@ SCENARIO("Uniform random generator on integers", "[random]") {
     }
 }
 
-SCENARIO("Uniform random generator on floating points", "[random]") {
+SCENARIO("Uniform random generator on floating points", "[random][uniform]") {
     GIVEN("A non-rigged generator") {
         double lower = 2.71828;
         double upper = 3.1415;
