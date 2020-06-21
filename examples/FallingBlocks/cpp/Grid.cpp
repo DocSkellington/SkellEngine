@@ -12,16 +12,13 @@ Grid::Grid(unsigned int width, unsigned int height, unsigned int cellSize, engin
     m_origin(3 * m_cellSize, height * m_cellSize),
     m_width(width),
     m_height(height),
-    m_nextBlockGenerator(0, 6),
+    m_nextBlockGenerator(BlockType::SQUARE, BlockType::SIZE - 1),
     m_topCenter((width - 1) / 2, height - 1),
     m_eventConnections(*context.context.eventHandler) {
     m_grid.resize(height);
     for (auto &column : m_grid) {
         column.resize(width);
     }
-
-    std::random_device rd;
-    m_rng.seed(rd());
 
     m_mainBlock.resize(4);
     createNewMainBlock();
@@ -299,66 +296,71 @@ std::list<unsigned int> Grid::findCompleteLines() {
 }
 
 void Grid::createNewMainBlock() {
-    int nextBlock = m_nextBlockGenerator(m_rng);
+    m_mainType = (BlockType)m_nextBlockGenerator();
 
     std::string texture = "";
     sf::Vector2f positions[4];
-    m_mainType = (BlockType)nextBlock;
 
-    if (nextBlock == BlockType::SQUARE) {
+    // We define the texture and the position of each part of the block
+    switch (m_mainType) {
+    case BlockType::SQUARE:
         texture = "green.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x + 1, m_topCenter.y};
         positions[2] = {m_topCenter.x, m_topCenter.y - 1};
         positions[3] = {m_topCenter.x + 1, m_topCenter.y - 1};
-    }
-    else if (nextBlock == BlockType::LINE) {
+        break;
+    case BlockType::LINE:
         texture = "yellow.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x, m_topCenter.y - 1};
         positions[2] = {m_topCenter.x, m_topCenter.y - 2};
         positions[3] = {m_topCenter.x, m_topCenter.y - 3};
-    }
-    else if (nextBlock == BlockType::T) {
+        break;
+    case BlockType::T:
         texture = "grey.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x - 1, m_topCenter.y - 1};
         positions[2] = {m_topCenter.x, m_topCenter.y - 1};
         positions[3] = {m_topCenter.x + 1, m_topCenter.y - 1};
-    }
-    else if (nextBlock == BlockType::L) {
+        break;
+    case BlockType::L:
         texture = "red.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x, m_topCenter.y - 1};
         positions[2] = {m_topCenter.x, m_topCenter.y - 2};
         positions[3] = {m_topCenter.x + 1, m_topCenter.y - 2};
-    }
-    else if (nextBlock == BlockType::REVERSED_L) {
+        break;
+    case BlockType::REVERSED_L:
         texture = "orange.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x, m_topCenter.y - 1};
         positions[2] = {m_topCenter.x, m_topCenter.y - 2};
         positions[3] = {m_topCenter.x - 1, m_topCenter.y - 2};
-    }
-    else if (nextBlock == BlockType::S) {
+        break;
+    case BlockType::S:
         texture = "blue.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x - 1, m_topCenter.y};
         positions[2] = {m_topCenter.x - 1, m_topCenter.y - 1};
         positions[3] = {m_topCenter.x - 2, m_topCenter.y - 1};
-    }
-    else if (nextBlock == BlockType::Z) {
+        break;
+    case BlockType::Z:
         texture = "lightBlue.png";
         positions[0] = {m_topCenter.x, m_topCenter.y};
         positions[1] = {m_topCenter.x + 1, m_topCenter.y};
         positions[2] = {m_topCenter.x + 1, m_topCenter.y - 1};
         positions[3] = {m_topCenter.x + 2, m_topCenter.y - 1};
+        break;
+    default:
+        m_context.context.logger.log("Unknown block type " + std::to_string(m_mainType), engine::LogType::Error);
     }
 
     // We first check if we can spawn the block in the grid, i.e., if every position is free
     // Otherwise, we send a game over event
     for (const auto &position : positions) {
         if (m_grid[position.y][position.x] != nullptr) {
+            m_context.context.logger.log("Impossible to spawn a new block because position (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ") is not empty.");
             m_context.context.eventHandler->sendEvent("GameOver");
             return;
         }

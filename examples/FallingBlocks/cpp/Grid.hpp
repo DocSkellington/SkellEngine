@@ -1,11 +1,11 @@
 #pragma once
 
 #include <vector>
-#include <random>
 
 #include "SkellEngine/entities/Entity.hpp"
 #include "SkellEngine/states/StateContext.hpp"
 #include "SkellEngine/events/StoreEventConnections.hpp"
+#include "SkellEngine/random/UniformRandomGenerator.hpp"
 
 // The grid has functions to convert global coordinates to grid coordinates and vice-versa (like a level)
 // All computations are done with grid coordinates but positions are stored in global coordinates (to correctly draw)
@@ -25,7 +25,8 @@ private:
         L,
         REVERSED_L,
         Z,
-        S
+        S,
+        SIZE
     };
 
 private:
@@ -62,8 +63,7 @@ private:
     BlockType m_mainType;
     unsigned int m_mainRotation;
 
-    std::default_random_engine m_rng;
-    std::uniform_int_distribution<int> m_nextBlockGenerator;
+    engine::random::UniformRandomGenerator<int> m_nextBlockGenerator;
 
     engine::events::StoreEventConnections m_eventConnections;
 };
