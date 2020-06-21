@@ -96,6 +96,14 @@
         "bit": "cpp",
         "codecvt": "cpp",
         "complex": "cpp",
-        "typeindex": "cpp"
-    }
+        "typeindex": "cpp",
+        "cstdarg": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "ranges": "cpp",
+        "cinttypes": "cpp"
+    },
+    "todo-tree.filtering.excludeGlobs": [
+        "dependencies/"
+    ]
 }
