@@ -26,7 +26,8 @@
         "nlohmann",
         "ralt",
         "rcontrol",
-        "tgui"
+        "tgui",
+        "unscoped"
     ],
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {

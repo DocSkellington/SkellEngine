@@ -11,6 +11,7 @@ namespace engine::random {
      * \brief A uniform random generator over a closed interval [a, b].
      * 
      * This RNG works for both integral (integer, long, char, and so on) and floating point types.
+     * It also allows unscoped enumerations (i.e., non-class enumerations).
      * 
      * The rigged generation makes sure that the wanted value is produced often enough.
      * More precisely, let c be the wanted rigged value and p the period between two rigged values.
@@ -23,7 +24,7 @@ namespace engine::random {
      * \see engine::random::RandomChoice to randomly select a value in a container using an uniform distribution.
      */
     template <typename T>
-        requires std::is_integral_v<T> || std::is_floating_point_v<T>
+        requires std::is_integral_v<T> || std::is_floating_point_v<T> || std::is_enum_v<T>
     class UniformRandomGenerator : public RandomGenerator<T> {
     public:
         /**
@@ -110,14 +111,14 @@ namespace engine::random {
         // That is, if T is an 'integer', then we use a uniform integer distribution
         // If T is neither an integer or a floating point, then this provokes a compilation error
         using distribution_type = std::conditional_t<
-            std::is_integral_v<T>,
-            std::uniform_int_distribution<T>,
-            std::uniform_real_distribution<T>
+            std::is_floating_point_v<T>,
+            std::uniform_real_distribution<T>,
+            std::uniform_int_distribution<T>
         >;
     
     private:
         template<typename Q = T>
-        typename std::enable_if_t<std::is_integral_v<Q>, Q> getUpper(Q b) const {
+        typename std::enable_if_t<std::is_integral_v<Q> || std::is_enum_v<Q>, Q> getUpper(Q b) const {
             return b;
         }
         
