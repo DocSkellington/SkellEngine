@@ -58,7 +58,6 @@ SCENARIO("Uniform random generator on floating points", "[random][uniform]") {
         std::list<int> lastSamples;
         for (int i = 0 ; i < NUMBER_ITERATIONS ; i++) {
             auto n = uniform.next();
-            std::cout << n << "\n";
             if (i > 10) {
                 lastSamples.pop_front();
             }
