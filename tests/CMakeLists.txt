@@ -17,6 +17,7 @@ set(TESTS_SOURCES
     main.cpp
 
     math/vector2_test.cpp
+    math/matrix_test.cpp
 
     random/uniform_random_generator_test.cpp
     random/random_choice_test.cpp

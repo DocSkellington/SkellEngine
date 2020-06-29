@@ -178,6 +178,7 @@ set(HEADER_LIST
     include/SkellEngine/Logger.hpp
 
     include/SkellEngine/math/Vector2.hpp
+    include/SkellEngine/math/Matrix.hpp
 
     include/SkellEngine/random/RandomGenerator.hpp
     include/SkellEngine/random/UniformRandomGenerator.hpp
