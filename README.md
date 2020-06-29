@@ -1,62 +1,47 @@
-# TODO
-* StateManager:
-  * handleEvent
-  * State:
-    * Default states with variable data + possibility of overriding (at least some functions)
-    * view
-* SystemManager:
-  * Render:
-    * Orthogonal
-    * Isometric
-  * Move
-  * CollisionDetection
-* Entities:
-  * Components:
-    * Graphical:
-      * SpriteSheet:
-        * Animations
-    * Click
-    * Speed
-* UI (with TGUI):
-  * Buttons:
-    * Radio
-    * Normal
-    * CheckBox
-  * Labels
-  * Sliders
-  * Theme
-* Shaders
-* Particles
-* Events:
-  * A system must be able to indicate which event it wants (to filter)
-  * Message:
-    * Sender
-    * Type
-    * Info
-  * Call directly the correct methods and let the classes create their own queue, if needed? Example: play a sound, move a character, tutorial help, dialogue, save, ...
-    * For input, it needs callbacks
-* Lua:
-  * Names:
-    * `entities/entityType`: default values
-    * `entities/entityType/entityName`: specific instance
-    * `systems/systemName`
-    * `states/stateName`
-* Map:
-  * Draw and test physics only on visible parts:
-    * On creation:
-      * Load every layer:
-        * Separate Tile, Object and Image
-    * On update:
-      * Get camera information
-      * Compute tiles (upper left + width + height) to be rendered
-    * On draw:
-      * Render
-  * System? Map on its own (with render, update, collisions' tester, ...)? Map on its own with utilities to retrieve the tiles seen (for graphics) and check if a position is inside an object (+ return type and properties if yes)?
-  * Storing:
-    * Must be able to retrieve the correct tileset and tile from the ID
-    * Does not draw invisible tiles
-    * Must draw with the correct opacity!
-    * Must draw animations
-* Documentation:
-  * Update Dependencies and Building
-  * Add default values
+# SkellEngine
+**SkellEngine** is an easy-to-use 2D game engine.
+
+The full documentation is available [online](https://docskellington.github.io/SkellEngine/).
+
+## Short description
+**SkellEngine** allows to easily and quickly create a basic version of a game.
+It simplifies the initialization of the application while allowing the user to implement any kind of game.
+Indeed, thanks to its Entity-Component-System (ECS) approach, **SkellEngine** can be used for any kind of games.
+
+## Features
+  * States
+    * You can define as many states as you want
+  * Entity-Component-System
+    * Entities simply contain components
+  * C++ and Lua interfaces
+    * States and systems can be defined in both languages
+  * Logging (to console and/or to file)
+  * Event system
+    * Send an event that can be processed by listeners
+  * Inputs
+    * Associate a user input to an event (for instance, if the user pressed the space bar, an event can be sent)
+  * 2D orthogonal graphics:
+    * Tiled map (using TMX file format)
+    * Sprites
+    * Animations
+      * Sprite sheet
+      * Fade in/out
+      * Color changes
+  * Random number generator library
+    * Ensures that Lua and C++ code use the same random generators
+  * Graphical user interface (GUI) allowing to draw anything anywhere
+
+## Planned features
+The planned features are not given in a particular order.
+
+  * Save system
+  * Achievements
+  * Physics engine
+  * Shaders support
+  * Easy conversion from world-coordinates to screen-coordinates
+
+## Examples
+Examples are provided in both C++ and Lua.
+
+For the moment, there is only one example:
+  * [Falling blocks](examples/FallingBlocks)
