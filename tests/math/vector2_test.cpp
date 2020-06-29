@@ -26,6 +26,13 @@ SCENARIO("Vector2's functions are correct", "[vector2][math]") {
 
     WHEN("We multiply two vectors together") {
         Vector2d vec2 = {5, 8};
-        REQUIRE(vec * vec2 == 106);
+        REQUIRE((vec * vec2) == 106);
+    }
+
+    WHEN("We compare two vectors of different types") {
+        Vector2i vec2 = {3, 0};
+        REQUIRE(vec > vec2);
+        REQUIRE(vec2 < vec);
+        REQUIRE(vec != vec2);
     }
 }

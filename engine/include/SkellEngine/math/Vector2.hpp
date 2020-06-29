@@ -20,7 +20,22 @@ namespace engine{
             x(x),
             y(y) {}
 
-        auto operator<=>(const Vector2<T> &other) const = default;
+        template <typename B>
+            requires std::is_convertible_v<B, T>
+        auto operator<=>(const Vector2<B> &rhs) const {
+            if (auto cmp = x <=> rhs.x ; cmp != 0) {
+                return cmp;
+            }
+            return y <=> rhs.y;
+        }
+
+        template <typename B>
+            requires std::is_convertible_v<B, T>
+        bool operator==(const Vector2<B> &rhs) const {
+            // For some reasons, the compiler complains that == is not defined, even though <=> is
+            // So, we explicitly add this overload
+            return x == rhs.x && y == rhs.y;
+        }
 
         Vector2<T> operator+(const Vector2<T> &other) const {
             return Vector2<T>(x + other.x, y + other.y);
