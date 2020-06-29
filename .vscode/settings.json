@@ -16,6 +16,7 @@
     "cSpell.words": [
         "RNGs",
         "SFML",
+        "Skell",
         "TGUI's",
         "Tetris",
         "composedsprite",
@@ -107,5 +108,17 @@
     },
     "todo-tree.filtering.excludeGlobs": [
         "dependencies/"
-    ]
+    ],
+    "todo-tree.general.tagGroups": {
+        "TODO": ["todo", "\\todo"]
+    },
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "\\todo"
+    ],
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|\\* )\\s*($TAGS)|^\\s*- \\[ \\])"
 }

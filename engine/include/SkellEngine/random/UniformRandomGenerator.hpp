@@ -22,6 +22,8 @@ namespace engine::random {
      * 
      * \warning If T is not an integral, nor a floating point, then the class does not compile
      * \see engine::random::RandomChoice to randomly select a value in a container using an uniform distribution.
+     * 
+     * \todo Lua functions
      */
     template <typename T>
         requires std::is_integral_v<T> || std::is_floating_point_v<T> || std::is_enum_v<T>
