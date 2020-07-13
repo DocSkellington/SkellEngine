@@ -5,7 +5,7 @@
 
 namespace engine::events {
     Event::Event(Context &context, const std::string &type) :
-        MemberStorage(context),
+        VariableStorage(context),
         m_type(type)
         {
         registerMember("type", &m_type);
@@ -29,7 +29,7 @@ namespace engine::events {
             "getEntity", &Event::getEntityLua,
             "getNumberOfEntities", &Event::getNumberOfEntities,
             sol::meta_function::length, &Event::getNumberOfEntities,
-            sol::base_classes, sol::bases<utilities::MemberStorage>()
+            sol::base_classes, sol::bases<utilities::VariableStorage>()
         );
     }
 

@@ -114,7 +114,7 @@ namespace engine::states {
 
         m_lua.create_named_table("game");
 
-        utilities::MemberStorage::luaFunctions(m_lua);
+        utilities::VariableStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);

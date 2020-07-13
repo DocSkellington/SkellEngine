@@ -5,7 +5,7 @@
 
 namespace engine::errors {
     /**
-     * \brief The error to throw if a variable in a MemberStorage instance can not be converted to the requested type
+     * \brief The error to throw if a variable in a VariableStorage instance can not be converted to the requested type
      */
     class WrongType : public std::runtime_error {
     public:

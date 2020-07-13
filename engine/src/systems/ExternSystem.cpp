@@ -22,8 +22,8 @@ namespace engine::systems {
         utilities::registerSFMLLuaFunctions(m_lua);
         // TODO: utilities::registerTGUILuaFunctions(m_lua, manager.getContext().gui);
 
-        utilities::MemberStorage::luaFunctions(m_lua);
-        utilities::MemberStorage::luaFunctions(m_lua);
+        utilities::VariableStorage::luaFunctions(m_lua);
+        utilities::VariableStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);

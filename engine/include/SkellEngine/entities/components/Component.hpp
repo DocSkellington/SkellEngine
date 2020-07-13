@@ -7,7 +7,7 @@
 #include <sol/sol.hpp>
 #include <nlohmann/json.hpp>
 
-#include "SkellEngine/utilities/MemberStorage.hpp"
+#include "SkellEngine/utilities/VariableStorage.hpp"
 #include "SkellEngine/utilities/RegisterClass.hpp"
 #include "SkellEngine/states/StateContext.hpp"
 
@@ -26,7 +26,7 @@ namespace engine::entities::components {
     * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent and initialise it.
     * \see REGISTER_COMPONENT for an helper macro to register a component
     */
-    class Component : public utilities::MemberStorage {
+    class Component : public utilities::VariableStorage {
     public:
         /**
          * \brief Every component should be manipulated through this pointer type
@@ -89,7 +89,7 @@ namespace engine::entities::components {
  * \code
  * class ExampleComponent : public Component {
  *  public:
- *      ExampleComponent(StateContext& context) : MemberStorage(context.context), Component(context) { ... }
+ *      ExampleComponent(StateContext& context) : Component(context) { ... }
  *      ...
  *      REGISTER_COMPONENT(ExampleComponent, "example")
  * };

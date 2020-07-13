@@ -12,7 +12,7 @@ namespace engine::events {
 
     void ExternEvent::luaFunctions(sol::state &lua) {
         lua.new_usertype<ExternEvent>("ExternEvent",
-            sol::base_classes, sol::bases<utilities::MemberStorage, events::Event>()
+            sol::base_classes, sol::bases<utilities::VariableStorage, events::Event>()
         );
     }
 

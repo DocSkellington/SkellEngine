@@ -1,6 +1,9 @@
 # SFML
 find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 
+# ICU
+find_package(ICU 67 COMPONENTS uc data i18n io REQUIRED)
+
 # Lua
 add_subdirectory(dependencies/lua)
 
@@ -90,14 +93,6 @@ else()
     message(FATAL_ERROR "An internal dependency (Thor) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
 endif()
 
-# TGUI
-if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/CMakeLists.txt)
-    set(TGUI_PKGCONFIG_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig CACHE FILEPATH "" FORCE)
-    add_subdirectory(dependencies/TGUI)
-else()
-    message(FATAL_ERROR "An internal dependency (TGUI) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
-endif()
-
 # JSON for modern C++
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/CMakeLists.txt)
     message(FATAL_ERROR "An internal dependency (JSON) could not be found. Don't forget to run 'git submodule init' and 'git submodule update'")
@@ -113,6 +108,7 @@ set(SOURCES
     src/Engine.cpp
     src/Context.cpp
     src/Logger.cpp
+    src/Color.cpp
 
     src/entities/Entity.cpp
     src/entities/EntityManager.cpp
@@ -167,15 +163,20 @@ set(SOURCES
     src/utilities/json_lua.cpp
     src/utilities/json_fusion.cpp
     src/utilities/lua_sfml.cpp
-    src/utilities/lua_gui.cpp
-    src/utilities/MemberStorage.cpp
-    src/utilities/ExternMemberStorage.cpp
+    # src/utilities/lua_gui.cpp
+    src/utilities/VariableStorage.cpp
+
+    src/gui/GUI.cpp
+    src/gui/Widget.cpp
+    src/gui/Label.cpp
 )
 
 set(HEADER_LIST
     include/SkellEngine/Context.hpp
     include/SkellEngine/Engine.hpp
     include/SkellEngine/Logger.hpp
+    include/SkellEngine/Color.hpp
+    include/SkellEngine/Concepts.hpp
 
     include/SkellEngine/math/Vector2.hpp
     include/SkellEngine/math/Matrix.hpp
@@ -242,8 +243,7 @@ set(HEADER_LIST
     include/SkellEngine/utilities/json_fusion.hpp
     include/SkellEngine/utilities/lua_sfml.hpp
     include/SkellEngine/utilities/lua_gui.hpp
-    include/SkellEngine/utilities/MemberStorage.hpp
-    include/SkellEngine/utilities/ExternMemberStorage.hpp
+    include/SkellEngine/utilities/VariableStorage.hpp
 
     include/SkellEngine/errors/BadLevelDescription.hpp
     include/SkellEngine/errors/FileNotFound.hpp
@@ -254,6 +254,13 @@ set(HEADER_LIST
     include/SkellEngine/errors/StateNotFound.hpp
     include/SkellEngine/errors/SystemNotFound.hpp
     include/SkellEngine/errors/WrongType.hpp
+
+    include/SkellEngine/fonts/LiberationFont.hpp
+
+    include/SkellEngine/gui/GUI.hpp
+    include/SkellEngine/gui/TextStyle.hpp
+    include/SkellEngine/gui/Widget.hpp
+    include/SkellEngine/gui/Label.hpp
 
     ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.hpp
 )
@@ -273,7 +280,6 @@ target_include_directories(${LIBRARY_NAME}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/json/single_include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/Thor/extlibs/aurora/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/dependencies/TGUI/include>
         $<INSTALL_INTERFACE:include>
 )
 
@@ -282,7 +288,10 @@ target_link_libraries(${LIBRARY_NAME}
         lua
         tmxlite
         thor
-        tgui
+        ICU::uc
+        ICU::data
+        ICU::i18n
+        ICU::io
         GL
         sfml-system
         sfml-graphics

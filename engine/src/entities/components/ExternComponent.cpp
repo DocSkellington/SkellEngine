@@ -20,7 +20,7 @@ namespace engine::entities::components {
 
     void ExternComponent::luaFunctions(sol::state &lua) {
         lua.new_usertype<ExternComponent>("ExternComponent",
-            sol::base_classes, sol::bases<utilities::MemberStorage, components::Component>()
+            sol::base_classes, sol::bases<utilities::VariableStorage, components::Component>()
         );
     }
 

@@ -10,7 +10,7 @@
 
 #include <sol/sol.hpp>
 
-#include "SkellEngine/utilities/MemberStorage.hpp"
+#include "SkellEngine/utilities/VariableStorage.hpp"
 #include "SkellEngine/utilities/RegisterClass.hpp"
 #include "SkellEngine/entities/Entity.hpp"
 
@@ -23,7 +23,7 @@ namespace engine::events {
      * If you create your own Event (in C++), you must register it before being able to use it. To do so, create a static member of type Event::
      * \see REGISTER_EVENT for an helper macro to register a component
      */
-    class Event : public utilities::MemberStorage {
+    class Event : public utilities::VariableStorage {
     public:
         /**
          * \brief Every event should be manipulated through this pointer type
@@ -144,7 +144,7 @@ namespace engine::events {
  * \code
  * class ExampleEvent : public Event {
  *  public:
- *      ExampleEvent(Context& context) : MemberStorage(context), Event(context) { ... }
+ *      ExampleEvent(Context& context) : Event(context) { ... }
  *      ...
  *      REGISTER_EVENT(ExampleEvent, "example")
  * };

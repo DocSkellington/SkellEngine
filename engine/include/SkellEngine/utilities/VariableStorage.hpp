@@ -26,14 +26,14 @@ namespace engine::utilities {
      * 
      * \see registerMember for registering a variable member
      */
-    class MemberStorage {
+    class VariableStorage {
     public:
         /**
          * \brief The constructor
          * \param context A reference to the context of the engine
          */
-        MemberStorage(Context &context);
-        virtual ~MemberStorage();
+        VariableStorage(Context &context);
+        virtual ~VariableStorage();
 
         /**
          * \brief Sets a variable called "name" to an std::any value.
@@ -377,7 +377,7 @@ namespace engine::utilities {
         nlohmann::json createJSON() const;
 
         /**
-         * \brief Registers the Lua functions for the MemberStorage class
+         * \brief Registers the Lua functions for the VariableStorage class
          * \param lua The Lua state
          */
         static void luaFunctions(sol::state &lua);

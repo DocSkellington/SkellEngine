@@ -5,7 +5,7 @@
 
 namespace engine::entities::components {
     Component::Component(states::StateContext &context) :
-        MemberStorage(context.context)
+        VariableStorage(context.context)
         {
 
     }
@@ -30,7 +30,7 @@ namespace engine::entities::components {
 
     void Component::luaFunctions(sol::state &lua) {
         lua.new_usertype<Component>("component",
-            sol::base_classes, sol::bases<utilities::MemberStorage>()
+            sol::base_classes, sol::bases<utilities::VariableStorage>()
         );
     }
 }
