@@ -3,6 +3,8 @@
 #include <array>
 #include <stdexcept>
 
+#include "SkellEngine/Concepts.hpp"
+
 namespace engine {
     /**
      * \brief A matrix
@@ -23,6 +25,17 @@ namespace engine {
                 column.fill(T());
             }
         }
+
+        Matrix(const Matrix<T, NRows, NColumns> &other) {
+            // There is a segmentation fault without this copy constructor
+            for (std::size_t i = 0 ; i < NRows ; i++) {
+                for (std::size_t j = 0 ; j < NColumns ; j++) {
+                    m_data[i][j] = other.get(i, j); // We can not use the operator[] due to cyclic dependencies
+                }
+            }
+        }
+
+        Matrix(const Matrix<T, NRows, NColumns> &&other) = default;
         
         /**
          * \brief Initializes the matrix such that all cells contain the given value
@@ -64,7 +77,7 @@ namespace engine {
         }
 
         template <typename B, std::size_t NRowsOther, std::size_t NColumnsOther>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && ThreeWayComparable<B, T>
         std::strong_ordering operator<=>(const Matrix<B, NRowsOther, NColumnsOther> &o) const {
             if (auto cmp = NRows <=> NRowsOther ; cmp != 0) {
                 return cmp;
@@ -76,7 +89,7 @@ namespace engine {
         }
 
         template <typename B, std::size_t NRowsOther, std::size_t NColumnsOther>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && EqualToable<B, T>
         bool operator==(const Matrix<B, NRowsOther, NColumnsOther> &o) const {
             // For some reasons, the compiler complains that == is not defined, even though <=> is
             // So, we explicitly add this overload
@@ -122,14 +135,14 @@ namespace engine {
         }
 
         template <typename B = T, std::size_t NR = NRows, std::size_t NC = NColumns>
-        std::enable_if_t<NC != 1 && NR != 1, Matrix<B, 1, NC>> operator[] (std::size_t row) {
+        std::enable_if_t<NC != 1 && NR != 1, Matrix<B, 1, NC>> operator[] (std::size_t row) const {
             Matrix<B, 1, NC> m;
             m.fillRow(0, m_data[row]);
             return m;
         }
 
         template <typename B>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && Addable<B, T>
         Matrix<T, NRows, NColumns> operator+ (const Matrix<B, NRows, NColumns> &m) const {
             Matrix<T, NRows, NColumns> res;
             for (std::size_t row = 0 ; row < NRows ; row++) {
@@ -141,7 +154,7 @@ namespace engine {
         }
 
         template <typename B>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && AddableAssignable<B, T>
         Matrix<T, NRows, NColumns> operator+= (const Matrix<B, NRows, NColumns> &m) {
             for (std::size_t row = 0 ; row < NRows ; row++) {
                 for (std::size_t column = 0 ; column < NColumns ; column++) {
@@ -152,7 +165,7 @@ namespace engine {
         }
 
         template<typename B, std::size_t NRowsOther, std::size_t NColumnsOther>
-            requires (NColumns == NRowsOther) && std::is_convertible_v<B, T>
+            requires (NColumns == NRowsOther) && std::is_convertible_v<B, T> && Multipliable<B, T>
         Matrix<T, NRows, NColumnsOther> operator* (const Matrix<B, NRowsOther, NColumnsOther> &m) const {
             Matrix<T, NRows, NColumnsOther> res;
             for (std::size_t row = 0 ; row < NRows ; row++) {
@@ -188,6 +201,7 @@ namespace engine {
     };
 
     template<typename T, std::size_t NRows, std::size_t NColumns>
+        requires OutputStreamable<T>
     std::ostream& operator<<(std::ostream &os, const Matrix<T, NRows, NColumns> &matrix) {
         std::size_t i = 0;
         for (auto &line : matrix) {
