@@ -1,9 +1,15 @@
 #include <catch.hpp>
-#include <iostream>
+#include <sstream>
 
 #include "SkellEngine/math/Vector2.hpp"
 
 using namespace engine;
+
+struct Dummy {
+    Dummy(float v) :
+        value(v) {}
+    float value;
+};
 
 SCENARIO("Vector2's functions are correct", "[vector2][math]") {
     Vector2d vec = {10, 7};
@@ -35,4 +41,21 @@ SCENARIO("Vector2's functions are correct", "[vector2][math]") {
         REQUIRE(vec2 < vec);
         REQUIRE(vec != vec2);
     }
+
+    WHEN("We use an input stream") {
+        Vector2i vec2;
+        std::string values = "7 91";
+        std::stringstream stream(values);
+        stream >> vec2;
+        REQUIRE(vec2 == Vector2i(7, 91));
+    }
+
+    Vector2<Dummy> v {Dummy{5.3}, Dummy{4.7}};
+    REQUIRE(v.x.value == 5.3f);
+
+    Vector2<Dummy> v2 {Dummy{7}, Dummy{2}};
+    // Should not compile:
+    // Vector2<Dummy> v3;
+    // v + v2;
+    // v * v2;
 }
