@@ -6,9 +6,7 @@
 
 namespace engine::entities::components {
     ExternComponent::ExternComponent(states::StateContext &context) :
-        MemberStorage(context.context),
-        Component(context),
-        ExternMemberStorage(context.context) {
+        Component(context) {
 
     }
 
@@ -17,12 +15,12 @@ namespace engine::entities::components {
     }
 
     void ExternComponent::create(const nlohmann::json &jsonTable) {
-        setInternalJSONTable(jsonTable);
+        loadFromJSON(jsonTable);
     }
 
     void ExternComponent::luaFunctions(sol::state &lua) {
         lua.new_usertype<ExternComponent>("ExternComponent",
-            sol::base_classes, sol::bases<utilities::ExternMemberStorage, components::Component>()
+            sol::base_classes, sol::bases<utilities::MemberStorage, components::Component>()
         );
     }
 

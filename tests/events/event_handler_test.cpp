@@ -10,7 +10,6 @@ using namespace engine;
 class TestEvent : public events::Event {
 public:
     TestEvent(Context &context) :
-        MemberStorage(context),
         events::Event(context, "test")
         {
         registerMember("integer", &integer);

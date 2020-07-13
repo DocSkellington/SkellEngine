@@ -115,7 +115,6 @@ namespace engine::states {
         m_lua.create_named_table("game");
 
         utilities::MemberStorage::luaFunctions(m_lua);
-        utilities::ExternMemberStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);
@@ -133,7 +132,7 @@ namespace engine::states {
         getStoreEventConnections().luaFunctions(m_lua);
 
         utilities::registerSFMLLuaFunctions(m_lua);
-        utilities::registerTGUILuaFunctions(m_lua, getStateContext().gui);
+        // TODO: utilities::registerTGUILuaFunctions(m_lua, getStateContext().gui);
 
         m_lua.set_function("setIsTransparent", [this] (bool is) { this->setIsTransparent(is); });
         m_lua.set_function("setIsTranscendant", [this] (bool is) { this->setIsTranscendant(is); });

@@ -25,8 +25,8 @@ namespace engine::systems {
                 auto spriteSheetComponent = std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(spriteSheet);
                 if (position) {
                     // If the entity has a position component, we update the position of the Sprite
-                    double x = position->getFloat("x").first;
-                    double y = position->getFloat("y").first;
+                    double x = position->getDouble("x").first;
+                    double y = position->getDouble("y").first;
                     if (position->getBool("absolute").first) {
                         // If the position is absolute, we immediately put the position of the sprite
                         spriteSheetComponent->getSprite().setPosition(x, y);
@@ -42,8 +42,8 @@ namespace engine::systems {
                 auto composedSpriteComponent = std::static_pointer_cast<entities::components::GraphicalComposedSpriteComponent>(composedSprite);
                 if (position) {
                     // If the entity has a position component, we update the position of the Sprite
-                    double x = position->getFloat("x").first;
-                    double y = position->getFloat("y").first;
+                    double x = position->getDouble("x").first;
+                    double y = position->getDouble("y").first;
                     if (position->getBool("absolute").first) {
                         // If the position is absolute, we immediately put the position of the sprite
                         composedSpriteComponent->updatePosition(x, y);

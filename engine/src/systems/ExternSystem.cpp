@@ -20,10 +20,10 @@ namespace engine::systems {
         m_lua.create_named_table("game");
 
         utilities::registerSFMLLuaFunctions(m_lua);
-        utilities::registerTGUILuaFunctions(m_lua, manager.getContext().gui);
+        // TODO: utilities::registerTGUILuaFunctions(m_lua, manager.getContext().gui);
 
         utilities::MemberStorage::luaFunctions(m_lua);
-        utilities::ExternMemberStorage::luaFunctions(m_lua);
+        utilities::MemberStorage::luaFunctions(m_lua);
         entities::components::Component::luaFunctions(m_lua);
         entities::components::ExternComponent::luaFunctions(m_lua);
         entities::Entity::luaFunctions(m_lua);
@@ -70,7 +70,7 @@ namespace engine::systems {
                 sol::protected_function_result res = initFunc();
                 if (!res.valid()) {
                     sol::error e = res;
-                    getSystemManager().getContext().context.logger.logError("ExternSystem: " + m_systemName + ": error during init. The system could not be properly initiliazed and may not work as intented", e);
+                    getSystemManager().getContext().context.logger.logError("ExternSystem: " + m_systemName + ": error during init. The system could not be properly initiliazed and may not work as intended", e);
                 }
             }
         }

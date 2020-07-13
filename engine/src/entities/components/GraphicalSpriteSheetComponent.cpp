@@ -5,7 +5,6 @@
 
 namespace engine::entities::components {
     GraphicalSpriteSheetComponent::GraphicalSpriteSheetComponent(states::StateContext &context) :
-        MemberStorage(context.context),
         Component(context) {
     }
 

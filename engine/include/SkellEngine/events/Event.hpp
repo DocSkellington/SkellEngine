@@ -23,7 +23,7 @@ namespace engine::events {
      * If you create your own Event (in C++), you must register it before being able to use it. To do so, create a static member of type Event::
      * \see REGISTER_EVENT for an helper macro to register a component
      */
-    class Event : public virtual utilities::MemberStorage {
+    class Event : public utilities::MemberStorage {
     public:
         /**
          * \brief Every event should be manipulated through this pointer type

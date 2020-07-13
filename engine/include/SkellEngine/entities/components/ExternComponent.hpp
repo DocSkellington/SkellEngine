@@ -2,7 +2,6 @@
 
 #include "SkellEngine/entities/components/Component.hpp"
 #include "SkellEngine/Context.hpp"
-#include "SkellEngine/utilities/ExternMemberStorage.hpp"
 
 namespace engine::entities::components {
     /**
@@ -11,7 +10,7 @@ namespace engine::entities::components {
      * It can be modified in Lua and C++
      * Its purpose is to be used in systems created by the user.
      */
-    class ExternComponent : public Component, public utilities::ExternMemberStorage {
+    class ExternComponent : public Component {
     public:
         /**
          * \brief The constructor

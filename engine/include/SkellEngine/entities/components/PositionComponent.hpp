@@ -2,6 +2,7 @@
 
 #include "SkellEngine/entities/components/Component.hpp"
 #include "SkellEngine/Context.hpp"
+#include "SkellEngine/math/Vector2.hpp"
 
 namespace engine::entities::components {
     /**
@@ -20,7 +21,7 @@ namespace engine::entities::components {
         virtual void create(const nlohmann::json &jsonTable) override;
 
     private:
-        double m_x, m_y;
+        Vector2d m_position;
         bool m_absolute;
 
         REGISTER_COMPONENT(PositionComponent, "position")

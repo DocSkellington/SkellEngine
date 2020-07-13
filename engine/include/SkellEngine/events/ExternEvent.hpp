@@ -4,7 +4,6 @@
 #include <sol/sol.hpp>
 
 #include "SkellEngine/events/Event.hpp"
-#include "SkellEngine/utilities/ExternMemberStorage.hpp"
 
 namespace engine::events {
     /**
@@ -14,7 +13,7 @@ namespace engine::events {
      * 
      * When no registered event matches the required event type, an extern event is created. It can be used as any other event
      */
-    class ExternEvent : public Event, public utilities::ExternMemberStorage {
+    class ExternEvent : public Event {
     public:
         /**
          * \brief The constructor

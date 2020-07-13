@@ -3,6 +3,7 @@
 #include "SkellEngine/states/StateManager.hpp"
 #include "SkellEngine/systems/SystemManager.hpp"
 #include "SkellEngine/states/ExternState.hpp"
+#include "SkellEngine/gui/GUI.hpp"
 
 namespace engine::states {
     State::State(StateManager &manager, const std::string &stateName) :

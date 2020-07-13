@@ -1,5 +1,5 @@
 /**
- * \file Component.h
+ * \file Component.hpp
  */
 
 #pragma once
@@ -26,7 +26,7 @@ namespace engine::entities::components {
     * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent and initialise it.
     * \see REGISTER_COMPONENT for an helper macro to register a component
     */
-    class Component : public virtual utilities::MemberStorage {
+    class Component : public utilities::MemberStorage {
     public:
         /**
          * \brief Every component should be manipulated through this pointer type

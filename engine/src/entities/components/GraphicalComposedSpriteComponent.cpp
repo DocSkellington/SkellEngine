@@ -14,7 +14,6 @@ std::map<std::string, sf::PrimitiveType> stringToType = {
 
 namespace engine::entities::components {
     GraphicalComposedSpriteComponent::GraphicalComposedSpriteComponent(states::StateContext &context) :
-        MemberStorage(context.context),
         Component(context) {
         m_texture = nullptr;
         m_scale = {1, 1};

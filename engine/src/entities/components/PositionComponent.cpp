@@ -4,13 +4,12 @@
 
 namespace engine::entities::components {
     PositionComponent::PositionComponent(states::StateContext &context) :
-        MemberStorage(context.context),
         Component(context),
-        m_x(0),
-        m_y(0),
+        m_position(0, 0),
         m_absolute(true) {
-        registerMember("x", &m_x);
-        registerMember("y", &m_y);
+        registerMember("x", &m_position.x);
+        registerMember("y", &m_position.y);
+        registerMember("position", &m_position);
         registerMember("absolute", &m_absolute);
     }
 
@@ -22,8 +21,8 @@ namespace engine::entities::components {
         if (jsonTable.is_array()) {
             if (jsonTable.size() >= 2 && jsonTable.size() <= 3) {
                 if (jsonTable[0].is_number() && jsonTable[1].is_number()) {
-                    m_x = jsonTable[0].get<double>();
-                    m_y = jsonTable[1].get<double>();
+                    m_position.x = jsonTable[0].get<double>();
+                    m_position.y = jsonTable[1].get<double>();
 
                     if (jsonTable.size() == 3) {
                         if (jsonTable[2].is_boolean()) {
@@ -44,14 +43,14 @@ namespace engine::entities::components {
         }
         else {
             if (auto x = jsonTable.find("x") ; x != jsonTable.end() && x->is_number()) {
-                m_x = x->get<double>();
+                m_position.x = x->get<double>();
             }
             else {
                 throw errors::InvalidJSON("Position component: if the JSON is an object, the 'x' field must be present and must be a number");
             }
 
             if (auto y = jsonTable.find("y") ; y != jsonTable.end() && y->is_number()) {
-                m_y = y->get<float>();
+                m_position.y = y->get<float>();
             }
             else {
                 throw errors::InvalidJSON("Position component: if the JSON is an object, the 'y' field must be present and must be a number");

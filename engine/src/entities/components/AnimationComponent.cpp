@@ -7,7 +7,6 @@
 
 namespace engine::entities::components {
     AnimationComponent::AnimationComponent(states::StateContext &stateContext) :
-        MemberStorage(stateContext.context),
         Component(stateContext),
         m_animator() {
     }
@@ -71,7 +70,7 @@ namespace engine::entities::components {
                                     m_animations.addAnimation(name, animations::FrameAnimation(frames->get<nlohmann::json>()), duration, eventToSend, loop, repeats);
                                 }
                                 catch (const std::exception &e) {
-                                    getContext().logger.logError("AnimationComponent: an error occured during the creation of a FrameAnimation:", e);
+                                    getContext().logger.logError("AnimationComponent: an error occurred during the creation of a FrameAnimation:", e);
                                 }
                             }
                             else {
@@ -84,7 +83,7 @@ namespace engine::entities::components {
                                     m_animations.addAnimation(name, animations::ColorAnimation(*colors), duration, eventToSend, loop, repeats);
                                 }
                                 catch (const std::exception &e) {
-                                    getContext().logger.logError("AnimationComponent: an error occured during the creation of a ColorAnimation:", e);
+                                    getContext().logger.logError("AnimationComponent: an error occurred during the creation of a ColorAnimation:", e);
                                 }
                             }
                             else {
@@ -96,7 +95,7 @@ namespace engine::entities::components {
                                 m_animations.addAnimation(name, animations::FadeAnimation(desc), duration, eventToSend, loop, repeats);
                             }
                             catch (const std::exception &e) {
-                                getContext().logger.logError("AnimationComponent: an error occured during the creation of a FadeAnimation: ", e);
+                                getContext().logger.logError("AnimationComponent: an error occurred during the creation of a FadeAnimation: ", e);
                             }
                         }
                         else {
