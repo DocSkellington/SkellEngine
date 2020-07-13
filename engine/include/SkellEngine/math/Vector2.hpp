@@ -1,7 +1,12 @@
 #pragma once
 
 #include <ostream>
+#include <istream>
 #include <compare>
+
+#include <SFML/System/Vector2.hpp>
+
+#include "SkellEngine/Concepts.hpp"
 
 namespace engine{
     /**
@@ -16,12 +21,16 @@ namespace engine{
         T y;
     
     public:
+        Vector2() requires std::is_constructible_v<T, void> || std::is_fundamental_v<T> :
+            x(T()),
+            y(T()) {}
+
         Vector2(T x, T y) :
             x(x),
             y(y) {}
 
         template <typename B>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && ThreeWayComparable<T>
         auto operator<=>(const Vector2<B> &rhs) const {
             if (auto cmp = x <=> rhs.x ; cmp != 0) {
                 return cmp;
@@ -30,56 +39,72 @@ namespace engine{
         }
 
         template <typename B>
-            requires std::is_convertible_v<B, T>
+            requires std::is_convertible_v<B, T> && EqualToable<B, T>
         bool operator==(const Vector2<B> &rhs) const {
             // For some reasons, the compiler complains that == is not defined, even though <=> is
             // So, we explicitly add this overload
             return x == rhs.x && y == rhs.y;
         }
 
-        Vector2<T> operator+(const Vector2<T> &other) const {
+        Vector2<T> operator+(const Vector2<T> &other) const requires Addable<T> {
             return Vector2<T>(x + other.x, y + other.y);
         }
 
-        Vector2<T> operator+(const T &num) const {
+        Vector2<T> operator+(const T &num) const requires Addable<T> {
             return Vector2<T>(x + num, y + num);
         }
 
-        Vector2<T> operator+=(const Vector2<T> &other) const {
+        Vector2<T> operator+=(const Vector2<T> &other) const requires Addable<T> {
             x += other.x;
             y += other.y;
             return *this;
         }
 
-        Vector2<T> operator+=(const T &num) {
+        Vector2<T> operator+=(const T &num) requires AddableAssignable<T> {
             x += num;
             y += num;
             return *this;
         }
 
-        T operator*(const Vector2<T> &other) const {
+        T operator*(const Vector2<T> &other) const requires Multipliable<T> && Multipliable<T> {
             return dot(other);
         }
 
-        Vector2<T> operator*(const T &num) const {
+        Vector2<T> operator*(const T &num) const requires Multipliable<T> {
             return Vector2<T>(x * num, y * num);
         }
 
-        Vector2<T> operator*=(const T &num) {
+        Vector2<T> operator*=(const T &num) requires MultipliableAssignable<T> {
             x *= num;
             y *= num;
             return *this;
         }
 
-        T dot(const Vector2<T> &other) const {
+        T dot(const Vector2<T> &other) const requires Addable<T> && Multipliable<T> {
             return x * other.x + y * other.y;
+        }
+
+        operator sf::Vector2<T>() const {
+            return sf::Vector2<T>(x, y);
+        }
+
+        operator sf::Vector2f() const requires std::is_convertible_v<T, float> {
+            return sf::Vector2f((float) x, (float) y);
         }
     };
 
     template<typename T>
+        requires OutputStreamable<T>
     std::ostream& operator<<(std::ostream &os, const Vector2<T> &vec) {
         os << '(' << vec.x << ", " << vec.y << ')';
         return os;
+    }
+
+    template<typename T>
+        requires InputStreamable<T>
+    std::istream& operator>>(std::istream &is, Vector2<T> &vec) {
+        is >> vec.x >> vec.y;
+        return is;
     }
 
     /**
