@@ -11,8 +11,8 @@ namespace engine {
     class Matrix {
     public:
         using dataType = std::array<std::array<T, NColumns>, NRows>;
-        using iterator = dataType::iterator;
-        using const_iterator = dataType::const_iterator;
+        using iterator = typename dataType::iterator;
+        using const_iterator = typename dataType::const_iterator;
 
     public:
         /**
