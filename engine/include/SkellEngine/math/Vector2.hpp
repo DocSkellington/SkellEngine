@@ -108,29 +108,29 @@ namespace engine{
     }
 
     /**
-     * \brief A 2D vector using char
+     * \brief A 2D vector using char (8 bits)
      */
-    using Vector2c = Vector2<char>;
+    using Vector2c = Vector2<int8_t>;
     /**
-     * \brief A 2D vector using unsigned char
+     * \brief A 2D vector using unsigned char (8 bits)
      */
-    using Vector2uc = Vector2<unsigned char>;
+    using Vector2uc = Vector2<uint8_t>;
     /**
-     * \brief A 2D vector using int
+     * \brief A 2D vector using int (32 bits)
      */
-    using Vector2i = Vector2<int>;
+    using Vector2i = Vector2<int32_t>;
     /**
-     * \brief A 2D vector using unsigned int
+     * \brief A 2D vector using unsigned int (32 bits)
      */
-    using Vector2ui = Vector2<unsigned int>;
+    using Vector2ui = Vector2<uint32_t>;
     /**
-     * \brief A 2D vector using long
+     * \brief A 2D vector using long (64 bits)
      */
-    using Vector2l = Vector2<long>;
+    using Vector2l = Vector2<int64_t>;
     /**
-     * \brief A 2D vector using unsigned long
+     * \brief A 2D vector using unsigned long (64 bits)
      */
-    using Vector2ul = Vector2<unsigned long>;
+    using Vector2ul = Vector2<uint64_t>;
     /**
      * \brief A 2D vector using float
      */
