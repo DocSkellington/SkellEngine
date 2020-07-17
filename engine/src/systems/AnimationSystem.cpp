@@ -52,7 +52,7 @@ namespace engine::systems {
         
         animations::Animator<sf::Sprite>::QueueKey key = 0;
         try {
-            if (auto k = event.getInt("queue") ; k.second) {
+            if (auto k = event.get<long>("queue") ; k.second) {
                 key = k.first;
             }
         }
@@ -61,7 +61,7 @@ namespace engine::systems {
         }
 
         try {
-            auto animationDescription = event.getString("animation");
+            auto animationDescription = event.get<std::string>("animation");
             animator.play(key, map.getAnimation(animationDescription.first));
         }
         catch (const errors::WrongType &e) {
@@ -80,7 +80,7 @@ namespace engine::systems {
         
         animations::Animator<sf::Sprite>::QueueKey key = 0;
         try {
-            if (auto k = event.getInt("queue") ; k.second) {
+            if (auto k = event.get<long>("queue") ; k.second) {
                 key = k.first;
             }
         }
@@ -89,7 +89,7 @@ namespace engine::systems {
         }
 
         try {
-            auto animationDescription = event.getString("animation");
+            auto animationDescription = event.get<std::string>("animation");
             animator.queue(key, map.getAnimation(animationDescription.first));
         }
         catch (const errors::WrongType &e) {
@@ -101,7 +101,7 @@ namespace engine::systems {
         auto animation = getAnimationComponent(event);
 
         try {
-            if (auto k = event.getInt("queue") ; k.second) {
+            if (auto k = event.get<long>("queue") ; k.second) {
                 // Queue defined. We stop the queue
                 animation->getAnimator().stop(k.first);
             }
@@ -119,7 +119,7 @@ namespace engine::systems {
         auto animation = getAnimationComponent(event);
 
         try {
-            if (auto k = event.getInt("queue") ; k.second) {
+            if (auto k = event.get<long>("queue") ; k.second) {
                 // Queue defined. We pause the queue
                 animation->getAnimator().pause(k.first);
             }
@@ -137,7 +137,7 @@ namespace engine::systems {
         auto animation = getAnimationComponent(event);
 
         try {
-            if (auto k = event.getInt("queue") ; k.second) {
+            if (auto k = event.get<long>("queue") ; k.second) {
                 // Queue defined. We resume the queue
                 animation->getAnimator().resume(k.first);
             }
@@ -165,7 +165,7 @@ namespace engine::systems {
         auto animation = getAnimationComponent(event);
             if (event.has("animation")) {
                 try {
-                    const std::string &defaultAnimation = event.getString("animation").first;
+                    const std::string &defaultAnimation = event.get<std::string>("animation").first;
                     if (animation->getAnimationMap().hasAnimation(defaultAnimation)) {
                         animation->getAnimator().setDefault(animation->getAnimationMap().getAnimation(defaultAnimation));
                     }

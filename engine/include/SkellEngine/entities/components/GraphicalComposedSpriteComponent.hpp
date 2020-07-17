@@ -29,6 +29,13 @@ namespace engine::entities::components {
          * \param y The y position of the center of the object.
          */
         void updatePosition(double x, double y);
+        /**
+         * \brief Updates the position of the vertices.
+         * 
+         * Each vertex's position is given by (position.x + relative position * scale, position.y + relative position * scale).
+         * \param position The position of the center of the object.
+         */
+        void updatePosition(const Vector2d &position);
 
         const sf::VertexArray &getSprite() const;
         sf::VertexArray &getSprite();

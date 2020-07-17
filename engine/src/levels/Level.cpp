@@ -63,9 +63,17 @@ namespace engine::levels {
         return sf::Vector2f(x * tileSize.x, y * tileSize.y);
     }
 
+    sf::Vector2f Level::levelPositionToAbsolutePosition(const Vector2d &position) const {
+        return levelPositionToAbsolutePosition(position.x, position.y);
+    }
+
     sf::Vector2f Level::absolutePositionToLevelPosition(double x, double y) const {
         auto tileSize = m_map.getTileSize();
         return sf::Vector2f(x / tileSize.x, y / tileSize.y);
+    }
+
+    sf::Vector2f Level::absolutePositionToLevelPosition(const Vector2d &position) const {
+        return absolutePositionToLevelPosition(position.x, position.y);
     }
 
     void Level::loadLevelDescription() {

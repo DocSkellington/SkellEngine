@@ -11,6 +11,7 @@
 #include "SkellEngine/errors/WrongType.hpp"
 #include "SkellEngine/Context.hpp"
 #include "SkellEngine/math/Vector2.hpp"
+#include "SkellEngine/utilities/json_lua.hpp"
 
 namespace engine::utilities {
     /**
@@ -36,144 +37,257 @@ namespace engine::utilities {
         virtual ~VariableStorage();
 
         /**
-         * \brief Sets a variable called "name" to an std::any value.
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
+         * \brief Sets a variable called name to the given value.
+         * 
+         * If "name" is not yet registered, a free variable is created.
+         * Otherwise, the variable's value is overriden.
+         * 
+         * \param name The name of the variable
          * \param value The value
          */
-        void set(const std::string &name, std::any value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a char value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, char value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to an unsigned char value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, unsigned char value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to an integer value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, int value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to an unsigned int value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, unsigned int value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a long value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, long value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to an unsigned long value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, unsigned long value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a float value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, float value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a double value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, double value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a boolean value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, bool value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a const array of characters value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const char* value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a string value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const std::string& value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a JSON object
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const nlohmann::json& value) noexcept;
+        template <typename T>
+        void set(const std::string &name, T value) noexcept {
+            setWithErrorMessage(name, value, typeid(T).name());
+        }
 
-        /**
-         * \brief Sets a variable called "name" to a Lua nil value
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, sol::nil_t value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Lua table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const sol::table& value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2c table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2c &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2uc table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2uc &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2i table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2i &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2ui table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2ui &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2l table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2l &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2ul table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2ul &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2f table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2f &value) noexcept;
-        /**
-         * \brief Sets a variable called "name" to a Vector2d table
-         * \param name The name of the variable. If the variable already exists, its value is overwritten
-         * \param value The value
-         */
-        void set(const std::string &name, const Vector2d &value) noexcept;
+        template <>
+        void set<std::any>(const std::string &name, std::any value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                itr->second = value;
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+    
+        template <>
+        void set<char>(const std::string &name, char value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store a char in: char, int, long, float, double
+                if (itr->second.type() == typeid(char*)) {
+                    convertAndSet<char>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(int*)) {
+                    convertAndSet<int>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(long*)) {
+                    convertAndSet<long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with char", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template<>
+        void set<unsigned char>(const std::string &name, unsigned char value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store an unsigned char in: unsigned char, unsigned int, unsigned long, float, double
+                if (itr->second.type() == typeid(unsigned char*)) {
+                    convertAndSet<unsigned char>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(unsigned int*)) {
+                    convertAndSet<unsigned int>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(unsigned long*)) {
+                    convertAndSet<unsigned long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with unsigned char", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template<>
+        void set<int>(const std::string &name, int value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store a int in: int, long, float, double
+                if (itr->second.type() == typeid(int*)) {
+                    convertAndSet<int>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(long*)) {
+                    convertAndSet<long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with int", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template <>
+        void set<unsigned int>(const std::string &name, unsigned int value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store an unsigned int in: unsigned int, unsigned long, float, double
+                if (itr->second.type() == typeid(unsigned int*)) {
+                    convertAndSet<int>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(unsigned long*)) {
+                    convertAndSet<long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with unsigned int", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template<>
+        void set<long>(const std::string &name, long value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store a long in: long, double
+                if (itr->second.type() == typeid(long*)) {
+                    convertAndSet<long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with long", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template <>
+        void set<unsigned long>(const std::string &name, unsigned long value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store an unsigned long in: unsigned long, double
+                if (itr->second.type() == typeid(unsigned long*)) {
+                    convertAndSet<long>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with unsigned long", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template <>
+        void set<float>(const std::string &name, float value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store a float in: float, double, long double
+                if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(long double*)) {
+                    convertAndSet<long double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with float", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template <>
+        void set<double>(const std::string &name, double value) noexcept {
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                // We can store a double in: double, long double
+                if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, value);
+                }
+                else if (itr->second.type() == typeid(long double*)) {
+                    convertAndSet<long double>(itr->second, value);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with float", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = value;
+            }
+        }
+
+        template <>
+        void set<const char*>(const std::string &name, const char *str) noexcept {
+            set(name, std::string(str));
+        }
+
+        template <>
+        void set<sol::nil_t>(const std::string &name, sol::nil_t) noexcept {
+            // We set the variable at the default value
+            if (auto itr = mapMembers.find(name); itr != mapMembers.end()) {
+                if (itr->second.type() == typeid(int*)) {
+                    convertAndSet<int>(itr->second, 0);
+                }
+                else if (itr->second.type() == typeid(long*)) {
+                    convertAndSet<long>(itr->second, 0L);
+                }
+                else if (itr->second.type() == typeid(float*)) {
+                    convertAndSet<float>(itr->second, 0.f);
+                }
+                else if (itr->second.type() == typeid(double*)) {
+                    convertAndSet<double>(itr->second, 0.);
+                }
+                else if (itr->second.type() == typeid(bool*)) {
+                    convertAndSet<bool>(itr->second, false);
+                }
+                else if (itr->second.type() == typeid(std::string*)) {
+                    convertAndSet<std::string>(itr->second, "");
+                }
+                else if (itr->second.type() == typeid(nlohmann::json*)) {
+                    convertAndSet<nlohmann::json>(itr->second, nlohmann::json());
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": set " + name + ": type of " + name + " (" + itr->second.type().name() + ") is incompatible with sol::nil_t", LogType::Warning);
+                }
+            }
+            else {
+                mapFree[name] = std::any();
+            }
+        }
+
+        template<>
+        void set<const sol::table&>(const std::string &name, const sol::table& value) noexcept {
+            set(name, utilities::lua_to_json(value));
+        }
 
         /**
          * \brief Checks if a variable called "name" exists
@@ -183,198 +297,218 @@ namespace engine::utilities {
         bool has(const std::string &name) const noexcept;
 
         /**
-         * \brief Gets the value of the variable "name" directly as an std::any object
+         * \brief Gets the value of the variable called "name".
          * 
-         * If the variable does not exist, the second value of the pair is false.
+         * If returns a pair (T, bool) where the boolean is true if and only if there exists a variable called "name" and the variable's type could be cast to T.
+         * If the boolean is false, the value of T is constructed from the default constructor.
+         * 
          * \param name The name of the variable
-         * \return A pair (value, found) with value an std::any and found a boolean (true iff the variable exists)
+         * \return A pair with the value and a boolean
          */
-        std::pair<std::any, bool> getAny(const std::string &name) const noexcept;
+        template <typename T>
+            requires std::is_default_constructible_v<T>
+        std::pair<T, bool> get(const std::string &name) const {
+            return get<T>(name, T());
+        }
 
         /**
-         * \brief Gets the value of the variable "name" as a char
+         * \brief Gets the value of the variable called "name" with an explicit default value if the "name" is not known.
          * 
-         * If the variable does not exist, the second value of the pair is false.
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a char and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
-         */
-        std::pair<char, bool> getChar(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as an unsigned char
+         * If returns a pair (T, bool) where the boolean is true if and only if there exists a variable called "name" and the variable's type could be cast to T.
+         * If the boolean is false, the value in the pair is defaultValue
          * 
-         * If the variable does not exist, the second value of the pair is false.
          * \param name The name of the variable
-         * \return A pair (value, found) with value an unsigned char and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
+         * \param defaultValue The default value
+         * \return A pair with the value and a boolean
          */
-        std::pair<unsigned char, bool> getUnsignedChar(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as an integer
-         * 
-         * If the variable does not exist, the second value of the pair is false.
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a long integer and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
-         */
-        std::pair<int, bool> getInt(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as an unsigned integer
-         * 
-         * If the variable does not exist, the second value of the pair is false.
-         * \param name The name of the variable
-         * \return A pair (value, found) with value an unsigned integer and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
-         */
-        std::pair<unsigned int, bool> getUnsignedInt(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a long
-         * 
-         * If the variable does not exist, the second value of the pair is false.
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a long integer and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
-         */
-        std::pair<long, bool> getLong(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as an unsigned long
-         * 
-         * If the variable does not exist, the second value of the pair is false.
-         * \param name The name of the variable
-         * \return A pair (value, found) with value an unsigned long integer and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to integer
-         */
-        std::pair<unsigned long, bool> getUnsignedLong(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a single-precision floating point number
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a float and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to double
-         */
-        std::pair<float, bool> getFloat(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a double-precision floating point number
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a double and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to double
-         */
-        std::pair<double, bool> getDouble(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a boolean
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a boolean and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to boolean
-         */
-        std::pair<bool, bool> getBool(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a string
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a string and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to string
-         */
-        std::pair<std::string, bool> getString(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a JSON object
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a JSON object and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a JSON object
-         */
-        std::pair<nlohmann::json, bool> getJSON(const std::string &name) const;
+        template <typename T>
+        std::pair<T, bool> get(const std::string &name, const T &defaultValue) const {
+            return getWithErrorMessage<T>(name, defaultValue, typeid(T).name());
+        }
 
-        /**
-         * \brief Gets the value of the variable "name" as a generic Lua object
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a generic Lua object and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<sol::object, bool> getObject(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2c
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2c and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2c, bool> getVector2c(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2uc
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2uc and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2uc, bool> getVector2uc(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2i
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2i and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2i, bool> getVector2i(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2ui
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2ui and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2ui, bool> getVector2ui(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2l
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2l and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2l, bool> getVector2l(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2ul
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2ul and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2ul, bool> getVector2ul(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2f
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2f and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2f, bool> getVector2f(const std::string &name) const;
-        /**
-         * \brief Gets the value of the variable "name" as a Vector2d
-         * 
-         * If the variable does not exist, the second value of the pair is false
-         * \param name The name of the variable
-         * \return A pair (value, found) with value a Vector2d and found a boolean (true iff the variable exists)
-         * \throw engine::errors::WrongType when the value can not be converted to a Lua object
-         */
-        std::pair<Vector2d, bool> getVector2d(const std::string &name) const;
+        template <>
+        std::pair<std::any, bool> get<std::any>(const std::string &name, const std::any &defaultValue) const {
+            std::pair<std::any, bool> pair = std::make_pair(defaultValue, false);
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                pair = std::make_pair(*itr, true);
+            }
+            return pair;
+        }
+
+        template <>
+        std::pair<int, bool> get<int>(const std::string &name, const int &defaultValue) const {
+            std::pair<int, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<char>(itr->second)) {
+                    pair = std::make_pair(getValue<char>(itr->second), true);
+                }
+                else if (isType<int>(itr->second)) {
+                    pair = std::make_pair(getValue<int>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " can not be cast to an integer (i.e., it is not a char nor an int)", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+
+        template <>
+        std::pair<unsigned int, bool> get<unsigned int>(const std::string &name, const unsigned int &defaultValue) const {
+            std::pair<unsigned int, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<unsigned char>(itr->second)) {
+                    pair = std::make_pair(getValue<unsigned char>(itr->second), true);
+                }
+                else if (isType<unsigned int>(itr->second)) {
+                    pair = std::make_pair(getValue<unsigned int>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " can not be cast to an unsigned integer (i.e., it is not an unsigned char nor an unsigned int)", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+
+        template<>
+        std::pair<long, bool> get<long>(const std::string &name, const long &defaultValue) const {
+            std::pair<long, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<char>(itr->second)) {
+                    pair = std::make_pair(getValue<char>(itr->second), true);
+                }
+                else if (isType<int>(itr->second)) {
+                    pair = std::make_pair(getValue<int>(itr->second), true);
+                }
+                else if (isType<long>(itr->second)) {
+                    pair = std::make_pair(getValue<long>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " can not be cast to a long", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+
+        template<>
+        std::pair<unsigned long, bool> get<unsigned long>(const std::string &name, const unsigned long &defaultValue) const {
+            std::pair<unsigned long, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<unsigned char>(itr->second)) {
+                    pair = std::make_pair(getValue<unsigned char>(itr->second), true);
+                }
+                else if (isType<unsigned int>(itr->second)) {
+                    pair = std::make_pair(getValue<unsigned int>(itr->second), true);
+                }
+                else if (isType<unsigned long>(itr->second)) {
+                    pair = std::make_pair(getValue<unsigned long>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " can not be cast to an unsigned long", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+
+        template <>
+        std::pair<double, bool> get<double>(const std::string &name, const double &defaultValue) const {
+            std::pair<double, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<float>(itr->second)) {
+                    pair = std::make_pair(getValue<float>(itr->second), true);
+                }
+                else if (isType<double>(itr->second)) {
+                    pair = std::make_pair(getValue<double>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a floating point (float or double) variable", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+
+        template <>
+        std::pair<long double, bool> get<long double>(const std::string &name, const long double &defaultValue) const {
+            std::pair<long double, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<float>(itr->second)) {
+                    pair = std::make_pair(getValue<float>(itr->second), true);
+                }
+                else if (isType<double>(itr->second)) {
+                    pair = std::make_pair(getValue<double>(itr->second), true);
+                }
+                else if (isType<long double>(itr->second)) {
+                    pair = std::make_pair(getValue<long double>(itr->second), true);
+                }
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a floating point (float or double) variable", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
+     
+        template <>
+        std::pair<sol::object, bool> get<sol::object>(const std::string &name, const sol::object &defaultValue) const {
+            std::pair<sol::object, bool> pair = std::make_pair(defaultValue, false);
+
+            if (auto itr = getIterator(name); itr != mapMembers.end()) {
+                if (isType<char>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<char>(*getContext().lua, getValue<int>(itr->second)), true);
+                }
+                else if (isType<unsigned char>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<unsigned char>(*getContext().lua, getValue<int>(itr->second)), true);
+                }
+                else if (isType<int>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<int>(*getContext().lua, getValue<int>(itr->second)), true);
+                }
+                else if (isType<unsigned int>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<unsigned int>(*getContext().lua, getValue<int>(itr->second)), true);
+                }
+                else if (isType<long>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<long>(*getContext().lua, getValue<long>(itr->second)), true);
+                }
+                else if (isType<unsigned long>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<unsigned long>(*getContext().lua, getValue<long>(itr->second)), true);
+                }
+                else if (isType<float>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<float>(*getContext().lua, getValue<float>(itr->second)), true);
+                }
+                else if (isType<double>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<double>(*getContext().lua, getValue<double>(itr->second)), true);
+                }
+                else if (isType<long double>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<long double>(*getContext().lua, getValue<double>(itr->second)), true);
+                }
+                else if (isType<bool>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<bool>(*getContext().lua, getValue<bool>(itr->second)), true);
+                }
+                else if (isType<std::string>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<std::string>(*getContext().lua, getValue<std::string>(itr->second)), true);
+                }
+                else if (isType<nlohmann::json>(itr->second)) {
+                    pair = std::make_pair(sol::make_object<nlohmann::json>(*getContext().lua, getValue<nlohmann::json>(itr->second)), true);
+                }
+                // TODO: add conversions to Vector2<T>
+                else {
+                    m_context.logger.log(getLogErrorPrefix() + ": get: the type of " + name + " (" + itr->second.type().name() + ") is not supported in Lua scripts", LogType::Warning);
+                }
+            }
+
+            return pair;
+        }
 
         void loadFromJSON(const nlohmann::json &json);
-        nlohmann::json createJSON() const;
 
         /**
          * \brief Registers the Lua functions for the VariableStorage class
@@ -468,15 +602,12 @@ namespace engine::utilities {
             std::pair<T, bool> pair = std::make_pair(defaultValue, false);
 
             if (auto itr = getIterator(name); itr != mapMembers.end()) {
-                if (itr->second.type() == typeid(T*)) {
+                if (isType<T>(itr->second)) {
                     pair = std::make_pair(getValue<T>(itr->second), true);
                 }
                 else {
-                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a " + type + " variable", LogType::Warning);
+                    m_context.logger.log(getLogErrorPrefix() + ": get " + name + ": " + name + " is not a " + type + " variable (type of stored value: " + itr->second.type().name() + ")", LogType::Warning);
                 }
-            }
-            else {
-                logUnknownVariable(name);
             }
 
             return pair;
@@ -495,7 +626,10 @@ namespace engine::utilities {
         }
 
         /**
-         * \brief Gets the value of a std::any variable as the type T
+         * \brief Gets the value of a std::any variable as the type T.
+         * 
+         * If the variable's type is a pointer, it is first dereferenced.
+         * 
          * \param variable The variable to read
          * \return The value cast to T
          * \throw errors::WrongType when the value can not be converted to T
@@ -504,8 +638,13 @@ namespace engine::utilities {
         template <typename T>
         inline T getValue(std::any variable) const {
             try {
-                T *va = std::any_cast<T*>(variable);
-                return *va;
+                if (variable.type() == typeid(T)) {
+                    return std::any_cast<T>(variable);
+                }
+                else {
+                    T *va = std::any_cast<T*>(variable);
+                    return *va;
+                }
             }
             catch (const std::bad_any_cast &e) {
                 throw errors::WrongType(e.what());
@@ -513,10 +652,19 @@ namespace engine::utilities {
         }
 
         /**
+         * \brief Checks whether the variable's actual type is T or T*
+         * \param var The std::any variable
+         */
+        template <typename T>
+        inline bool isType(const std::any &var) const {
+            return var.type() == typeid(T) || var.type() == typeid(T*);
+        }
+
+        /**
          * \brief Puts a warning message in the log indicating that the given name is unknown.
          * \param name The name of the variable
          */
-        inline void logUnknownVariable(const std::string &name) const;
+        void logUnknownVariable(const std::string &name) const;
 
         /**
          * \brief Gets the iterator pointing to the variable called "name", if it exists.
@@ -527,7 +675,16 @@ namespace engine::utilities {
          * \param name The name of the variable
          * \return The iterator
          */
-        inline Container::const_iterator getIterator(const std::string &name) const;
+        Container::const_iterator getIterator(const std::string &name) const;
+
+        /**
+         * \brief A helper function for Lua scripts
+         * \param name The name of the variable
+         * \param defaultValue The default value
+         * \return The pair
+         * \see The get functions
+         */
+        std::pair<sol::object, bool> getForLua(const std::string &name, const sol::object &defaultValue) const;
 
     private:
         /**

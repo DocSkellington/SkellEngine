@@ -29,8 +29,8 @@ bool called2 = false;
 
 void testCallback1(const events::Event &event) {
     called1 = !called1;
-    REQUIRE(event.getInt("integer").second);
-    REQUIRE(event.getInt("integer").first == 10);
+    REQUIRE(event.get<long>("integer").second);
+    REQUIRE(event.get<long>("integer").first == 10);
 }
 
 void testCallback2(const events::Event &event) {

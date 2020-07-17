@@ -123,6 +123,10 @@ namespace engine::entities::components {
         }
     }
 
+    void GraphicalComposedSpriteComponent::updatePosition(const Vector2d &position) {
+        updatePosition(position.x, position.y);
+    }
+
     const sf::VertexArray &GraphicalComposedSpriteComponent::getSprite() const {
         return m_vertexArray;
     }

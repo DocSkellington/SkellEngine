@@ -5,6 +5,7 @@
 #include "SkellEngine/states/StateContext.hpp"
 #include "SkellEngine/map/Map.hpp"
 #include "SkellEngine/levels/LevelDescription.hpp"
+#include "SkellEngine/math/Vector2.hpp"
 
 /**
  * \brief Namespace with classes to handle a level
@@ -76,6 +77,14 @@ namespace engine::levels {
          * \return The absolute position
          */
         sf::Vector2f levelPositionToAbsolutePosition(double x, double y) const;
+        /**
+         * \brief Converts a level position (i.e., a position relative to the tiles in the map) to an absolute position.
+         * 
+         * The absolute position is computed by multiplying the level position by the size of a tile.
+         * \param position The position
+         * \return The absolute position
+         */
+        sf::Vector2f levelPositionToAbsolutePosition(const Vector2d &position) const;
 
         /**
          * \brief Converts an absolute position to a level position (i.e., a position relative to the tiles in the map).
@@ -86,6 +95,14 @@ namespace engine::levels {
          * \return The level position
          */
         sf::Vector2f absolutePositionToLevelPosition(double x, double y) const;
+        /**
+         * \brief Converts an absolute position to a level position (i.e., a position relative to the tiles in the map).
+         * 
+         * The relative position is computed by dividing the absolute position by the size of a tile.
+         * \param position The position
+         * \return The level position
+         */
+        sf::Vector2f absolutePositionToLevelPosition(const Vector2d &position) const;
     
     private:
         /**

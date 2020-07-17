@@ -33,12 +33,12 @@ SCENARIO("Entity test", "[entities]") {
                 REQUIRE(pos);
 
                 AND_THEN("The component is a PositionComponent") {
-                    REQUIRE(pos->getDouble("x").second);
-                    REQUIRE(pos->getDouble("x").first == 0);
-                    REQUIRE(pos->getDouble("y").second);
-                    REQUIRE(pos->getDouble("y").first == 0);
-                    REQUIRE(pos->getVector2d("position").second);
-                    REQUIRE(pos->getVector2d("position").first == Vector2d(0, 0));
+                    REQUIRE(pos->get<double>("x").second);
+                    REQUIRE(pos->get<double>("x").first == 0);
+                    REQUIRE(pos->get<double>("y").second);
+                    REQUIRE(pos->get<double>("y").first == 0);
+                    REQUIRE(pos->get<Vector2d>("position").second);
+                    REQUIRE(pos->get<Vector2d>("position").first == Vector2d(0, 0));
                 }
             }
 
@@ -58,12 +58,12 @@ SCENARIO("Entity test", "[entities]") {
 
             auto pos = entity.getComponent("position");
             REQUIRE(pos);
-            REQUIRE(pos->getDouble("x").second);
-            REQUIRE(pos->getDouble("x").first == 19);
-            REQUIRE(pos->getDouble("y").second);
-            REQUIRE(pos->getDouble("y").first == 20);
-            REQUIRE(pos->getVector2d("position").second);
-            REQUIRE(pos->getVector2d("position").first == Vector2d(19, 20));
+            REQUIRE(pos->get<double>("x").second);
+            REQUIRE(pos->get<double>("x").first == 19);
+            REQUIRE(pos->get<double>("y").second);
+            REQUIRE(pos->get<double>("y").first == 20);
+            REQUIRE(pos->get<Vector2d>("position").second);
+            REQUIRE(pos->get<Vector2d>("position").first == Vector2d(19, 20));
         }
     }
 }

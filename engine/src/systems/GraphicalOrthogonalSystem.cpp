@@ -25,15 +25,14 @@ namespace engine::systems {
                 auto spriteSheetComponent = std::static_pointer_cast<entities::components::GraphicalSpriteSheetComponent>(spriteSheet);
                 if (position) {
                     // If the entity has a position component, we update the position of the Sprite
-                    double x = position->getDouble("x").first;
-                    double y = position->getDouble("y").first;
-                    if (position->getBool("absolute").first) {
+                    auto pos = position->get<Vector2d>("position").first;
+                    if (position->get<bool>("absolute").first) {
                         // If the position is absolute, we immediately put the position of the sprite
-                        spriteSheetComponent->getSprite().setPosition(x, y);
+                        spriteSheetComponent->getSprite().setPosition(pos);
                     }
                     else {
                         // If the position is relative to the map, we first need to convert the level position to an absolute position
-                        auto absolutePosition = getSystemManager().getContext().level->levelPositionToAbsolutePosition(x, y);
+                        auto absolutePosition = getSystemManager().getContext().level->levelPositionToAbsolutePosition(pos);
                         spriteSheetComponent->getSprite().setPosition(absolutePosition.x, absolutePosition.y);
                     }
                 }
@@ -42,15 +41,14 @@ namespace engine::systems {
                 auto composedSpriteComponent = std::static_pointer_cast<entities::components::GraphicalComposedSpriteComponent>(composedSprite);
                 if (position) {
                     // If the entity has a position component, we update the position of the Sprite
-                    double x = position->getDouble("x").first;
-                    double y = position->getDouble("y").first;
-                    if (position->getBool("absolute").first) {
+                    auto pos = position->get<Vector2d>("position").first;
+                    if (position->get<bool>("absolute").first) {
                         // If the position is absolute, we immediately put the position of the sprite
-                        composedSpriteComponent->updatePosition(x, y);
+                        composedSpriteComponent->updatePosition(pos);
                     }
                     else {
                         // If the position is relative to the map, we first need to convert the level position to an absolute position
-                        auto absolutePosition = getSystemManager().getContext().level->levelPositionToAbsolutePosition(x, y);
+                        auto absolutePosition = getSystemManager().getContext().level->levelPositionToAbsolutePosition(pos);
                         composedSpriteComponent->updatePosition(absolutePosition.x, absolutePosition.y);
                     }
                 }

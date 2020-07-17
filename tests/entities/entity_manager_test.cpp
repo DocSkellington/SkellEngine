@@ -51,8 +51,8 @@ SCENARIO("Entity Manager", "[entities]") {
 
             auto position = entity->getComponent("position");
             REQUIRE(position);
-            REQUIRE(position->getDouble("x").first == Approx(4.1));
-            REQUIRE(position->getDouble("y").first == Approx(7));
+            REQUIRE(position->get<double>("x").first == Approx(4.1));
+            REQUIRE(position->get<double>("y").first == Approx(7));
 
             std::vector<std::string> components = {"position"};
             REQUIRE(entMan->getEntity("entity", {"position"}) == entity);

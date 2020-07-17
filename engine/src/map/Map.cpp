@@ -53,7 +53,7 @@ namespace engine::map {
     nlohmann::json Map::getTileProperties(uint64_t x, uint64_t y) const {
         nlohmann::json json;
         for (const auto& layer : m_layers) {
-            if (typeid(*layer) == typeid(TileLayer)) {
+            if (typeid(layer.get()) == typeid(TileLayer)) {
                 auto tileLayer = dynamic_cast<TileLayer*>(layer.get());
                 json = utilities::json_fusion(json, tileLayer->getTileProperties(x, y));
             }

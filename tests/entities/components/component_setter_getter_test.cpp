@@ -290,27 +290,27 @@ SCENARIO("Test of getters", "[entities][components]") {
 
     GIVEN("An integer variable") {
         WHEN("We get the variable as an integer") {
-            auto p = compo.getInt("int");
+            auto p = compo.get<long>("int");
             REQUIRE(p.second);
             REQUIRE(p.first == 4);
         }
         WHEN("We get the variable as a floating point") {
-            auto p = compo.getFloat("int");
+            auto p = compo.get<double>("int");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0.);
         }
         WHEN("We get the variable as a boolean") {
-            auto p = compo.getBool("int");
+            auto p = compo.get<bool>("int");
             REQUIRE_FALSE(p.second);
             REQUIRE_FALSE(p.first);
         }
         WHEN("We get the variable as a std::string") {
-            auto p = compo.getString("int");
+            auto p = compo.get<std::string>("int");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == "");
         }
         WHEN("We get the variable as a JSON") {
-            auto p = compo.getJSON("int");
+            auto p = compo.get<nlohmann::json>("int");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == nlohmann::json());
         }
@@ -318,27 +318,27 @@ SCENARIO("Test of getters", "[entities][components]") {
 
     GIVEN("A floating point variable") {
         WHEN("We get the variable as an integer") {
-            auto p = compo.getInt("float");
+            auto p = compo.get<long>("float");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0);
         }
         WHEN("We get the variable as a floating point") {
-            auto p = compo.getFloat("float");
+            auto p = compo.get<double>("float");
             REQUIRE(p.second);
             REQUIRE(p.first == Approx(3.14f));
         }
         WHEN("We get the variable as a boolean") {
-            auto p = compo.getBool("float");
+            auto p = compo.get<bool>("float");
             REQUIRE_FALSE(p.second);
             REQUIRE_FALSE(p.first);
         }
         WHEN("We get the variable as a std::string") {
-            auto p = compo.getString("float");
+            auto p = compo.get<std::string>("float");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == "");
         }
         WHEN("We get the variable as a JSON") {
-            auto p = compo.getJSON("float");
+            auto p = compo.get<nlohmann::json>("float");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == nlohmann::json());
         }
@@ -346,27 +346,27 @@ SCENARIO("Test of getters", "[entities][components]") {
 
     GIVEN("A boolean variable") {
         WHEN("We get the variable as an integer") {
-            auto p = compo.getInt("bool");
+            auto p = compo.get<long>("bool");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0);
         }
         WHEN("We get the variable as a floating point") {
-            auto p = compo.getFloat("bool");
+            auto p = compo.get<double>("bool");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0.f);
         }
         WHEN("We get the variable as a boolean") {
-            auto p = compo.getBool("bool");
+            auto p = compo.get<bool>("bool");
             REQUIRE(p.second);
             REQUIRE(p.first);
         }
         WHEN("We get the variable as a std::string") {
-            auto p = compo.getString("bool");
+            auto p = compo.get<std::string>("bool");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == "");
         }
         WHEN("We get the variable as a JSON") {
-            auto p = compo.getJSON("bool");
+            auto p = compo.get<nlohmann::json>("bool");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == nlohmann::json());
         }
@@ -374,27 +374,27 @@ SCENARIO("Test of getters", "[entities][components]") {
 
     GIVEN("A std::string variable") {
         WHEN("We get the variable as an integer") {
-            auto p = compo.getInt("string");
+            auto p = compo.get<long>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0);
         }
         WHEN("We get the variable as a floating point") {
-            auto p = compo.getFloat("string");
+            auto p = compo.get<double>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0.f);
         }
         WHEN("We get the variable as a boolean") {
-            auto p = compo.getBool("string");
+            auto p = compo.get<bool>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE_FALSE(p.first);
         }
         WHEN("We get the variable as a std::string") {
-            auto p = compo.getString("string");
+            auto p = compo.get<std::string>("string");
             REQUIRE(p.second);
             REQUIRE(p.first == "Testy");
         }
         WHEN("We get the variable as a JSON") {
-            auto p = compo.getJSON("string");
+            auto p = compo.get<nlohmann::json>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == nlohmann::json());
         }
@@ -402,27 +402,27 @@ SCENARIO("Test of getters", "[entities][components]") {
 
     GIVEN("A JSON variable") {
         WHEN("We get the variable as an integer") {
-            auto p = compo.getInt("string");
+            auto p = compo.get<long>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0);
         }
         WHEN("We get the variable as a floating point") {
-            auto p = compo.getFloat("string");
+            auto p = compo.get<double>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == 0.f);
         }
         WHEN("We get the variable as a boolean") {
-            auto p = compo.getBool("string");
+            auto p = compo.get<bool>("string");
             REQUIRE_FALSE(p.second);
             REQUIRE_FALSE(p.first);
         }
         WHEN("We get the variable as a std::string") {
-            auto p = compo.getString("json");
+            auto p = compo.get<std::string>("json");
             REQUIRE_FALSE(p.second);
             REQUIRE(p.first == "");
         }
         WHEN("We get the variable as a JSON") {
-            auto p = compo.getJSON("json");
+            auto p = compo.get<nlohmann::json>("json");
             REQUIRE(p.second);
             REQUIRE(p.first == json);
         }
