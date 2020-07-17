@@ -305,6 +305,14 @@ target_compile_features(${LIBRARY_NAME}
 )
 
 target_compile_options(${LIBRARY_NAME}
+    PUBLIC
+        # SOL_SAFE_NUMERICS is needed to be able to distinguish between floating-points and integers
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+            -DSOL_SAFE_NUMERICS
+        >
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /DSOL_SAFE_NUMERICS
+        >
     PRIVATE
         $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
             -Wall

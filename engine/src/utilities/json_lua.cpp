@@ -76,11 +76,21 @@ namespace engine::utilities {
                 }
                 break;
             case sol::type::number:
-                if (table) {
-                    json[itr.first.as<int>()-1] = itr.second.as<double>();
+                if (itr.second.is<long>()) {
+                    if (table) {
+                        json[itr.first.as<int>()-1] = itr.second.as<long>();
+                    }
+                    else {
+                        json[itr.first.as<std::string>()] = itr.second.as<long>();
+                    }
                 }
                 else {
-                    json[itr.first.as<std::string>()] = itr.second.as<double>();
+                    if (table) {
+                        json[itr.first.as<int>()-1] = itr.second.as<double>();
+                    }
+                    else {
+                        json[itr.first.as<std::string>()] = itr.second.as<double>();
+                    }
                 }
                 break;
             case sol::type::boolean:
