@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="30">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="30">
  <tileset firstgid="1" source="../tilesets/test.tsx"/>
  <tileset firstgid="8" source="../tilesets/tilesetImage.tsx"/>
  <tileset firstgid="24" source="../tilesets/test2.tsx"/>
@@ -89,11 +89,11 @@
   <object id="21" x="28.2676" y="162.875">
    <polygon points="0,0 51.1509,-115.763 98.2636,65.9577 1.34608,56.5352"/>
   </object>
-  <object id="22" x="386.813" y="136.5" width="53.8867" height="59.9333">
-   <text fontfamily="Gentium" wrap="1" color="#ffffff" bold="1" italic="1" underline="1" strikeout="1">Hello World</text>
+  <object id="22" x="484.313" y="231" width="80.3867" height="55.9333">
+   <text fontfamily="Liberation Serif" wrap="1" color="#ffffff" strikeout="1">Hello, strikeout World</text>
   </object>
-  <object id="26" x="387.479" y="83.5" width="79.7264" height="12.6663">
-   <text fontfamily="DejaVu Sans" pixelsize="10" wrap="1" color="#8ae234" bold="1">Hello World</text>
+  <object id="26" x="387.479" y="83.5" width="234.892" height="23.6197" rotation="15">
+   <text fontfamily="DejaVu Sans" pixelsize="20" color="#8ae234" bold="1">Hello, rotated world</text>
   </object>
   <object id="28" x="139.377" y="267.482" width="92.375" height="19">
    <text wrap="1" color="#73d216">Hello World</text>

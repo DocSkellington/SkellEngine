@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <sol/sol.hpp>
-#include <TGUI/TGUI.hpp>
+#include <unicode/locid.h>
 
 #include "SkellEngine/files/GameDescription.hpp"
 #include "SkellEngine/Logger.hpp"
@@ -58,6 +58,15 @@ namespace engine {
          * \brief The logger
          */
         Logger logger;
+
+        /**
+         * \brief The locale.
+         * 
+         * It is used to correctly handle Unicode strings.
+         * Thus, it should be set appropriately to the language selected by the user.
+         */
+        icu::Locale locale;
+
         /**
          * \brief The file manager
          */

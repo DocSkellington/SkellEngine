@@ -47,6 +47,20 @@ namespace engine::files {
         sf::Font& loadFont(const std::string &fontName);
 
         /**
+         * \brief Loads the font from a file in memory and stores it under the given name.
+         * 
+         * This is mainly used to provide a default font (which is called "default").
+         * \param name The name to use for the font
+         * \param data The pointer to the file in memory
+         * \param sizeInBytes The size of the data to load, in bytes
+         * \return The font
+         * \throws thor::ResourceLoadingException
+         */
+        sf::Font& loadFont(const std::string &name, const void* data, std::size_t sizeInBytes);
+
+        sf::Font& getDefaultFont();
+
+        /**
          * \brief Loads the sprite texture from the path
          * 
          * The texture must be in the "baseSprites" folder of the game description

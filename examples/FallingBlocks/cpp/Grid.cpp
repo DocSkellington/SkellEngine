@@ -45,8 +45,8 @@ bool Grid::moveMainDown() {
     bool shouldBecomeFixed = false;
     for (auto &block : m_mainBlock) {
         auto blockPosition = block->getComponent("position");
-        double x = blockPosition->getFloat("x").first;
-        double y = blockPosition->getFloat("y").first;
+        double x = blockPosition->get<double>("x").first;
+        double y = blockPosition->get<double>("y").first;
         sf::Vector2f localPosition = fromGlobalToLocal(x, y);
 
         if (!canMoveDown(localPosition.x, localPosition.y)) {
@@ -57,8 +57,8 @@ bool Grid::moveMainDown() {
 
     for (auto &block : m_mainBlock) {
         auto blockPosition = block->getComponent("position");
-        double x = blockPosition->getFloat("x").first;
-        double y = blockPosition->getFloat("y").first;
+        double x = blockPosition->get<double>("x").first;
+        double y = blockPosition->get<double>("y").first;
         sf::Vector2f localPosition = fromGlobalToLocal(x, y);
 
         if (shouldBecomeFixed) {
@@ -88,8 +88,8 @@ bool Grid::moveMainDown() {
                 for (unsigned int column = 0 ; column < m_width ; column++) {
                     if (m_grid[above][column]) {
                         auto position = m_grid[above][column]->getComponent("position");
-                        double x = position->getFloat("x").first;
-                        double y = position->getFloat("y").first;
+                        double x = position->get<double>("x").first;
+                        double y = position->get<double>("y").first;
                         sf::Vector2f localPosition = fromGlobalToLocal(x, y);
                         localPosition.y -= 1;
                         sf::Vector2f globalPosition = fromLocalToGlobal(localPosition);
@@ -111,8 +111,8 @@ bool Grid::moveMainRight() {
     bool canMove = true;
     for (auto &block : m_mainBlock) {
         auto blockPosition = block->getComponent("position");
-        double x = blockPosition->getFloat("x").first;
-        double y = blockPosition->getFloat("y").first;
+        double x = blockPosition->get<double>("x").first;
+        double y = blockPosition->get<double>("y").first;
         std::cout << x << " " << y << "\n";
         sf::Vector2f localPosition = fromGlobalToLocal(x, y);
         std::cout << localPosition.x << " " << localPosition.y << "\n";
@@ -125,8 +125,8 @@ bool Grid::moveMainRight() {
     if (canMove) {
         for (auto &block : m_mainBlock) {
             auto blockPosition = block->getComponent("position");
-            double x = blockPosition->getFloat("x").first;
-            double y = blockPosition->getFloat("y").first;
+            double x = blockPosition->get<double>("x").first;
+            double y = blockPosition->get<double>("y").first;
             sf::Vector2f localPosition = fromGlobalToLocal(x, y);
             localPosition.x += 1;
             blockPosition->set("x", fromLocalToGlobal(localPosition).x);
@@ -140,8 +140,8 @@ bool Grid::moveMainLeft() {
     bool canMove = true;
     for (auto &block : m_mainBlock) {
         auto blockPosition = block->getComponent("position");
-        double x = blockPosition->getFloat("x").first;
-        double y = blockPosition->getFloat("y").first;
+        double x = blockPosition->get<double>("x").first;
+        double y = blockPosition->get<double>("y").first;
         sf::Vector2f localPosition = fromGlobalToLocal(x, y);
         if (!canMoveLeft(localPosition.x, localPosition.y)) {
             canMove = false;
@@ -152,8 +152,8 @@ bool Grid::moveMainLeft() {
     if (canMove) {
         for (auto &block : m_mainBlock) {
             auto blockPosition = block->getComponent("position");
-            double x = blockPosition->getFloat("x").first;
-            double y = blockPosition->getFloat("y").first;
+            double x = blockPosition->get<double>("x").first;
+            double y = blockPosition->get<double>("y").first;
             sf::Vector2f localPosition = fromGlobalToLocal(x, y);
             localPosition.x -= 1;
             blockPosition->set("x", fromLocalToGlobal(localPosition).x);
@@ -174,8 +174,8 @@ void Grid::rotateClockwise() {
 
     for (std::size_t i = 0 ; i < 4 ; i++) {
         auto position = m_mainBlock[i]->getComponent("position");
-        double x = position->getFloat("x").first;
-        double y = position->getFloat("y").first;
+        double x = position->get<double>("x").first;
+        double y = position->get<double>("y").first;
         positions[i] = fromGlobalToLocal(x, y);
     }
 

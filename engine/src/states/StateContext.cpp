@@ -3,6 +3,7 @@
 #include "SkellEngine/levels/Level.hpp"
 #include "SkellEngine/systems/SystemManager.hpp"
 #include "SkellEngine/entities/EntityManager.hpp"
+#include "SkellEngine/gui/GUI.hpp"
 
 namespace engine::states {
     StateContext::StateContext(Context &context, const std::string &stateName) :
@@ -16,7 +17,7 @@ namespace engine::states {
         context.logger.log("Level system ready");
             
         if (context.window) {
-            gui = std::make_shared<tgui::Gui>(*context.window);
+            gui = std::make_shared<gui::GUI>();
             context.logger.log("Graphical user interface system ready");
         }
     }

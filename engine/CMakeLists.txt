@@ -169,6 +169,7 @@ set(SOURCES
     src/gui/GUI.cpp
     src/gui/Widget.cpp
     src/gui/Label.cpp
+    src/gui/utilities/BreakString.cpp
 )
 
 set(HEADER_LIST
@@ -261,6 +262,7 @@ set(HEADER_LIST
     include/SkellEngine/gui/TextStyle.hpp
     include/SkellEngine/gui/Widget.hpp
     include/SkellEngine/gui/Label.hpp
+    include/SkellEngine/gui/utilities/BreakString.hpp
 
     ${CMAKE_CURRENT_BINARY_DIR}/include/SkellEngine/config.hpp
 )

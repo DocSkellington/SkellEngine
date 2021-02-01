@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/Sprite.hpp>
+
 #include "SkellEngine/entities/components/Component.hpp"
 #include "SkellEngine/animations/AnimationMap.hpp"
 #include "SkellEngine/animations/Animator.hpp"

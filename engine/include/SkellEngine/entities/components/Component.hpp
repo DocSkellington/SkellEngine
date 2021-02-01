@@ -25,6 +25,7 @@ namespace engine::entities::components {
     *
     * If you create your own Component (in C++), you must register it before being able to use it. To do so, create a static member of type Component::RegisterComponent and initialise it.
     * \see REGISTER_COMPONENT for an helper macro to register a component
+    * \todo Store component's name in order to print more useful debug messages
     */
     class Component : public utilities::VariableStorage {
     public:

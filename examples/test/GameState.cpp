@@ -4,6 +4,7 @@
 #include "SkellEngine/states/StateManager.hpp"
 #include "SkellEngine/entities/EntityManager.hpp"
 #include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/gui/GUI.hpp"
 
 class GameState : public engine::states::State {
 public:
@@ -29,12 +30,12 @@ public:
         registerCallback("ChangeState", std::bind(&GameState::onChangeState, this, std::placeholders::_1), "game");
         getStateContext().level->changeLevel("tutorial");
 
-        tgui::Theme blackTheme{getStateContext().context.fileManager->getGameDescription().media.baseMediaPath / "Black.txt"};
-        tgui::Theme::setDefault(&blackTheme);
+        // tgui::Theme blackTheme{getStateContext().context.fileManager->getGameDescription().media.baseMediaPath / "Black.txt"};
+        // tgui::Theme::setDefault(&blackTheme);
 
-        auto button = tgui::Button::create("BUTTON");
-        button->setPosition(100, 200);
-        getStateContext().gui->add(button);
+        // auto button = tgui::Button::create("BUTTON");
+        // button->setPosition(100, 200);
+        // getStateContext().gui->add(button);
     }
 
     virtual void onDestroy() override {
@@ -57,7 +58,7 @@ public:
 
     virtual void draw(sf::RenderTarget &target) override {
         getStateContext().level->draw(target);
-        getStateContext().gui->draw();
+        getStateContext().gui->draw(target);
     }
 
     REGISTER_STATE(GameState, "game")

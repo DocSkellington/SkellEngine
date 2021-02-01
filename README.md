@@ -39,6 +39,10 @@ The planned features are not given in a particular order.
   * Physics engine
   * Shaders support
   * Easy conversion from world-coordinates to screen-coordinates
+  * Semi fixed-length frames (https://gafferongames.com/post/fix_your_timestep/)
+  * Internationalization (including different encodings)
+  * Split the large library into smaller modules
+  * Construct a level directly in the code (without loading a TMX file)
 
 ## Examples
 Examples are provided in both C++ and Lua.

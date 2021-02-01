@@ -29,7 +29,7 @@ public:
             }
         });
         registerCallback("GameOver", [&](const engine::events::Event &event) {
-            std::cout << "Game over. Score: " << event.getInt("score").first << "\n";
+            std::cout << "Game over. Score: " << event.get<long>("score").first << "\n";
             m_grid = nullptr;
         });
 

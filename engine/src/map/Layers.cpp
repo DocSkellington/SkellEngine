@@ -6,6 +6,9 @@
 #include "SkellEngine/Context.hpp"
 #include "SkellEngine/shapes/EllipseShape.hpp"
 #include "SkellEngine/files/FileManager.hpp"
+#include "SkellEngine/gui/GUI.hpp"
+#include "SkellEngine/gui/TextStyle.hpp"
+#include "SkellEngine/gui/Label.hpp"
 #include "SkellEngine/errors/NotImplemented.hpp"
 #include "SkellEngine/errors/InvalidMap.hpp"
 
@@ -359,67 +362,67 @@ namespace engine::map {
     }
 
     void ObjectLayer::handleText(const tmx::Object &object) {
-        // Rotation is not implemented in TGUI!
-
+        // TODO: rewrite for own label
         const auto text = object.getText();
 
-        auto label = tgui::Label::create();
+        auto label = gui::Label::create(getMap().getStateContext(), icu::UnicodeString::fromUTF8(icu::StringPiece(text.content)));
 
-        label->setPosition(object.getPosition().x, object.getPosition().y);
-        label->setAutoSize(false);
-        label->setSize(object.getAABB().width, object.getAABB().height);
-
-        label->setText(text.content);
+        label->setPosition(Vector2d(object.getPosition().x, object.getPosition().y), false);
+        // label->setAutoSize(false);
+        label->setSize(object.getAABB().width, object.getAABB().height, false);
 
         if (text.bold) {
-            label->getRenderer()->setTextStyle(sf::Text::Bold);
+            label->setTextStyle(gui::TextStyle::Bold);
         }
         if (text.italic) {
-            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::Italic);
+            label->setTextStyle(label->getTextStyle() | gui::TextStyle::Italic);
         }
         if (text.underline) {
-            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::Underlined);
+            label->setTextStyle(label->getTextStyle() | gui::TextStyle::Underlined);
         }
         if (text.strikethough) {
-            label->getRenderer()->setTextStyle(label->getRenderer()->getTextStyle() | sf::Text::StrikeThrough);
+            label->setTextStyle(label->getTextStyle() | gui::TextStyle::StrikeThrough);
         }
 
-        switch (text.hAlign) {
-        case tmx::Text::HAlign::Centre:
-            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
-            break;
-        case tmx::Text::HAlign::Left:
-            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Left);
-            break;
-        case tmx::Text::HAlign::Right:
-            label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Right);
-            break;
-        }
+        // switch (text.hAlign) {
+        // case tmx::Text::HAlign::Centre:
+        //     label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
+        //     break;
+        // case tmx::Text::HAlign::Left:
+        //     label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Left);
+        //     break;
+        // case tmx::Text::HAlign::Right:
+        //     label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Right);
+        //     break;
+        // }
 
-        switch (text.vAlign) {
-        case tmx::Text::VAlign::Centre:
-            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
-            break;
-        case tmx::Text::VAlign::Bottom:
-            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Bottom);
-            break;
-        case tmx::Text::VAlign::Top:
-            label->setVerticalAlignment(tgui::Label::VerticalAlignment::Top);
-            break;
-        }
+        // switch (text.vAlign) {
+        // case tmx::Text::VAlign::Centre:
+        //     label->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
+        //     break;
+        // case tmx::Text::VAlign::Bottom:
+        //     label->setVerticalAlignment(tgui::Label::VerticalAlignment::Bottom);
+        //     break;
+        // case tmx::Text::VAlign::Top:
+        //     label->setVerticalAlignment(tgui::Label::VerticalAlignment::Top);
+        //     break;
+        // }
 
-        label->getRenderer()->setTextColor(tgui::Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
+        label->setTextColor(Color(text.colour.r, text.colour.g, text.colour.b, text.colour.a));
         label->setTextSize(text.pixelSize);
 
         if (text.fontFamily != "") {
             // If the font is not found, we use default one
             try {
                 auto& font = getMap().m_context.context.fileManager->loadFont(text.fontFamily);
-                label->getRenderer()->setFont(font);
+                label->setFont(font);
             }
             catch (thor::ResourceLoadingException& e) {
-                getMap().getStateContext().context.logger.log("Could not load font: " + text.fontFamily + ". Default TGUI's font will be used.", LogType::Warning);
+                getMap().getStateContext().context.logger.log("Could not load font: " + text.fontFamily + ". Default font will be used.", LogType::Warning);
             }
+        }
+        else {
+            label->setFont(getMap().m_context.context.fileManager->loadFont("default"));
         }
 
         if (!object.visible()) {

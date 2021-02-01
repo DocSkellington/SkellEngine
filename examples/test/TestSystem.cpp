@@ -25,7 +25,7 @@ protected:
     }
 
     void callbackTest(const engine::events::Event &event) {
-        std::cout << event.getInt("integer").first << "\n";
+        std::cout << event.get<long>("integer").first << "\n";
     }
 
     REGISTER_SYSTEM(TestSystem, "testcpp")

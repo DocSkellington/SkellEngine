@@ -1,5 +1,6 @@
 #include "SkellEngine/files/FileManager.hpp"
 
+#include <regex>
 #include <fstream>
 #include <cctype>
 #include <algorithm>
@@ -10,6 +11,7 @@
 #include "SkellEngine/errors/SystemNotFound.hpp"
 #include "SkellEngine/errors/StateNotFound.hpp"
 #include "SkellEngine/errors/BadLevelDescription.hpp"
+#include "SkellEngine/fonts/LiberationFont.hpp"
 
 namespace engine::files {
     FileManager::FileManager(Context &context, const std::string &baseMediapath) :
@@ -43,6 +45,9 @@ namespace engine::files {
         context.logger.setLogOutput(m_gameDescription.log.output);
         context.logger.setOutputFile(m_gameDescription.log.logPath);
 
+        // We load the default font
+        loadFont("default", &fonts::LiberationSerif_Regular_ttf, fonts::LiberationSerif_Regular_ttf_len);
+
         registerExternSystems();
         registerExternStates();
     }
@@ -53,6 +58,14 @@ namespace engine::files {
 
     sf::Font& FileManager::loadFont(const std::string &fontName) {
         return m_fontHolder.acquire(fontName, thor::Resources::fromFile<sf::Font>(fontPath(fontName)), thor::Resources::Reuse);
+    }
+
+    sf::Font& FileManager::loadFont(const std::string &name, const void* data, std::size_t sizeInBytes) {
+        return m_fontHolder.acquire(name, thor::Resources::fromMemory<sf::Font>(data, sizeInBytes), thor::Resources::Reuse);
+    }
+
+    sf::Font& FileManager::getDefaultFont() {
+        return loadFont("default", &fonts::LiberationSerif_Regular_ttf, fonts::LiberationSerif_Regular_ttf_len);
     }
 
     sf::Texture& FileManager::loadSpriteTexture(const std::filesystem::path &path, bool override) {

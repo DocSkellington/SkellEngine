@@ -14,6 +14,9 @@ namespace engine {
     namespace levels {
         class Level;
     }
+    namespace gui {
+        class GUI;
+    }
 
     namespace states {
         /**
@@ -47,7 +50,7 @@ namespace engine {
             /**
              * \brief The Graphical User Interface tool
              */
-            std::shared_ptr<tgui::Gui> gui;
+            std::shared_ptr<gui::GUI> gui;
 
             /**
              * \brief The name of the state using this StateContext
